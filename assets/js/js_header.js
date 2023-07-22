@@ -6,5 +6,5 @@ toggleButton.addEventListener('click', () => {
 })
 
 function signin(){
-    window.location.href = "/php-grading-system/pages/signin";
+    window.location.href = "/1-php-grading-system/pages/signin";
 }

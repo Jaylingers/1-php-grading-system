@@ -21,7 +21,7 @@
 
 <nav class="navbar">
     <div class="brand-title">
-        <a href="/php-grading-system/"> <img
+        <a href="/1-php-grading-system/"> <img
                     src="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1" alt=""/></a>
         <p> MABES </p>
         <p>Grading Inquiry</p>
@@ -35,9 +35,9 @@
     </a>
     <div class="navbar-links">
         <ul>
-            <li><a href="/php-grading-system/pages/home" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Home</a></li>
-            <li><a href="/php-grading-system/pages/about" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>About</a></li>
-            <li><a href="/php-grading-system/pages/contact" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Contact</a></li>
+            <li><a href="/1-php-grading-system/pages/home" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Home</a></li>
+            <li><a href="/1-php-grading-system/pages/about" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>About</a></li>
+            <li><a href="/1-php-grading-system/pages/contact" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Contact</a></li>
         </ul>
     </div>
     <div>
