@@ -1,0 +1,95 @@
+
+.navbar {
+    background-color: white !important;
+    padding-top: 0  !important;
+    padding-bottom: 0 !important;
+}
+.toggle-button{
+    background:gray !important;
+    height: 5em !important;
+    width: 7em !important;
+    border: 1px solid gray;
+
+    top: 0 !important;
+    height: 4.5em !important
+}
+.toggle-button:hover{
+    background: #14ae5c !important;
+    border: 1px solid #14ae5c !important;
+}
+.brand-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+}
+
+.brand-title img {
+    width: 5em;
+    height: 3em;
+}
+
+.brand-title p {
+    margin: 0.2em;
+    padding-right: 0.2em;
+    font-weight: 700;
+}
+
+.brand-title p:nth-child(2) {
+    margin-left: 1.2em;
+    color: #14ae5c;
+    font-weight: 700;
+    border-right: 2px solid black;
+}
+
+.brand-title p:nth-child(3) {
+    color: black;
+}
+
+.navbar-links {
+    height: 5em !important;
+}
+
+.navbar-links li {
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-links li a {
+    color: black !important;
+    font-weight: 700;
+    height: 100%;
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+/*.navbar-links li a:hover {*/
+/*    color: white !important;*/
+/*}*/
+
+.navbar-links li a:hover {
+    background: white;
+    border-bottom: 3px solid #9747ff !important;
+}
+
+.navbar-links ul {
+    height: 100%;
+}
+@media screen and (max-width: 800px) {
+    .toggle-button{
+        right: 0 !important;
+    }
+    .navbar .btn-primary {
+        display: none;
+    }
+    .navbar-links {
+        height: 100% !important;
+    }
+    .navbar{
+        padding:0 !important;
+    }
+}
