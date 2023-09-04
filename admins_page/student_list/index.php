@@ -774,6 +774,7 @@ if (isset($_POST['update'])) {
                     } else {
                         $.post('', {id: studId})
                     }
+                    alert('Successfully deleted!')
                     history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
                     window.location.reload();
                 });
