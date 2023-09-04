@@ -12,7 +12,7 @@ if(isset($_GET['id'])){
 
 	$id = validate($_GET['id']);
 
-	$sql = "DELETE FROM users
+	$sql = "DELETE FROM admins_info
 	        WHERE id=$id";
    $result = mysqli_query($conn, $sql);
    if ($result) {

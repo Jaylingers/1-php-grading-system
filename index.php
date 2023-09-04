@@ -1,7 +1,19 @@
 <?php $var = "index";
-include 'pages/header.php'; ?>
+include 'students_page/header.php';
+?>
+
+<?php
+
+global $conn;
+include "db_conn.php";
+
+$sql = "SELECT * FROM admins_info WHERE id=12";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+?>
+
 <div style="background: #14ae5c;">
     <div class="container">
-        INDEXs
+        INDEX PAGE
     </div>
 </div>

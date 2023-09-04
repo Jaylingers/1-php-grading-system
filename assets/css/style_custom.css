@@ -1,11 +1,157 @@
+/*----------------PAGINATION----------------*/
+.pagination {
+    list-style-type: none;
+    padding: 10px 0;
+    display: inline-flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.pagination li {
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+.pagination li a {
+    box-sizing: border-box;
+    background-color: #e2e6e6;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #616872;
+    border-radius: 4px;
+}
+
+.pagination li a:hover {
+    background-color: #d4dada;
+}
+
+.pagination .next a, .pagination .prev a {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.pagination .currentpage a {
+    background-color: #518acb;
+    color: #fff;
+}
+
+.pagination .currentpage a:hover {
+    background-color: #518acb;
+}
+
+
+/*----------------MODAL----------------*/
+/* The Modal (background) */
+#myModal {
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    right: 0;
+    width: 80%;
+    top: 0;
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    transition: 0.5s;
+    padding: 6em;
+}
+
+.modal-header {
+    border-top-left-radius: 1.3rem !important;
+    border-top-right-radius: 1.3rem !important;
+}
+
+.modal-footer {
+    border-bottom-left-radius: 1.3rem;
+    border-bottom-right-radius: 1.3rem;
+}
+
+.modal-content {
+    border-radius: 1.3rem !important;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+
+}
+
+.modal-body {
+    padding: 2px 16px;
+    overflow-y: scroll;
+    height: 43em;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+
+}
+
 
 .navbar {
     background-color: white !important;
-    padding-top: 0  !important;
+    padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
-.toggle-button{
-    background:gray !important;
+
+.toggle-button {
+    background: gray !important;
     height: 5em !important;
     width: 7em !important;
     border: 1px solid gray;
@@ -13,10 +159,12 @@
     top: 0 !important;
     height: 4.5em !important
 }
-.toggle-button:hover{
+
+.toggle-button:hover {
     background: #14ae5c !important;
     border: 1px solid #14ae5c !important;
 }
+
 .brand-title {
     display: flex;
     justify-content: center;
@@ -25,7 +173,7 @@
 }
 
 .brand-title img {
-    width: 5em;
+    width: 3em;
     height: 3em;
 }
 
@@ -51,11 +199,10 @@
 }
 
 .navbar-links li {
-    width: 10em;
+    width: 8em;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
 }
 
 .navbar-links li a {
@@ -67,6 +214,7 @@
     align-items: center;
     justify-content: center;
 }
+
 /*.navbar-links li a:hover {*/
 /*    color: white !important;*/
 /*}*/
@@ -79,17 +227,623 @@
 .navbar-links ul {
     height: 100%;
 }
+
 @media screen and (max-width: 800px) {
-    .toggle-button{
+    .toggle-button {
         right: 0 !important;
     }
+
     .navbar .btn-primary {
         display: none;
     }
+
     .navbar-links {
         height: 100% !important;
     }
-    .navbar{
-        padding:0 !important;
+
+    .navbar {
+        padding: 0 !important;
     }
+}
+
+#side, #top, #content {
+    transition: 0.5s;
+}
+
+.pressed {
+    width: 100% !important;
+}
+
+.collapsed {
+    margin-left: -34em !important;
+}
+
+.bg-white {
+    background: white;
+}
+
+.bg-off-white {
+    background: #e6e6e6;
+}
+
+.bg-green {
+    background: #14ae5c;
+}
+
+.bg-gray {
+    background: #b3b3b3;
+}
+
+.bg-gray-light {
+    background: #757575;
+}
+
+.bg-blue {
+    background: #0d99ff;
+}
+
+.bg-gray-dark {
+    background: #bababa;
+}
+
+.bg-dark-blue {
+    background: #0087e9;
+}
+
+.t-color-white {
+    color: white;
+}
+
+.t-color-blue {
+    color: #0d99ff;
+}
+
+.t-color-red {
+    color: red;
+}
+
+.t-color-black {
+    color: black;
+}
+
+.t-color-green {
+    color: #14ae5c;
+}
+
+.t:hover {
+    text-decoration: underline;
+}
+
+.transition-0-5s {
+    transition: 0.5s;
+}
+
+.c-hand {
+    cursor: pointer;
+}
+
+.t-align-center {
+    text-align: center;
+}
+
+.h-48em {
+    height: 48em;
+}
+
+.h-8em {
+    height: 8em;
+}
+
+.h-30em {
+    height: 30em;
+}
+
+.h-5em {
+    height: 5em;
+}
+
+.h-4em {
+    height: 4em;
+}
+
+.h-2em {
+    height: 2em;
+}
+
+.h-1em {
+    height: 1em;
+}
+
+.h-1-5em {
+    height: 1.5em;
+}
+
+.h-3em {
+    height: 3em;
+}
+
+.h-80p {
+    height: 80%;
+}
+
+.h-7em {
+    height: 7em;
+}
+
+.h-8-5em {
+    height: 8.5em !important;
+}
+
+.h-100p {
+    height: 100%;
+}
+
+.h-2-8em {
+    height: 2.8em;
+}
+
+.h-60px {
+    height: 60px;
+}
+
+.h-16em {
+    height: 16em;
+}
+
+.h-14em {
+    height: 14em;
+}
+
+.h-12em {
+    height: 12em;
+}
+
+.h-10em {
+    height: 10em;
+}
+
+.w-5em {
+    width: 5em;
+}
+
+.w-9em {
+    width: 9em;
+}
+
+.w-8em {
+    width: 8em;
+}
+
+.w-44em {
+    width: 44em;
+}
+
+.w-77p {
+    width: 77%;
+}
+
+.w-70p {
+    width: 70%;
+}
+
+.w-7em {
+    width: 7em;
+}
+
+.w-20p {
+    width: 20%;
+}
+
+.w-2-5em {
+    width: 2.5em;
+}
+
+.w-4em {
+    width: 4em;
+}
+
+.w-32px {
+    width: 32px;
+}
+
+.w-25px {
+    width: 25px;
+}
+
+.w-18px {
+    width: 18px;
+}
+
+.w-1em {
+    width: 1em;
+}
+
+.w-1-5em {
+    width: 1.5em;
+}
+
+.w-3em {
+    width: 3em;
+}
+
+.w-2em {
+    width: 2em;
+}
+
+.w-38px {
+    width: 38px;
+}
+
+.w-50p {
+    width: 50%;
+}
+
+.w-100p {
+    width: 100% !important;
+}
+
+.w-80p {
+    width: 80%;
+}
+
+.w-79-8p {
+    width: 79.8%;
+}
+
+.w-40p {
+    width: 40%;
+}
+
+.w-58p {
+    width: 58%;
+}
+
+.w-30p {
+    width: 30%;
+}
+
+.w-4em {
+    width: 4em;
+}
+
+.w-20em {
+    width: 20em;
+}
+
+.w-15em {
+    width: 15em;
+}
+.bg-none{
+    background: none !important;
+}
+
+.b-shadow-none {
+    box-shadow: none !important;
+}
+.b-none{
+    border: none !important;
+}
+.b-radius-10px {
+    border-radius: 10px;
+}
+
+.b-radius-2em {
+    border-radius: 2em;
+}
+
+.btm-1em{
+    bottom: 1em;
+}
+
+.b-radius-50p {
+    border-radius: 50%;
+}
+
+.b-1px-black {
+    border: 1px solid black;
+}
+
+.b-bottom-white-3px {
+    border-bottom: 3px solid white;
+}
+
+.b-bottom-gray-3px {
+    border-bottom: 3px solid gray !important;
+}
+
+.b-bottom-light-gray-3px{
+    border-bottom: 3px solid #80808038 !important;
+}
+
+.b-top-gray-3px{
+    border-top: 3px solid gray !important;
+}
+
+.b-right-2px-white {
+    border-right: 2px solid white;
+}
+
+.b-top-right-radius-10 {
+    border-top-right-radius: 10px;
+}
+
+.b-r-7px {
+    border-radius: 7px;
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-inline-grid {
+    display: inline-grid;
+}
+
+.d-flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.d-flex-align-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.d-flex-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-none {
+    display: none;
+}
+
+.j-content-end {
+    justify-content: flex-end;
+}
+
+.j-content-center {
+    justify-content: center;
+}
+
+.f-size-2em {
+    font-size: 2em;
+}
+
+.f-size-14px {
+    font-size: 14px;
+}
+
+.f-size-19px {
+    font-size: 19px;
+}
+
+.f-size-26px {
+    font-size: 26px;
+}
+
+.f-size-1em {
+    font-size: 1em;
+}
+
+.f-weight-bold {
+    font-weight: bold;
+}
+
+.f-weight-100 {
+    font-weight: 100;
+}
+
+.pad-left-6px {
+    padding-left: 6px;
+}
+
+.pad-right-6px {
+    padding-right: 6px;
+}
+
+.pad-top-2em {
+    padding-top: 2em;
+}
+.pad-bottom-2em{
+    padding-bottom: 2em;
+}
+.pad-top-6em{
+    padding-top: 6em !important
+}
+.pad-bottom-6em{
+    padding-bottom: 6em !important;
+}
+.pad-5px {
+    padding: 5px;
+}
+
+.pad-1em {
+    padding: 1em;
+}
+
+.pad-3em {
+    padding: 3em;
+}
+
+.p-fixed {
+    position: fixed;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+.m-l-20p {
+    margin-left: 20%;
+}
+
+.m-l-13px {
+    margin-left: 13px;
+}
+
+.m-l-1em {
+    margin-left: 1em;
+}
+
+.m-left-8px {
+    margin-left: 8px;
+}
+
+.m-l-3px {
+    margin-left: 3px;
+}
+
+.m-r-13px {
+    margin-right: 13px;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.m-3-6px {
+    margin: 3.6px;
+}
+
+.m-b-0 {
+    margin-bottom: 0;
+}
+
+.m-2em {
+    margin: 2em;
+}
+
+.m-1em {
+    margin: 1em;
+}
+
+.m-t-3em {
+    margin-top: 3em;
+}
+
+.m-t-1em{
+    margin-top: 1em;
+}
+
+.m-t-n1em {
+    margin-top: -1em;
+}
+
+.m-t-5px {
+    margin-top: 5px;
+}
+
+.m-t-2em{
+    margin-top: 2em;
+}
+
+.t-3em {
+    top: 3em;
+}
+
+.t-60px {
+    top: 60px;
+}
+
+.r-0 {
+    right: 0;
+}
+
+.r-1em{
+    right: 1em;
+}
+
+.r-50px {
+    right: 50px;
+}
+
+.t-40px {
+    top: 40px;
+}
+
+.t-54px {
+    top: 54px;
+}
+
+.bg-hover-blue:hover {
+    background: #0087e9;
+}
+
+.bg-hover-white:hover {
+    background: #ffffff9e;
+}
+
+.bg-hover-gray-dark:hover {
+    background: #bababa;
+}
+
+.bg-hover-gray-dark-v1 {
+    background: #bababa;
+}
+
+.bg-hover-gray-dark-v1:hover {
+    background: #8f8f8f;
+}
+
+.ov-hidden {
+    overflow: hidden;
+}
+
+.z-i-9999 {
+    z-index: 9999;
+}
+.z-i-999910 {
+    z-index: 999910;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.d-inline-flex {
+    display: inline-flex;
+}
+
+.a-center {
+    align-items: center !important;
+}
+
+.bg-img-1 {
+    background-image: url(https://cdn2.iconfinder.com/data/icons/arrow-part-2-2/32/Arrow_03_arrow-left-triangle-essential-left_icon-512.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-img-2 {
+    background-image: url(../../assets/img/arrowLeft.png) !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.op-0 {
+    opacity: 0;
+}
+
+.gap-1em{
+    gap: 1em;
+}
+
+.sc-1-3{
+    scale: 1.3;
 }

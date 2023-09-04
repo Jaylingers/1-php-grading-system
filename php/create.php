@@ -20,7 +20,7 @@ if (isset($_POST['create'])) {
 		header("Location: ../index.php?error=Email is required&$user_data");
 	}else {
 
-       $sql = "INSERT INTO users(name, email) 
+       $sql = "INSERT INTO admins_info(name, email) 
                VALUES('$name', '$email')";
        $result = mysqli_query($conn, $sql);
        if ($result) {

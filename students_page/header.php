@@ -1,6 +1,8 @@
 <?php global $var; ?>
 <!DOCTYPE html>
 <html>
+<title>MABES GRADING INQUIRY</title>
+<link rel="shortcut icon" href="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1"/>
 <head>
 
     <?php if ($var === "index") { ?>
@@ -31,13 +33,18 @@
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-
     </a>
     <div class="navbar-links">
         <ul>
-            <li><a href="/1-php-grading-system/pages/home" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Home</a></li>
-            <li><a href="/1-php-grading-system/pages/about" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>About</a></li>
-            <li><a href="/1-php-grading-system/pages/contact" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Contact</a></li>
+            <li>
+                <a href="/1-php-grading-system/students_page/home" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Home</a>
+            </li>
+            <li>
+                <a href="/1-php-grading-system/students_page/about" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>About
+                    Us</a></li>
+            <li>
+                <a href="/1-php-grading-system/students_page/contact" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Contact
+                    Us</a></li>
         </ul>
     </div>
     <div>

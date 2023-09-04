@@ -13,10 +13,10 @@ if (isset($_GET['id'])) {
 
 	$id = validate($_GET['id']);
 
-	$sql = "SELECT * FROM users WHERE id=$id";
+	$sql = "SELECT * FROM admins_info WHERE id=$id";
     $result = mysqli_query($conn, $sql);
 
-    $sql1 = "SELECT name as 'name1' FROM users where id = 2";
+    $sql1 = "SELECT name as 'name1' FROM admins_info where id = 2";
     $result1 = mysqli_query($conn, $sql1);
 
     if (mysqli_num_rows($result) > 0) {
@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
 		header("Location: ../update.php?id=$id&error=Email is required");
 	}else {
 
-       $sql = "UPDATE users
+       $sql = "UPDATE admins_info
                SET name='$name', email='$email'
                WHERE id=$id ";
        $result = mysqli_query($conn, $sql);

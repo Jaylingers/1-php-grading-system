@@ -1,0 +1,3 @@
+    echo '<script>';
+    echo 'console.log("'. $homeAddress .'")';
+    echo '</script>';
