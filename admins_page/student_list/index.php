@@ -1,4 +1,4 @@
-<?php global $mysqli;
+<?php global $mysqli, $rows;
 $var = "student_list";
 include '../header.php'; ?>
 
@@ -19,13 +19,35 @@ if (isset($_POST['id'])) {
         echo '</script>';
     }
 }
+
 if (isset($_POST['studentEnrollmentId'])) {
     $id = $_POST['studentEnrollmentId'];
     $sql = "delete from students_enrollment_info where id = '$id'";
     $result = mysqli_query($conn, $sql);
 }
-if (isset($_POST['save'])) {
 
+if (isset($_POST['add-enrollment'])) {
+    $lrn = $_POST['add-enrollment-lrn'];
+    $gradeLevel = $_POST['add-enrollment-grade'];
+    $schoolYear = $_POST['add-enrollment-school-year'];
+    $schoolYear = date("Y-m-d", strtotime($schoolYear));
+    $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
+    $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
+    $status = $_POST['add-enrollment-status'];
+    $sql = "insert into students_enrollment_info (students_info_id,grade,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$schoolYear','$dateEnrolled','$status')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+              alert("saved successfully");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&lrn=' . $lrn . '");
+                    window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
+
+if (isset($_POST['add-new-student'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $middleName = $_POST['middleName'];
@@ -61,7 +83,7 @@ if (isset($_POST['save'])) {
 
 }
 
-if (isset($_POST['update'])) {
+if (isset($_POST['update-student-info'])) {
     $firstName = $_POST['up-firstName'];
     $lastName = $_POST['up-lastName'];
     $middleName = $_POST['up-middleName'];
@@ -270,31 +292,7 @@ if (isset($_POST['update'])) {
 
 
 <div id="myModal">
-    <script>
-        function showModal(id, title, theme) {
-            $('.modal-header').empty();
-            $('.modal-header').append('<h2>' + title + '</h2>');
-            $('.modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
-            if (theme === 'dark') {
-                $('.modal-content').css('background-color', '#757575');
-                $('.modal-content').css('color', 'white');
-                $('.modal-header').css('border-bottom', '3px solid black');
-                $('.modal-body').addClass('d-flex-center');
-            } else {
-                $('.modal-content').css('background-color', '#fff');
-                $('.modal-header').css('border-bottom', '3px solid #80808038');
-                $('.modal-content').css('color', 'black');
-                $('.modal-body').removeClass('d-flex-center');
-            }
-
-
-            $('#myModal').css('display', 'block');
-            $('body').css('overflow', 'hidden');
-            $('.modal-body .modal-child').css('display', 'none');
-            $('#' + id).css('display', 'block');
-            localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
-        }
-    </script>
+    <script src="../../assets/js/js_header.js"></script>
     <div class="modal-content">
         <div id="top-icon"
              class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
@@ -303,7 +301,7 @@ if (isset($_POST['update'])) {
         <div class="modal-header a-center">
         </div>
         <div class="modal-body">
-            <div id="add-new-student" class="modal-child pad-top-2em pad-bottom-2em">
+            <div id="add-new-student" class="modal-child pad-top-2em pad-bottom-2em d-none">
                 <form method="post">
                     <div class="custom-grid-container" tabindex="3">
                         <div class="custom-grid-item d-inline-grid">
@@ -420,27 +418,26 @@ if (isset($_POST['update'])) {
                         </div>
                     </div>
                     <div class="b-top-gray-3px m-1em">
+                        <h2> Other Details</h2>
+                        <h6>Requirements</h6>
+                        <h3>NSO</h3>
+                        <h3>REPORT CARD</h3>
+                        <h3>CERTIFICATE TRANSFER</h3>
+                    </div>
+                    <div class="r-50px d-flex-end gap-1em">
+                        <button type="submit"
+                                class="c-hand btn-success btn"
+                                name="add-new-student">Submit
+                        </button>
                         <div class="m-t-2em">
-                            <h2> Other Details</h2>
-                            <h6>Requirements</h6>
-                            <h3>NSO</h3>
-                            <h3>REPORT CARD</h3>
-                            <h3>CERTIFICATE TRANSFER</h3>
-                        </div>
-                        <div class="r-50px d-flex-end gap-1em">
-                            <button type="submit"
-                                    class="c-hand btn-success btn"
-                                    name="save">Submit
-                            </button>
-                            <button
-                                    class="btn bg-hover-gray-dark-v1" onclick="closeModal()">
+                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
                                 Close
-                            </button>
+                            </label>
                         </div>
                     </div>
                 </form>
             </div>
-            <div id="view-student-info" class="modal-child">
+            <div id="view-student-info" class="modal-child d-none">
                 <h4>LRN: <label></label></h4>
                 <h4>Firstname: <label></label></h4>
                 <h4>Lastname: <label></label></h4>
@@ -462,13 +459,12 @@ if (isset($_POST['update'])) {
                     <button class="c-hand btn-primary btn"
                             name="save" onclick="updateStudentInformation()">Update
                     </button>
-                    <button
-                            class="btn bg-hover-gray-dark-v1" onclick="closeModal()">
+                    <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
                         Close
-                    </button>
+                    </label>
                 </div>
             </div>
-            <div id="update-student-info" class="modal-child">
+            <div id="update-student-info" class="modal-child d-none">
                 <form method="post">
                     <div class="custom-grid-container" tabindex="3">
                         <div class="custom-grid-item d-inline-grid">
@@ -588,21 +584,19 @@ if (isset($_POST['update'])) {
                         <div class="r-50px d-flex-end gap-1em m-t-1em">
                             <button type="submit"
                                     class="c-hand btn-success btn"
-                                    name="update">Submit
+                                    name="update-student-info">Submit
                             </button>
-                            <button
-                                    class="btn bg-hover-gray-dark-v1" onclick="closeModal()">
+                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
                                 Close
-                            </button>
+                            </label>
                         </div>
                     </div>
                 </form>
             </div>
-            <div id="view-student-enrollment" class="modal-child pad-bottom-2em">
-
+            <div id="view-student-enrollment" class="modal-child pad-bottom-2em d-none">
                 <div class="d-flex-end gap-1em">
                     <button
-                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-new-student', 'New Student')">
+                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-enrollment', 'New Enrollment')">
                         Add New
                     </button>
                     <button
@@ -614,7 +608,7 @@ if (isset($_POST['update'])) {
 
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
-                    echo "<script>showModal('view-student-enrollment', ' Student Enrollment')</script>";
+                    echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
 
 
                     $sql = "select * from students_enrollment_info where students_info_id = '$lrns' ";
@@ -674,7 +668,7 @@ if (isset($_POST['update'])) {
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="viewStudentEnrollment()">View Grade</label>
+                                               onclick="showModal('view-student-grade', 'Student Grade')">View Grade</label>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -743,10 +737,84 @@ if (isset($_POST['update'])) {
                 </div>
 
             </div>
+            <div id="add-enrollment" class="modal-child d-none">
+                <form method="post">
+                    <div class="custom-grid-container" tabindex="3">
+                        <div class="custom-grid-item d-inline-grid">
+                            <input placeholder="<?php echo $_GET['lrn'] ?>" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="add-enrollment-lrn"
+                                   name="add-enrollment-lrn"
+                                   readonly="true"
+                                   value="<?php echo $_GET['lrn'] ?>">
+                            <div class="w-70p m-l-1em">Grade</div>
+                            <select name="add-enrollment-grade" id="add-enrollment-grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Grade</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                                <option value="Grade 3">Grade 3</option>
+                                <option value="Grade 4">Grade 4</option>
+                                <option value="Grade 5">Grade 5</option>
+                                <option value="Grade 6">Grade 6</option>
+                                <option value="Grade 7">Grade 7</option>
+                                <option value="Grade 8">Grade 8</option>
+                                <option value="Grade 9">Grade 9</option>
+                                <option value="Grade 10">Grade 10</option>
+                                <option value="Grade 11">Grade 11</option>
+                                <option value="Grade 12">Grade 12</option>
+                            </select>
+                            <div class="w-70p m-l-1em">School Year</div>
+                            <input placeholder="School Year" type="date"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="add-enrollment-school-year"
+                                   name="add-enrollment-school-year"
+                                   required>
+                            <div class="w-70p m-l-1em">Date Enrolled</div>
+                            <input placeholder="Date Enrolled" type="date"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="add-enrollment-date-enrolled"
+                                   name="add-enrollment-date-enrolled"
+                                   required>
+                            <div class="w-70p m-l-1em">Status</div>
+                            <select name="add-enrollment-status" id="add-enrollment-status"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Status</option>
+                                <option value="continuing">continuing</option>
+                                <option value="transferee">transferee</option>
+                                <option value="new">new</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="b-top-gray-3px m-1em">
+                        <div class="r-50px d-flex-end gap-1em m-t-1em">
+                            <button type="submit"
+                                    class="c-hand btn-success btn"
+                                    name="add-enrollment">Submit
+                            </button>
+                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
+                                Close
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="view-student-grade" class="modal-child d-none">
+
+                <div class="p-absolute btm-1em r-1em">
+                    <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
+                        Back
+                    </label>
+                    <button class="c-hand btn-primary btn"
+                            name="save" >Print
+                    </button>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<?php ?>
+
 
 <script>
     function checkCBStudents(id, cb) {
@@ -768,16 +836,27 @@ if (isset($_POST['update'])) {
         if (studentCount > 0) {
             var r = confirm("Are you sure you want to delete ?");
             if (r === true) {
+                var isStudentEnrollment = false;
                 studentID.forEach(function (studId) {
                     if (id === 'student-enrollment') {
                         $.post('', {studentEnrollmentId: studId})
+                        isStudentEnrollment = true;
                     } else {
                         $.post('', {id: studId})
                     }
-                    alert('Successfully deleted!')
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
-                    window.location.reload();
                 });
+                if (isStudentEnrollment) {
+                    <?php
+                    if (isset($_GET['lrn'])) {
+                    ?>
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
+                    <?php } ?>
+                } else {
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
+                }
+                alert('Successfully deleted!')
+                window.location.reload();
+
             }
         } else {
             alert('Please select a student!');
@@ -812,12 +891,13 @@ if (isset($_POST['update'])) {
         $('#up-lastName').val($('#view-student-info h4:nth-child(3) label').text());
         $('#up-gender').val($('#view-student-info h4:nth-child(16) label').text());
         $('#up-civilStatus').val($('#view-student-info h4:nth-child(9) label').text());
-        $('#up-religion').val($('#view-student-info h4:nth-child(10) label').text());
+        $('#up-religion').val($('#view-student-info h4:nth-child(10) label').text())
         $('#up-homeAddress').val($('#view-student-info h4:nth-child(6) label').text());
 
         var birthDate = new Date($('#view-student-info h4:nth-child(4) label').text());
         var month = String(birthDate.getMonth() + 1).length === 1 ? '0' + (birthDate.getMonth() + 1) : (birthDate.getMonth() + 1);
-        $('#up-birthDate').val(birthDate.getFullYear() + '-' + month + '-' + birthDate.getDate())
+        var day = String(birthDate.getDate()).length === 1 ? '0' + birthDate.getDate() : birthDate.getDate();
+        $('#up-birthDate').val(birthDate.getFullYear() + '-' + month + '-' + day)
 
         $('#up-firstName').val($('#view-student-info h4:nth-child(2) label').text());
         $('#up-age').val($('#view-student-info h4:nth-child(5) label').text());
@@ -838,7 +918,5 @@ if (isset($_POST['update'])) {
         history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn);
         window.location.reload();
     }
-
 </script>
-
 

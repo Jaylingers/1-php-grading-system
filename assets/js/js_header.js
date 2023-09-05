@@ -19,11 +19,10 @@ function showModal(id, title, theme) {
         $('.modal-body').removeClass('d-flex-center');
     }
 
-
     $('#myModal').css('display', 'block');
     $('body').css('overflow', 'hidden');
-    $('.modal-body .modal-child').css('display', 'none');
-    $('#' + id).css('display', 'block');
+    $('.modal-body .modal-child').addClass('d-none');
+    $('#' + id).removeClass('d-none');
     localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
 }
 
