@@ -1074,7 +1074,7 @@ if (isset($_POST['update-student-info'])) {
 
     function print(id) {
         var orientation;
-        xdialog.confirm('Pick print orientation?', function () {
+        xdialog.confirm('Choose Print Orientation? hmmm...', function () {
             orientation = 'landscape';
             $('#' + id).load('print_page', function () {
                 var printContent = document.getElementById(id).innerHTML;
@@ -1086,10 +1086,10 @@ if (isset($_POST['update-student-info'])) {
                 setTimeout(function () {
                     WinPrint.print();
                     WinPrint.close();
-                }, 1000);
+                }, 100);
             });
         }, {
-            style: 'width:420px;font-size:0.8rem;',
+            // style: 'width:420px;font-size:0.8rem;',
             buttons: {
                 ok: 'Landscape',
                 cancel: 'Portrait'
