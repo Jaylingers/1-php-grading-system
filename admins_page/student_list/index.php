@@ -686,49 +686,49 @@ if (isset($_POST['update-student-info'])) {
                             <ul class="pagination">
                                 <?php if ($page > 1): ?>
                                     <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page - 1 ?>&&lrn=<?php echo $lrns ?>">Prev</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page > 3): ?>
                                     <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page + 1 ?>&&lrn=<?php echo $lrns ?>">1</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
                                     </li>
                                     <li class="dots">...</li>
                                 <?php endif; ?>
 
                                 <?php if ($page - 2 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page - 2 ?>&&lrn=<?php echo $lrns ?>"><?php echo $page - 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page - 1 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page - 1 ?>&&lrn=<?php echo $lrns ?>"><?php echo $page - 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                     </li><?php endif; ?>
 
                                 <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page ?>&&lrn=<?php echo $lrns ?>"><?php echo $page ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
                                 </li>
 
                                 <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page + 1 ?>&&lrn=<?php echo $lrns ?>"><?php echo $page + 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page + 2 ?>&&lrn=<?php echo $lrns ?>"><?php echo $page + 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                     </li><?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                     <li class="dots">...</li>
                                     <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>&&lrn=<?php echo $lrns ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                     <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page_enrollment=<?php echo $page + 1 ?>&&lrn=<?php echo $lrns ?>">Next</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -814,14 +814,14 @@ if (isset($_POST['update-student-info'])) {
                                    class="b-bottom-gray-3px w-8em t-align-center"></label></div>
                     </div>
                 </div>
-
                 <div>
 
                     <style>
                         .table-bordered td, .table-bordered th {
                             border: 2px solid black;
                         }
-                        .table-bordered{
+
+                        .table-bordered {
                             border: 2px solid black;
                         }
                     </style>
@@ -833,9 +833,13 @@ if (isset($_POST['update-student-info'])) {
                         <colgroup span="4"></colgroup>
                         <col>
                         <tr>
-                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">Learning Area</th>
+                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
+                                Learning Area
+                            </th>
                             <th colspan="4" style="text-align:center;" class="b-bottom-none">Quarter</th>
-                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">Final Grade</th>
+                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
+                                Final Grade
+                            </th>
                         </tr>
                         <tr>
                             <th scope="col" class="b-top-none b-none t-align-center">1</th>
@@ -941,8 +945,7 @@ if (isset($_POST['update-student-info'])) {
                         </tr>
                     </table>
                 </div>
-
-                <div class="p-absolute btm-1em r-1em">
+                <div class="p-absolute btm-1em r-1em action-button">
                     <label class="btn bg-hover-gray-dark-v1 m-b-0"
                            onclick="backModal('view-student-enrollment', 'Student Enrollment','white')">
                         Back
@@ -951,6 +954,7 @@ if (isset($_POST['update-student-info'])) {
                             onclick="print('view-student-grade')">Print
                     </button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -958,6 +962,7 @@ if (isset($_POST['update-student-info'])) {
 
 
 <script>
+
     function checkCBStudents(id, cb) {
         if ($('#' + cb).is(':checked')) {
             $('#' + id + ' input[type="checkbox"]').prop('checked', true);
@@ -1067,38 +1072,46 @@ if (isset($_POST['update-student-info'])) {
         showModal('view-student-grade', 'Student Grade')
     }
 
-    function print(divName) {
-        if(document.getElementById('view-student-grade') != null)
-        {
-            $('body').css('background-color', 'white');
-            document.body.innerHTML = document.getElementById('view-student-grade').innerHTML;
-            setTimeout(function() {
-                window.print();
-            }, 500);
-
-        }
-
-
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '../print_page',
-        //     data: { studentNumber: printContents },
-        //     success: function(data)
-        //     {
-        //         var payload = {
-        //             name: 'John',
-        //             time: '2pm'
-        //         };
-        //         var form = document.createElement('form');
-        //         form.style.visibility = 'hidden';
-        //         form.method = 'POST';
-        //         form.action = '../print_page';
-        //         form.target = '_blank';
-        //         document.body.appendChild(printContents);
-        //         form.submit();
-        //     }
-        // });
-
+    function print(id) {
+        var orientation;
+        xdialog.confirm('Pick print orientation?', function () {
+            orientation = 'landscape';
+            $('#' + id).load('print_page', function () {
+                var printContent = document.getElementById(id).innerHTML;
+                var WinPrint = window.open('', '', '');
+                var content = '<style>@page { size: A4 ' + orientation + ';  margin: 1.5em 1em 0 1em !important;} table{border-collapse: collapse !important;} .action-button{display:none}</style> <link rel="stylesheet" href="https://code.jquery.com/jquery-3.5.1.min.js"> <link rel="stylesheet" href="../../assets/css/style_custom.css">' + printContent;
+                WinPrint.document.write(content);
+                WinPrint.document.close();
+                WinPrint.focus();
+                setTimeout(function () {
+                    WinPrint.print();
+                    WinPrint.close();
+                }, 1000);
+            });
+        }, {
+            style: 'width:420px;font-size:0.8rem;',
+            buttons: {
+                ok: 'Landscape',
+                cancel: 'Portrait'
+            },
+            oncancel: function () {
+                orientation = 'portrait';
+                $('#' + id).load('print_page', function () {
+                    var printContent = document.getElementById(id).innerHTML;
+                    var WinPrint = window.open('', '', '');
+                    var content = '<style>@page { size: A4 ' + orientation + ';  margin: 1.5em 1em 0 1em !important;} table{border-collapse: collapse !important;} .action-button{display:none}</style> <link rel="stylesheet" href="https://code.jquery.com/jquery-3.5.1.min.js"> <link rel="stylesheet" href="../../assets/css/style_custom.css">' + printContent;
+                    WinPrint.document.write(content);
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    setTimeout(function () {
+                        WinPrint.print();
+                        WinPrint.close();
+                    }, 1000);
+                });
+            }
+        });
     }
+
 </script>
-<script id="l_print_entire_page_js" data-selector=".one_page" src="../../assets/js/js_print.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js"></script>
