@@ -31,6 +31,10 @@ function closeModal() {
     $('body').css('overflow', 'auto');
 }
 
+function backModal(id, title, theme) {
+    showModal(id, title, theme);
+}
+
 function loadCustomGrid() {
     $(".custom-grid-container").each(function () {
         $(this).css('grid-template-columns', 'repeat(' + $(this).attr('tabindex') + ', 1fr)')

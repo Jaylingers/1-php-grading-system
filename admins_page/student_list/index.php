@@ -117,7 +117,7 @@ if (isset($_POST['update-student-info'])) {
 ?>
 
 <div class="d-flex-end p-absolute w-100p h-100p t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px">
+    <div id="content contents" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {
@@ -293,6 +293,7 @@ if (isset($_POST['update-student-info'])) {
 
 <div id="myModal">
     <script src="../../assets/js/js_header.js"></script>
+
     <div class="modal-content">
         <div id="top-icon"
              class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
@@ -609,23 +610,21 @@ if (isset($_POST['update-student-info'])) {
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-
-
-                    $sql = "select * from students_enrollment_info where students_info_id = '$lrns' ";
+                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($students_enrollment_info_result);
                     $lrn = $row['id'] + 1;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("SELECT * FROM students_enrollment_info where students_info_id = '$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("SELECT * FROM students_enrollment_info where students_info_id = '$lrns' ORDER BY id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -668,7 +667,8 @@ if (isset($_POST['update-student-info'])) {
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="showModal('view-student-grade', 'Student Grade')">View Grade</label>
+                                               onclick="showGrade('<?= $row['fullname'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
+                                            Grade</label>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -801,14 +801,155 @@ if (isset($_POST['update-student-info'])) {
             </div>
             <div id="view-student-grade" class="modal-child d-none">
 
+                <div class="m-l-6em m-t-1em">
+                    <div>Student name: <label for="" id="view-student-grade-name">&nbsp;</label></div>
+                    <div>School: <label for="" id="view-student-grade-school"
+                                        class="b-bottom-gray-3px w-27em t-align-center">&nbsp;</label></div>
+                    <div class="d-inline-flex">
+                        <div>Grade & Section: <label for="" id="view-student-grade-grade"
+                                                     class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div>School Year:
+                            <label for="" id="view-student-grade-school-year"
+                                   class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <style>
+                        .table-bordered td, .table-bordered th {
+                            border: 2px solid black;
+                        }
+                        .table-bordered{
+                            border: 2px solid black;
+                        }
+                    </style>
+
+                    <table class="table-bordered w-100p m-t-2em">
+                        <col>
+                        <col>
+                        <col>
+                        <colgroup span="4"></colgroup>
+                        <col>
+                        <tr>
+                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">Learning Area</th>
+                            <th colspan="4" style="text-align:center;" class="b-bottom-none">Quarter</th>
+                            <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">Final Grade</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" class="b-top-none b-none t-align-center">1</th>
+                            <th scope="col" class="b-top-none b-none t-align-center">2</th>
+                            <th scope="col" class="b-top-none b-none t-align-center">3</th>
+                            <th scope="col" class="b-top-none b-none t-align-center">4</th>
+                        </tr>
+                        <tr>
+                            <td>Filipino</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>Not Functioning</td>
+                        </tr>
+                        <tr>
+                            <td>Match</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>Not Functioning</td>
+                        </tr>
+                        <tr>
+                            <td>English</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>Not Functioning</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+
+                    <table class="table-bordered w-100p m-t-2em">
+                        <col>
+                        <col>
+                        <col>
+                        <colgroup span="4"></colgroup>
+                        <col>
+                        <tr>
+                            <th rowspan="1">Months</th>
+                            <th colspan="1">Jun</th>
+                            <th rowspan="1">July</th>
+                            <th rowspan="1">Aug</th>
+                            <th rowspan="1">Sep</th>
+                            <th rowspan="1">Oct</th>
+                            <th rowspan="1">Nov</th>
+                            <th rowspan="1">Dec</th>
+                            <th rowspan="1">Jan</th>
+                            <th rowspan="1">Feb</th>
+                            <th rowspan="1">Mar</th>
+                            <th rowspan="1">Apr</th>
+                            <th rowspan="1">May</th>
+                            <th rowspan="1">Total</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Days of School</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Days Present</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </table>
+                </div>
+
                 <div class="p-absolute btm-1em r-1em">
-                    <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
+                    <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                           onclick="backModal('view-student-enrollment', 'Student Enrollment','white')">
                         Back
                     </label>
                     <button class="c-hand btn-primary btn"
-                            name="save" >Print
+                            onclick="print('view-student-grade')">Print
                     </button>
-
                 </div>
             </div>
         </div>
@@ -918,5 +1059,46 @@ if (isset($_POST['update-student-info'])) {
         history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn);
         window.location.reload();
     }
-</script>
 
+    function showGrade(fullName, gradeLevel, schoolYear) {
+        $('#view-student-grade #view-student-grade-name').text(fullName);
+        $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
+        $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
+        showModal('view-student-grade', 'Student Grade')
+    }
+
+    function print(divName) {
+        if(document.getElementById('view-student-grade') != null)
+        {
+            $('body').css('background-color', 'white');
+            document.body.innerHTML = document.getElementById('view-student-grade').innerHTML;
+            setTimeout(function() {
+                window.print();
+            }, 500);
+
+        }
+
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '../print_page',
+        //     data: { studentNumber: printContents },
+        //     success: function(data)
+        //     {
+        //         var payload = {
+        //             name: 'John',
+        //             time: '2pm'
+        //         };
+        //         var form = document.createElement('form');
+        //         form.style.visibility = 'hidden';
+        //         form.method = 'POST';
+        //         form.action = '../print_page';
+        //         form.target = '_blank';
+        //         document.body.appendChild(printContents);
+        //         form.submit();
+        //     }
+        // });
+
+    }
+</script>
+<script id="l_print_entire_page_js" data-selector=".one_page" src="../../assets/js/js_print.js"></script>

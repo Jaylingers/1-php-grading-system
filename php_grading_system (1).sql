@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2023 at 04:30 AM
+-- Generation Time: Sep 07, 2023 at 04:31 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `admins_info` (
   `username` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
   `email` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admins_info`
@@ -54,21 +54,19 @@ CREATE TABLE IF NOT EXISTS `students_enrollment_info` (
   `date_enrolled` date NOT NULL,
   `status` varchar(50) NOT NULL,
   `students_info_id` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `students_enrollment_info`
 --
 
 INSERT INTO `students_enrollment_info` (`id`, `grade`, `school_year`, `date_enrolled`, `status`, `students_info_id`) VALUES
-(1, 'Grade 4', '0000-00-00', '0000-00-00', 'continuing', 'S0000256'),
 (2, 'Grade 5', '0000-00-00', '0000-00-00', 'as', 'S0000257'),
-(12, '', '0000-00-00', '0000-00-00', '', 'S0000256'),
-(13, '', '0000-00-00', '0000-00-00', '', 'S0000256'),
-(14, '', '0000-00-00', '0000-00-00', '', 'S0000256'),
-(15, '', '0000-00-00', '0000-00-00', '', 'S0000256'),
-(16, '', '0000-00-00', '0000-00-00', '', 'S0000256'),
-(17, '', '0000-00-00', '0000-00-00', '', 'S0000256');
+(20, 'Grade 1', '2023-09-05', '2023-09-05', 'continuing', 'S0000256'),
+(22, 'Grade 2', '2023-09-06', '2023-09-06', 'continuing', 'S0000256'),
+(23, 'Grade 3', '2023-09-07', '2023-09-07', 'transferee', 'S0000256'),
+(24, 'Grade 4', '2023-09-08', '2023-09-08', 'transferee', 'S0000256'),
+(25, 'Grade 5', '2023-09-09', '2023-09-09', 'continuing', 'S0000256');
 
 -- --------------------------------------------------------
 
@@ -94,15 +92,16 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `lrn` varchar(50) NOT NULL,
   `g_level` int(5) NOT NULL,
   `guardian_name` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=267 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `students_info`
 --
 
 INSERT INTO `students_info` (`id`, `f_name`, `l_name`, `m_name`, `gender`, `b_date`, `b_place`, `c_status`, `age`, `nationality`, `religion`, `contact_number`, `email_address`, `home_address`, `lrn`, `g_level`, `guardian_name`) VALUES
-(256, 'fname', 'jay', 'mname', '', '2023-08-24', 'wala pa', 'wala pa', 3, 'wala pa', 'wala pa', 'wala pa', 'ajisaka@harmony21.co.jp', 'deca 3', 'S0000256', 11, ' gn'),
-(257, '2', 'JAYLINGERS', '2', '', '2023-08-10', '2', '2', 2, '22', '2', '2', '2@gmail.com', '2', 'S0000257', 0, 'g');
+(256, 'Jay', 'Lingers', 'T', '', '2023-08-24', 'wala pa', 'wala pa', 3, 'wala pa', 'wala pa', 'wala pa', 'ajisaka@harmony21.co.jp', 'deca 3', 'S0000256', 11, ' gn'),
+(267, 'Jhon', 'Arvis691', 'M', 'Male', '2023-09-06', 'bplace', 'single', 69, 'nation', 'catholic', '0999999', 'jhon@gmail.com', 'gabi, cordova', 'S0000258', 5, 'guardian name'),
+(271, '3', '3', '3', '', '2023-09-21', '3', '3', 3, '3', '3', '3', '3@gmail.com', '3', 'S0000268', 3, '3');
 
 --
 -- Indexes for dumped tables
@@ -134,17 +133,17 @@ ALTER TABLE `students_info`
 -- AUTO_INCREMENT for table `admins_info`
 --
 ALTER TABLE `admins_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `students_enrollment_info`
 --
 ALTER TABLE `students_enrollment_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `students_info`
 --
 ALTER TABLE `students_info`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=267;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=272;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

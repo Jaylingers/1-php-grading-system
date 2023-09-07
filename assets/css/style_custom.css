@@ -413,6 +413,9 @@
 .w-8em {
     width: 8em;
 }
+.w-27em{
+    width: 27em;
+}
 
 .w-44em {
     width: 44em;
@@ -543,6 +546,10 @@
     border: 1px solid black;
 }
 
+.b-2px-black{
+    border: 2px solid black !important;
+}
+
 .b-bottom-white-3px {
     border-bottom: 3px solid white;
 }
@@ -561,6 +568,14 @@
 
 .b-right-2px-white {
     border-right: 2px solid white;
+}
+
+.b-top-none{
+    border-top: none !important;
+}
+
+.b-bottom-none{
+    border-bottom: none !important;
 }
 
 .b-top-right-radius-10 {
@@ -613,6 +628,10 @@
 
 .j-content-center {
     justify-content: center;
+}
+
+.t-dec-underline {
+    text-decoration: underline !important;
 }
 
 .f-size-2em {
@@ -693,6 +712,9 @@
 
 .m-l-1em {
     margin-left: 1em;
+}
+.m-l-6em{
+    margin-left: 6em;
 }
 
 .m-left-8px {
