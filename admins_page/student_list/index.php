@@ -117,7 +117,7 @@ if (isset($_POST['update-student-info'])) {
 ?>
 
 <div class="d-flex-end p-absolute w-100p h-100p t-60px">
-    <div id="content contents" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page">
+    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {
@@ -953,8 +953,105 @@ if (isset($_POST['update-student-info'])) {
                     <button class="c-hand btn-primary btn"
                             onclick="print('view-student-grade')">Print
                     </button>
+                    <button class="c-hand btn-success btn"
+                            onclick="showModal('add-student-subject', 'Subject List')">Add Subject
+                    </button>
                 </div>
 
+            </div>
+            <div id="add-student-subject" class="modal-child d-none">
+                <div>
+
+                    <table class="table-bordered w-100p m-t-2em">
+                        <col>
+                        <col>
+                        <col>
+                        <colgroup span="4"></colgroup>
+                        <col>
+                        <tr>
+                            <th rowspan="1">No.</th>
+                            <th colspan="1">Subject Name</th>
+                            <th rowspan="1">Description</th>
+                            <th rowspan="1">Year & Section</th>
+                            <th rowspan="1">Status</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">1</th>
+                            <th scope="col">SCIENCE</th>
+                            <th scope="col">MIND BLOWING</th>
+                            <th scope="col">G5</th>
+                            <th scope="col">AVALABLE</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">2</th>
+                            <th scope="col">MATH</th>
+                            <th scope="col">&nbsp;THE WORLDS OF </th>
+                            <th scope="col">G5</th>
+                            <th scope="col">AVALABLE</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+
+
+                    </table>
+
+                </div>
+                <div class="p-absolute btm-1em r-1em action-button">
+                    <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                           onclick="backModal('view-student-grade', 'Student Grade','white')">
+                        Back
+                    </label>
+                    <button class="c-hand btn-success btn"
+                           >Add
+                    </button>
+                </div>
             </div>
         </div>
     </div>
