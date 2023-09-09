@@ -617,14 +617,14 @@ if (isset($_POST['update-student-info'])) {
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status,sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -1081,6 +1081,7 @@ if (isset($_POST['update-student-info'])) {
             if (r === true) {
                 var isStudentEnrollment = false;
                 studentID.forEach(function (studId) {
+
                     if (id === 'student-enrollment') {
                         $.post('', {studentEnrollmentId: studId})
                         isStudentEnrollment = true;
