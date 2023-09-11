@@ -34,7 +34,7 @@ if (isset($_POST['add-enrollment'])) {
     $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
     $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
     $status = $_POST['add-enrollment-status'];
-    $sql = "insert into students_enrollment_info (students_info_id,grade,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$schoolYear','$dateEnrolled','$status')";
+    $sql = "insert into students_enrollment_info (students_info_lrn,grade,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$schoolYear','$dateEnrolled','$status')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -129,6 +129,14 @@ if (isset($_POST['update-student-info'])) {
                 border-top: 0 !important;
                 border-bottom: 3px solid #ddd;
             }
+
+            tr:nth-child(even) {
+                background-color: #fbe4d5;
+            }
+
+            .table-1 thead {
+                background-color: #ed7d31;
+            }
         </style>
 
         <div class="m-2em d-flex-align-start">
@@ -140,7 +148,7 @@ if (isset($_POST['update-student-info'])) {
                     </h3>
                     <div class="r-50px p-absolute t-54px">
                         <button
-                                class="btn bg-hover-gray-dark-v1" onclick="showModal('add-new-student', 'New Student')">
+                                class="btn bg-hover-gray-dark-v1" onclick="showModal('add-new-student', 'New Students')">
                             Add New
                         </button>
                         <button
@@ -305,7 +313,7 @@ if (isset($_POST['update-student-info'])) {
             <div id="add-new-student" class="modal-child pad-top-2em pad-bottom-2em d-none">
                 <form method="post">
                     <div class="custom-grid-container" tabindex="3">
-                        <div class="custom-grid-item d-inline-grid">
+                        <div class="custom-grid-item">
                             <div class="w-70p m-l-1em">ID Number</div>
                             <input placeholder="<?php echo $lrn ?>" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -345,11 +353,13 @@ if (isset($_POST['update-student-info'])) {
                                    name="homeAddress"
                                    required>
                         </div>
-                        <div class="custom-grid-item d-inline-grid">
-                            <input type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em op-0"
+                        <div class="custom-grid-item">
+                            <div class="w-70p m-l-1em op-0">none</div>
+                            <input placeholder="<?php echo $lrn ?>" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px op-0"
                                    disabled="true"
-                                   required="false">
+                                   readonly="true"
+                                   value="<?php echo $lrn ?>">
                             <div class="w-70p m-l-1em">Firstname</div>
                             <input placeholder="First Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -381,11 +391,13 @@ if (isset($_POST['update-student-info'])) {
                                    name="guardianName"
                                    required>
                         </div>
-                        <div class="custom-grid-item d-inline-grid">
-                            <input type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em op-0"
+                        <div class="custom-grid-item">
+                            <div class="w-70p m-l-1em op-0">none</div>
+                            <input placeholder="<?php echo $lrn ?>" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px op-0"
                                    disabled="true"
-                                   required="false">
+                                   readonly="true"
+                                   value="<?php echo $lrn ?>">
                             <div class="w-70p m-l-1em">Middlename</div>
                             <input placeholder="Middle Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -430,7 +442,7 @@ if (isset($_POST['update-student-info'])) {
                                 class="c-hand btn-success btn"
                                 name="add-new-student">Submit
                         </button>
-                        <div class="m-t-2em">
+                        <div>
                             <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
                                 Close
                             </label>
@@ -468,7 +480,7 @@ if (isset($_POST['update-student-info'])) {
             <div id="update-student-info" class="modal-child d-none">
                 <form method="post">
                     <div class="custom-grid-container" tabindex="3">
-                        <div class="custom-grid-item d-inline-grid">
+                        <div class="custom-grid-item">
                             <div class="w-70p m-l-1em">ID Number</div>
                             <input placeholder="<?php echo $lrn ?>" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -508,7 +520,7 @@ if (isset($_POST['update-student-info'])) {
                                    name="up-homeAddress"
                                    required>
                         </div>
-                        <div class="custom-grid-item d-inline-grid">
+                        <div class="custom-grid-item">
                             <input type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em op-0"
                                    disabled="true"
@@ -544,7 +556,7 @@ if (isset($_POST['update-student-info'])) {
                                    name="up-guardianName"
                                    required>
                         </div>
-                        <div class="custom-grid-item d-inline-grid">
+                        <div class="custom-grid-item">
                             <input type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em op-0"
                                    disabled="true"
@@ -606,25 +618,24 @@ if (isset($_POST['update-student-info'])) {
                     </button>
                 </div>
                 <?php
-
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ";
+                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($students_enrollment_info_result);
                     $lrn = $row['id'] + 1;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status,sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status,sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -740,7 +751,7 @@ if (isset($_POST['update-student-info'])) {
             <div id="add-enrollment" class="modal-child d-none">
                 <form method="post">
                     <div class="custom-grid-container" tabindex="3">
-                        <div class="custom-grid-item d-inline-grid">
+                        <div class="custom-grid-item">
                             <input placeholder="<?php echo $_GET['lrn'] ?>" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="add-enrollment-lrn"
@@ -786,7 +797,7 @@ if (isset($_POST['update-student-info'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="b-top-gray-3px m-1em">
+                    <div class="b-top-gray-3px p-absolute btm-1em w-98p">
                         <div class="r-50px d-flex-end gap-1em m-t-1em">
                             <button type="submit"
                                     class="c-hand btn-success btn"
@@ -1103,7 +1114,11 @@ if (isset($_POST['update-student-info'])) {
 
             }
         } else {
-            alert('Please select a student!');
+            if (id === 'student-enrollment') {
+                alert('Please select a enrollment!');
+            } else {
+                alert('Please select a student!');
+            }
         }
     }
 
