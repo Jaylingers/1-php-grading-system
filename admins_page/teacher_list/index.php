@@ -302,39 +302,12 @@ if (isset($_POST['add-new-teacher'])) {
                             <div>
                                 Add Subject &nbsp;<label class="btn btn-primary" onclick="addSubject()">+</label>
                             </div>
-                            <div id="subject-list">
+                            <div id="add-subject-parent">
 
                             </div>
-
-                            <!--                        <div class="w-70p m-l-1em">Subject</div>-->
-                            <!--                        <input placeholder="Subject" type="text"-->
-                            <!--                               class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"-->
-                            <!--                               id="subject"-->
-                            <!--                               name="subject"-->
-                            <!--                               required>-->
-                            <!--                        <div class="w-70p m-l-1em">Room</div>-->
-                            <!--                        <input placeholder="Room" type="text"-->
-                            <!--                               class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"-->
-                            <!--                               id="room"-->
-                            <!--                               name="room"-->
-                            <!--                               required>-->
-                            <!--                        <div class="w-70p m-l-1em">Schedule Time</div>-->
-                            <!--                        <input placeholder="Schedule Time" type="time"-->
-                            <!--                               class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"-->
-                            <!--                               id="scheduleTime"-->
-                            <!--                               name="scheduleTime"-->
-                            <!--                               required>-->
-                            <!--                        <div class="w-70p m-l-1em">Day</div>-->
-                            <!--                        <input placeholder="Day" type="number"-->
-                            <!--                               class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"-->
-                            <!--                               id="day"-->
-                            <!--                               name="day"-->
-                            <!--                               required>-->
-
-
                         </div>
                     </div>
-                    <div class="p-absolute btm-1em r-1em">
+                    <div class="d-flex-end">
                         <button type="submit"
                                 class="c-hand btn-success btn"
                                 name="add-new-teacher">Save
@@ -592,7 +565,10 @@ if (isset($_POST['add-new-teacher'])) {
     }
 
     function addSubject() {
-        $('#subject-list').append('<div> 1 </div>')
+        $('#add-subject-parent').append('<div class="add-subject-child b-1px-black b-radius-10px m-b-1em" style="background:#ed7d31"> ' +
+        '<div class="w-70p m-l-1em">Subject</div><input placeholder="Subject" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="subject" name="subject" required> ' +
+        '<div class="w-70p m-l-1em">room</div><input placeholder="room" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="room" name="room" required><div class="w-70p m-l-1em">Schedule Time</div><input placeholder="Schedule Time" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time" name="schedule_time" required> ' +
+        '<div class="w-70p m-l-1em">Schedule dat</div><input placeholder="Schedule Day" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_day" name="schedule_day" required></div> </div>')
     }
 
 </script>

@@ -12,6 +12,10 @@ function showModal(id, title, theme) {
         $('.modal-content').css('color', 'white');
         $('.modal-header').css('border-bottom', '3px solid black');
         $('.modal-body').addClass('d-flex-center');
+    } else if (theme === 'gray') {
+        $('.modal-content').css('background-color', '#c3c3c3');
+        $('.modal-content').css('color', 'white');
+        $('.modal-header').css('border-bottom', '3px solid black');
     } else {
         $('.modal-content').css('background-color', '#fff');
         $('.modal-header').css('border-bottom', '3px solid #80808038');
