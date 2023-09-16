@@ -6,13 +6,17 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $sql = "delete from teachers_info where id = '$id'";
+if (isset($_POST['lrn'])) {
+    $lrn = $_POST['lrn'];
+    $sql = "delete from teachers_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
-    if ($result) {
+
+    $sqlDelete = "delete from teachers_subject_info where teachers_info_lrn = '$lrn'";
+    $resultDelete = mysqli_query($conn, $sqlDelete);
+
+    if ($resultDelete) {
         echo '<script>';
-        echo '   
+        echo '
               history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
                 window.location.reload();
             ';
@@ -20,28 +24,67 @@ if (isset($_POST['id'])) {
     }
 }
 if (isset($_POST['add-new-teacher'])) {
+    $lrn = $_POST['lrn-add'];
     $fullName = $_POST['fullName'];
     $address = $_POST['address'];
     $gender = $_POST['gender'];
     $civilStatus = $_POST['civilStatus'];
-    $subject = $_POST['subject'];
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
     $reTypePassword = $_POST['reTypePassword'];
-    $room = $_POST['room'];
-    $scheduleTime = $_POST['scheduleTime'];
-    $day = $_POST['day'];
-    $sql = "insert into teachers_info (fullname,address,gender,civil_status,subject,email_address,password,re_type_password,room,schedule_time,day) values ('$fullName','$address','$gender','$civilStatus','$subject','$emailAddress','$password','$reTypePassword','$room','$scheduleTime','$day')";
+
+    $sql = "insert into teachers_info (lrn, fullname,address,gender,civil_status,email_address,password,re_type_password) values ('$lrn','$fullName','$address','$gender','$civilStatus','$emailAddress','$password','$reTypePassword')";
     $result = mysqli_query($conn, $sql);
+
+
+    $addSubject = $_POST['add-subject'];
+    $array = explode(" , ", $addSubject);
+    debug_to_console($array);
+    for ($i = 0; $i < count($array); $i++) {
+        debug_to_console($array[$i]);
+        $array1 = explode(",", $array[$i]);
+
+        $subject = $array1[0];
+        $room = $array1[1];
+        $grade_level = $array1[2];
+        $schedule_time_in = $array1[3];
+        $schedule_time_out = $array1[4];
+        $schedule_day = $array1[5];
+
+//        debug_to_console($subject);
+//        debug_to_console($room);
+//        debug_to_console($grade_level);
+//        debug_to_console($schedule_time_in);
+//        debug_to_console($schedule_time_out);
+//        debug_to_console($schedule_day);
+
+        $subject = str_replace("[", "", $subject);
+        $schedule_day = str_replace("]", "", $schedule_day);
+
+        $sql = "insert into teachers_subject_info (subject,room,grade_level,schedule_time_in, schedule_time_out,schedule_day,teachers_info_lrn) values ($subject,$room,$grade_level,$schedule_time_in,$schedule_time_out,$schedule_day,'$lrn')";
+        $result = mysqli_query($conn, $sql);
+    }
+
     if ($result) {
         echo '<script>';
-        echo '   
+        echo '
               history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
                 window.location.reload();
             ';
         echo '</script>';
     }
+}
+function debug_to_console($data, $context = 'Debug in Console')
+{
 
+    // Buffering to solve problems frameworks, like header() in this and not a solid return.
+    ob_start();
+
+    $output = 'console.info(\'' . $context . ':\');';
+    $output .= 'console.log(' . json_encode($data) . ');';
+    $output = sprintf('<script>%s</script>', $output);
+
+    echo $output;
 }
 
 ?>
@@ -66,6 +109,7 @@ if (isset($_POST['add-new-teacher'])) {
 
             .table-1 thead {
                 background-color: #ed7d31;
+                color: white;
             }
         </style>
 
@@ -84,36 +128,36 @@ if (isset($_POST['add-new-teacher'])) {
                         </button>
                         <button
                                 class="btn bg-hover-gray-dark-v1"
-                                onclick="deleteStudents('student-list')">Delete Selected
+                                onclick="deleteTeachers('teachers-list')">Delete Selected
                         </button>
                     </div>
                 </div>
                 <br/>
 
                 <?php
-                $sql = "SELECT ti.id, ti.lrn,ti.fullname, ti.address, ti.gender, ti.civil_status, ti.email_address,
-                GROUP_CONCAT( tsi.subject_name SEPARATOR ', ') as subject_name
+                $sql = "SELECT ti.id as id, ti.lrn,ti.fullname, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                inner join teachers_info ti on ti.lrn = tsi.teachers_info_lrn";
+                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn GROUP BY ti.lrn order by ti.id desc";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 $lrn = $row['id'] + 1;
-                $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
+                $lrn = 'T' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
-                // Get the total number of records from our table "students".
+                // Get the total number of records from our table "teachers".
                 $total_pages = $mysqli->query("SELECT ti.id,ti.lrn,ti.fullname, ti.address, ti.gender, ti.civil_status, ti.email_address,
-                GROUP_CONCAT( tsi.subject_name SEPARATOR ', ') as subject_name
+                GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                inner join teachers_info ti on ti.lrn = tsi.teachers_info_lrn")->num_rows;
+                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn GROUP BY ti.lrn order by ti.id desc")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
                 if ($stmt = $mysqli->prepare("SELECT ti.id,ti.lrn,ti.fullname, ti.address, ti.gender, ti.civil_status, ti.email_address,
-                GROUP_CONCAT( tsi.subject_name SEPARATOR ', ') as subject_name
+                GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                inner join teachers_info ti on ti.lrn = tsi.teachers_info_lrn ORDER BY ti.id LIMIT ?,?")) {
+                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn GROUP BY ti.lrn ORDER BY ti.id LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
                     $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -125,12 +169,12 @@ if (isset($_POST['add-new-teacher'])) {
                     <table class="table table-1 ">
                         <thead>
                         <tr>
-                            <th class="t-align-center"><label for="student-list-cb" class="d-flex-center"></label><input
-                                        id="student-list-cb" type="checkbox"
-                                        onclick="checkCBStudents('student-list', 'student-list-cb')"
+                            <th class="t-align-center"><label for="teacher-list-cb" class="d-flex-center"></label><input
+                                        id="teacher-list-cb" type="checkbox"
+                                        onclick="checkCBteachers('teacher-list', 'teacher-list-cb')"
                                         class="sc-1-3 c-hand"/></th>
                             <th>No</th>
-                            <th>Fullname</th>
+                            <th>FullName</th>
                             <th>Address</th>
                             <th>Gender</th>
                             <th>Civil Status</th>
@@ -140,7 +184,7 @@ if (isset($_POST['add-new-teacher'])) {
 
                         </tr>
                         </thead>
-                        <tbody id="student-list">
+                        <tbody id="teachers-list">
                         <?php
                         $i = 0;
                         while ($row = $result->fetch_assoc()):
@@ -148,23 +192,23 @@ if (isset($_POST['add-new-teacher'])) {
                             ?>
                             <tr>
                                 <td class="d-flex-center"><label>
-                                        <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['id'] ?>"/>
+                                        <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['lrn'] ?>"/>
                                     </label></td>
                                 <th scope="row"><?= $i ?> </th>
                                 <td><?= $row['fullname'] ?></td>
                                 <td><?= $row['address'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['civil_status'] ?></td>
-                                <td><?= $row['subject_name'] ?></td>
+                                <td><?= $row['subject'] ?></td>
                                 <td><?= $row['email_address'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewStudentEnrollment('<?= $row['lrn'] ?>')"
+                                           onclick="viewteacherEnrollment('<?= $row['lrn'] ?>', '<?= $row['fullname'] ?>')"
                                     >Subject Loads</label>
                                     &nbsp;
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                    >Students</label>
+                                           onclick="viewteacherInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
+                                    >teachers</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -184,49 +228,49 @@ if (isset($_POST['add-new-teacher'])) {
                     <ul class="pagination">
                         <?php if ($page > 1): ?>
                             <li class="prev"><a
-                                        href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                        href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                             </li>
                         <?php endif; ?>
 
                         <?php if ($page > 3): ?>
                             <li class="start"><a
-                                        href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                        href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">1</a>
                             </li>
                             <li class="dots">...</li>
                         <?php endif; ?>
 
                         <?php if ($page - 2 > 0): ?>
                             <li class="page"><a
-                                    href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                    href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                             </li><?php endif; ?>
                         <?php if ($page - 1 > 0): ?>
                             <li class="page"><a
-                                    href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                    href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                             </li><?php endif; ?>
 
                         <li class="currentpage"><a
-                                    href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                    href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                         </li>
 
                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                             <li class="page"><a
-                                    href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                    href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                             </li><?php endif; ?>
                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                             <li class="page"><a
-                                    href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                    href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                             </li><?php endif; ?>
 
                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                             <li class="dots">...</li>
                             <li class="end"><a
-                                        href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                        href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                             </li>
                         <?php endif; ?>
 
                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                             <li class="next"><a
-                                        href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                        href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -253,8 +297,14 @@ if (isset($_POST['add-new-teacher'])) {
                 <form method="post">
                     <div class="custom-grid-container" tabindex="2">
                         <div class="custom-grid-item ">
-                            <div class="w-70p m-l-1em">Fullname</div>
-                            <input placeholder="Fullname" type="text"
+                            <input placeholder="<?php echo $lrn ?>" type="hidden"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="lrn-add"
+                                   name="lrn-add"
+                                   readonly="true"
+                                   value="<?php echo $lrn ?>">
+                            <div class="w-70p m-l-1em">FullName</div>
+                            <input placeholder="FullName" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="fullName"
                                    name="fullName"
@@ -301,6 +351,7 @@ if (isset($_POST['add-new-teacher'])) {
                         <div class="custom-grid-item">
                             <div>
                                 Add Subject &nbsp;<label class="btn btn-primary" onclick="addSubject()">+</label>
+                                <input type="text" id="add-subject" name="add-subject">
                             </div>
                             <div id="add-subject-parent">
 
@@ -315,7 +366,7 @@ if (isset($_POST['add-new-teacher'])) {
                     </div>
                 </form>
             </div>
-            <div id="view-student-enrollment" class="modal-child pad-bottom-2em d-none">
+            <div id="view-teacher-enrollment" class="modal-child pad-bottom-2em d-none">
                 <div class="d-flex-end gap-1em">
                     <button
                             class="btn bg-hover-gray-dark-v1" onclick="showModal('add-enrollment', 'New Enrollment')">
@@ -323,57 +374,59 @@ if (isset($_POST['add-new-teacher'])) {
                     </button>
                     <button
                             class="btn bg-hover-gray-dark-v1"
-                            onclick="deleteStudents('student-enrollment')">Delete Selected
+                            onclick="deleteTeachers('teacher-enrollment')">Delete Selected
                     </button>
                 </div>
                 <?php
 
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
-                    echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ";
-                    $students_enrollment_info_result = mysqli_query($conn, $sql);
-                    $row = mysqli_fetch_assoc($students_enrollment_info_result);
+                    $name = $_GET['name'] . '"s';
+                    echo "<script>showModal('view-teacher-enrollment', '$name Subjects')</script>";
+                    $sql = " select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ";
+                    $teachers_enrollment_info_result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($teachers_enrollment_info_result);
                     $lrn = $row['id'] + 1;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
-                    // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status,sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ")->num_rows;
+                    // Get the total number of records from our table "teachers".
+                    $total_pages = $mysqli->query("select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_id where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select id, subject, grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ORDER BY id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
                         $stmt->execute();
                         // Get the results...
-                        $students_enrollment_info_result = $stmt->get_result();
+                        $teachers_enrollment_info_result = $stmt->get_result();
                         ?>
 
-                        <table class="table table-1">
+                        <table class="table table-1 m-t-1em">
                             <thead>
                             <tr>
-                                <th class="t-align-center"><label for="student-enrollment-cb"
+                                <th class="t-align-center"><label for="teacher-enrollment-cb"
                                                                   class="d-flex-center"></label><input
-                                            id="student-enrollment-cb" type="checkbox"
-                                            onclick="checkCBStudents('student-enrollment','student-enrollment-cb')"
+                                            id="teacher-enrollment-cb" type="checkbox"
+                                            onclick="checkCBteachers('teacher-enrollment','teacher-enrollment-cb')"
                                             class="sc-1-3 c-hand"/></th>
                                 <th>No</th>
-                                <th>Grade</th>
-                                <th>School Year</th>
-                                <th>Date Enrolled</th>
-                                <th>Status</th>
+                                <th>Subject</th>
+                                <th>Grade Level</th>
+                                <th>Day</th>
+                                <th>Room</th>
+                                <th>Schedule Time</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody id="student-enrollment">
+                            <tbody id="teacher-enrollment">
                             <?php
                             $i = 0;
-                            while ($row = $students_enrollment_info_result->fetch_assoc()):
+                            while ($row = $teachers_enrollment_info_result->fetch_assoc()):
                                 $i++;
                                 ?>
                                 <tr>
@@ -381,10 +434,11 @@ if (isset($_POST['add-new-teacher'])) {
                                             <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['id'] ?>"/>
                                         </label></td>
                                     <th scope="row"><?= $i ?> </th>
-                                    <th scope="row"><?= $row['grade'] ?> </th>
-                                    <td><?= $row['school_year'] ?></td>
-                                    <td><?= $row['date_enrolled'] ?></td>
-                                    <td><?= $row['status'] ?></td>
+                                    <th scope="row"><?= $row['subject'] ?> </th>
+                                    <th scope="row"><?= $row['grade_level'] ?> </th>
+                                    <td><?= $row['schedule_day'] ?></td>
+                                    <td><?= $row['room'] ?></td>
+                                    <td><?= $row['schedule_time'] ?></td>
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
@@ -407,49 +461,49 @@ if (isset($_POST['add-new-teacher'])) {
                             <ul class="pagination">
                                 <?php if ($page > 1): ?>
                                     <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
+                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page > 3): ?>
                                     <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
+                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
                                     </li>
                                     <li class="dots">...</li>
                                 <?php endif; ?>
 
                                 <?php if ($page - 2 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page - 1 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                     </li><?php endif; ?>
 
                                 <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
+                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
                                 </li>
 
                                 <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                     </li><?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                     <li class="dots">...</li>
                                     <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                     <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
+                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -465,7 +519,7 @@ if (isset($_POST['add-new-teacher'])) {
 
 <script>
 
-    function checkCBStudents(id, cb) {
+    function checkCBteachers(id, cb) {
         if ($('#' + cb).is(':checked')) {
             $('#' + id + ' input[type="checkbox"]').prop('checked', true);
 
@@ -474,27 +528,27 @@ if (isset($_POST['add-new-teacher'])) {
         }
     }
 
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
+    function deleteTeachers(id) {
+        var teacherID = [];
+        var teacherCount = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            teacherID.push($(this).attr('id'));
+            teacherCount++;
         });
-        if (studentCount > 0) {
+        if (teacherCount > 0) {
             var r = confirm("Are you sure you want to delete ?");
             if (r === true) {
-                var isStudentEnrollment = false;
-                studentID.forEach(function (studId) {
+                var isteacherEnrollment = false;
+                teacherID.forEach(function (studId) {
 
-                    if (id === 'student-enrollment') {
-                        $.post('', {studentEnrollmentId: studId})
-                        isStudentEnrollment = true;
+                    if (id === 'teacher-enrollment') {
+                        $.post('', {teacherEnrollmentId: studId})
+                        isteacherEnrollment = true;
                     } else {
-                        $.post('', {id: studId})
+                        $.post('', {lrn: studId})
                     }
                 });
-                if (isStudentEnrollment) {
+                if (isteacherEnrollment) {
                     <?php
                     if (isset($_GET['lrn'])) {
                     ?>
@@ -512,16 +566,17 @@ if (isset($_POST['add-new-teacher'])) {
         }
     }
 
-    function viewStudentEnrollment(lrn) {
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn);
+    function viewteacherEnrollment(lrn, fullname) {
+        var name = fullname.split(',')[0];
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn + '&&name=' + name);
         window.location.reload();
     }
 
     function showGrade(fullName, gradeLevel, schoolYear) {
-        $('#view-student-grade #view-student-grade-name').text(fullName);
-        $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
-        $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
-        showModal('view-student-grade', 'Student Grade')
+        $('#view-teacher-grade #view-teacher-grade-name').text(fullName);
+        $('#view-teacher-grade #view-teacher-grade-grade').text(gradeLevel);
+        $('#view-teacher-grade #view-teacher-grade-school-year').text(schoolYear);
+        showModal('view-teacher-grade', 'teacher Grade')
     }
 
     function print(id) {
@@ -564,11 +619,57 @@ if (isset($_POST['add-new-teacher'])) {
         });
     }
 
+    var arr = [];
+
     function addSubject() {
-        $('#add-subject-parent').append('<div class="add-subject-child b-1px-black b-radius-10px m-b-1em" style="background:#ed7d31"> ' +
-        '<div class="w-70p m-l-1em">Subject</div><input placeholder="Subject" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="subject" name="subject" required> ' +
-        '<div class="w-70p m-l-1em">room</div><input placeholder="room" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="room" name="room" required><div class="w-70p m-l-1em">Schedule Time</div><input placeholder="Schedule Time" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time" name="schedule_time" required> ' +
-        '<div class="w-70p m-l-1em">Schedule dat</div><input placeholder="Schedule Day" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_day" name="schedule_day" required></div> </div>')
+        var count = arr.length;
+        arr[count] = ["''", "''", "''", "''", "''"];
+        $('#add-subject').val(arr);
+
+        $('#add-subject-parent').append('<div id="' + count + '" class="add-subject-child b-1px-black b-radius-10px m-b-1em" style="background:#ed7d31"> <div onclick="arrOnclick(' + count + ')" class="w-2em t-align-center f-r c-hand t-close"> X </div>' +
+        '<div class="w-70p m-l-1em m-t-1em">Subject</div><input onchange="arrOnChange(' + count + ')" placeholder="Subject" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="subject" name="subject" required> ' +
+        '<div class="w-70p m-l-1em">Room</div><input onchange="arrOnChange(' + count + ')" placeholder="room" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="room" name="room" required> <div class="w-70p m-l-1em">Grade Level</div><input onchange="arrOnChange(' + count + ')" placeholder="Grade Level" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="grade_level" name="grade_level" required><div class="w-70p m-l-1em">Time IN</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_in" name="schedule_time_in" required><div class="w-70p m-l-1em">Time Out</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_out" name="schedule_time_out" required>  ' +
+        '<div class="w-70p m-l-1em">Schedule Day</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Day" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_day" name="schedule_day" required></div> </div>')
+        count++;
+    }
+
+    function arrOnChange(id) {
+        var arr2 = '';
+        arr[id][0] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #subject').val();
+        arr[id][1] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #room').val();
+        arr[id][2] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #grade_level').val();
+        arr[id][3] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #schedule_time_in').val();
+        arr[id][4] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #schedule_time_out').val();
+        arr[id][5] = $('#add-subject-parent .add-subject-child:nth-child(' + (id + 1) + ') #schedule_day').val();
+
+        arr.map((item, index) => {
+            arr2 += "['" + item[0] + "','" + item[1] + "','" + item[2] + "','" + item[3] + "','" + item[4] + "','" + item[5] + "'],";
+        })
+        var newArr = arr2.slice(0, -1).replace("],[", "] , [")
+        $('#add-subject').val(newArr);
+    }
+
+    function arrOnclick(id) {
+        var arr2 = '';
+        arr.splice(id, 1);
+        $('#add-subject-parent #' + id).remove();
+
+        $('#add-subject-parent .add-subject-child').each(function (index) {
+            $(this).attr('id', index);
+            $(this).find('.t-close').attr('onclick', 'arrOnclick(' + index + ')');
+            $(this).find('#subject').attr('onChange', 'arrOnChange(' + index + ')');
+            $(this).find('#room').attr('onChange', 'arrOnChange(' + index + ')');
+            $(this).find('#grade_level').attr('onChange', 'arrOnChange(' + index + ')');
+            $(this).find('#schedule_time_in').attr('onChange', 'arrOnChange(' + index + ')');
+            $(this).find('#schedule_time_out').attr('onChange', 'arrOnChange(' + index + ')');
+            $(this).find('#schedule_day').attr('onChange', 'arrOnChange(' + index + ')');
+        })
+
+        arr.map((item, index) => {
+            arr2 += "['" + item[0] + "','" + item[1] + "','" + item[2] + "','" + item[3] + "','" + item[4] + "','" + item[5] + "'],";
+        })
+        var newArr = arr2.slice(0, -1).replace("],[", "] , [")
+        $('#add-subject').val(newArr);
     }
 
 </script>

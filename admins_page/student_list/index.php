@@ -136,6 +136,7 @@ if (isset($_POST['update-student-info'])) {
 
             .table-1 thead {
                 background-color: #ed7d31;
+                color: white;
             }
         </style>
 
@@ -607,7 +608,7 @@ if (isset($_POST['update-student-info'])) {
                 </form>
             </div>
             <div id="view-student-enrollment" class="modal-child pad-bottom-2em d-none">
-                <div class="d-flex-end gap-1em">
+                <div class="d-flex-end gap-1em m-b-1em">
                     <button
                             class="btn bg-hover-gray-dark-v1" onclick="showModal('add-enrollment', 'New Enrollment')">
                         Add New

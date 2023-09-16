@@ -413,7 +413,8 @@
 .w-8em {
     width: 8em;
 }
-.w-27em{
+
+.w-27em {
     width: 27em;
 }
 
@@ -469,7 +470,7 @@
     width: 3em;
 }
 
-.w-98p{
+.w-98p {
     width: 98%;
 }
 
@@ -520,16 +521,19 @@
 .w-15em {
     width: 15em;
 }
-.bg-none{
+
+.bg-none {
     background: none !important;
 }
 
 .b-shadow-none {
     box-shadow: none !important;
 }
-.b-none{
+
+.b-none {
     border: none !important;
 }
+
 .b-radius-10px {
     border-radius: 10px;
 }
@@ -538,7 +542,7 @@
     border-radius: 2em;
 }
 
-.btm-1em{
+.btm-1em {
     bottom: 1em;
 }
 
@@ -550,7 +554,7 @@
     border: 1px solid black;
 }
 
-.b-2px-black{
+.b-2px-black {
     border: 2px solid black !important;
 }
 
@@ -562,11 +566,11 @@
     border-bottom: 3px solid gray !important;
 }
 
-.b-bottom-light-gray-3px{
+.b-bottom-light-gray-3px {
     border-bottom: 3px solid #80808038 !important;
 }
 
-.b-top-gray-3px{
+.b-top-gray-3px {
     border-top: 3px solid gray !important;
 }
 
@@ -574,11 +578,11 @@
     border-right: 2px solid white;
 }
 
-.b-top-none{
+.b-top-none {
     border-top: none !important;
 }
 
-.b-bottom-none{
+.b-bottom-none {
     border-bottom: none !important;
 }
 
@@ -588,6 +592,19 @@
 
 .b-r-7px {
     border-radius: 7px;
+}
+
+.f-r {
+    float: right;
+}
+
+.t-close {
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+.t-close:hover {
+    opacity: 1;
 }
 
 .d-flex-center {
@@ -677,15 +694,19 @@
 .pad-top-2em {
     padding-top: 2em;
 }
-.pad-bottom-2em{
+
+.pad-bottom-2em {
     padding-bottom: 2em;
 }
-.pad-top-6em{
+
+.pad-top-6em {
     padding-top: 6em !important
 }
-.pad-bottom-6em{
+
+.pad-bottom-6em {
     padding-bottom: 6em !important;
 }
+
 .pad-5px {
     padding: 5px;
 }
@@ -717,7 +738,8 @@
 .m-l-1em {
     margin-left: 1em;
 }
-.m-l-6em{
+
+.m-l-6em {
     margin-left: 6em;
 }
 
@@ -745,7 +767,7 @@
     margin-bottom: 0;
 }
 
-.m-b-1em{
+.m-b-1em {
     margin-bottom: 1em;
 }
 
@@ -761,7 +783,7 @@
     margin-top: 3em;
 }
 
-.m-t-1em{
+.m-t-1em {
     margin-top: 1em;
 }
 
@@ -773,7 +795,7 @@
     margin-top: 5px;
 }
 
-.m-t-2em{
+.m-t-2em {
     margin-top: 2em;
 }
 
@@ -789,7 +811,7 @@
     right: 0;
 }
 
-.r-1em{
+.r-1em {
     right: 1em;
 }
 
@@ -832,6 +854,7 @@
 .z-i-9999 {
     z-index: 9999;
 }
+
 .z-i-999910 {
     z-index: 999910;
 }
@@ -870,10 +893,10 @@
     opacity: 0;
 }
 
-.gap-1em{
+.gap-1em {
     gap: 1em;
 }
 
-.sc-1-3{
+.sc-1-3 {
     scale: 1.3;
 }
