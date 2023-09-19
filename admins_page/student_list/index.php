@@ -149,7 +149,8 @@ if (isset($_POST['update-student-info'])) {
                     </h3>
                     <div class="r-50px p-absolute t-54px">
                         <button
-                                class="btn bg-hover-gray-dark-v1" onclick="showModal('add-new-student', 'New Students')">
+                                class="btn bg-hover-gray-dark-v1"
+                                onclick="showModal('add-new-student', 'New Students')">
                             Add New
                         </button>
                         <button
@@ -443,11 +444,6 @@ if (isset($_POST['update-student-info'])) {
                                 class="c-hand btn-success btn"
                                 name="add-new-student">Submit
                         </button>
-                        <div>
-                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
-                                Close
-                            </label>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -473,9 +469,6 @@ if (isset($_POST['update-student-info'])) {
                     <button class="c-hand btn-primary btn"
                             name="save" onclick="updateStudentInformation()">Update
                     </button>
-                    <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
-                        Close
-                    </label>
                 </div>
             </div>
             <div id="update-student-info" class="modal-child d-none">
@@ -596,13 +589,14 @@ if (isset($_POST['update-student-info'])) {
                     </div>
                     <div class="b-top-gray-3px m-1em">
                         <div class="r-50px d-flex-end gap-1em m-t-1em">
+                            <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                                   onclick="showModal('view-student-info','Student Information', 'dark')">
+                                Back
+                            </label>
                             <button type="submit"
                                     class="c-hand btn-success btn"
                                     name="update-student-info">Submit
                             </button>
-                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
-                                Close
-                            </label>
                         </div>
                     </div>
                 </form>
@@ -800,13 +794,14 @@ if (isset($_POST['update-student-info'])) {
                     </div>
                     <div class="b-top-gray-3px p-absolute btm-1em w-98p">
                         <div class="r-50px d-flex-end gap-1em m-t-1em">
+                            <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                                   onclick="showModal('view-student-enrollment','Student Enrollment')">
+                                Back
+                            </label>
                             <button type="submit"
                                     class="c-hand btn-success btn"
                                     name="add-enrollment">Submit
                             </button>
-                            <label class="btn bg-hover-gray-dark-v1 m-b-0" onclick="closeModal()">
-                                Close
-                            </label>
                         </div>
                     </div>
                 </form>
@@ -997,7 +992,7 @@ if (isset($_POST['update-student-info'])) {
                         <tr>
                             <th scope="col">2</th>
                             <th scope="col">MATH</th>
-                            <th scope="col">&nbsp;THE WORLDS OF </th>
+                            <th scope="col">&nbsp;THE WORLDS OF</th>
                             <th scope="col">G5</th>
                             <th scope="col">AVALABLE</th>
                         </tr>
@@ -1061,7 +1056,7 @@ if (isset($_POST['update-student-info'])) {
                         Back
                     </label>
                     <button class="c-hand btn-success btn"
-                           >Add
+                    >Add
                     </button>
                 </div>
             </div>

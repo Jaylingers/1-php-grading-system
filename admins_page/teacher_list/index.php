@@ -23,6 +23,8 @@ if (isset($_POST['lrn'])) {
         echo '</script>';
     }
 }
+
+
 if (isset($_POST['add-new-teacher'])) {
     $lrn = $_POST['lrn-add'];
     $fullName = $_POST['fullName'];
@@ -87,6 +89,49 @@ function debug_to_console($data, $context = 'Debug in Console')
     echo $output;
 }
 
+if (isset($_POST['add-new-subject'])) {
+    $lrn = $_GET['lrn'];
+    $name = $_GET['name'] . '"s';
+    $subject = $_POST['subject'];
+    $room = $_POST['room'];
+    $grade_level = $_POST['grade-level'];
+    $time_in = $_POST['time-in'];
+    $time_out = $_POST['time-out'];
+    $schedule_day = $_POST['schedule-day'];
+
+    $sql = "insert into teachers_subject_info (subject,room,grade_level,schedule_time_in, schedule_time_out,schedule_day,teachers_info_lrn) values ('$subject','$room','$grade_level','$time_in','$time_out','$schedule_day','$lrn')";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        echo '<script>';
+        echo '
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&lrn=' . $lrn . '&&name=' . $name . '");
+                window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
+
+if (isset($_POST['teacherSubjectID'])) {
+
+    $id = $_POST['teacherSubjectID'];
+    $sqlDelete = "delete from teachers_subject_info where id = '$id'";
+    $resultDelete = mysqli_query($conn, $sqlDelete);
+
+}
+
+if (isset($_POST['edit-subject'])) {
+    $subject = $_POST['edit-subject-name'];
+    $room = $_POST['edit-room'];
+    $grade_level = $_POST['edit-grade-level'];
+    $time_in = $_POST['edit-time-in'];
+    $time_out = $_POST['edit-time-out'];
+    $schedule_day = $_POST['edit-schedule-day'];
+    $id = $_POST['edit-id'];
+    $sqlUpdate = "update teachers_subject_info set subject='$subject', room='$room', grade_level='$grade_level', schedule_time_in='$time_in', schedule_time_out='$time_out', schedule_day='$schedule_day' where id='$id'";
+    $resultUpdate = mysqli_query($conn, $sqlUpdate);
+
+}
 ?>
 
 <div class="d-flex-end p-absolute w-100p h-100p t-60px">
@@ -208,7 +253,7 @@ function debug_to_console($data, $context = 'Debug in Console')
                                     &nbsp;
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewteacherInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                    >teachers</label>
+                                    >Students</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -351,7 +396,7 @@ function debug_to_console($data, $context = 'Debug in Console')
                         <div class="custom-grid-item">
                             <div>
                                 Add Subject &nbsp;<label class="btn btn-primary" onclick="addSubject()">+</label>
-                                <input type="text" id="add-subject" name="add-subject">
+                                <input type="hidden" id="add-subject" name="add-subject">
                             </div>
                             <div id="add-subject-parent">
 
@@ -366,15 +411,15 @@ function debug_to_console($data, $context = 'Debug in Console')
                     </div>
                 </form>
             </div>
-            <div id="view-teacher-enrollment" class="modal-child pad-bottom-2em d-none">
+            <div id="view-subject-loads" class="modal-child pad-bottom-2em d-none">
                 <div class="d-flex-end gap-1em">
                     <button
-                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-enrollment', 'New Enrollment')">
+                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-new-subject', 'Add New Subject')">
                         Add New
                     </button>
                     <button
                             class="btn bg-hover-gray-dark-v1"
-                            onclick="deleteTeachers('teacher-enrollment')">Delete Selected
+                            onclick="deleteTeachers('teacher-subject')">Delete Selected
                     </button>
                 </div>
                 <?php
@@ -382,22 +427,22 @@ function debug_to_console($data, $context = 'Debug in Console')
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     $name = $_GET['name'] . '"s';
-                    echo "<script>showModal('view-teacher-enrollment', '$name Subjects')</script>";
-                    $sql = " select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ";
+                    echo "<script>showModal('view-subject-loads', '$name Subjects')</script>";
+                    $sql = " select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ";
                     $teachers_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($teachers_enrollment_info_result);
                     $lrn = $row['id'] + 1;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "teachers".
-                    $total_pages = $mysqli->query("select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select id, subject, grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time' from teachers_subject_info where teachers_info_lrn='$lrns' ORDER BY id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select id, subject, grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ORDER BY id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -409,10 +454,10 @@ function debug_to_console($data, $context = 'Debug in Console')
                         <table class="table table-1 m-t-1em">
                             <thead>
                             <tr>
-                                <th class="t-align-center"><label for="teacher-enrollment-cb"
+                                <th class="t-align-center"><label for="teacher-subject-cb"
                                                                   class="d-flex-center"></label><input
-                                            id="teacher-enrollment-cb" type="checkbox"
-                                            onclick="checkCBteachers('teacher-enrollment','teacher-enrollment-cb')"
+                                            id="teacher-subject-cb" type="checkbox"
+                                            onclick="checkCBteachers('teacher-subject','teacher-subject-cb')"
                                             class="sc-1-3 c-hand"/></th>
                                 <th>No</th>
                                 <th>Subject</th>
@@ -423,7 +468,7 @@ function debug_to_console($data, $context = 'Debug in Console')
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody id="teacher-enrollment">
+                            <tbody id="teacher-subject">
                             <?php
                             $i = 0;
                             while ($row = $teachers_enrollment_info_result->fetch_assoc()):
@@ -442,8 +487,7 @@ function debug_to_console($data, $context = 'Debug in Console')
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="showGrade('<?= $row['fullname'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
-                                            Grade</label>
+                                               onclick="editSubject('<?= $row['id'] ?>','<?= $row['subject'] ?>','<?= $row['grade_level'] ?>','<?= $row['schedule_day'] ?>','<?= $row['room'] ?>','<?= $row['schedule_time_in'] ?>','<?= $row['schedule_time_out'] ?>')">Edit</label>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -512,6 +556,119 @@ function debug_to_console($data, $context = 'Debug in Console')
                 </div>
 
             </div>
+            <div id="add-new-subject" class="modal-child d-none">
+                <form method="post">
+                    <div class="custom-grid-container" tabindex="2">
+                        <div class="custom-grid-item ">
+                            <div class="w-70p m-l-1em">Subject</div>
+                            <input placeholder="Subject" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="subject"
+                                   name="subject"
+                                   required>
+                            <div class="w-70p m-l-1em">Room</div>
+                            <input placeholder="Room" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="room"
+                                   name="room"
+                                   required>
+                            <div class="w-70p m-l-1em">Grade Level</div>
+                            <input placeholder="Grade Level" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="grade-level"
+                                   name="grade-level"
+                                   required>
+                            <div class="w-70p m-l-1em">Time In</div>
+                            <input placeholder="Time In" type="time"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="time-in"
+                                   name="time-in"
+                                   required>
+                            <div class="w-70p m-l-1em">Time Out</div>
+                            <input placeholder="Time Out" type="time"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="time-out"
+                                   name="time-out"
+                                   required>
+                            <div class="w-70p m-l-1em">Schedule Day</div>
+                            <input placeholder="Schedule Day" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule-day"
+                                   name="schedule-day"
+                                   required>
+
+                        </div>
+                    </div>
+                    <div class="d-flex-end">
+                        <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                               onclick="showModal('view-subject-loads',' <?= $_GET['name'] . 's' ?>  Subjects')">
+                            Back
+                        </label>
+                        &nbsp; &nbsp;
+                        <button type="submit"
+                                class="c-hand btn-success btn"
+                                name="add-new-subject">Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="edit-subject" class="modal-child d-none">
+                <form method="post">
+                    <div class="custom-grid-container" tabindex="2">
+                        <div class="custom-grid-item ">
+                            <input placeholder="id" type="hidden"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="edit-id"
+                                   name="edit-id"
+                                   readonly="true">
+                            <div class="w-70p m-l-1em">Subject</div>
+                            <input placeholder="Subject" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="edit-subject-name"
+                                   name="edit-subject-name"
+                                   required>
+                            <div class="w-70p m-l-1em">Room</div>
+                            <input placeholder="Room" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="edit-room"
+                                   name="edit-room"
+                                   required>
+                            <div class="w-70p m-l-1em">Grade Level</div>
+                            <input placeholder="Grade Level" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="edit-grade-level"
+                                   name="edit-grade-level"
+                                   required>
+                            <div class="w-70p m-l-1em">Time In</div>
+                            <input placeholder="Time In" type="time"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="edit-time-in"
+                                   name="edit-time-in"
+                                   required>
+                            <div class="w-70p m-l-1em">Time Out</div>
+                            <input placeholder="Time Out" type="time"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="edit-time-out"
+                                   name="edit-time-out"
+                                   required>
+                            <div class="w-70p m-l-1em">Schedule Day</div>
+                            <input placeholder="Schedule Day" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="edit-schedule-day"
+                                   name="edit-schedule-day"
+                                   required>
+
+                        </div>
+                    </div>
+                    <div class="d-flex-end">
+                        <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                               onclick="showModal('view-subject-loads',' <?= $_GET['name'] . 's' ?>  Subjects')">
+                            Back
+                        </label>
+                        &nbsp; &nbsp;
+                        <button type="submit"
+                                class="c-hand btn-success btn"
+                                name="edit-subject">Save
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -538,21 +695,20 @@ function debug_to_console($data, $context = 'Debug in Console')
         if (teacherCount > 0) {
             var r = confirm("Are you sure you want to delete ?");
             if (r === true) {
-                var isteacherEnrollment = false;
-                teacherID.forEach(function (studId) {
-
-                    if (id === 'teacher-enrollment') {
-                        $.post('', {teacherEnrollmentId: studId})
-                        isteacherEnrollment = true;
+                var status = '';
+                teacherID.forEach(function (teachSubjID) {
+                    if (id === 'teacher-subject') {
+                        $.post('', {teacherSubjectID: teachSubjID})
+                        status = 'teacher-subject';
                     } else {
                         $.post('', {lrn: studId})
                     }
                 });
-                if (isteacherEnrollment) {
+                if (status === 'teacher-subject') {
                     <?php
                     if (isset($_GET['lrn'])) {
                     ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?> &&name=<?php echo $_GET['name']?>');
                     <?php } ?>
                 } else {
                     history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
@@ -562,7 +718,12 @@ function debug_to_console($data, $context = 'Debug in Console')
 
             }
         } else {
-            alert('Please select a teacher!');
+            if (id === 'teacher-subject') {
+                alert('Please select a subject!');
+            } else {
+                alert('Please select a teacher!');
+            }
+
         }
     }
 
@@ -670,6 +831,17 @@ function debug_to_console($data, $context = 'Debug in Console')
         })
         var newArr = arr2.slice(0, -1).replace("],[", "] , [")
         $('#add-subject').val(newArr);
+    }
+
+    function editSubject(id, subject, gradeLevel, scheduleDay, room, scheduleTimeIn, scheduleTimeOut) {
+        $('#edit-subject #edit-id').val(id);
+        $('#edit-subject #edit-subject-name').val(subject);
+        $('#edit-subject #edit-room').val(room);
+        $('#edit-subject #edit-grade-level').val(gradeLevel);
+        $('#edit-subject #edit-time-in').val(scheduleTimeIn);
+        $('#edit-subject #edit-time-out').val(scheduleTimeOut);
+        $('#edit-subject #edit-schedule-day').val(scheduleDay);
+        showModal('edit-subject', 'Edit Subject');
     }
 
 </script>
