@@ -94,47 +94,101 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
 
-        <div class=" h-4em d-flex-center m-t-5px">
-            <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('teacher_list')" <?php if ($var === "teacher_list") { ?> style="background: #bababa;"  <?php } ?>>
-                Teacher List
-            </div>
-            <div class="d-flex-end w-4em"></div>
-        </div>
+
+
+
         <div class=" h-4em d-flex-center m-t-5px">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('user_list')" <?php if ($var === "user_list") { ?> style="background: #bababa;"  <?php } ?>>
-                User List
+                 onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "student_list" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                Records
             </div>
-            <div class="d-flex-end w-4em "></div>
+            <div class="d-flex-end w-4em">
+                <div id="arrowLeftButton_records" class="w-1-5em h-1-5em c-hand "
+                     onclick="saveKeyOnLocalStorage(this,'studArrowLeft_records','recordsTab')"></div>
+            </div>
         </div>
+
+        <div id="recordsTab" class="ov-hidden transition-0-5s " style="height: 0">
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('promote_student')" <?php if ($var === "promote_student") { ?> style="background: #bababa;"  <?php } ?>>
+                    Promote Student
+                </div>
+            </div>
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Student List
+                </div>
+            </div>
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('subject_list')" <?php if ($var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Subject List
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class=" h-4em d-flex-center m-t-5px">
+            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                 onclick="selectTab('maintenance')" <?php if ($var === "maintenance" || $var === "school_year" || $var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
+                Maintenance
+            </div>
+            <div class="d-flex-end w-4em">
+                <div id="arrowLeftButton_maintenance" class="w-1-5em h-1-5em c-hand "
+                     onclick="saveKeyOnLocalStorage(this,'studArrowLeft_maintenance','maintenanceTab')"></div>
+            </div>
+        </div>
+
+        <div id="maintenanceTab" class="ov-hidden transition-0-5s " style="height: 0">
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
+                    School Year
+                </div>
+            </div>
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
+                  Grade List
+                </div>
+            </div>
+        </div>
+
+
+
+<!--        <div class=" h-4em d-flex-center m-t-5px">-->
+<!--            <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"-->
+<!--                 onclick="selectTab('teacher_list')" --><?php //if ($var === "teacher_list") { ?><!-- style="background: #bababa;"  --><?php //} ?>
+<!--                Teacher List-->
+<!--            </div>-->
+<!--            <div class="d-flex-end w-4em"></div>-->
+<!--        </div>-->
+
         <div class=" h-4em  d-flex-center m-t-5px">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                  onclick="selectTab('create_announcement')" <?php if ($var === "create_announcement") { ?> style="background: #bababa;"  <?php } ?>>
                 Create Announcement
             </div>
             <div class="d-flex-end w-4em m-t-5px"></div>
-        </div>
-        <div class=" h-4em  d-flex-center m-t-5px">
-            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('events')" <?php if ($var === "events") { ?> style="background: #bababa;"  <?php } ?>>
-                Events
-            </div>
-            <div class="d-flex-end w-4em m-t-5px"></div>
-        </div>
-        <div class=" h-4em d-flex-center m-t-5px">
-            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('department_list')" <?php if ($var === "department_list") { ?> style="background: #bababa;"  <?php } ?>>
-                Department List
-            </div>
-            <div class="d-flex-end w-4em "></div>
-        </div>
-        <div class=" h-4em  d-flex-center m-t-5px">
-            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('class_subject')" <?php if ($var === "class_subject") { ?> style="background: #bababa;"  <?php } ?>>
-                Class Subject
-            </div>
-            <div class="d-flex-end w-4em "></div>
         </div>
         <div class=" h-5em  d-flex-center m-t-5px">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
@@ -202,6 +256,10 @@ if (!isset($_SESSION['username'])) {
     function selectTab(tab) {
         if (tab === 'add_user') {
             saveKeyOnLocalStorage('#arrowLeftButton', 'studArrowLeft', 'userTab');
+        } else if (tab === 'add_records') {
+            saveKeyOnLocalStorage('#arrowLeftButton_records', 'studArrowLeft_records', 'recordsTab');
+        }else if (tab === 'maintenance') {
+            saveKeyOnLocalStorage('#arrowLeftButton_maintenance', 'studArrowLeft_maintenance', 'maintenanceTab');
         } else {
             window.location.href = "/1-php-grading-system/admins_page/" + tab + "/?id=" + <?= $rows['id'] ?>;
         }
@@ -209,8 +267,12 @@ if (!isset($_SESSION['username'])) {
 
     function saveKeyOnLocalStorage(e, keyName, tabName) {
 
-        if (tabName === 'userTab') {
-            $('#' + tabName).toggleClass('h-8-5em')
+        if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab') {
+            $('#' + tabName).toggleClass(
+                tabName === 'userTab' ? 'h-8-5em'
+                    : tabName === 'recordsTab' ? 'h-12-5em'
+                        : tabName === 'maintenanceTab' ? 'h-8-5em'
+                            : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
                 $(e).addClass('bg-img-1')
@@ -234,6 +296,26 @@ if (!isset($_SESSION['username'])) {
         } else {
             $('#arrowLeftButton').addClass('bg-img-1')
             $('#userTab').removeClass('h-8-5em')
+        }
+
+        let get_rec = localStorage.getItem('studArrowLeft_records');
+
+        if (get_rec === '1') {
+            $('#arrowLeftButton_records').addClass('bg-img-2')
+            $('#recordsTab').addClass('h-12-5em')
+        } else {
+            $('#arrowLeftButton_records').addClass('bg-img-1')
+            $('#recordsTab').removeClass('h-12-5em')
+        }
+
+        let get_main = localStorage.getItem('studArrowLeft_maintenance');
+
+        if (get_main === '1') {
+            $('#arrowLeftButton_maintenance').addClass('bg-img-2')
+            $('#maintenanceTab').addClass('h-8-5em')
+        } else {
+            $('#arrowLeftButton_maintenance').addClass('bg-img-1')
+            $('#maintenanceTab').removeClass('h-8-5em')
         }
     }
 

@@ -63,10 +63,9 @@ if (isset($_POST['add-new-student'])) {
     $emailAddress = $_POST['emailAddress'];
     $homeAddress = $_POST['homeAddress'];
     $guardianName = $_POST['guardianName'];
-    $gradeLevel = $_POST['gradeLevel'];
     $lrn = $_POST['lrn'];
 
-    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,g_level,guardian_name) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$gradeLevel', '$guardianName')";
+    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -99,10 +98,9 @@ if (isset($_POST['update-student-info'])) {
     $emailAddress = $_POST['up-emailAddress'];
     $homeAddress = $_POST['up-homeAddress'];
     $guardianName = $_POST['up-guardianName'];
-    $gradeLevel = $_POST['up-gradeLevel'];
     $lrn = $_POST['up-lrn'];
     $sql = "update students_info set f_name = '$firstName', l_name = '$lastName', m_name = '$middleName', gender = '$gender', b_date='$birthDate', b_place = '$birthPlace', c_status = '$civilStatus'
-                     , age = '$age', nationality = '$nationality', religion = '$religion', contact_number = '$contactNumber', email_address = '$emailAddress', home_address = '$homeAddress', guardian_name='$guardianName', g_level='$gradeLevel' where lrn = '$lrn'";
+                     , age = '$age', nationality = '$nationality', religion = '$religion', contact_number = '$contactNumber', email_address = '$emailAddress', home_address = '$homeAddress', guardian_name='$guardianName' where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -162,20 +160,32 @@ if (isset($_POST['update-student-info'])) {
                 <br/>
 
                 <?php
-                $sql = "select * from students_info order by id desc";
+                $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        GROUP BY si.id order by si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 $lrn = $row['id'] + 1;
-                $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
+                $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "students".
-                $total_pages = $mysqli->query('SELECT * FROM students_info')->num_rows;
+                $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare('SELECT * FROM students_info ORDER BY id LIMIT ?,?')) {
+                if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
                     $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -240,7 +250,6 @@ if (isset($_POST['update-student-info'])) {
                 ?>
             </div>
         </div>
-
         <div class="m-2em d-flex-end m-t-n1em">
             <div class="d-flex-center">
                 <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
@@ -317,12 +326,12 @@ if (isset($_POST['update-student-info'])) {
                     <div class="custom-grid-container" tabindex="3">
                         <div class="custom-grid-item">
                             <div class="w-70p m-l-1em">ID Number</div>
-                            <input placeholder="<?php echo $lrn ?>" type="text"
+                            <input placeholder="<?php echo $lrns1 ?>" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="lrn"
                                    name="lrn"
                                    readonly="true"
-                                   value="<?php echo $lrn ?>">
+                                   value="<?php echo $lrns1 ?>">
                             <div class="w-70p m-l-1em">Lastname</div>
                             <input placeholder="Last Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -423,12 +432,6 @@ if (isset($_POST['update-student-info'])) {
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="emailAddress"
                                    name="emailAddress"
-                                   required>
-                            <div class="w-70p m-l-1em">Grade Level</div>
-                            <input placeholder="Grade Level" type="number"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                   id="gradeLevel"
-                                   name="gradeLevel"
                                    required>
                         </div>
                     </div>
@@ -579,12 +582,6 @@ if (isset($_POST['update-student-info'])) {
                                    id="up-emailAddress"
                                    name="up-emailAddress"
                                    required>
-                            <div class="w-70p m-l-1em">Grade Level</div>
-                            <input placeholder="Grade Level" type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                   id="up-gradeLevel"
-                                   name="up-gradeLevel"
-                                   required>
                         </div>
                     </div>
                     <div class="b-top-gray-3px m-1em">
@@ -616,21 +613,27 @@ if (isset($_POST['update-student-info'])) {
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ";
+                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            GROUP BY sei.grade order by sei.id ASC";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($students_enrollment_info_result);
                     $lrn = $row['id'] + 1;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status,sei.id from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            GROUP BY sei.grade order by sei.id ASC")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id  from students_info si inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' ORDER BY si.id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            GROUP BY sei.grade order by sei.id ASC LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
