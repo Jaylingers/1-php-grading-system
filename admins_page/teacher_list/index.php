@@ -130,27 +130,7 @@ if (isset($_POST['edit-subject'])) {
     $id = $_POST['edit-id'];
     $sqlUpdate = "update teachers_subject_info set subject='$subject', room='$room', grade_level='$grade_level', schedule_time_in='$time_in', schedule_time_out='$time_out', schedule_day='$schedule_day' where id='$id'";
     $resultUpdate = mysqli_query($conn, $sqlUpdate);
-}
 
-if (isset($_POST['studentID'])) {
-    $student_lrn = $_POST['studentID'];
-    $teacher_lrn = $_GET['teachers_lrn'];
-    $grade = $_GET['searchGrade'];
-
-    $sqlSelect = "select * from teachers_subject_info where teachers_info_lrn='$teacher_lrn' and grade_level='$grade'";
-    $resultSelect = mysqli_query($conn, $sqlSelect);
-    $row = mysqli_fetch_assoc($resultSelect);
-    foreach ($resultSelect as $key => $value) {
-        $value = $value['subject'];
-        $sql = "insert into students_grade_info (teacher_lrn, Student_lrn, subject, grade_level) values ('$teacher_lrn','$student_lrn', '$value', '$grade')";
-        $result = mysqli_query($conn, $sql);
-    }
-}
-
-if (isset($_POST['teacherStudentID'])) {
-    $teacherStudentID = $_POST['teacherStudentID'];
-    $sql = "delete from students_grade_info where student_lrn='$teacherStudentID[0]' and grade_level='$teacherStudentID[1]'";
-    $result = mysqli_query($conn, $sql);
 }
 ?>
 
@@ -268,11 +248,11 @@ if (isset($_POST['teacherStudentID'])) {
                                 <td><?= $row['email_address'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewTeacherEnrollment('<?= $row['lrn'] ?>', '<?= $row['fullname'] ?>')"
+                                           onclick="viewteacherEnrollment('<?= $row['lrn'] ?>', '<?= $row['fullname'] ?>')"
                                     >Subject Loads</label>
                                     &nbsp;
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewTeacherStudents('<?= $row['lrn'] ?>', '<?= $row['fullname'] ?>')"
+                                           onclick="viewteacherInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
                                     >Students</label>
                                 </td>
                             </tr>
@@ -481,7 +461,7 @@ if (isset($_POST['teacherStudentID'])) {
                                             class="sc-1-3 c-hand"/></th>
                                 <th>No</th>
                                 <th>Subject</th>
-                                <th>Grade</th>
+                                <th>Grade Level</th>
                                 <th>Day</th>
                                 <th>Room</th>
                                 <th>Schedule Time</th>
@@ -592,8 +572,8 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="room"
                                    name="room"
                                    required>
-                            <div class="w-70p m-l-1em">Grade</div>
-                            <input placeholder="Grade" type="text"
+                            <div class="w-70p m-l-1em">Grade Level</div>
+                            <input placeholder="Grade Level" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="grade-level"
                                    name="grade-level"
@@ -651,8 +631,8 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="edit-room"
                                    name="edit-room"
                                    required>
-                            <div class="w-70p m-l-1em">Grade</div>
-                            <input placeholder="Grade" type="text"
+                            <div class="w-70p m-l-1em">Grade Level</div>
+                            <input placeholder="Grade Level" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="edit-grade-level"
                                    name="edit-grade-level"
@@ -689,340 +669,6 @@ if (isset($_POST['teacherStudentID'])) {
                     </div>
                 </form>
             </div>
-            <div id="view-students" class="modal-child pad-bottom-2em d-none">
-                <div class="d-flex-end gap-1em">
-                    <button
-                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-students', 'Add Students')">
-                        Add Students
-                    </button>
-                    <button
-                            class="btn bg-hover-gray-dark-v1"
-                            onclick="deleteTeachers('teacher-students')">Delete Selected
-                    </button>
-                </div>
-                <?php
-
-                if (isset($_GET['teachers_lrn'])) {
-                    $lrns = $_GET['teachers_lrn'];
-                    $name = $_GET['name'] . '"s';
-                    echo "<script>showModal('view-students', '$name Students')</script>";
-                    $sql = "select ssi.id,si.lrn, CONCAT(si.f_name, ' ', si.l_name) as 'fullname', si.gender, ssi.grade_level from students_grade_info ssi left join students_info si on si.lrn = ssi.student_lrn where ssi.teacher_lrn='$lrns' GROUP BY ssi.grade_level desc ";
-                    $teachers_enrollment_info_result = mysqli_query($conn, $sql);
-                    $row = mysqli_fetch_assoc($teachers_enrollment_info_result);
-                    $lrn = $row['id'] + 1;
-                    $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
-
-                    // Get the total number of records from our table "teachers".
-                    $total_pages = $mysqli->query("select ssi.id,si.lrn, CONCAT(si.f_name, ' ', si.l_name) as 'fullname', si.gender, ssi.grade_level from students_grade_info ssi left join students_info si on si.lrn = ssi.student_lrn where ssi.teacher_lrn='$lrns' GROUP BY ssi.grade_level desc  ")->num_rows;
-                    //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
-                    $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
-//jay
-                    // Number of results to show on each page.
-                    $num_results_on_page = 5;
-
-                    if ($stmt = $mysqli->prepare("select ssi.id,si.lrn, CONCAT(si.f_name, ' ', si.l_name) as 'fullname', si.gender, ssi.grade_level from students_grade_info ssi left join students_info si on si.lrn = ssi.student_lrn where ssi.teacher_lrn='$lrns' GROUP BY ssi.grade_level ORDER BY id LIMIT ?,?")) {
-                        //    Calculate the page to get the results we need from our table.
-                        $calc_page = ($page - 1) * $num_results_on_page;
-                        $stmt->bind_param('ii', $calc_page, $num_results_on_page);
-                        $stmt->execute();
-                        // Get the results...
-                        $teachers_enrollment_info_result = $stmt->get_result();
-                        ?>
-
-                        <table class="table table-1 m-t-1em">
-                            <thead>
-                            <tr>
-                                <th class="t-align-center"><label for="teacher-subject-cb"
-                                                                  class="d-flex-center"></label><input
-                                            id="teacher-subject-cb" type="checkbox"
-                                            onclick="checkCBteachers('teacher-students','teacher-subject-cb')"
-                                            class="sc-1-3 c-hand"/></th>
-                                <th>No</th>
-                                <th>LRN</th>
-                                <th>Fullname</th>
-                                <th>Sex</th>
-                                <th>Grade</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody id="teacher-students">
-                            <?php
-                            $i = 0;
-                            while ($row = $teachers_enrollment_info_result->fetch_assoc()):
-                                $i++;
-                                ?>
-                                <tr>
-                                    <td class="d-flex-center"><label>
-                                            <input type="checkbox" class="sc-1-3 c-hand check"
-                                                   id="<?= $row['lrn'] ?>,<?= $row['grade_level'] ?>"/>
-                                        </label></td>
-                                    <th scope="row"><?= $i ?> </th>
-                                    <th scope="row"><?= $row['lrn'] ?> </th>
-                                    <th scope="row"><?= $row['fullname'] ?> </th>
-                                    <th scope="row"><?= $row['gender'] ?></th>
-                                    <th scope="row"><?= $row['grade_level'] ?></th>
-                                    <td>
-                                        <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="editSubject('<?= $row['id'] ?>','<?= $row['subject'] ?>','<?= $row['grade_level'] ?>','<?= $row['schedule_day'] ?>','<?= $row['room'] ?>','<?= $row['schedule_time_in'] ?>','<?= $row['schedule_time_out'] ?>')">View
-                                            Grade</label>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                            </tbody>
-                        </table>
-
-                        <?php
-                        $stmt->close();
-                    }
-                }
-                ?>
-                <div class="m-2em d-flex-end m-t-n1em">
-                    <div class="d-flex-center">
-                        <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                            <ul class="pagination">
-                                <?php if ($page > 1): ?>
-                                    <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page > 3): ?>
-                                    <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
-                                    </li>
-                                    <li class="dots">...</li>
-                                <?php endif; ?>
-
-                                <?php if ($page - 2 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page - 1 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                    </li><?php endif; ?>
-
-                                <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
-                                </li>
-
-                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                    </li><?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                                    <li class="dots">...</li>
-                                    <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                                    <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/teacher_list/?id=<?php echo $rows['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-            </div>
-            <div id="add-students" class="modal-child d-none">
-                Search Grade:
-                <?php
-                if (isset($_GET['teachers_lrn'])) {
-                    $teacher_lrn = $_GET['teachers_lrn'];
-                    $sql = "select * from teachers_subject_info where teachers_info_lrn='$teacher_lrn' GROUP BY grade_level order by grade_level ASC";
-                    $result = mysqli_query($conn, $sql);
-
-                    if (mysqli_num_rows($result)) { ?>
-                        <select name="student_grade" id="student_grade" onchange="changeStudentGrade()">
-                            <option value=""></option>
-                            <?php
-                            $i = 0;
-                            while ($rows = mysqli_fetch_assoc($result)) {
-                                $i++;
-                                ?>
-                                <?php if ($rows['grade_level'] == $_GET['searchGrade']) { ?>
-                                    <option value="<?= $rows['grade_level'] ?>"
-                                            selected> <?= $rows['grade_level'] ?> </option>
-                                <?php } else { ?>
-                                    <option value="<?= $rows['grade_level'] ?>"><?= $rows['grade_level'] ?></option>
-                                <?php } ?>
-                            <?php } ?>
-                        </select>
-                    <?php }
-                } ?>
-
-                <div class="m-2em d-flex-align-start">
-                    <div class="bg-white w-100p b-radius-10px">
-                        <?php
-                        if (isset($_GET['searchGrade'])) {
-                            $searchGrade = $_GET['searchGrade'];
-                            echo "<script>showModal('add-students', 'Add Students')</script>";
-
-                            $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
-                        FROM `students_info` si 
-                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        where sei.grade = '$searchGrade'
-                        GROUP BY si.id order by sei.students_info_lrn DESC";
-                            $result = mysqli_query($conn, $sql);
-                            $row = mysqli_fetch_assoc($result);
-                            $lrn = $row['id'] + 1;
-                            $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
-
-                            // Get the total number of records from our table "students".
-                            $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
-                        FROM `students_info` si 
-                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                          where sei.grade = '$searchGrade'
-                        GROUP BY si.id order by sei.students_info_lrn DESC")->num_rows;
-                            // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
-                            $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-                            // Number of results to show on each page.
-                            $num_results_on_page = 10;
-
-                            if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
-                        FROM `students_info` si 
-                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                          where sei.grade = '$searchGrade'
-                        GROUP BY si.id order by sei.students_info_lrn DESC LIMIT ?,?")) {
-                                // Calculate the page to get the results we need from our table.
-                                $calc_page = ($page - 1) * $num_results_on_page;
-                                $stmt->bind_param('ii', $calc_page, $num_results_on_page);
-                                $stmt->execute();
-                                // Get the results...
-                                $result = $stmt->get_result();
-                                ?>
-
-                                <table class="table table-1 ">
-                                    <thead>
-                                    <tr>
-                                        <th class="t-align-center"><label for="student-list-cb"
-                                                                          class="d-flex-center"></label><input
-                                                    id="student-list-cb" type="checkbox"
-                                                    onclick="checkCBStudents('student-list', 'student-list-cb')"
-                                                    class="sc-1-3 c-hand"/></th>
-                                        <th>No</th>
-                                        <th>LRN</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Birthdate</th>
-                                        <th>Age</th>
-                                        <th>Sex</th>
-                                        <th>Grade</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="student-list">
-                                    <?php
-                                    $i = 0;
-                                    while ($row = $result->fetch_assoc()):
-                                        $i++;
-                                        ?>
-                                        <tr>
-                                            <td class="d-flex-center"><label>
-                                                    <input type="checkbox" class="sc-1-3 c-hand check"
-                                                           id="<?= $row['lrn'] ?>"/>
-                                                </label></td>
-                                            <th scope="row"><?= $i ?> </th>
-                                            <td><?= $row['lrn'] ?></td>
-                                            <td><?= $row['f_name'] ?></td>
-                                            <td><?= $row['l_name'] ?></td>
-                                            <td><?= $row['b_date'] ?></td>
-                                            <td><?= $row['age'] ?></td>
-                                            <td><?= $row['gender'] ?></td>
-                                            <td><?= $_GET['searchGrade'] ?></td>
-                                        </tr>
-                                    <?php endwhile; ?>
-                                    </tbody>
-                                </table>
-                                <div class="m-2em d-flex-end m-t-n1em">
-                                    <div class="d-flex-center">
-                                        <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                                            <ul class="pagination">
-                                                <?php if ($page > 1): ?>
-                                                    <li class="prev"><a
-                                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
-                                                    </li>
-                                                <?php endif; ?>
-
-                                                <?php if ($page > 3): ?>
-                                                    <li class="start"><a
-                                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">1</a>
-                                                    </li>
-                                                    <li class="dots">...</li>
-                                                <?php endif; ?>
-
-                                                <?php if ($page - 2 > 0): ?>
-                                                    <li class="page"><a
-                                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                                    </li><?php endif; ?>
-                                                <?php if ($page - 1 > 0): ?>
-                                                    <li class="page"><a
-                                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                                    </li><?php endif; ?>
-
-                                                <li class="currentpage"><a
-                                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
-                                                </li>
-
-                                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                                    <li class="page"><a
-                                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                                    </li><?php endif; ?>
-                                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                                    <li class="page"><a
-                                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                                    </li><?php endif; ?>
-
-                                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                                                    <li class="dots">...</li>
-                                                    <li class="end"><a
-                                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                                                    </li>
-                                                <?php endif; ?>
-
-                                                <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                                                    <li class="next"><a
-                                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
-                                                    </li>
-                                                <?php endif; ?>
-                                            </ul>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                                <?php
-                                $stmt->close();
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <div class=" p-absolute btm-1em w-98p">
-                    <div class="r-50px d-flex-end gap-1em m-t-1em">
-                        <label class="btn bg-hover-gray-dark-v1 m-b-0"
-                               onclick="showModal('view-students',' <?= $_GET['name'] . 's' ?>  Students')">
-                            Back
-                        </label>
-                        <button type="submit"
-                                class="c-hand btn-success btn"
-                                onclick="addStudent('student-list')">Submit
-                        </button>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </div>
@@ -1051,33 +697,21 @@ if (isset($_POST['teacherStudentID'])) {
             if (r === true) {
                 var status = '';
                 teacherID.forEach(function (teachSubjID) {
-
                     if (id === 'teacher-subject') {
                         $.post('', {teacherSubjectID: teachSubjID})
                         status = 'teacher-subject';
-                    } else if (id === 'teacher-students') {
-                        teachSubjID = teachSubjID.split(',');
-                        $.post('', {teacherStudentID: teachSubjID})
-                        status = 'teacher-student';
                     } else {
-                        $.post('', {lrn: teachSubjID})
+                        $.post('', {lrn: studId})
                     }
-
                 });
                 if (status === 'teacher-subject') {
                     <?php
                     if (isset($_GET['lrn'])) {
                     ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&lrn=<?php echo $_GET['lrn']?>&&name=<?php echo $_GET['name']?>');
-                    <?php } ?>
-                } else if (status === 'teacher-student') {
-                    <?php
-                    if (isset($_GET['teachers_lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&teachers_lrn=<?php echo $_GET['teachers_lrn']?>&&name=<?php echo $_GET['name']?>');
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?> &&name=<?php echo $_GET['name']?>');
                     <?php } ?>
                 } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
                 }
                 alert('Successfully deleted!')
                 window.location.reload();
@@ -1086,8 +720,6 @@ if (isset($_POST['teacherStudentID'])) {
         } else {
             if (id === 'teacher-subject') {
                 alert('Please select a subject!');
-            } else if (id === 'teacher-students') {
-                alert('Please select a student!');
             } else {
                 alert('Please select a teacher!');
             }
@@ -1095,15 +727,9 @@ if (isset($_POST['teacherStudentID'])) {
         }
     }
 
-    function viewTeacherEnrollment(lrn, fullname) {
+    function viewteacherEnrollment(lrn, fullname) {
         var name = fullname.split(',')[0];
         history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn + '&&name=' + name);
-        window.location.reload();
-    }
-
-    function viewTeacherStudents(teachers_lrn, fullname) {
-        var name = fullname.split(',')[0];
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&teachers_lrn=' + teachers_lrn + '&&name=' + name);
         window.location.reload();
     }
 
@@ -1163,7 +789,7 @@ if (isset($_POST['teacherStudentID'])) {
 
         $('#add-subject-parent').append('<div id="' + count + '" class="add-subject-child b-1px-black b-radius-10px m-b-1em" style="background:#ed7d31"> <div onclick="arrOnclick(' + count + ')" class="w-2em t-align-center f-r c-hand t-close"> X </div>' +
         '<div class="w-70p m-l-1em m-t-1em">Subject</div><input onchange="arrOnChange(' + count + ')" placeholder="Subject" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="subject" name="subject" required> ' +
-        '<div class="w-70p m-l-1em">Room</div><input onchange="arrOnChange(' + count + ')" placeholder="room" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="room" name="room" required> <div class="w-70p m-l-1em">Grade</div><input onchange="arrOnChange(' + count + ')" placeholder="Grade" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="grade_level" name="grade_level" required><div class="w-70p m-l-1em">Time IN</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_in" name="schedule_time_in" required><div class="w-70p m-l-1em">Time Out</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_out" name="schedule_time_out" required>  ' +
+        '<div class="w-70p m-l-1em">Room</div><input onchange="arrOnChange(' + count + ')" placeholder="room" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="room" name="room" required> <div class="w-70p m-l-1em">Grade Level</div><input onchange="arrOnChange(' + count + ')" placeholder="Grade Level" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="grade_level" name="grade_level" required><div class="w-70p m-l-1em">Time IN</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_in" name="schedule_time_in" required><div class="w-70p m-l-1em">Time Out</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Time" type="time" class="h-3em  f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_time_out" name="schedule_time_out" required>  ' +
         '<div class="w-70p m-l-1em">Schedule Day</div><input onchange="arrOnChange(' + count + ')" placeholder="Schedule Day" type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" id="schedule_day" name="schedule_day" required></div> </div>')
         count++;
     }
@@ -1216,45 +842,6 @@ if (isset($_POST['teacherStudentID'])) {
         $('#edit-subject #edit-time-out').val(scheduleTimeOut);
         $('#edit-subject #edit-schedule-day').val(scheduleDay);
         showModal('edit-subject', 'Edit Subject');
-    }
-
-    function changeStudentGrade() {
-        var grade = $('#student_grade').val();
-        $.post('', {$searchGrade: grade})
-        var lrn = '<?php if (isset($_GET['teachers_lrn'])) echo $_GET['teachers_lrn']?>';
-        var name = '<?php if (isset($_GET['name'])) echo $_GET['name']?>';
-        var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-        history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGrade=' + grade + '&&teachers_lrn=' + lrn + '&&name=' + name);
-        window.location.reload();
-    }
-
-    function addStudent(id) {
-        var studentID = [];
-        var studentCount = 0;
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
-        });
-
-
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to add this student ?");
-            if (r === true) {
-                studentID.forEach(function (studentID) {
-                    $.post('', {studentID: studentID})
-                });
-
-                var lrn = '<?php if (isset($_GET['teachers_lrn'])) echo $_GET['teachers_lrn']?>';
-                var name = '<?php if (isset($_GET['name'])) echo $_GET['name']?>';
-                var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-                var grade = '<?php if (isset($_GET['searchGrade'])) echo $_GET['searchGrade']?>';
-                history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&teachers_lrn=' + lrn + '&&name=' + name);
-                window.location.reload();
-
-            }
-        } else {
-            alert('Please select a student!');
-        }
     }
 
 </script>

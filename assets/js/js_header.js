@@ -33,17 +33,11 @@ function showModal(id, title, theme) {
 function closeModal() {
     $('#myModal').css('display', 'none');
     $('body').css('overflow', 'auto');
-
     var url = window.location.href;
-    var arr = ['&&lrn=', '&&teachers_lrn=','&&searchGrade='];
-
-    arr.map((item) => {
-        item = url.substring(url.lastIndexOf(item))
-        if (!item.includes('http')) {
-            window.location.href = url.replace(item, '');
-        }
-    })
-
+    var id = url.substring(url.lastIndexOf('&&lrn='));
+    if(url.includes('lrn')){
+        window.location.href = url.replace(id, '');
+    }
 }
 
 function backModal(id, title, theme) {
