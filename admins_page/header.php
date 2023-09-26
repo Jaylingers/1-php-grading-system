@@ -64,23 +64,23 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class=" h-4em d-flex-center m-t-5px">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('students')" <?php if ($var === "students" || $var === "student_list" || $var === "student_behavior") { ?> style="background: #bababa;"  <?php } ?>>
-                Students
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
+                Add User
             </div>
             <div class="d-flex-end w-4em">
                 <div id="arrowLeftButton" class="w-1-5em h-1-5em c-hand "
-                     onclick="saveKeyOnLocalStorage(this,'studArrowLeft','studentTab')"></div>
+                     onclick="saveKeyOnLocalStorage(this,'studArrowLeft','userTab')"></div>
             </div>
         </div>
 
-        <div id="studentTab" class="ov-hidden transition-0-5s " style="height: 0">
+        <div id="userTab" class="ov-hidden transition-0-5s " style="height: 0">
             <div class=" h-4em d-flex-end m-t-5px">
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student List
+                     onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
+                    Add Student
                 </div>
             </div>
             <div class=" h-4em d-flex-end m-t-5px">
@@ -88,8 +88,8 @@ if (!isset($_SESSION['username'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_behavior')" <?php if ($var === "student_behavior") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student Behavior
+                     onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
+                    Add New User
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@ if (!isset($_SESSION['username'])) {
                                for="" onclick="tops()">
             ☰</label></div>
     <div class="d-flex-end w-70p">
-        <input type="text" placeholder="Search...">
+<!--        <input type="text" placeholder="Search...">-->
         <div class="d-flex-center m-l-13px m-r-13px">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['username'] ?></label>
         </div>
@@ -200,8 +200,8 @@ if (!isset($_SESSION['username'])) {
     }
 
     function selectTab(tab) {
-        if (tab === 'students') {
-            saveKeyOnLocalStorage('#arrowLeftButton', 'studArrowLeft', 'studentTab');
+        if (tab === 'add_user') {
+            saveKeyOnLocalStorage('#arrowLeftButton', 'studArrowLeft', 'userTab');
         } else {
             window.location.href = "/1-php-grading-system/admins_page/" + tab + "/?id=" + <?= $rows['id'] ?>;
         }
@@ -209,7 +209,7 @@ if (!isset($_SESSION['username'])) {
 
     function saveKeyOnLocalStorage(e, keyName, tabName) {
 
-        if (tabName === 'studentTab') {
+        if (tabName === 'userTab') {
             $('#' + tabName).toggleClass('h-8-5em')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -230,10 +230,10 @@ if (!isset($_SESSION['username'])) {
 
         if (get === '1') {
             $('#arrowLeftButton').addClass('bg-img-2')
-            $('#studentTab').addClass('h-8-5em')
+            $('#userTab').addClass('h-8-5em')
         } else {
             $('#arrowLeftButton').addClass('bg-img-1')
-            $('#studentTab').removeClass('h-8-5em')
+            $('#userTab').removeClass('h-8-5em')
         }
     }
 
