@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
 
-    $sql = "select * from admins_info where username='$username' and password='$password'";
+    $sql = "select * from users_info where username='$username' and password='$password'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 

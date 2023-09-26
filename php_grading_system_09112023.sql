@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins_info`
+-- Table structure for table `users_info`
 --
 
-CREATE TABLE IF NOT EXISTS `admins_info` (
+CREATE TABLE IF NOT EXISTS `users_info` (
   `id` int(11) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `admins_info` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `admins_info`
+-- Dumping data for table `users_info`
 --
 
-INSERT INTO `admins_info` (`id`, `username`, `password`, `email`) VALUES
+INSERT INTO `users_info` (`id`, `username`, `password`, `email`) VALUES
 (1, 'jaylingers', '123', 'jaylingers@gmail.com'),
 (2, 'jhon', '123', 'jhon@gmail.com');
 
@@ -154,9 +154,9 @@ INSERT INTO `teachers_subject_info` (`id`, `teachers_info_lrn`, `subject_name`, 
 --
 
 --
--- Indexes for table `admins_info`
+-- Indexes for table `users_info`
 --
-ALTER TABLE `admins_info`
+ALTER TABLE `users_info`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -188,9 +188,9 @@ ALTER TABLE `teachers_subject_info`
 --
 
 --
--- AUTO_INCREMENT for table `admins_info`
+-- AUTO_INCREMENT for table `users_info`
 --
-ALTER TABLE `admins_info`
+ALTER TABLE `users_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `students_enrollment_info`

@@ -410,6 +410,14 @@
     width: 5em;
 }
 
+.w-29p {
+    width: 29%;
+}
+
+.w-11em{
+    width: 11em;
+}
+
 .w-9em {
     width: 9em;
 }
@@ -487,7 +495,7 @@
 }
 
 .w-50p {
-    width: 50%;
+    width: 50% !important;
 }
 
 .w-100p {
@@ -851,6 +859,15 @@
     background: #8f8f8f;
 }
 
+.bg-hover-gray-dark-v2 {
+    background: gray;
+}
+
+.bg-hover-gray-dark-v2:hover {
+
+    background: #bababa;
+}
+
 .ov-hidden {
     overflow: hidden;
 }
@@ -903,4 +920,8 @@
 
 .sc-1-3 {
     scale: 1.3;
+}
+
+.b-shadow-dark{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

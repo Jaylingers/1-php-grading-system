@@ -3,7 +3,7 @@ function signin() {
 }
 
 // Get the modal
-function showModal(id, title, theme) {
+function showModal(id, title, theme, size) {
     $('.modal-header').empty();
     $('.modal-header').append('<h2>' + title + '</h2>');
     $('.modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
@@ -28,6 +28,11 @@ function showModal(id, title, theme) {
     $('.modal-body .modal-child').addClass('d-none');
     $('#' + id).removeClass('d-none');
     localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
+
+    if(size === 'small') {
+        $('.modal-content').css('width', '50%');
+        $('.modal-body').css('height', '37em');
+    }
 }
 
 function closeModal() {

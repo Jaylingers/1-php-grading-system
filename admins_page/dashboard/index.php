@@ -3,7 +3,7 @@ $var = "dashboard";
 include '../header.php'; ?>
 
 <?php
-$sql = "SELECT * FROM admins_info";
+$sql = "SELECT * FROM users_info";
 $result = mysqli_query($conn, $sql);
 ?>
 <style>

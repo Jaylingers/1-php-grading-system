@@ -16,7 +16,7 @@ if (!isset($_SESSION['username'])) {
     }
 
     $id = validate($_GET['id']);
-    $sql = "SELECT * FROM admins_info WHERE id=$id";
+    $sql = "SELECT * FROM users_info WHERE id=$id";
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_assoc($result);
 
