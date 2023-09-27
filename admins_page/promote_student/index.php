@@ -15,6 +15,15 @@ if (isset($_POST['promoteStudent'])) {
     $grade_status = $promoteStudent[2];
     $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus' WHERE students_info_lrn = '$lrn' and grade = '$grade'";
     $result = mysqli_query($conn, $sql);
+
+    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
+    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
+
+    $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn) VALUES ('$lrn')";
+    $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
+
+    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, date) VALUES ('$lrn', '$grade_plus', now())";
+    $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 }
 
 if (isset($_POST['removeStudents'])) {
@@ -25,6 +34,9 @@ if (isset($_POST['removeStudents'])) {
     $grade_minus = $grade_promoted - 1;
     $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus' WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
     $result = mysqli_query($conn, $sql);
+
+    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
+    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 }
 
 ?>
@@ -149,7 +161,6 @@ if (isset($_POST['removeStudents'])) {
                             <th>Gender</th>
                             <th>Grade Level</th>
                             <th>Status</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody id="student-list">
@@ -170,11 +181,6 @@ if (isset($_POST['removeStudents'])) {
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
                                 <td><?= $row['grade_status'] ?></td>
-                                <td>
-                                    <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                    >Details</label>
-                                </td>
                             </tr>
                         <?php endwhile; ?>
                         </tbody>
@@ -423,6 +429,7 @@ if (isset($_POST['removeStudents'])) {
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -435,6 +442,7 @@ if (isset($_POST['removeStudents'])) {
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -446,6 +454,7 @@ if (isset($_POST['removeStudents'])) {
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
@@ -470,7 +479,6 @@ if (isset($_POST['removeStudents'])) {
                                     <th>Gender</th>
                                     <th>Grade Level</th>
                                     <th>Status</th>
-                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="promoted-students">
@@ -491,11 +499,6 @@ if (isset($_POST['removeStudents'])) {
                                         <td><?= $row['gender'] ?></td>
                                         <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
                                         <td><?= $row['grade_status'] ?></td>
-                                        <td>
-                                            <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                            >Details</label>
-                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                                 </tbody>
@@ -514,49 +517,49 @@ if (isset($_POST['removeStudents'])) {
                                     <ul class="pagination">
                                         <?php if ($page > 1): ?>
                                             <li class="prev"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page > 3): ?>
                                             <li class="start"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">1</a>
                                             </li>
                                             <li class="dots">...</li>
                                         <?php endif; ?>
 
                                         <?php if ($page - 2 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page - 1 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                             </li><?php endif; ?>
 
                                         <li class="currentpage"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                         </li>
 
                                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                             </li><?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                             <li class="dots">...</li>
                                             <li class="end"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                             <li class="next"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -767,7 +770,7 @@ if (isset($_POST['removeStudents'])) {
         });
         if (studentCount > 0) {
             studentID.forEach(function (studId) {
-                if (studId.includes('failed')) {
+                if (!studId.includes('passed')) {
                     isFailed = true;
                 }
             });
