@@ -79,7 +79,7 @@ if (isset($_POST['update_user'])) {
 
 
         <div class="m-2em d-flex-align-start">
-            <div class="bg-white w-100p b-radius-10px">
+            <div class="bg-white w-100p b-radius-10px pad-1em">
 
 
                 <div class="custom-grid-container" tabindex="2">
@@ -164,6 +164,7 @@ if (isset($_POST['update_user'])) {
                             $stmt->close();
                         }
                         ?>
+                        Total Records: <?= $total_pages ?>
                         <div class="m-2em d-flex-end m-t-n1em">
                             <div class="d-flex-center">
                                 <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
@@ -249,18 +250,18 @@ if (isset($_POST['update_user'])) {
                                         <select name="grade" id="grade"
                                                 class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
                                             <option value="" disabled selected>Grade</option>
-                                            <option value="Grade 1">Grade 1</option>
-                                            <option value="Grade 2">Grade 2</option>
-                                            <option value="Grade 3">Grade 3</option>
-                                            <option value="Grade 4">Grade 4</option>
-                                            <option value="Grade 5">Grade 5</option>
-                                            <option value="Grade 6">Grade 6</option>
-                                            <option value="Grade 7">Grade 7</option>
-                                            <option value="Grade 8">Grade 8</option>
-                                            <option value="Grade 9">Grade 9</option>
-                                            <option value="Grade 10">Grade 10</option>
-                                            <option value="Grade 11">Grade 11</option>
-                                            <option value="Grade 12">Grade 12</option>
+                                            <option value="1">Grade 1</option>
+                                            <option value="2">Grade 2</option>
+                                            <option value="3">Grade 3</option>
+                                            <option value="4">Grade 4</option>
+                                            <option value="5">Grade 5</option>
+                                            <option value="6">Grade 6</option>
+                                            <option value="7">Grade 7</option>
+                                            <option value="8">Grade 8</option>
+                                            <option value="9">Grade 9</option>
+                                            <option value="10">Grade 10</option>
+                                            <option value="11">Grade 11</option>
+                                            <option value="12">Grade 12</option>
                                         </select>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject:</div>
                                         <input placeholder="Subject" type="text"
@@ -338,18 +339,18 @@ if (isset($_POST['update_user'])) {
                                             <select name="grade" id="grade"
                                                     class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
                                                 <option value="" disabled selected>Grade</option>
-                                                <option value="Grade 1">Grade 1</option>
-                                                <option value="Grade 2">Grade 2</option>
-                                                <option value="Grade 3">Grade 3</option>
-                                                <option value="Grade 4">Grade 4</option>
-                                                <option value="Grade 5">Grade 5</option>
-                                                <option value="Grade 6">Grade 6</option>
-                                                <option value="Grade 7">Grade 7</option>
-                                                <option value="Grade 8">Grade 8</option>
-                                                <option value="Grade 9">Grade 9</option>
-                                                <option value="Grade 10">Grade 10</option>
-                                                <option value="Grade 11">Grade 11</option>
-                                                <option value="Grade 12">Grade 12</option>
+                                                <option value="1">Grade 1</option>
+                                                <option value="2">Grade 2</option>
+                                                <option value="3">Grade 3</option>
+                                                <option value="4">Grade 4</option>
+                                                <option value="5">Grade 5</option>
+                                                <option value="6">Grade 6</option>
+                                                <option value="7">Grade 7</option>
+                                                <option value="8">Grade 8</option>
+                                                <option value="9">Grade 9</option>
+                                                <option value="10">Grade 10</option>
+                                                <option value="11">Grade 11</option>
+                                                <option value="12">Grade 12</option>
                                             </select>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject:</div>
                                             <input placeholder="Subject" type="text"

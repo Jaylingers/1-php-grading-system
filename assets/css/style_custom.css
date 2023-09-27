@@ -886,6 +886,14 @@
     background: #bababa;
 }
 
+.bg-hover-skyBlue{
+    background: #32afd5;
+    color: white;
+}
+
+.bg-hover-skyBlue:hover{
+    background: #5bc0de;
+}
 .ov-hidden {
     overflow: hidden;
 }
@@ -908,6 +916,10 @@
 
 .a-center {
     align-items: center !important;
+}
+
+.f-right{
+    float: right;
 }
 
 .bg-img-1 {
