@@ -141,12 +141,11 @@ if (isset($_POST['update-student-info'])) {
         <div class="m-2em d-flex-align-start">
             <div class="bg-white w-100p b-radius-10px">
 
-                <div class="m-t-19px m-l-13px f-weight-bold d-flex">
+                <div class="pad-1em  f-weight-bold d-flex">
                     <h3>
                         STUDENT LIST
                     </h3>
                     <div class="r-50px p-absolute t-54px">
-
                         <button
                                 class="btn bg-hover-gray-dark-v1"
                                 onclick="showModal('add-new-student', 'New Students')">
@@ -156,7 +155,6 @@ if (isset($_POST['update-student-info'])) {
                                 class="btn bg-hover-gray-dark-v1"
                                 onclick="deleteStudents('student-list')">Delete Selected
                         </button>
-
                     </div>
                 </div>
                 <br/>
@@ -195,7 +193,7 @@ if (isset($_POST['update-student-info'])) {
                     // Get the results...
                     $result = $stmt->get_result();
                     ?>
-                    <input placeholder="search name" type="text" class="m-l-1em m-b-5px"/>
+
                     <table class="table table-1 ">
                         <thead>
                         <tr>
@@ -211,7 +209,7 @@ if (isset($_POST['update-student-info'])) {
                             <th>Age</th>
                             <th>Sex</th>
                             <th>Grade Level</th>
-                            <th></th>
+                            <th>Option</th>
                         </tr>
                         </thead>
                         <tbody id="student-list">
@@ -234,8 +232,12 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
+                                           onclick="viewStudentEnrollment('<?= $row['lrn'] ?>')"
+                                    >View Enrollment</label>
+                                    &nbsp;
+                                    <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                    >Edit</label>
+                                    >View Details</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

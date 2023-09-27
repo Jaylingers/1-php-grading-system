@@ -87,9 +87,14 @@ if (isset($_POST['update_user'])) {
                         <div class="f-weight-bold d-flex" style="    border: 1px solid gray;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;">
-                            <h3>
-                                List of Users
-                            </h3>
+                                <h3 class="m-t-13px m-l-18px">
+                                    List of Users
+                                </h3>
+
+                            <div class="w-74p d-flex-end">
+                                <input placeholder="search name" type="text" class="m-1em"/>
+                            </div>
+
                         </div>
 
                         <?php
@@ -104,7 +109,7 @@ if (isset($_POST['update_user'])) {
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
-                        $num_results_on_page = 2;
+                        $num_results_on_page = 10;
 
                         if ($stmt = $mysqli->prepare("select * from users_info LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.

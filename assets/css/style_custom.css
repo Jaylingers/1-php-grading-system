@@ -438,6 +438,10 @@
     width: 77%;
 }
 
+.w-74p{
+    width: 74%;
+}
+
 .w-70p {
     width: 70%;
 }
@@ -751,6 +755,10 @@
     margin-left: 1em;
 }
 
+.m-l-18px{
+    margin-left: 18px;
+}
+
 .m-l-6em {
     margin-left: 6em;
 }
@@ -783,6 +791,10 @@
     margin-bottom: 1em;
 }
 
+.m-b-5px{
+    margin-bottom: 5px;
+}
+
 .m-2em {
     margin: 2em;
 }
@@ -798,7 +810,13 @@
 .m-t-1em {
     margin-top: 1em;
 }
+.m-t-13px{
+    margin-top: 13px;
+}
 
+.m-t-19px{
+    margin-top: 19px;
+}
 .m-t-n1em {
     margin-top: -1em;
 }
