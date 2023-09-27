@@ -162,11 +162,13 @@ if (isset($_POST['update-student-info'])) {
                 <br/>
 
                 <?php
+                $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        GROUP BY si.id order by si.lrn DESC Limit 1";
+                        WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+                        GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 $lrn = $row['id'] + 1;
@@ -177,6 +179,7 @@ if (isset($_POST['update-student-info'])) {
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -187,6 +190,7 @@ if (isset($_POST['update-student-info'])) {
                         si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -195,7 +199,8 @@ if (isset($_POST['update-student-info'])) {
                     // Get the results...
                     $result = $stmt->get_result();
                     ?>
-                    <input placeholder="search name" type="text" class="m-l-1em m-b-5px"/>
+                    <input placeholder="search name" id="search_name" type="text" class=" m-b-5px"
+                           onchange="searchName()"/>
                     <table class="table table-1 b-shadow-dark ">
                         <thead>
                         <tr>
@@ -250,55 +255,55 @@ if (isset($_POST['update-student-info'])) {
                 <div class="m-2em d-flex-end m-t-n1em">
                     <div class="d-flex-center">
                         <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                            <ul class="pagination">
-                                <?php if ($page > 1): ?>
-                                    <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
-                                    </li>
-                                <?php endif; ?>
+                        <ul class="pagination">
+                            <?php if ($page > 1): ?>
+                            <li class="prev"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                            </li>
+                            <?php endif; ?>
 
-                                <?php if ($page > 3): ?>
-                                    <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">1</a>
-                                    </li>
-                                    <li class="dots">...</li>
-                                <?php endif; ?>
+                            <?php if ($page > 3): ?>
+                            <li class="start"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
+                            </li>
+                            <li class="dots">...</li>
+                            <?php endif; ?>
 
-                                <?php if ($page - 2 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page - 1 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                    </li><?php endif; ?>
+                            <?php if ($page - 2 > 0): ?>
+                            <li class="page"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                            </li><?php endif; ?>
+                            <?php if ($page - 1 > 0): ?>
+                            <li class="page"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                            </li><?php endif; ?>
 
-                                <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
-                                </li>
+                            <li class="currentpage"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if(isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                            </li>
 
-                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                    </li><?php endif; ?>
+                            <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                            <li class="page"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                            </li><?php endif; ?>
+                            <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                            <li class="page"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                            </li><?php endif; ?>
 
-                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                                    <li class="dots">...</li>
-                                    <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                                    </li>
-                                <?php endif; ?>
+                            <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
+                            <li class="dots">...</li>
+                            <li class="end"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                            </li>
+                            <?php endif; ?>
 
-                                <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                                    <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
+                            <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
+                            <li class="next"><a
+                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                            </li>
+                            <?php endif; ?>
+                        </ul>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -1223,6 +1228,24 @@ if (isset($_POST['update-student-info'])) {
             }
         });
     }
+
+    function searchName() {
+        var search = $('#search_name').val();
+        if (search !== '') {
+            window.location.href = '?id=<?php echo $rows['id'] ?>&&searchName=' + search;
+        } else {
+            window.location.href = '?id=<?php echo $rows['id'] ?>';
+        }
+    }
+
+    function loadPage() {
+        var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
+        if (searchName !== '') {
+            $('#search_name').val(searchName);
+        }
+    }
+
+    loadPage();
 
 </script>
 <link href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" rel="stylesheet"/>

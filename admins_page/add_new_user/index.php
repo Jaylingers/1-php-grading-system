@@ -87,31 +87,33 @@ if (isset($_POST['update_user'])) {
                         <div class="f-weight-bold d-flex" style="    border: 1px solid gray;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;">
-                                <h3 class="m-t-13px m-l-18px">
-                                    List of Users
-                                </h3>
+                            <h3 class="m-t-13px m-l-18px">
+                                List of Users
+                            </h3>
 
                             <div class="w-74p d-flex-end">
-                                <input placeholder="search name" type="text" class="m-1em"/>
+                                <input placeholder="search name" id="search_name" type="text" class="m-1em"
+                                       onchange="searchName()"/>
                             </div>
 
                         </div>
 
                         <?php
-                        $sql = "select * from users_info Limit 1";
+                        $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                        $sql = "select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = $row['id'] + 1;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from users_info")->num_rows;
+                        $total_pages = $mysqli->query("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%'")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from users_info LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -177,43 +179,43 @@ if (isset($_POST['update_user'])) {
 
                                         <?php if ($page > 3): ?>
                                             <li class="start"><a
-                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
                                             </li>
                                             <li class="dots">...</li>
                                         <?php endif; ?>
 
                                         <?php if ($page - 2 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page - 1 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                             </li><?php endif; ?>
 
                                         <li class="currentpage"><a
-                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                         </li>
 
                                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                             </li><?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                             <li class="dots">...</li>
                                             <li class="end"><a
-                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                             <li class="next"><a
-                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                        href="/1-php-grading-system/admins_page/add_new_user/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -379,7 +381,8 @@ if (isset($_POST['update_user'])) {
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em">
-                                        <label class="btn bg-hover-gray-dark-v2 m-b-0 t-color-white" onclick="closeModal()">
+                                        <label class="btn bg-hover-gray-dark-v2 m-b-0 t-color-white"
+                                               onclick="closeModal()">
                                             Close
                                         </label> &nbsp; &nbsp;
                                         <button type="submit"
@@ -422,5 +425,23 @@ if (isset($_POST['update_user'])) {
 
         showModal('update-user', 'Manage Account', '', 'small')
     }
+
+    function searchName() {
+        var search = $('#search_name').val();
+        if (search !== '') {
+            window.location.href = '?id=<?php echo $rows['id'] ?>&&searchName=' + search;
+        } else {
+            window.location.href = '?id=<?php echo $rows['id'] ?>';
+        }
+    }
+
+    function loadPage() {
+        var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
+        if (searchName !== '') {
+            $('#search_name').val(searchName);
+        }
+    }
+
+    loadPage();
 </script>
 
