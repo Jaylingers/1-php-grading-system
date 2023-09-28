@@ -633,6 +633,10 @@
     display: inline-grid;
 }
 
+.d-inline-table{
+    display: inline-table;
+}
+
 .d-flex-start {
     display: flex;
     justify-content: flex-start;
