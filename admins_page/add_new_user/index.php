@@ -284,11 +284,12 @@ if (isset($_POST['update_user'])) {
                                                name="password"
                                                required>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> User Type:</div>
-                                        <input placeholder="User Type" type="text"
-                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
-                                               id="user_type"
-                                               name="user_type"
-                                               required>
+                                        <select name="user_type" id="user_type"
+                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
+                                            <option value="" disabled selected> </option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Teacher">Teacher</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
