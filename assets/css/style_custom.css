@@ -442,6 +442,13 @@
     width: 74%;
 }
 
+.w-61p{
+    width: 61%;
+}
+.w-69p{
+    width: 69%;
+}
+
 .w-70p {
     width: 70%;
 }
@@ -762,6 +769,7 @@
 .m-l-18px{
     margin-left: 18px;
 }
+
 
 .m-l-6em {
     margin-left: 6em;

@@ -102,10 +102,10 @@ if (isset($_POST['update_user'])) {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;">
                             <h3 class="m-t-13px m-l-18px">
-                                List of Users
+                                List of Subjects
                             </h3>
 
-                            <div class="w-74p d-flex-end">
+                            <div class="w-69p d-flex-end">
                                 <input placeholder="search name" id="search_name" type="text" class="m-1em"
                                        onchange="searchSubject()"/>
                             </div>
@@ -380,7 +380,7 @@ if (isset($_POST['update_user'])) {
         $('#update-subject #subject_name').val(name);
         $('#update-subject #applicable_for').val(applicable_for);
         $('#update-subject #description').val(description);
-        showModal('update-subject', 'Manage Account', '', 'small')
+        showModal('update-subject', 'Manage Subject', '', 'small')
     }
 
     function searchSubject() {

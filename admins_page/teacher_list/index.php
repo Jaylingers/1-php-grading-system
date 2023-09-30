@@ -1116,7 +1116,7 @@ if (isset($_POST['teacherStudentID'])) {
 
     function print(id) {
         var orientation;
-        xdialog.confirm('Choose Print Orientation? hmmm...', function () {
+        xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
             $('#' + id).load('print_page', function () {
                 var printContent = document.getElementById(id).innerHTML;

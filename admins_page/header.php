@@ -199,13 +199,6 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-        <div class="tab-announcement d-none h-4em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('announcement')" <?php if ($var === "announcement") { ?> style="background: #bababa;"  <?php } ?>>
-                Announcement
-            </div>
-            <div class="d-flex-end w-4em m-t-5px"></div>
-        </div>
         <div class="tab-studentInfo d-none h-4em  d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                  onclick="selectTab('student_info')" <?php if ($var === "student_info") { ?> style="background: #bababa;"  <?php } ?>>
@@ -298,6 +291,12 @@ if (!isset($_SESSION['username'])) {
     </div>
 
 </div>
+
+<div >
+
+</div>
+
+
 </body>
 </html>
 
@@ -424,13 +423,11 @@ if (!isset($_SESSION['username'])) {
                 $('.tab-addUser').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')
                 $('.tab-maintenance').removeClass('d-none')
-                $('.tab-announcement').removeClass('d-none')
                 $('.tab-trash').removeClass('d-none')
             } else if (user_type === 'teacher') {
                 $('.tab-teacherInfo').removeClass('d-none')
                 $('.tab-masterlist').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')
-                $('.tab-announcement').removeClass('d-none')
                 $('.tab-trash').removeClass('d-none')
                 $('.records_student_list').addClass('d-none')
                 $('.tab-notification').removeClass('d-none')

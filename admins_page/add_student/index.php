@@ -7,10 +7,53 @@ global $conn;
 include "../../db_conn.php";
 
 if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $sql = "delete from students_info where lrn = '$id'";
+    $lrn = $_POST['id'];
+    $sql = "delete from students_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
-    if ($result) {
+
+    $id = $_GET['id'];
+    $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+    $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
+    $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+    $removedBy = '';
+    foreach ($rowsSelectRemovedBy as $key => $value) {
+        $removedBy .= $value;
+    }
+
+    $sqlStudentInfo = "select * from students_info where lrn = '$lrn'";
+    $resultStudentInfo = mysqli_query($conn, $sqlStudentInfo);
+    $rowsStudentInfo = mysqli_fetch_assoc($resultStudentInfo);
+    $name = $rowsStudentInfo['f_name'] . ' ' . $rowsStudentInfo['l_name'];
+    $historyData = '';
+    $historyData .= ' <h3> Student Info</h3>';
+    foreach ($rowsStudentInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
+    $sqlStudentEnrollmentInfo = "select * from students_enrollment_info where students_info_lrn = '$lrn'";
+    $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+    $rowsStudentEnrollmentInfo = mysqli_fetch_assoc($resultStudentEnrollmentInfo);
+    $historyData .= ' <h3> Student Enrollment Info</h3>';
+    foreach($resultStudentEnrollmentInfo as $key => $value){
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
+
+    $sqlStudentGradeInfo = "select * from students_grade_info where student_lrn = '$lrn'";
+    $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+    $rowsStudentGradeInfo = mysqli_fetch_assoc($resultStudentGradeInfo);
+    $historyData .= ' <h3> Student Grade Info</h3>';
+    foreach ($resultStudentGradeInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
+
+    $sqlInsertTrash = "insert into trash_info (student_lrn,name,history,removed_date,removed_by) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy')";
+    $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
+
+    if ($resultInsertTrash) {
         echo '<script>';
         echo '   
               history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
@@ -260,55 +303,55 @@ if (isset($_POST['update-student-info'])) {
                 <div class="m-2em d-flex-end m-t-n1em">
                     <div class="d-flex-center">
                         <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                        <ul class="pagination">
-                            <?php if ($page > 1): ?>
-                            <li class="prev"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
-                            </li>
-                            <?php endif; ?>
+                            <ul class="pagination">
+                                <?php if ($page > 1): ?>
+                                    <li class="prev"><a
+                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                    </li>
+                                <?php endif; ?>
 
-                            <?php if ($page > 3): ?>
-                            <li class="start"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
-                            </li>
-                            <li class="dots">...</li>
-                            <?php endif; ?>
+                                <?php if ($page > 3): ?>
+                                    <li class="start"><a
+                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                    </li>
+                                    <li class="dots">...</li>
+                                <?php endif; ?>
 
-                            <?php if ($page - 2 > 0): ?>
-                            <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                            </li><?php endif; ?>
-                            <?php if ($page - 1 > 0): ?>
-                            <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                            </li><?php endif; ?>
+                                <?php if ($page - 2 > 0): ?>
+                                    <li class="page"><a
+                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                    </li><?php endif; ?>
+                                <?php if ($page - 1 > 0): ?>
+                                    <li class="page"><a
+                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                    </li><?php endif; ?>
 
-                            <li class="currentpage"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if(isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
-                            </li>
+                                <li class="currentpage"><a
+                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                </li>
 
-                            <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                            <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                            </li><?php endif; ?>
-                            <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                            <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                            </li><?php endif; ?>
+                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                                    <li class="page"><a
+                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                    </li><?php endif; ?>
+                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                                    <li class="page"><a
+                                            href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                    </li><?php endif; ?>
 
-                            <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                            <li class="dots">...</li>
-                            <li class="end"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                            </li>
-                            <?php endif; ?>
+                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
+                                    <li class="dots">...</li>
+                                    <li class="end"><a
+                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                    </li>
+                                <?php endif; ?>
 
-                            <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                            <li class="next"><a
-                                        href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
-                            </li>
-                            <?php endif; ?>
-                        </ul>
+                                <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
+                                    <li class="next"><a
+                                                href="/1-php-grading-system/admins_page/add_student/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchName'])): ?>&&searchName=<?php echo $_GET['searchName'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -1095,7 +1138,7 @@ if (isset($_POST['update-student-info'])) {
             studentCount++;
         });
         if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
+            var r = confirm("Are you sure you want to delete this records? This action will remove all data with all related tables.");
             if (r === true) {
                 var isStudentEnrollment = false;
                 studentID.forEach(function (studId) {
@@ -1194,7 +1237,7 @@ if (isset($_POST['update-student-info'])) {
 
     function print(id) {
         var orientation;
-        xdialog.confirm('Choose Print Orientation? hmmm...', function () {
+        xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
             $('#' + id).load('print_page', function () {
                 var printContent = document.getElementById(id).innerHTML;

@@ -194,7 +194,7 @@ if (isset($_POST['update-student-info'])) {
                     $result = $stmt->get_result();
                     ?>
 
-                    <table class="table table-1 ">
+                    <table class="table table-1 b-shadow-dark">
                         <thead>
                         <tr>
                             <th class="t-align-center"><label for="student-list-cb" class="d-flex-center"></label><input
@@ -1186,7 +1186,7 @@ if (isset($_POST['update-student-info'])) {
 
     function print(id) {
         var orientation;
-        xdialog.confirm('Choose Print Orientation? hmmm...', function () {
+        xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
             $('#' + id).load('print_page', function () {
                 var printContent = document.getElementById(id).innerHTML;

@@ -13,7 +13,7 @@ if (isset($_POST['promoteStudent'])) {
     $grade = $promoteStudent[1];
     $grade_plus = $grade + 1;
     $grade_status = $promoteStudent[2];
-    $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus' WHERE students_info_lrn = '$lrn' and grade = '$grade'";
+    $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted'  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
     $result = mysqli_query($conn, $sql);
 
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
@@ -32,7 +32,7 @@ if (isset($_POST['removeStudents'])) {
     $lrn_promoted = $removePromotedStudents[0];
     $grade_promoted = $removePromotedStudents[1];
     $grade_minus = $grade_promoted - 1;
-    $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus' WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
+    $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus', grade_status='passed'  WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
     $result = mysqli_query($conn, $sql);
 
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
@@ -180,7 +180,7 @@ if (isset($_POST['removeStudents'])) {
                                 <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
-                                <td><?= $row['grade_status'] ?></td>
+                                <td><?= $row['grade_status'] === 'promoted' ? 'promoted(cant promote again, wait for final grades)' : $row['grade_status'] ?></td>
                             </tr>
                         <?php endwhile; ?>
                         </tbody>
@@ -694,7 +694,7 @@ if (isset($_POST['removeStudents'])) {
 
     function print(id) {
         var orientation;
-        xdialog.confirm('Choose Print Orientation? hmmm...', function () {
+        xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
             $('#' + id).load('print_page', function () {
                 var printContent = document.getElementById(id).innerHTML;
