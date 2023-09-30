@@ -103,7 +103,7 @@ if (!isset($_SESSION['username'])) {
         <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                  onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
-               Masterlist
+                Masterlist
             </div>
             <div class="d-flex-end w-4em">
                 <div id="arrowLeftButton_masterlist" class="w-1-5em h-1-5em c-hand "
@@ -126,7 +126,7 @@ if (!isset($_SESSION['username'])) {
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('student_list_masterlist')" <?php if ($var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
-                   Student List
+                    Student List
                 </div>
             </div>
         </div>
@@ -292,8 +292,15 @@ if (!isset($_SESSION['username'])) {
 
 </div>
 
-<div >
+<div id="writeMessage" class="p-fixed d-flex-center c-hand" style="
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
 
+    bottom: 10px;
+    right: 10px;
+    z-index: 99999;">
+    <img src="../../assets/img/writeMessage.png" alt="sds"  style="height: 2em; width: 2em">
 </div>
 
 
@@ -338,7 +345,7 @@ if (!isset($_SESSION['username'])) {
             $('#' + tabName).toggleClass(
                 tabName === 'userTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
                     : tabName === 'recordsTab' ? 'h-12-5em'
-                            : 'none')
+                        : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
                 $(e).addClass('bg-img-1')

@@ -968,3 +968,27 @@
 .b-shadow-dark{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+#writeMessage{
+    background: #4b4c4f;
+}
+
+#writeMessage:hover {
+    background: #5f6063 !important;
+}
+
+#writeMessage:before {
+    content: "New message";
+    position: absolute;
+    width: 8em;
+    padding: 5px;
+    color: white;
+    background: black;
+    right: 55px;
+    text-align: center;
+    border-radius: 8px;
+    display: none;
+}
+#writeMessage:hover::before {
+    display: block;
+}

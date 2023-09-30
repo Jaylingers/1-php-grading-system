@@ -11,6 +11,22 @@ if (isset($_POST['id'])) {
     $sql = "delete from students_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
 
+    $sqlUserInfo = "delete from users_info where user_lrn = '$lrn'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+
+    $sqlStudentEnrollmentInfo = "delete from students_enrollment_info where students_info_lrn = '$lrn'";
+    $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+
+    $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
+    $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+
+    $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
+    $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
+
+    $sqlPromotedStudentsHistory = "delete from promoted_students_history where student_lrn = '$lrn'";
+    $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
+
+
     $id = $_GET['id'];
     $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
     $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
