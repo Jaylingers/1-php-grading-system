@@ -117,7 +117,7 @@ if (isset($_POST['update_user'])) {
                         $sql = "select * from subject_list_info WHERE name LIKE '%$searchSubject%' Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        $lrn = $row['id'] + 1;
+                        $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
@@ -187,49 +187,49 @@ if (isset($_POST['update_user'])) {
                                     <ul class="pagination">
                                         <?php if ($page > 1): ?>
                                             <li class="prev"><a
-                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page > 3): ?>
                                             <li class="start"><a
-                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
                                             </li>
                                             <li class="dots">...</li>
                                         <?php endif; ?>
 
                                         <?php if ($page - 2 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page - 1 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                             </li><?php endif; ?>
 
                                         <li class="currentpage"><a
-                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                         </li>
 
                                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                             </li><?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                             <li class="dots">...</li>
                                             <li class="end"><a
-                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                             <li class="next"><a
-                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $rows['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                        href="/1-php-grading-system/admins_page/subject_list/?id=<?php echo $_GET['id'] ?><?php if (isset($_GET['searchSubject'])): ?>&&searchSubject=<?php echo $_GET['searchSubject'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -266,13 +266,6 @@ if (isset($_POST['update_user'])) {
                                             <option value="3">Grade 3</option>
                                             <option value="4">Grade 4</option>
                                             <option value="5">Grade 5</option>
-                                            <option value="6">Grade 6</option>
-                                            <option value="7">Grade 7</option>
-                                            <option value="8">Grade 8</option>
-                                            <option value="9">Grade 9</option>
-                                            <option value="10">Grade 10</option>
-                                            <option value="11">Grade 11</option>
-                                            <option value="12">Grade 12</option>
                                         </select>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Description:</div>
                                         <textarea placeholder="Description" id="description" name="description" rows="4"
@@ -386,9 +379,9 @@ if (isset($_POST['update_user'])) {
     function searchSubject() {
         var search = $('#search_name').val();
         if (search !== '') {
-            window.location.href = '?id=<?php echo $rows['id'] ?>&&searchSubject=' + search;
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchSubject=' + search;
         } else {
-            window.location.href = '?id=<?php echo $rows['id'] ?>';
+            window.location.href = '?id=<?php echo $_GET['id'] ?>';
         }
     }
 

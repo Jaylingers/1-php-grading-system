@@ -99,12 +99,7 @@ if (isset($_POST['removeStudents'])) {
                     <option value="11">Grade 11</option>
                     <option value="12">Grade 12</option>
                 </select>
-                <div class="f-right m-t-19px m-r-13px">
-                    <button type="submit"
-                            class="c-hand bg-hover-skyBlue btn"
-                            onclick="promoteStudent()">Promote
-                    </button>
-                </div>
+
                 <?php
                 if (isset($_GET['grade'])) {
                 $grade = $_GET['grade'];
@@ -118,7 +113,7 @@ if (isset($_POST['removeStudents'])) {
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
-                $lrn = $row['id'] + 1;
+                $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                 $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "students".
@@ -199,49 +194,49 @@ if (isset($_POST['removeStudents'])) {
                             <ul class="pagination">
                                 <?php if ($page > 1): ?>
                                     <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page > 3): ?>
                                     <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">1</a>
                                     </li>
                                     <li class="dots">...</li>
                                 <?php endif; ?>
 
                                 <?php if ($page - 2 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page - 1 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                     </li><?php endif; ?>
 
                                 <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                 </li>
 
                                 <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                     </li><?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                     <li class="dots">...</li>
                                     <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                     <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -434,7 +429,7 @@ if (isset($_POST['removeStudents'])) {
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        $lrn = $row['id'] + 1;
+                        $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
@@ -517,49 +512,49 @@ if (isset($_POST['removeStudents'])) {
                                     <ul class="pagination">
                                         <?php if ($page > 1): ?>
                                             <li class="prev"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page > 3): ?>
                                             <li class="start"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">1</a>
                                             </li>
                                             <li class="dots">...</li>
                                         <?php endif; ?>
 
                                         <?php if ($page - 2 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page - 1 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                             </li><?php endif; ?>
 
                                         <li class="currentpage"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                         </li>
 
                                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                             </li><?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                             <li class="dots">...</li>
                                             <li class="end"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                             <li class="next"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $rows['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -614,7 +609,7 @@ if (isset($_POST['removeStudents'])) {
                     history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
                     <?php } ?>
                 } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>');
+                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
                 }
                 alert('Successfully deleted!')
                 window.location.reload();
@@ -681,7 +676,7 @@ if (isset($_POST['removeStudents'])) {
     }
 
     function viewStudentEnrollment(lrn) {
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id'] ?>&&lrn=' + lrn);
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&lrn=' + lrn);
         window.location.reload();
     }
 
