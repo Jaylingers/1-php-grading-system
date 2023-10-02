@@ -382,6 +382,9 @@
     height: 100%;
 }
 
+.bottom-0{
+    bottom: 0;
+}
 .h-2-8em {
     height: 2.8em;
 }
@@ -773,6 +776,10 @@
 
 .m-l-6em {
     margin-left: 6em;
+}
+
+.m-l-4em {
+    margin-left: 4em;
 }
 
 .m-left-8px {

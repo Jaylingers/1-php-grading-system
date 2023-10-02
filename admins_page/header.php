@@ -283,7 +283,11 @@ if (!isset($_SESSION['username'])) {
         <div class="d-flex-center m-l-13px m-r-13px">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
         </div>
-        <img src="https://cdn4.iconfinder.com/data/icons/man-user-human-person-avatar-business-profile/100/18A-1User-512.png"
+        <img src="<?= $rows['img_path'] ?>"
+             style="height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    object-fit: cover !important;"
              alt="" class="w-32px">
         <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"
              class="w-18px m-r-13px c-hand transition-0-5s" alt="" onclick="settings()"/>
