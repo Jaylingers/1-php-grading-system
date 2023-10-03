@@ -24,7 +24,7 @@ if (!isset($_SESSION['username'])) {
 
 <!DOCTYPE html>
 <html>
-<title>MABES GRADING INQUIRY</title>
+<title>MABES GRADE INQUIRY</title>
 <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
@@ -40,7 +40,7 @@ if (!isset($_SESSION['username'])) {
                     src="../../assets/img/mabes.png" alt=""
                     class="w-38px m-3-6px"/></a>
         <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
-        <p class=" m-0 pad-left-6px">Grading Inquiry</p>
+        <p class=" m-0 pad-left-6px">GRADE INQUIRY</p>
         <div class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
              onclick="tops()">x
         </div>
