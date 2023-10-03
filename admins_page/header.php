@@ -25,7 +25,7 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <title>MABES GRADING INQUIRY</title>
-<link rel="shortcut icon" href="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1"/>
+<link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -37,7 +37,7 @@ if (!isset($_SESSION['username'])) {
 <div class="p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-9999" id="side">
     <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
         <a href="/1-php-grading-system/"> <img
-                    src="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1" alt=""
+                    src="../../assets/img/mabes.png" alt=""
                     class="w-38px m-3-6px"/></a>
         <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
         <p class=" m-0 pad-left-6px">Grading Inquiry</p>

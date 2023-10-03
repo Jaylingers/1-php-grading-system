@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <title>MABES GRADING INQUIRY</title>
-<link rel="shortcut icon" href="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1"/>
+<link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
 
     <?php if ($var === "index") { ?>
@@ -24,7 +24,7 @@
 <nav class="navbar">
     <div class="brand-title">
         <a href="/1-php-grading-system/"> <img
-                    src="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1" alt=""/></a>
+                    src="../../assets/img/mabes.png" alt=""/></a>
         <p> MABES </p>
         <p>Grading Inquiry</p>
     </div>

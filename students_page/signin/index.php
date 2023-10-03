@@ -44,7 +44,7 @@ if (isset($_POST['login'])) {
             <div class="m-2em d-flex-center h-48em ">
                 <div class="bg-white t-color-black pad-5px w-44em b-radius-10px">
                     <div class="t-align-center"><img
-                                src="https://th.bing.com/th/id/OIP.Lsswy08HBmxSwV6Pt9uZKgHaHa?pid=ImgDet&rs=1" alt=""
+                                src="../../assets/img/mabes.png" alt=""
                                 class="h-4em w-4em"/></div>
                     <div class="t-align-center f-size-2em f-weight-bold">MABES</div>
                     <div class="t-align-center f-size-2em f-weight-bold">Online Grading Inquiry Student</div>
