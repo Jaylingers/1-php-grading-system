@@ -38,16 +38,16 @@ if (isset($_POST['login'])) {
 }
 ?>
 
-<div style="background: #14ae5c;">
+<div style="background: skyblue ;">
     <div class="d-flex-center w-100p">
-        <div id="content" class=" w-79-8p h-100p b-r-7px">
+        <div id="content" class=" w-82-8p h-100p b-r-10px">
             <div class="m-2em d-flex-center h-48em ">
-                <div class="bg-white t-color-black pad-5px w-44em b-radius-10px">
+                <div class="login">
                     <div class="t-align-center"><img
                                 src="../../assets/img/mabes.png" alt=""
                                 class="h-4em w-4em"/></div>
-                    <div class="t-align-center f-size-2em f-weight-bold">MABES</div>
-                    <div class="t-align-center f-size-2em f-weight-bold">Online Grading Inquiry Student</div>
+                    <div class="text">Mactan Airbase Elementary School</div>
+                    <div class="text2">Grade Inquiry</div>
                     <?php if (isset($_GET['error'])) { ?>
                         <div class="alert alert-danger" role="alert">
                             <?php echo $_GET['error']; ?>
@@ -60,7 +60,7 @@ if (isset($_POST['login'])) {
                                        id="username"
                                        name="username"
                                        required
-                                       placeholder="Username"
+                                       placeholder="Username/LRN"
                                        class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
                                        value="<?php if (isset($_GET['username']))
                                            echo($_GET['username']); ?>"
@@ -76,15 +76,11 @@ if (isset($_POST['login'])) {
                                            echo($_GET['password']); ?>"
                                 >
                             </div>
-                            <div class="d-flex-center h-2em">
-                                <label for=""
-                                       class="t h-2em w-40p t-align-center f-size-1em b-radius-10px t-color-blue">Forgot
-                                    Password</label>
-                            </div>
+            
                             <div class="d-flex-center h-5em">
                                 <button type="submit"
                                         class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue"
-                                        name="login">login
+                                        name="login">Log
                                 </button>
                             </div>
                         </div>
@@ -94,7 +90,88 @@ if (isset($_POST['login'])) {
         </div>
     </div>
 </div>
+<style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
+    /* Footer styles */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      transition: opacity 0.3s;
+    }
+
+    /* Animation styles */
+    .fade-in {
+      opacity: 0;
+      animation: fadeInAnimation 2s ease-in forwards;
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .login{
+        width: 600px;
+        height: 480px;
+  margin: 0 auto;
+  margin-top: 100px;
+  background: rgba(255,255,255,0.5);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadein 4s;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  -webkit-box-shadow: -2px 1.5px 10.5px 10px #dddddd;
+-moz-box-shadow: -2px 1.5px 10.5px 10px #dddddd;
+box-shadow: -2px 1.5px 10.5px 10px white;
+    }
+    input {
+        
+  margin-bottom: 10px;
+  height: 60px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.text {
+            color: green;
+            font-size: 25px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .text2 {
+            color: black;
+            font-size: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+  
+</style>
+<footer>
+<div class="footer fade-in">
+    &#169; 2023 MABES|Grade Inquiry | All rights reserved
+  </div>
+</footer>
 
 <script>
     localStorage.setItem('studArrowLeft', '0')

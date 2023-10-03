@@ -25,8 +25,8 @@
     <div class="brand-title">
         <a href="/1-php-grading-system/"> <img
                     src="../../assets/img/mabes.png" alt=""/></a>
-        <p> MABES </p>
-        <p>Grading Inquiry</p>
+        <p> Mactan Airbase Elementary School </p>
+        <p>Grade Inquiry</p>
     </div>
     <a href="#" class="toggle-button">
         <span class="bar"></span>
@@ -51,5 +51,46 @@
         <button class="btn btn-primary" onclick="signin()">Sign In</button>
     </div>
 </nav>
+<style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Footer styles */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      transition: opacity 0.3s;
+    }
+
+    /* Animation styles */
+    .fade-in {
+      opacity: 0;
+      animation: fadeInAnimation 2s ease-in forwards;
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  
+</style>
+<footer>
+<div class="footer fade-in">
+    &#169; 2023 MABES|Grade Inquiry | All rights reserved
+  </div>
+</footer>
 </body>
 </html>
