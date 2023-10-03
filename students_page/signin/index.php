@@ -38,14 +38,14 @@ if (isset($_POST['login'])) {
 }
 ?>
 
-<div style="background: skyblue ;">
+<div style="background: #14ae5c;">
     <div class="d-flex-center w-100p">
         <div id="content" class=" w-82-8p h-100p b-r-10px">
             <div class="m-2em d-flex-center h-48em ">
                 <div class="login">
                     <div class="t-align-center"><img
                                 src="../../assets/img/mabes.png" alt=""
-                                class="h-4em w-4em"/></div>
+                                class="h-8em w-8em"/></div>
                     <div class="text">Mactan Airbase Elementary School</div>
                     <div class="text2">Grade Inquiry</div>
                     <?php if (isset($_GET['error'])) { ?>
@@ -125,8 +125,8 @@ if (isset($_POST['login'])) {
       }
     }
     .login{
-        width: 600px;
-        height: 480px;
+        width: 620px;
+        height: 520px;
   margin: 0 auto;
   margin-top: 100px;
   background: rgba(255,255,255,0.5);
