@@ -749,7 +749,7 @@ if (isset($_POST['update-student-info'])) {
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-                    $sql = "select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    $sql = "select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
@@ -758,7 +758,7 @@ if (isset($_POST['update-student-info'])) {
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    $total_pages = $mysqli->query("select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -767,7 +767,7 @@ if (isset($_POST['update-student-info'])) {
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select CONCAT(si.l_name, ', ', si.f_name,' ', si.m_name) as 'fullname', sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    if ($stmt = $mysqli->prepare("select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
@@ -812,7 +812,7 @@ if (isset($_POST['update-student-info'])) {
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="showGrade('<?= $row['fullname'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
+                                               onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
                                             Grade</label>
                                     </td>
                                 </tr>
@@ -1323,8 +1323,8 @@ if (isset($_POST['update-student-info'])) {
         window.location.reload();
     }
 
-    function showGrade(fullName, gradeLevel, schoolYear) {
-        $('#view-student-grade #view-student-grade-name').text(fullName);
+    function showGrade(fname,lname,mname, gradeLevel, schoolYear) {
+        $('#view-student-grade #view-student-grade-name').text(lname + ', ' + fname + ' ' + mname + '.');
         $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
         $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
         showModal('view-student-grade', 'Student Grade')
