@@ -148,7 +148,7 @@ if (isset($_POST['add-new-student'])) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+              window.location.href = "?id=' . $_GET['id'] . '&datasavedsuccessfully";
             ';
         echo '</script>';
     } else {
@@ -404,8 +404,8 @@ if (isset($_POST['update-student-info'])) {
         </div>
         <div class="modal-body">
             <div id="add-new-student" class="modal-child pad-top-2em pad-bottom-2em d-none">
-                <form  id="new-students">
-<!--                    <form method="post">-->
+<!--                <form  id="new-students">-->
+                    <form method="post">
                     <div class="custom-grid-container" tabindex="3">
                         <div class="custom-grid-item">
                             <div class="w-70p m-l-1em">ID Number</div>
@@ -528,7 +528,7 @@ if (isset($_POST['update-student-info'])) {
                         <button type="submit"
                                 class="c-hand btn-success btn"
                                 name="add-new-student"
-                                onclick="saveStudents()"
+<!--                                onclick="saveStudents()"-->
                                >Submit
                         </button>
                     </div>

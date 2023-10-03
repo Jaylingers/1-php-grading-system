@@ -8,23 +8,17 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
-    function validate($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        return htmlspecialchars($data);
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM users_info WHERE id='$id'";
+        $result = mysqli_query($conn, $sql);
+        $rows = mysqli_fetch_assoc($result);
+
+        if (isset($_POST['logout'])) {
+            unset($_SESSION['username']); // remove it now we have used it
+            header("Location: /1-php-grading-system/students_page/signin/");
+        }
     }
-
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM users_info WHERE id='$id'";
-    $result = mysqli_query($conn, $sql);
-    $rows = mysqli_fetch_assoc($result);
-
-    if (isset($_POST['logout'])) {
-        unset($_SESSION['username']); // remove it now we have used it
-        header("Location: /1-php-grading-system/students_page/signin/");
-    }
-
 }
 
 
