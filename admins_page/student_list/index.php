@@ -7,10 +7,69 @@ global $conn;
 include "../../db_conn.php";
 
 if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $sql = "delete from students_info where lrn = '$id'";
+    $lrn = $_POST['id'];
+
+    $id = $_GET['id'];
+    $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+    $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
+    $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+    $removedBy = '';
+    foreach ($rowsSelectRemovedBy as $key => $value) {
+        $removedBy .= $value;
+    }
+
+    $sqlStudentInfo = "select * from students_info where lrn = '$lrn'";
+    $resultStudentInfo = mysqli_query($conn, $sqlStudentInfo);
+    $rowsStudentInfo = mysqli_fetch_assoc($resultStudentInfo);
+    $name = $rowsStudentInfo['f_name'] . ' ' . $rowsStudentInfo['l_name'];
+    $historyData = '';
+    $historyData .= ' <h3> Student Info</h3>';
+    foreach ($rowsStudentInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
+    $sqlStudentEnrollmentInfo = "select * from students_enrollment_info where students_info_lrn = '$lrn'";
+    $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+    $rowsStudentEnrollmentInfo = mysqli_fetch_assoc($resultStudentEnrollmentInfo);
+    $historyData .= ' <h3> Student Enrollment Info</h3>';
+    foreach ($resultStudentEnrollmentInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
+
+    $sqlStudentGradeInfo = "select * from students_grade_info where student_lrn = '$lrn'";
+    $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+    $rowsStudentGradeInfo = mysqli_fetch_assoc($resultStudentGradeInfo);
+    $historyData .= ' <h3> Student Grade Info</h3>';
+    foreach ($resultStudentGradeInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
+
+    $sqlInsertTrash = "insert into trash_info (student_lrn,name,history,removed_date,removed_by) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy')";
+    $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
+
+    $sql = "delete from students_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
-    if ($result) {
+
+    $sqlUserInfo = "delete from users_info where user_lrn = '$lrn'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+
+    $sqlStudentEnrollmentInfo = "delete from students_enrollment_info where students_info_lrn = '$lrn'";
+    $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+
+    $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
+    $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+
+    $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
+    $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
+
+    $sqlPromotedStudentsHistory = "delete from promoted_students_history where student_lrn = '$lrn'";
+    $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
+
+    if ($resultInsertTrash) {
         echo '<script>';
         echo '   
               history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
@@ -64,14 +123,32 @@ if (isset($_POST['add-new-student'])) {
     $homeAddress = $_POST['homeAddress'];
     $guardianName = $_POST['guardianName'];
     $lrn = $_POST['lrn'];
+    $id = $_GET['id'];
 
-    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName')";
+    $sqlSelectLRN = "select * from students_info where lrn = '$lrn'";
+    $resultSelectLRN = mysqli_query($conn, $sqlSelectLRN);
+    $rowsSelectLRN = mysqli_fetch_assoc($resultSelectLRN);
+    if ($rowsSelectLRN) {
+        echo '<script>';
+        echo '   
+              alert("LRN already exist");
+              window.location.href = "?id=' . $_GET['id'] . '&&lrnexist=' . $lrn . '";
+            ';
+        echo '</script>';
+        return;
+    }
+
+    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id')";
     $result = mysqli_query($conn, $sql);
-    if ($result) {
+
+    $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','student','$lrn')";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+
+    if ($resultUserInfo) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+              window.location.href = "?id=' . $_GET['id'] . '&datasavedsuccessfully";
             ';
         echo '</script>';
     } else {
@@ -79,7 +156,6 @@ if (isset($_POST['add-new-student'])) {
         echo 'console.log("failed")';
         echo '</script>';
     }
-
 }
 
 if (isset($_POST['update-student-info'])) {
@@ -161,34 +237,85 @@ if (isset($_POST['update-student-info'])) {
 
                 <?php
                 $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
-                $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                        si.id, 
+                        si.lrn, 
+                        si.f_name, 
+                        si.l_name, 
+                        si.b_date, 
+                        si.age, 
+                        si.gender,
+                        si.c_status,
+                        si.religion, 
+                        si.contact_number, 
+                        si.m_name, 
+                        si.b_place, 
+                        si.nationality, 
+                        si.email_address,
+                        si.home_address, 
+                        si.guardian_name, 
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
-                        GROUP BY si.id order by si.lrn DESC Limit 1";
+						left join users_info ui on ui.id = si.addedBy
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+                        GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                 $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "students".
-                $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                        si.id, 
+                        si.lrn, 
+                        si.f_name, 
+                        si.l_name, 
+                        si.b_date, 
+                        si.age, 
+                        si.gender,
+                        si.c_status,
+                        si.religion, 
+                        si.contact_number, 
+                        si.m_name, 
+                        si.b_place, 
+                        si.nationality, 
+                        si.email_address,
+                        si.home_address, 
+                        si.guardian_name, 
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+						left join users_info ui on ui.id = si.addedBy
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name
+                if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                        si.id, 
+                        si.lrn, 
+                        si.f_name, 
+                        si.l_name, 
+                        si.b_date, 
+                        si.age, 
+                        si.gender,
+                        si.c_status,
+                        si.religion, 
+                        si.contact_number, 
+                        si.m_name, 
+                        si.b_place, 
+                        si.nationality, 
+                        si.email_address,
+                        si.home_address, 
+                        si.guardian_name, 
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+						left join users_info ui on ui.id = si.addedBy
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -214,6 +341,7 @@ if (isset($_POST['update-student-info'])) {
                             <th>Age</th>
                             <th>Sex</th>
                             <th>Grade Level</th>
+                            <th>Added By</th>
                             <th>Option</th>
                         </tr>
                         </thead>
@@ -235,6 +363,7 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['age'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
+                                <td><?= $row['addedBy'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewStudentEnrollment('<?= $row['lrn'] ?>')"

@@ -57,7 +57,7 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
             <div class="d-flex-end w-4em">
@@ -71,8 +71,17 @@ if (!isset($_SESSION['username'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
+                    Teacher
+                </div>
+            </div>
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add Student
+                    Student
                 </div>
             </div>
             <div class=" h-4em d-flex-end m-t-5px">
@@ -81,7 +90,7 @@ if (!isset($_SESSION['username'])) {
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add New User
+                    Admin
                 </div>
             </div>
         </div>
@@ -339,8 +348,8 @@ if (!isset($_SESSION['username'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-                tabName === 'userTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
-                    : tabName === 'recordsTab' ? 'h-12-5em'
+                tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
+                    : tabName === 'userTab' || tabName === 'recordsTab' ? 'h-13em'
                         : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -361,20 +370,20 @@ if (!isset($_SESSION['username'])) {
 
         if (get === '1') {
             $('#arrowLeftButton').addClass('bg-img-2')
-            $('#userTab').addClass('h-8-5em')
+            $('#userTab').addClass('h-13em')
         } else {
             $('#arrowLeftButton').addClass('bg-img-1')
-            $('#userTab').removeClass('h-8-5em')
+            $('#userTab').removeClass('h-13em')
         }
 
         let get_rec = localStorage.getItem('studArrowLeft_records');
 
         if (get_rec === '1') {
             $('#arrowLeftButton_records').addClass('bg-img-2')
-            $('#recordsTab').addClass('h-12-5em')
+            $('#recordsTab').addClass('h-13em')
         } else {
             $('#arrowLeftButton_records').addClass('bg-img-1')
-            $('#recordsTab').removeClass('h-12-5em')
+            $('#recordsTab').removeClass('h-13em')
         }
 
         let get_main = localStorage.getItem('studArrowLeft_maintenance');
@@ -421,13 +430,13 @@ if (!isset($_SESSION['username'])) {
     function viewUserTabs() {
         var user_type = "<?= $rows['user_type'] ?>";
         if (user_type) {
-            if (user_type === 'admin') {
+            if (user_type.toLowerCase() === 'admin') {
                 $('.tab-dashboard').removeClass('d-none')
                 $('.tab-addUser').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')
                 $('.tab-maintenance').removeClass('d-none')
                 $('.tab-trash').removeClass('d-none')
-            } else if (user_type === 'teacher') {
+            } else if (user_type.toLowerCase() === 'teacher') {
                 $('.tab-teacherInfo').removeClass('d-none')
                 $('.tab-masterlist').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')
