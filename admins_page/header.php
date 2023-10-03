@@ -8,7 +8,6 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
-    if(isset($_GET['id'])) {
         $id = $_GET['id'];
         $sql = "SELECT * FROM users_info WHERE id='$id'";
         $result = mysqli_query($conn, $sql);
@@ -18,7 +17,6 @@ if (!isset($_SESSION['username'])) {
             unset($_SESSION['username']); // remove it now we have used it
             header("Location: /1-php-grading-system/students_page/signin/");
         }
-    }
 }
 
 
