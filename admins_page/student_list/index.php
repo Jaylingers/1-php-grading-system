@@ -466,7 +466,6 @@ if (isset($_POST['update-student-info'])) {
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="lrn"
                                    name="lrn"
-                                   readonly="true"
                                    value="<?php echo $lrns1 ?>">
                             <div class="w-70p m-l-1em">Lastname</div>
                             <input placeholder="Last Name" type="text"

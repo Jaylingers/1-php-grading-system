@@ -423,11 +423,13 @@ if (isset($_POST['teacherStudentID'])) {
                                 <option value="Female">Female</option>
                             </select>
                             <div class="w-70p m-l-1em">Civil Status</div>
-                            <input placeholder="Civil Status" type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                   id="civilStatus"
-                                   name="civilStatus"
-                                   required>
+                            <select name="civilStatus" id="civilStatus"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Civil Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Devorced">Devorced</option>
+                            </select>
 
                             <div class="w-70p m-l-1em">Email</div>
                             <input placeholder="Email Address" type="email"

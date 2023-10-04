@@ -15,9 +15,9 @@ if (isset($_POST['create'])) {
 	$user_data = 'name='.$name. '&email='.$email;
 
 	if (empty($name)) {
-		header("Location: ../index.php?error=Name is required&$user_data");
+		header("Location: ../index1.php?error=Name is required&$user_data");
 	}else if (empty($email)) {
-		header("Location: ../index.php?error=Email is required&$user_data");
+		header("Location: ../index1.php?error=Email is required&$user_data");
 	}else {
 
        $sql = "INSERT INTO users_info(name, email) 
@@ -26,7 +26,7 @@ if (isset($_POST['create'])) {
        if ($result) {
        	  header("Location: ../read.php?success=successfully created");
        }else {
-          header("Location: ../index.php?error=unknown error occurred&$user_data");
+          header("Location: ../index1.php?error=unknown error occurred&$user_data");
        }
 	}
 

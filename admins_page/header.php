@@ -261,7 +261,7 @@ if (!isset($_SESSION['username'])) {
     </div>
 </div>
 
-<div id="settings-details" class="p-absolute j-content-center z-i-999910" style="  height: 19em;
+<div id="settings-details" class="p-absolute j-content-center z-i-999910" style=" position:fixed;  height: 19em;
     width: 14em;
     top: 64px;
     right: 17px;
@@ -284,12 +284,17 @@ if (!isset($_SESSION['username'])) {
         <div class="d-flex-center m-l-13px m-r-13px">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
         </div>
-        <img src="<?= $rows['img_path'] ?>"
-             style="height: 3em;
-    width: 3em;
-    border-radius: 50%;
-    object-fit: cover !important;"
-             alt="" class="w-32px">
+        <?php if ($rows['img_path'] == '') { ?>
+            <img src="../../assets/users_img/noImage.png"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                    alt="" class="w-32px">
+        <?php } else { ?>
+            <img src="<?= $rows['img_path'] ?>"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                    alt="" class="w-32px">
+        <?php } ?>
+
+
         <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"
              class="w-18px m-r-13px c-hand transition-0-5s" alt="" onclick="settings()"/>
 

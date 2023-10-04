@@ -23,11 +23,18 @@ if (isset($_POST['login'])) {
     $user_data = 'username=' . $username . '&password=' . $password;
 
     if ($row['username'] === $username && $row['password'] === $password) {
+
         session_start();
         $_SESSION['username'] = $username;
-        if($row['user_type'] == 'student') {
+        $user_type = $row['user_type'];
+        $id = $row['id'];
+
+        $sqlInsertPageVisited = "insert into page_visited_info (user_id, date_visited) values ('$id', now())";
+        mysqli_query($conn, $sqlInsertPageVisited);
+
+        if (strtolower($user_type) == 'student') {
             header("Location: /1-php-grading-system/students_page/teacher_info?id=" . $row['id']);
-        } else if($row['user_type'] == 'teacher') {
+        } else if (strtolower($user_type) == 'teacher') {
             header("Location: /1-php-grading-system/admins_page/teacher_info?id=" . $row['id']);
         } else {
             header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
