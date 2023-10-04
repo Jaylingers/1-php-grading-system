@@ -114,20 +114,20 @@ if (isset($_POST['update_user'])) {
 
                         <?php
                         $searchSubject = isset($_GET['searchSubject']) ? $_GET['searchSubject'] : '';
-                        $sql = "select * from subject_list_info WHERE name LIKE '%$searchSubject%' Limit 1";
+                        $sql = "select * from subject_list_info WHERE name LIKE '%$searchSubject%' order by id desc Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from subject_list_info WHERE name LIKE '%$searchSubject%'")->num_rows;
+                        $total_pages = $mysqli->query("select * from subject_list_info WHERE name LIKE '%$searchSubject%' order by id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from subject_list_info WHERE name LIKE '%$searchSubject%' LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select * from subject_list_info WHERE name LIKE '%$searchSubject%' order by id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);

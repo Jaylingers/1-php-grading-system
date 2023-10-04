@@ -1,5 +1,5 @@
 <?php global $mysqli, $rows;
-$var = "teacher_list";
+$var = "add_teacher";
 include '../header.php'; ?>
 
 <?php
@@ -23,7 +23,6 @@ if (isset($_POST['lrn'])) {
         echo '</script>';
     }
 }
-
 
 if (isset($_POST['add-new-teacher'])) {
     $lrn = $_POST['lrn-add'];
@@ -77,6 +76,28 @@ if (isset($_POST['add-new-teacher'])) {
             ';
         echo '</script>';
     }
+}
+
+if(isset($_POST['edit-teacher'])) {
+    $lrn = $_POST['lrnUpdate'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $address = $_POST['address'];
+    $gender = $_POST['gender'];
+    $civilStatus = $_POST['civilStatus'];
+    $emailAddress = $_POST['emailAddress'];
+    $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress' where lrn='$lrn'";
+    $resultUpdateTeacher = mysqli_query($conn, $sqlUpdateTeacher);
+    if($resultUpdateTeacher){
+        echo '<script>';
+        echo '
+        alert("Successfully Updated");
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                window.location.reload();
+            ';
+        echo '</script>';
+    }
+
 }
 function debug_to_console($data, $context = 'Debug in Console')
 {
@@ -278,12 +299,8 @@ if (isset($_POST['teacherStudentID'])) {
                                 <td><?= $row['email_address'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewTeacherEnrollment('<?= $row['lrn'] ?>', '<?= $row['last_name'] ?>')"
-                                    >Subject Loads</label>
-                                    &nbsp;
-                                    <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewTeacherStudents('<?= $row['lrn'] ?>', '<?= $row['last_name'] ?>')"
-                                    >Students</label>
+                                           onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>')"
+                                    >Edit</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -406,6 +423,68 @@ if (isset($_POST['teacherStudentID'])) {
                                 <option value="Female">Female</option>
                             </select>
                             <div class="w-70p m-l-1em">Civil Status</div>
+                            <select name="civilStatus" id="civilStatus"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Civil Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Devorced">Devorced</option>
+                            </select>
+
+                            <div class="w-70p m-l-1em">Email</div>
+                            <input placeholder="Email Address" type="email"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="emailAddress"
+                                   name="emailAddress"
+                                   required>
+
+                        </div>
+
+                    </div>
+                    <div class="d-flex-end">
+                        <button type="submit"
+                                class="c-hand btn-success btn"
+                                name="add-new-teacher">Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="edit-teacher" class="modal-child d-none">
+                <form method="post">
+                    <div class="custom-grid-container" tabindex="1">
+                        <div class="custom-grid-item ">
+                            <input type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="lrnUpdate"
+                                   name="lrnUpdate"
+                                   readonly="true"
+                                  >
+                            <div class="w-70p m-l-1em">First Name</div>
+                            <input placeholder="First Name" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="firstName"
+                                   name="firstName"
+                                   required>
+                            <div class="w-70p m-l-1em">Last Name</div>
+                            <input placeholder="Last Name" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="lastName"
+                                   name="lastName"
+                                   required>
+                            <div class="w-70p m-l-1em">Address</div>
+                            <input placeholder="Address" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="address"
+                                   name="address"
+                                   required>
+                            <div class="w-70p m-l-1em">Gender</div>
+                            <select name="gender" id="gender"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <div class="w-70p m-l-1em">Civil Status</div>
                             <input placeholder="Civil Status" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="civilStatus"
@@ -425,7 +504,7 @@ if (isset($_POST['teacherStudentID'])) {
                     <div class="d-flex-end">
                         <button type="submit"
                                 class="c-hand btn-success btn"
-                                name="add-new-teacher">Save
+                                name="edit-teacher">Save
                         </button>
                     </div>
                 </form>
@@ -1263,6 +1342,18 @@ if (isset($_POST['teacherStudentID'])) {
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
         }
+    }
+
+    function editTeacher(lrn,lastName,firstName,address,gender,civilStatus,subject,email){
+        $('#edit-teacher #lrnUpdate').val(lrn);
+        $('#edit-teacher #lastName').val(lastName);
+        $('#edit-teacher #firstName').val(firstName);
+        $('#edit-teacher #address').val(address);
+        $('#edit-teacher #gender').val(gender)
+        $('#edit-teacher #civilStatus').val(civilStatus);
+        $('#edit-teacher #subject').val(subject);
+        $('#edit-teacher #emailAddress').val(email);
+        showModal('edit-teacher', 'Edit Teacher');
     }
 
     function loadPage() {

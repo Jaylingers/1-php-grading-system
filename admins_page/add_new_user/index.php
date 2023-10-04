@@ -9,13 +9,10 @@ include "../../db_conn.php";
 if (isset($_POST['add_user'])) {
     $lastname = $_POST['lastname'];
     $firstname = $_POST['firstname'];
-    $grade = $_POST['grade'];
-    $subject = $_POST['subject'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $user_type = $_POST['user_type'];
 
-    $sql = "insert into users_info (last_name,first_name,grade,subject,username,password,user_type) VALUES ('$lastname','$firstname','$grade','$subject','$username','$password','$user_type')";
+    $sql = "insert into users_info (last_name,first_name,username,password,user_type) VALUES ('$lastname','$firstname','$username','$password','admin')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -32,13 +29,10 @@ if (isset($_POST['update_user'])) {
     $id = $_POST['id'];
     $lastname = $_POST['lastname'];
     $firstname = $_POST['firstname'];
-    $grade = $_POST['grade'];
-    $subject = $_POST['subject'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $user_type = $_POST['user_type'];
 
-    $sql = "update users_info set last_name='$lastname',first_name='$firstname',grade='$grade',subject='$subject',username='$username',password='$password',user_type='$user_type' where id='$id'";
+    $sql = "update users_info set last_name='$lastname',first_name='$firstname',username='$username',password='$password' where id='$id'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -100,20 +94,20 @@ if (isset($_POST['update_user'])) {
 
                         <?php
                         $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
-                        $sql = "select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' Limit 1";
+                        $sql = "select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc Limit 1 ";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset( $row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%'")->num_rows;
+                        $total_pages = $mysqli->query("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -154,7 +148,7 @@ if (isset($_POST['update_user'])) {
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editUser('<?= $row['id'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>', '<?= $row['grade'] ?>','<?= $row['subject'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>','<?= $row['user_type'] ?>', )">
+                                                   onclick="editUser('<?= $row['id'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', )">
                                                 Edit</label>
                                         </td>
                                     </tr>
@@ -248,23 +242,6 @@ if (isset($_POST['update_user'])) {
                                                id="firstname"
                                                name="firstname"
                                                required>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Grade:</div>
-                                        <select name="grade" id="grade"
-                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
-                                            <option value="" disabled selected>Grade</option>
-                                            <option value="1">Grade 1</option>
-                                            <option value="2">Grade 2</option>
-                                            <option value="3">Grade 3</option>
-                                            <option value="4">Grade 4</option>
-                                            <option value="5">Grade 5</option>
-                                            <option value="6">Grade 6</option>
-                                        </select>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject:</div>
-                                        <input placeholder="Subject" type="text"
-                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
-                                               id="subject"
-                                               name="subject"
-                                               required>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Username:</div>
                                         <input placeholder="Username" type="text"
                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -277,13 +254,6 @@ if (isset($_POST['update_user'])) {
                                                id="password"
                                                name="password"
                                                required>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> User Type:</div>
-                                        <select name="user_type" id="user_type"
-                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
-                                            <option value="" disabled selected> </option>
-                                            <option value="Admin">Admin</option>
-                                            <option value="Teacher">Teacher</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
@@ -332,29 +302,6 @@ if (isset($_POST['update_user'])) {
                                                    id="firstname"
                                                    name="firstname"
                                                    required>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Grade:</div>
-                                            <select name="grade" id="grade"
-                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
-                                                <option value="" disabled selected>Grade</option>
-                                                <option value="1">Grade 1</option>
-                                                <option value="2">Grade 2</option>
-                                                <option value="3">Grade 3</option>
-                                                <option value="4">Grade 4</option>
-                                                <option value="5">Grade 5</option>
-                                                <option value="6">Grade 6</option>
-                                                <option value="7">Grade 7</option>
-                                                <option value="8">Grade 8</option>
-                                                <option value="9">Grade 9</option>
-                                                <option value="10">Grade 10</option>
-                                                <option value="11">Grade 11</option>
-                                                <option value="12">Grade 12</option>
-                                            </select>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject:</div>
-                                            <input placeholder="Subject" type="text"
-                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
-                                                   id="subject"
-                                                   name="subject"
-                                                   required>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Username:</div>
                                             <input placeholder="Username" type="text"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -367,12 +314,7 @@ if (isset($_POST['update_user'])) {
                                                    id="password"
                                                    name="password"
                                                    required>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> User Type:</div>
-                                            <input placeholder="User Type" type="text"
-                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
-                                                   id="user_type"
-                                                   name="user_type"
-                                                   required>
+
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em">
@@ -401,22 +343,18 @@ if (isset($_POST['update_user'])) {
     function cancel() {
         $('#lastname').val('');
         $('#firstname').val('');
-        $('#grade').val('');
-        $('#subject').val('');
         $('#username').val('');
         $('#password').val('');
-        $('#user_type').val('');
+
     }
 
-    function editUser(id, lastname, firstname, grade, subject, username, password, user_type) {
+    function editUser(id, lastname, firstname,username, password) {
         $('#update-user #id').val(id);
         $('#update-user #lastname').val(lastname);
         $('#update-user #firstname').val(firstname);
-        $('#update-user #grade').val(grade);
-        $('#update-user #subject').val(subject);
         $('#update-user #username').val(username);
         $('#update-user #password').val(password);
-        $('#update-user #user_type').val(user_type);
+
 
         showModal('update-user', 'Manage Account', '', 'small')
     }

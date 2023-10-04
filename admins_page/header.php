@@ -57,7 +57,7 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
             <div class="d-flex-end w-4em">
@@ -71,8 +71,17 @@ if (!isset($_SESSION['username'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
+                    Teacher
+                </div>
+            </div>
+            <div class=" h-4em d-flex-end m-t-5px">
+                <div class="d-flex-center w-4em"><img
+                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                            alt="" class="w-18px c-hand rotate"></div>
+                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add Student
+                    Student
                 </div>
             </div>
             <div class=" h-4em d-flex-end m-t-5px">
@@ -81,7 +90,7 @@ if (!isset($_SESSION['username'])) {
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add New User
+                    Admin
                 </div>
             </div>
         </div>
@@ -252,7 +261,7 @@ if (!isset($_SESSION['username'])) {
     </div>
 </div>
 
-<div id="settings-details" class="p-absolute j-content-center z-i-999910" style="  height: 19em;
+<div id="settings-details" class="p-absolute j-content-center z-i-999910" style=" position:fixed;  height: 19em;
     width: 14em;
     top: 64px;
     right: 17px;
@@ -275,12 +284,17 @@ if (!isset($_SESSION['username'])) {
         <div class="d-flex-center m-l-13px m-r-13px">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
         </div>
-        <img src="<?= $rows['img_path'] ?>"
-             style="height: 3em;
-    width: 3em;
-    border-radius: 50%;
-    object-fit: cover !important;"
-             alt="" class="w-32px">
+        <?php if ($rows['img_path'] == '') { ?>
+            <img src="../../assets/users_img/noImage.png"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                    alt="" class="w-32px">
+        <?php } else { ?>
+            <img src="<?= $rows['img_path'] ?>"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                    alt="" class="w-32px">
+        <?php } ?>
+
+
         <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"
              class="w-18px m-r-13px c-hand transition-0-5s" alt="" onclick="settings()"/>
 
@@ -339,8 +353,8 @@ if (!isset($_SESSION['username'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-                tabName === 'userTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
-                    : tabName === 'recordsTab' ? 'h-12-5em'
+                tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
+                    : tabName === 'userTab' || tabName === 'recordsTab' ? 'h-13em'
                         : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -361,20 +375,20 @@ if (!isset($_SESSION['username'])) {
 
         if (get === '1') {
             $('#arrowLeftButton').addClass('bg-img-2')
-            $('#userTab').addClass('h-8-5em')
+            $('#userTab').addClass('h-13em')
         } else {
             $('#arrowLeftButton').addClass('bg-img-1')
-            $('#userTab').removeClass('h-8-5em')
+            $('#userTab').removeClass('h-13em')
         }
 
         let get_rec = localStorage.getItem('studArrowLeft_records');
 
         if (get_rec === '1') {
             $('#arrowLeftButton_records').addClass('bg-img-2')
-            $('#recordsTab').addClass('h-12-5em')
+            $('#recordsTab').addClass('h-13em')
         } else {
             $('#arrowLeftButton_records').addClass('bg-img-1')
-            $('#recordsTab').removeClass('h-12-5em')
+            $('#recordsTab').removeClass('h-13em')
         }
 
         let get_main = localStorage.getItem('studArrowLeft_maintenance');
@@ -421,13 +435,13 @@ if (!isset($_SESSION['username'])) {
     function viewUserTabs() {
         var user_type = "<?= $rows['user_type'] ?>";
         if (user_type) {
-            if (user_type === 'admin') {
+            if (user_type.toLowerCase() === 'admin') {
                 $('.tab-dashboard').removeClass('d-none')
                 $('.tab-addUser').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')
                 $('.tab-maintenance').removeClass('d-none')
                 $('.tab-trash').removeClass('d-none')
-            } else if (user_type === 'teacher') {
+            } else if (user_type.toLowerCase() === 'teacher') {
                 $('.tab-teacherInfo').removeClass('d-none')
                 $('.tab-masterlist').removeClass('d-none')
                 $('.tab-records').removeClass('d-none')

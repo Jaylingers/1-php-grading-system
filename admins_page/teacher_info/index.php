@@ -73,10 +73,16 @@ if (isset($_POST['saveImage'])) {
                                     margin-top: 17em;
                                     margin-left: 20em;
                                     padding: 5px;">
+                            <?php if ($rows['img_path'] == '') { ?>
+                                <img id="view-image" src="../../assets/users_img/noImage.png" alt="teacher image"
+                                     style="height: 22em; width: 2em; object-fit: fill; border-radius: 50%;"
+                                     class="w-100p">
+                            <?php } else { ?>
+                                <img id="view-image" src="<?= $rows['img_path'] ?>" alt="teacher image"
+                                     style="height: 22em; width: 2em; object-fit: fill; border-radius: 50%;"
+                                     class="w-100p">
+                            <?php } ?>
 
-                            <img id="view-image" src="<?= $rows['img_path'] ?>" alt="teacher image"
-                                 style="height: 22em; width: 2em; object-fit: fill; border-radius: 50%;"
-                                 class="w-100p">
                             <div>
 
                             </div>
