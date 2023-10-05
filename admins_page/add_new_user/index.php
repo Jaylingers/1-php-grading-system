@@ -45,6 +45,20 @@ if (isset($_POST['update_user'])) {
     }
 }
 
+if (isset($_POST['studId'])) {
+    $studId = $_POST['studId'];
+    $sql = "delete from users_info where id='$studId'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+              alert("deleted successfully");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                    window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
@@ -88,6 +102,10 @@ if (isset($_POST['update_user'])) {
                             <div class="w-74p d-flex-end">
                                 <input placeholder="search name" id="search_name" type="text" class="m-1em"
                                        onchange="searchName()"/>
+                                <button
+                                        class="btn bg-hover-gray-dark-v1"
+                                        onclick="deleteStudents('user-list')">Delete Selected
+                                </button>
                             </div>
 
                         </div>
@@ -97,7 +115,7 @@ if (isset($_POST['update_user'])) {
                         $sql = "select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc Limit 1 ";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        $lrn = isset( $row['id']) ? $row['id'] + 1 : 0;
+                        $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
@@ -119,10 +137,10 @@ if (isset($_POST['update_user'])) {
                             <table class="table table-1 b-shadow-dark">
                                 <thead>
                                 <tr>
-                                    <th class="t-align-center"><label for="student-list-cb"
+                                    <th class="t-align-center"><label for="user-list-cb"
                                                                       class="d-flex-center"></label><input
-                                                id="student-list-cb" type="checkbox"
-                                                onclick="checkCBStudents('student-list', 'student-list-cb')"
+                                                id="user-list-cb" type="checkbox"
+                                                onclick="checkCBStudents('user-list', 'user-list-cb')"
                                                 class="sc-1-3 c-hand"/></th>
                                     <th>No</th>
                                     <th>Name</th>
@@ -131,7 +149,7 @@ if (isset($_POST['update_user'])) {
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody id="student-list">
+                                <tbody id="user-list">
                                 <?php
                                 $i = 0;
                                 while ($row = $result->fetch_assoc()):
@@ -140,7 +158,7 @@ if (isset($_POST['update_user'])) {
                                     <tr>
                                         <td class="d-flex-center"><label>
                                                 <input type="checkbox" class="sc-1-3 c-hand check"
-                                                       id="<?= $row['user_lrn'] ?>"/>
+                                                       id="<?= $row['id'] ?>"/>
                                             </label></td>
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
@@ -340,6 +358,43 @@ if (isset($_POST['update_user'])) {
 </div>
 
 <script>
+    function checkCBStudents(id, cb) {
+        if ($('#' + cb).is(':checked')) {
+            $('#' + id + ' input[type="checkbox"]').prop('checked', true);
+
+        } else {
+            $('#' + id + ' input[type="checkbox"]').prop('checked', false);
+        }
+    }
+
+    function deleteStudents(id) {
+        var studentID = [];
+        var studentCount = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            studentID.push($(this).attr('id'));
+            studentCount++;
+        });
+        if (studentCount > 0) {
+            var r = confirm("Are you sure you want to delete this records? This action will remove all data with all related tables.");
+            if (r === true) {
+                studentID.forEach(function (studId) {
+                    $.post('', {studId: studId})
+                });
+
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+                alert('Successfully deleted!')
+                window.location.reload();
+
+            }
+        } else {
+            if (id === 'student-enrollment') {
+                alert('Please select a enrollment!');
+            } else {
+                alert('Please select a student!');
+            }
+        }
+    }
+
     function cancel() {
         $('#lastname').val('');
         $('#firstname').val('');
@@ -348,7 +403,7 @@ if (isset($_POST['update_user'])) {
 
     }
 
-    function editUser(id, lastname, firstname,username, password) {
+    function editUser(id, lastname, firstname, username, password) {
         $('#update-user #id').val(id);
         $('#update-user #lastname').val(lastname);
         $('#update-user #firstname').val(firstname);

@@ -48,7 +48,7 @@ if (isset($_POST['id'])) {
         }
     }
 
-    $sqlInsertTrash = "insert into trash_info (student_lrn,name,history,removed_date,removed_by) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy')";
+    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 
     $sql = "delete from students_info where lrn = '$lrn'";

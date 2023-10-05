@@ -117,6 +117,78 @@ if (isset($_POST['update-student-info'])) {
     }
 }
 
+if (isset($_POST['studId'])) {
+    $id = $_POST['studId'];
+    $sql = "select * from trash_info where id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $lrn = $row['user_lrn'];
+    $history = $row['history'];
+    $position = $row['position'];
+    $history = explode("<h3>", $history);
+    if ($position === 'student') {
+        $studentInfo = str_replace("Student Info</h3>", "", $history[1]);
+        $studentInfo = explode("<br/>", $studentInfo);
+        echo '<script> console.log("' . implode($studentInfo) . '"); </script>';
+        foreach ($studentInfo as $key => $value) {
+            if ($value !== " ") {
+                $val = str_replace(" ", "", $value);
+                echo '<script> console.log("' . $val . '"); </script>';
+            }
+        }
+
+        $sLrn = trim(str_replace("lrn: ", "", $studentInfo[1]));
+        $sFname = trim(str_replace("first_name: ", "", $studentInfo[2]));
+        $sLname = trim(str_replace("last_name: ", "", $studentInfo[3]));
+        $sMname = trim(str_replace("middle_name: ", "", $studentInfo[4]));
+        $sGender = trim(str_replace("gender: ", "", $studentInfo[5]));
+        $sBdate = trim(str_replace("birth_date: ", "", $studentInfo[6]));
+        $sBdate = date("Y-m-d", strtotime($sBdate));
+        $sBplace = trim(str_replace("birth_place: ", "", $studentInfo[7]));
+        $sCstatus = trim(str_replace("civil_status: ", "", $studentInfo[8]));
+        $sAge = trim(str_replace("age: ", "", $studentInfo[9]));
+        $sNationality = trim(str_replace("nationality: ", "", $studentInfo[10]));
+        $sReligion = trim(str_replace("religion: ", "", $studentInfo[11]));
+        $sContact = trim(str_replace("contact_number: ", "", $studentInfo[12]));
+        $sEmail = trim(str_replace("email_address: ", "", $studentInfo[13]));
+        $sHome = trim(str_replace("home_address: ", "", $studentInfo[14]));
+        $sGuardian = trim(str_replace("guardian_name: ", "", $studentInfo[15]));
+        $sAddedBy = trim(str_replace("addedBy: ", "", $studentInfo[16]));
+        $insertStudent = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy) VALUES ('$sFname', '$sLname', '$sMname', '$sGender', '$sBplace', '$sCstatus', '$sAge', '$sBdate' , '$sNationality', '$sReligion', '$sContact', '$sEmail', '$sHome', '$sLrn', '$sGuardian', '$sAddedBy')";
+        $result = mysqli_query($conn, $insertStudent);
+
+    } else if ($position === 'teacher') {
+        $teacherInfo = str_replace("Teachers Info</h3>", "", $history[1]);
+        $teacherInfo = explode("<br/>", $teacherInfo);
+        echo '<script> console.log("' . implode($teacherInfo) . '"); </script>';
+        foreach ($teacherInfo as $key => $value) {
+            if ($value !== " ") {
+                $val = str_replace(" ", "", $value);
+                echo '<script> console.log("' . $val . '"); </script>';
+            }
+        }
+
+        $tLrn = trim(str_replace("lrn: ", "", $teacherInfo[1]));
+        $tFname = trim(str_replace("first_name: ", "", $teacherInfo[2]));
+        $tLname = trim(str_replace("last_name: ", "", $teacherInfo[3]));
+        $tAddress = trim(str_replace("address:", "", $teacherInfo[4]));
+        $tGender = trim(str_replace("gender:", "", $teacherInfo[5]));
+        $tCivil = trim(str_replace("civil_status:", "", $teacherInfo[6]));
+        $tEmail = trim(str_replace("email_address:", "", $teacherInfo[7]));
+        $insertTeacher = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address) values ('$tLrn','$tFname','$tLname','$tAddress','$tGender','$tcivil','$temail')";
+        $result = mysqli_query($conn, $insertTeacher);
+    }
+    $sqlDeleteTrash = "delete from trash_info where id = '$id'";
+    $result = mysqli_query($conn, $sqlDeleteTrash);
+
+    echo '<script>';
+    echo '
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                window.location.reload();
+            ';
+    echo '</script>';
+}
+
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
@@ -188,9 +260,10 @@ if (isset($_POST['update-student-info'])) {
                             <th>No</th>
                             <th>LRN</th>
                             <th>Name</th>
+                            <th>Position</th>
                             <th>Removed Date</th>
                             <th>Removed By</th>
-<!--                            <th>History</th>-->
+
                             <th></th>
                         </tr>
                         </thead>
@@ -202,24 +275,22 @@ if (isset($_POST['update-student-info'])) {
                             ?>
                             <tr>
                                 <td class="d-flex-center"><label>
-                                        <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['student_lrn'] ?>"/>
+                                        <input type="checkbox" class="sc-1-3 c-hand check"
+                                               id="<?= $row['student_lrn'] ?>"/>
                                     </label></td>
                                 <th scope="row"><?= $i ?> </th>
-                                <td><?= $row['student_lrn'] ?></td>
+                                <td><?= $row['user_lrn'] ?></td>
                                 <td><?= $row['name'] ?></td>
+                                <td><?= $row['position'] ?></td>
                                 <td><?= $row['removed_date'] ?></td>
                                 <td><?= $row['removed_by'] ?></td>
-<!--                                <td>--><?php
-//                                    $text = str_replace(" <br/>", "", $row['history']);
-//                                    if (strlen($text) > 35) {
-//                                        $text = substr($text, 0, 35) . '...';
-//                                    }
-//                                    echo $text;
-//                                    ?><!--</td>-->
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewStudentInformation('<?= $row['history'] ?>')"
-                                    >View History</label>
+                                    >View History</label> &nbsp;&nbsp;
+                                    <label for="" class="t-color-red c-hand f-weight-bold"
+                                           onclick="recoverStudentInformation('<?= $row['id'] ?>')"
+                                    >Recover</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -434,7 +505,7 @@ if (isset($_POST['update-student-info'])) {
                 </form>
             </div>
             <div id="view-student-info" class="modal-child d-none">
-              <div id="history"></div>
+                <div id="history"></div>
             </div>
             <div id="update-student-info" class="modal-child d-none">
                 <form method="post">
@@ -1173,6 +1244,14 @@ if (isset($_POST['update-student-info'])) {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
+        }
+    }
+
+    function recoverStudentInformation(studId) {
+        var r = confirm("Are you sure you want to recover ?");
+        if (r === true) {
+            Post('', {studId: studId})
+            alert('Successfully recovered!')
         }
     }
 

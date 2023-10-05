@@ -23,8 +23,14 @@
 
 <nav class="navbar">
     <div class="brand-title">
-        <a href="/1-php-grading-system/"> <img
+        <a href="/1-php-grading-system/">
+            <?php if ($var === "index") { ?>
+            <img
+                    src="assets/img/mabes.png" alt=""/></a>
+        <?php } else { ?>
+            <img
                     src="../../assets/img/mabes.png" alt=""/></a>
+        <?php } ?>
         <p> Mactan Airbase Elementary School </p>
         <p>Grade Inquiry</p>
     </div>
@@ -52,45 +58,45 @@
     </div>
 </nav>
 <style>
-    
+
     body {
-      margin: 0;
-      padding: 0;
+        margin: 0;
+        padding: 0;
     }
 
     /* Footer styles */
     .footer {
-      background: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      transition: opacity 0.3s;
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        transition: opacity 0.3s;
     }
 
     /* Animation styles */
     .fade-in {
-      opacity: 0;
-      animation: fadeInAnimation 2s ease-in forwards;
+        opacity: 0;
+        animation: fadeInAnimation 2s ease-in forwards;
     }
 
     @keyframes fadeInAnimation {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
-  
+
 </style>
 <footer>
-<div class="footer fade-in">
-    &#169; 2023 MABES|Grade Inquiry | All rights reserved
-  </div>
+    <div class="footer fade-in">
+        &#169; 2023 MABES|Grade Inquiry | All rights reserved
+    </div>
 </footer>
 </body>
 </html>

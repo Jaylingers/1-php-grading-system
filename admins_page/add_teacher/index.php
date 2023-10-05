@@ -8,6 +8,37 @@ include "../../db_conn.php";
 
 if (isset($_POST['lrn'])) {
     $lrn = $_POST['lrn'];
+
+    $id = $_GET['id'];
+    $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+    $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
+    $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+    $removedBy = '';
+    foreach ($rowsSelectRemovedBy as $key => $value) {
+        $removedBy .= $value;
+    }
+
+    $sqlStudentInfo = "select * from teachers_info where lrn = '$lrn'";
+    $resultStudentInfo = mysqli_query($conn, $sqlStudentInfo);
+    $rowsStudentInfo = mysqli_fetch_assoc($resultStudentInfo);
+    $name = $rowsStudentInfo['first_name'] . ' ' . $rowsStudentInfo['last_name'];
+    $historyData = '';
+    $historyData .= ' <h3> Teachers Info</h3>';
+    foreach ($rowsStudentInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
+    $sqlStudentSubjectInfo = "select * from teachers_subject_info where teachers_info_lrn = '$lrn'";
+    $resultStudentSubjectInfo = mysqli_query($conn, $sqlStudentSubjectInfo);
+    $rowsStudentSubjectInfo = mysqli_fetch_assoc($resultStudentSubjectInfo);
+    $historyData .= ' <h3> Teachers Subject Info</h3>';
+    foreach ($rowsStudentSubjectInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
+    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','teacher')";
+    $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
+
     $sql = "delete from teachers_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
 
@@ -39,34 +70,6 @@ if (isset($_POST['add-new-teacher'])) {
     $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','teacher','$lrn')";
     $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
 
-//    $addSubject = $_POST['add-subject'];
-//    $array = explode(" , ", $addSubject);
-//    debug_to_console($array);
-//    for ($i = 0; $i < count($array); $i++) {
-//        debug_to_console($array[$i]);
-//        $array1 = explode(",", $array[$i]);
-//
-//        $subject = $array1[0];
-//        $room = $array1[1];
-//        $grade_level = $array1[2];
-//        $schedule_time_in = $array1[3];
-//        $schedule_time_out = $array1[4];
-//        $schedule_day = $array1[5];
-//
-////        debug_to_console($subject);
-////        debug_to_console($room);
-////        debug_to_console($grade_level);
-////        debug_to_console($schedule_time_in);
-////        debug_to_console($schedule_time_out);
-////        debug_to_console($schedule_day);
-//
-//        $subject = str_replace("[", "", $subject);
-//        $schedule_day = str_replace("]", "", $schedule_day);
-//
-//        $sql = "insert into teachers_subject_info (subject,room,grade_level,schedule_time_in, schedule_time_out,schedule_day,teachers_info_lrn) values ($subject,$room,$grade_level,$schedule_time_in,$schedule_time_out,$schedule_day,'$lrn')";
-//        $result = mysqli_query($conn, $sql);
-//    }
-
     if ($result) {
         echo '<script>';
         echo '
@@ -78,7 +81,7 @@ if (isset($_POST['add-new-teacher'])) {
     }
 }
 
-if(isset($_POST['edit-teacher'])) {
+if (isset($_POST['edit-teacher'])) {
     $lrn = $_POST['lrnUpdate'];
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
@@ -88,7 +91,7 @@ if(isset($_POST['edit-teacher'])) {
     $emailAddress = $_POST['emailAddress'];
     $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress' where lrn='$lrn'";
     $resultUpdateTeacher = mysqli_query($conn, $sqlUpdateTeacher);
-    if($resultUpdateTeacher){
+    if ($resultUpdateTeacher) {
         echo '<script>';
         echo '
         alert("Successfully Updated");
@@ -371,7 +374,6 @@ if (isset($_POST['teacherStudentID'])) {
         </div>
 
 
-
     </div>
 </div>
 
@@ -458,7 +460,7 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="lrnUpdate"
                                    name="lrnUpdate"
                                    readonly="true"
-                                  >
+                            >
                             <div class="w-70p m-l-1em">First Name</div>
                             <input placeholder="First Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -1129,7 +1131,6 @@ if (isset($_POST['teacherStudentID'])) {
             if (r === true) {
                 var status = '';
                 teacherID.forEach(function (teachSubjID) {
-
                     if (id === 'teacher-subject') {
                         $.post('', {teacherSubjectID: teachSubjID})
                         status = 'teacher-subject';
@@ -1344,7 +1345,7 @@ if (isset($_POST['teacherStudentID'])) {
         }
     }
 
-    function editTeacher(lrn,lastName,firstName,address,gender,civilStatus,subject,email){
+    function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email) {
         $('#edit-teacher #lrnUpdate').val(lrn);
         $('#edit-teacher #lastName').val(lastName);
         $('#edit-teacher #firstName').val(firstName);

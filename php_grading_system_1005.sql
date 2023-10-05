@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2023 at 04:19 PM
+-- Generation Time: Oct 05, 2023 at 04:00 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -31,13 +31,6 @@ CREATE TABLE IF NOT EXISTS `grade_info` (
   `grade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `grade_info`
---
-
-INSERT INTO `grade_info` (`id`, `grade`) VALUES
-(1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -48,21 +41,7 @@ CREATE TABLE IF NOT EXISTS `page_visited_info` (
   `id` int(11) NOT NULL,
   `user_id` int(25) DEFAULT NULL,
   `date_visited` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `page_visited_info`
---
-
-INSERT INTO `page_visited_info` (`id`, `user_id`, `date_visited`) VALUES
-(8, 1, '2023-10-04 21:57:39'),
-(9, 34, '2023-10-04 21:59:03'),
-(10, 1, '2023-10-04 22:06:09'),
-(11, 34, '2023-10-04 22:06:29'),
-(12, 1, '2023-10-04 22:06:46'),
-(13, 35, '2023-10-04 22:12:22'),
-(14, 34, '2023-10-04 22:12:30'),
-(15, 1, '2023-10-04 22:12:40');
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,17 +79,6 @@ CREATE TABLE IF NOT EXISTS `school_years_info` (
   `current` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `school_years_info`
---
-
-INSERT INTO `school_years_info` (`id`, `year`, `current`) VALUES
-(1, 2005, 'No'),
-(2, 2002, 'No'),
-(3, 2023, 'Yes'),
-(4, 1904, 'No'),
-(5, 1900, 'No');
-
 -- --------------------------------------------------------
 
 --
@@ -125,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `students_enrollment_info` (
   `date_enrolled` date NOT NULL,
   `status` varchar(50) NOT NULL,
   `grade_status` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -171,14 +139,7 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `home_address` varchar(50) NOT NULL,
   `guardian_name` varchar(50) NOT NULL,
   `addedBy` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `students_info`
---
-
-INSERT INTO `students_info` (`id`, `lrn`, `f_name`, `l_name`, `m_name`, `gender`, `b_date`, `b_place`, `c_status`, `age`, `nationality`, `religion`, `contact_number`, `email_address`, `home_address`, `guardian_name`, `addedBy`) VALUES
-(2, 'S1', '1', '1', '1', '', '2023-10-04', '1', '1', 1, '1', '1', '1', '1@gmail', '1', '1', 1);
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -193,13 +154,6 @@ CREATE TABLE IF NOT EXISTS `subject_available_info` (
   `available_number` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `subject_available_info`
---
-
-INSERT INTO `subject_available_info` (`id`, `grade_level`, `subject`, `available_number`) VALUES
-(1, 'Grade 1', 'SCIENCE', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -212,14 +166,6 @@ CREATE TABLE IF NOT EXISTS `subject_list_info` (
   `applicable_for` varchar(25) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `subject_list_info`
---
-
-INSERT INTO `subject_list_info` (`id`, `name`, `applicable_for`, `description`) VALUES
-(1, 'Math', 'all', ' sad'),
-(2, 'Filipino', '1', ' sds');
 
 -- --------------------------------------------------------
 
@@ -236,15 +182,7 @@ CREATE TABLE IF NOT EXISTS `teachers_info` (
   `gender` varchar(10) NOT NULL,
   `civil_status` varchar(25) NOT NULL,
   `email_address` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `teachers_info`
---
-
-INSERT INTO `teachers_info` (`id`, `lrn`, `first_name`, `last_name`, `address`, `gender`, `civil_status`, `email_address`) VALUES
-(14, 'T0000000', 'teacher fname', 'teacher lname', 'address', 'Male', 'Single', 'teacher@gmail.com'),
-(15, 'T0000015', 'teacher 2 fname', 'teacher 2 lname', 'address', 'Male', 'Single', 'teacher2@gmail.com');
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -271,12 +209,13 @@ CREATE TABLE IF NOT EXISTS `teachers_subject_info` (
 
 CREATE TABLE IF NOT EXISTS `trash_info` (
   `id` int(11) NOT NULL,
-  `student_lrn` varchar(25) DEFAULT NULL,
+  `user_lrn` varchar(25) DEFAULT NULL,
   `name` varchar(25) NOT NULL,
   `history` varchar(9999) DEFAULT NULL,
   `removed_date` date NOT NULL,
-  `removed_by` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `removed_by` varchar(25) NOT NULL,
+  `position` varchar(25) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -294,17 +233,14 @@ CREATE TABLE IF NOT EXISTS `users_info` (
   `user_type` varchar(25) NOT NULL,
   `user_lrn` varchar(25) NOT NULL,
   `img_path` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users_info`
 --
 
 INSERT INTO `users_info` (`id`, `last_name`, `first_name`, `username`, `password`, `email`, `user_type`, `user_lrn`, `img_path`) VALUES
-(1, 'lastname', 'admin', 'admin', 'admin', 'jaylingers@gmail.com', 'admin', '', '../../assets/users_img/noImage.png'),
-(34, 'teacher lname', 'teacher fname', 'T0000000', 'teacher lname', '', 'teacher', 'T0000000', '../../assets/users_img/T0000000.png'),
-(35, 'teacher 2 lname', 'teacher 2 fname', 'T0000015', 'teacher 2 lname', '', 'teacher', 'T0000015', ''),
-(36, '1', '1', 'S1', '1', '', 'student', 'S1', '');
+(1, 'lastname', 'admin', 'admin', 'admin', 'jaylingers@gmail.com', 'admin', '', '../../assets/users_img/noImage.png');
 
 --
 -- Indexes for dumped tables
@@ -407,7 +343,7 @@ ALTER TABLE `grade_info`
 -- AUTO_INCREMENT for table `page_visited_info`
 --
 ALTER TABLE `page_visited_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `promoted_students`
 --
@@ -427,7 +363,7 @@ ALTER TABLE `school_years_info`
 -- AUTO_INCREMENT for table `students_enrollment_info`
 --
 ALTER TABLE `students_enrollment_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `students_grade_info`
 --
@@ -437,7 +373,7 @@ ALTER TABLE `students_grade_info`
 -- AUTO_INCREMENT for table `students_info`
 --
 ALTER TABLE `students_info`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `subject_available_info`
 --
@@ -452,7 +388,7 @@ ALTER TABLE `subject_list_info`
 -- AUTO_INCREMENT for table `teachers_info`
 --
 ALTER TABLE `teachers_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `teachers_subject_info`
 --
@@ -462,12 +398,12 @@ ALTER TABLE `teachers_subject_info`
 -- AUTO_INCREMENT for table `trash_info`
 --
 ALTER TABLE `trash_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `users_info`
 --
 ALTER TABLE `users_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

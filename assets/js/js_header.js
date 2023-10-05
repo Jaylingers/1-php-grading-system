@@ -61,5 +61,22 @@ function loadCustomGrid() {
     })
 }
 
+function Post(s, param2) {
+    var param = param2;
+    var url = s;
+    var form = $('<form></form>');
+    form.attr("method", "post");
+    form.attr("action", url);
+    $.each(param, function (key, value) {
+        var field = $('<input></input>');
+        field.attr("type", "hidden");
+        field.attr("name", key);
+        field.attr("value", value);
+        form.append(field);
+    });
+    $(document.body).append(form);
+    form.submit();
+}
+
 
 loadCustomGrid();
