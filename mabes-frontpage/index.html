@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MABES GRADE INQUIRY</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="mabes.png" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div data-aos="fade-right" data-aos-duration="700" class="logo">
+          <img src="mabes.png" alt="" />
+        </div>
+      </div>
+      <div class="banner" style="background-image: url('mabes\ rooms2.jpg')">
+        <div
+          data-aos="fade-left"
+          data-aos-delay="900"
+          data-aos-duration="700"
+          class="glass-wrapper"
+        ></div>
+      </div>
+      <div class="hero-title">
+        <p
+          data-aos="fade-left"
+          data-aos-delay="500"
+          data-aos-duration="700"
+          class="line"
+        >
+          School
+        </p>
+        <p
+          data-aos="fade-left"
+          data-aos-delay="600"
+          data-aos-duration="700"
+          class="school"
+        >
+          MABES <span class="multitext"></span>
+        </p>
+        <div
+          data-aos="fade-left"
+          data-aos-delay="800"
+          data-aos-duration="700"
+          class="details"
+        >
+          Mactan Airbase Elementary School is to have a online platform and
+          friendly access to the student to see their different Grades in intire
+          quarter.
+        </div>
+        <div
+          data-aos="fade-left"
+          data-aos-delay="800"
+          data-aos-duration="700"
+          class="Visit"
+        >
+          <button>LOGIN</button>
+        </div>
+      </div>
+      <div class="mabes-list">
+        <ul class="place-list">
+          <li
+            data-aos="zoom-in"
+            data-aos-duration="700"
+            data-aos-duration="700"
+            class="active"
+            data-img="mabes2.jpg"
+          >
+            <div class="thumbnail" style="background-image: url('mabes2.jpg')">
+              <div class="details">
+                <p class="place">MABES</p>
+                <p class="place-name">GROUND FIELD</p>
+              </div>
+            </div>
+          </li>
+          <li
+            data-aos="zoom-in"
+            data-aos-duration="750"
+            data-aos-duration="700"
+            data-img="mabes3.jpg"
+          >
+            <div class="thumbnail" style="background-image: url('mabes3.jpg')">
+              <div class="details">
+                <p class="place">MABES</p>
+                <p class="place-name">SCHOOL FRONT</p>
+              </div>
+            </div>
+          </li>
+          <li
+            data-aos="zoom-in"
+            data-aos-duration="850"
+            data-aos-duration="700"
+            data-img="mabes\ rooms2.jpg"
+          >
+            <div
+              class="thumbnail"
+              style="background-image: url('mabes\ rooms2.jpg')"
+            >
+              <div class="details">
+                <p class="place">MABES</p>
+                <p class="place-name">SHOOL ROOMS</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      var typingEffect = new Typed(".multitext", {
+        strings: ["ONLINE", "GRADE", "INQUIRY"],
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 80,
+        backDelay: 1500,
+      });
+
+      let places = document.querySelectorAll(".mabes-list li");
+      let active = "lingayen-1.jpg";
+
+      places.forEach((e) => {
+        e.addEventListener("mouseenter", (event) => {
+          places.forEach((e) => {
+            e.classList.remove("active");
+          });
+
+          event.target.classList.add("active");
+          active = event.target.getAttribute("data-img");
+          let banner = document.querySelector(".banner");
+          banner.style.backgroundImage = `url('${active}')`;
+        });
+      });
+    </script>
+  </body>
+</html>
