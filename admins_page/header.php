@@ -5,7 +5,7 @@ global $conn;
 include "../../db_conn.php";
 
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user_type'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
         $id = $_GET['id'];
@@ -14,8 +14,9 @@ if (!isset($_SESSION['username'])) {
         $rows = mysqli_fetch_assoc($result);
 
         if (isset($_POST['logout'])) {
-            unset($_SESSION['username']); // remove it now we have used it
-            header("Location: /1-php-grading-system/students_page/signin/");
+            unset($_SESSION['user_type']); // remove it now we have used it
+            unset($_SESSION['ids']); // remove it now we have used it
+            header("Location: /1-php-grading-system/");
         }
 }
 

@@ -1,7 +1,30 @@
 <?php global $var; ?>
+
+<?php
+global $conn;
+include "../../db_conn.php";
+
+session_start();
+if (!isset($_SESSION['user_type'])) {
+    header("Location: /1-php-grading-system/admins_page/404");
+} else {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM users_info WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_assoc($result);
+
+    if (isset($_POST['logout'])) {
+        unset($_SESSION['user_type']); // remove it now we have used it
+        unset($_SESSION['ids']); // remove it now we have used it
+        header("Location: /1-php-grading-system/");
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
-<title>MABES GRADING INQUIRY</title>
+<title>MABES GRADING INQUIRY123</title>
 <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
 
@@ -23,10 +46,10 @@
 
 <nav class="navbar">
     <div class="brand-title">
-        <a href="/1-php-grading-system/">
+
             <?php if ($var === "index") { ?>
             <img
-                    src="assets/img/mabes.png" alt=""/></a>
+                    src="assets/img/mabes.png" alt=""/>
         <?php } else { ?>
             <img
                     src="../../assets/img/mabes.png" alt=""/></a>
@@ -40,8 +63,25 @@
         <span class="bar"></span>
         <span class="bar"></span>
     </a>
+    <div class="navbar-links">
+        <ul>
+            <li>
+                <a href="/1-php-grading-system/students_page/home/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
+            </li>
+            <li>
+                <a href="/1-php-grading-system/students_page/about/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers Info
+                    Us</a></li>
+            <li>
+                <a href="/1-php-grading-system/students_page/contact/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
+                    </a></li>
+        </ul>
+    </div>
     <div>
-        <button class="btn btn-primary" onclick="signin()">Sign In</button>
+        <form action="index.php" method="post">
+            <button type="submit" class="c-hand"
+                    name="logout">LOGOUT
+            </button>
+        </form>
     </div>
 </nav>
 <style>

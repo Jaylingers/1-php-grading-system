@@ -1,4 +1,5 @@
 function signin() {
+
     window.location.href = "/1-php-grading-system/students_page/signin";
 }
 
