@@ -133,7 +133,7 @@ if (isset($_POST['login'])) {
     }
     .login{
         width: 620px;
-        height: 520px;
+        height: 560px;
   margin: 0 auto;
   margin-top: 100px;
   background: rgba(255,255,255,0.5);

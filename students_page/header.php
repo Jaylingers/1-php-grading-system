@@ -40,19 +40,6 @@
         <span class="bar"></span>
         <span class="bar"></span>
     </a>
-    <div class="navbar-links">
-        <ul>
-            <li>
-                <a href="/1-php-grading-system/students_page/home" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Home</a>
-            </li>
-            <li>
-                <a href="/1-php-grading-system/students_page/about" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>About
-                    Us</a></li>
-            <li>
-                <a href="/1-php-grading-system/students_page/contact" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Contact
-                    Us</a></li>
-        </ul>
-    </div>
     <div>
         <button class="btn btn-primary" onclick="signin()">Sign In</button>
     </div>
