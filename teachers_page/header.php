@@ -6,7 +6,7 @@ include "../../db_conn.php";
 
 session_start();
 if (!isset($_SESSION['user_type'])) {
-    header("Location: /1-php-grading-system/admins_page/404");
+    header("Location: /1-php-grading-system/teachers_page/404");
 } else {
         $id = $_GET['id'];
         $sql = "SELECT * FROM users_info WHERE id='$id'";
@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_type'])) {
         </div>
         <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
             <div class="d-flex-end w-4em">
@@ -102,7 +102,7 @@ if (!isset($_SESSION['user_type'])) {
         </div>
         <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                 Masterlist
             </div>
             <div class="d-flex-end w-4em">
@@ -125,7 +125,7 @@ if (!isset($_SESSION['user_type'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_list_masterlist')" <?php if ($var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
+                     onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Student List
                 </div>
             </div>
@@ -187,7 +187,7 @@ if (!isset($_SESSION['user_type'])) {
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
-                    Grade and Section List
+                    Grade List
                 </div>
             </div>
         </div>
@@ -234,13 +234,6 @@ if (!isset($_SESSION['user_type'])) {
                 Teacher List
             </div>
             <div class="d-flex-end w-4em"></div>
-        </div>
-        <div class="tab-notification d-none h-4em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('notification')" <?php if ($var === "notification") { ?> style="background: #bababa;"  <?php } ?>>
-                Notification
-            </div>
-            <div class="d-flex-end w-4em m-t-5px"></div>
         </div>
         <div class="tab-trash d-none h-5em  d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
@@ -336,7 +329,7 @@ if (!isset($_SESSION['user_type'])) {
         } else if (tab === 'studentRecord') {
             saveKeyOnLocalStorage('#arrowLeftButton_studentRecord', 'studArrowLeft_studentRecord', 'studentRecordTab');
         } else {
-            window.location.href = "/1-php-grading-system/admins_page/" + tab + "/?id=" + <?= $rows['id'] ?>;
+            window.location.href = "/1-php-grading-system/teachers_page/" + tab + "/?id=" + <?= $rows['id'] ?>;
         }
     }
 

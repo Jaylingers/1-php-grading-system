@@ -88,18 +88,35 @@ if (isset($_POST['studentEnrollmentId'])) {
 if (isset($_POST['add-enrollment'])) {
     $lrn = $_POST['add-enrollment-lrn'];
     $gradeLevel = $_POST['add-enrollment-grade'];
+    $section = $_POST['add-enrollment-section'];
     $schoolYear = $_POST['add-enrollment-school-year'];
     $schoolYear = date("Y-m-d", strtotime($schoolYear));
     $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
     $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
     $status = $_POST['add-enrollment-status'];
-    $sql = "insert into students_enrollment_info (students_info_lrn,grade,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$schoolYear','$dateEnrolled','$status')";
+
+    $sqlSelectLRN = "select * from students_enrollment_info where students_info_lrn = '$lrn' and grade = '$gradeLevel' ";
+    $resultSelectLRN = mysqli_query($conn, $sqlSelectLRN);
+    $rowsSelectLRN = mysqli_fetch_assoc($resultSelectLRN);
+    if ($rowsSelectLRN) {
+        echo '<script>';
+        echo '   
+              alert("Grade Level already exist");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '&&lrn=' . $lrn . '");
+            window.location.reload();
+            ';
+        echo '</script>';
+        return;
+    }
+
+
+    $sql = "insert into students_enrollment_info (students_info_lrn,grade,section,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$section','$schoolYear','$dateEnrolled','$status')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '&&lrn=' . $lrn . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -124,6 +141,7 @@ if (isset($_POST['add-new-student'])) {
     $guardianName = $_POST['guardianName'];
     $lrn = $_POST['lrn'];
     $id = $_GET['id'];
+    $Tlrn = $_GET['Tlrn'];
 
     $sqlSelectLRN = "select * from students_info where lrn = '$lrn'";
     $resultSelectLRN = mysqli_query($conn, $sqlSelectLRN);
@@ -132,13 +150,13 @@ if (isset($_POST['add-new-student'])) {
         echo '<script>';
         echo '   
               alert("LRN already exist");
-              window.location.href = "?id=' . $_GET['id'] . '&&lrnexist=' . $lrn . '";
+              window.location.href = "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrnexist=' . $lrn . '";
             ';
         echo '</script>';
         return;
     }
 
-    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id')";
+    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy,teacher_lrn) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id', '$Tlrn')";
     $result = mysqli_query($conn, $sql);
 
     $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','student','$lrn')";
@@ -148,7 +166,7 @@ if (isset($_POST['add-new-student'])) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-              window.location.href = "?id=' . $_GET['id'] . '&datasavedsuccessfully";
+              window.location.href = "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '";
             ';
         echo '</script>';
     } else {
@@ -182,7 +200,7 @@ if (isset($_POST['update-student-info'])) {
         echo '<script>';
         echo '   
               alert("updated successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+              window.location.href = "?id=' . $rows['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '";
             ';
         echo '</script>';
     }
@@ -234,9 +252,12 @@ if (isset($_POST['update-student-info'])) {
                     </div>
                 </div>
                 <br/>
-
                 <?php
                 $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                $Tgrade = isset($_GET['Tgrade']) ? $_GET['Tgrade'] : '';
+                $Tsection = isset($_GET['Tsection']) ? $_GET['Tsection'] : '';
+                $Tlrn = isset($_GET['Tlrn']) ? $_GET['Tlrn'] : '';
+
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
                         si.id, 
                         si.lrn, 
@@ -254,11 +275,17 @@ if (isset($_POST['update-student-info'])) {
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
-                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
+                        left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    and sei.grade= '$Tgrade'
+	                    and sei.section= '$Tsection'
+	                    OR si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -283,11 +310,17 @@ if (isset($_POST['update-student-info'])) {
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
-                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
+                        left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    and sei.grade= '$Tgrade'
+	                    and sei.section= '$Tsection'
+	                       OR si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -311,11 +344,17 @@ if (isset($_POST['update-student-info'])) {
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
-                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy
+                        CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
+                        left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    and sei.grade= '$Tgrade'
+	                    and sei.section= '$Tsection'
+	                       OR si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -340,9 +379,10 @@ if (isset($_POST['update-student-info'])) {
                             <th>Birthdate</th>
                             <th>Age</th>
                             <th>Sex</th>
-                            <th>Grade Level</th>
+                            <th>Grade</th>
+                            <th>Section</th>
                             <th>Added By</th>
-                            <th>Option</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody id="student-list">
@@ -362,7 +402,8 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['b_date'] ?></td>
                                 <td><?= $row['age'] ?></td>
                                 <td><?= $row['gender'] ?></td>
-                                <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
+                                <td><?= $_GET['Tgrade'] ?></td>
+                                <td><?= $_GET['Tsection'] ?></td>
                                 <td><?= $row['addedBy'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
@@ -636,11 +677,13 @@ if (isset($_POST['update-student-info'])) {
                                 <option value="Female">Female</option>
                             </select>
                             <div class="w-70p m-l-1em">Civil Status</div>
-                            <input placeholder="Civil Status" type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                   id="up-civilStatus"
-                                   name="up-civilStatus"
-                                   required>
+                            <select name="up-civilStatus" id="up-civilStatus"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Civil Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Devorced">Devorced</option>
+                            </select>
                             <div class="w-70p m-l-1em">Religion</div>
                             <input placeholder="Religion" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -750,7 +793,7 @@ if (isset($_POST['update-student-info'])) {
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
-                    $sql = "select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    $sql = "select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
@@ -759,7 +802,7 @@ if (isset($_POST['update-student-info'])) {
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "students".
-                    $total_pages = $mysqli->query("select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    $total_pages = $mysqli->query("select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -768,7 +811,7 @@ if (isset($_POST['update-student-info'])) {
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
+                    if ($stmt = $mysqli->prepare("select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
                             inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
                             GROUP BY sei.grade order by sei.id ASC LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
@@ -789,6 +832,7 @@ if (isset($_POST['update-student-info'])) {
                                             class="sc-1-3 c-hand"/></th>
                                 <th>No</th>
                                 <th>Grade</th>
+                                <th>Section</th>
                                 <th>School Year</th>
                                 <th>Date Enrolled</th>
                                 <th>Status</th>
@@ -807,6 +851,7 @@ if (isset($_POST['update-student-info'])) {
                                         </label></td>
                                     <th scope="row"><?= $i ?> </th>
                                     <th scope="row"><?= $row['grade'] ?> </th>
+                                    <th scope="row"><?= $row['section'] ?> </th>
                                     <td><?= $row['school_year'] ?> - <?= $row['school_year'] + 1 ?></td>
                                     <td><?= $row['date_enrolled'] ?></td>
                                     <td><?= $row['status'] ?></td>
@@ -894,22 +939,33 @@ if (isset($_POST['update-student-info'])) {
                                    readonly="true"
                                    value="<?php echo $_GET['lrn'] ?>">
                             <div class="w-70p m-l-1em">Grade</div>
-                            <?php
-                                $sql = "select * from grade_info";
-                                $result = mysqli_query($conn, $sql);
-                                if (mysqli_num_rows($result)) { ?>
-                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
-                                        <option value=""></option>
-                                        <?php
-                                        $i = 0;
-                                        while ($rows = mysqli_fetch_assoc($result)) {
-                                            $i++;
-                                            ?>
-                                                <option value="<?= $rows['grade'] ?>"><?= $rows['grade'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                <?php }
-                             ?>
+                            <select name="add-enrollment-grade" id="add-enrollment-grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="<?php echo $_GET['Tgrade'] ?>">Grade <?php echo $_GET['Tgrade'] ?></option>
+                            </select>
+                            <div class="w-70p m-l-1em">Section</div>
+                            <input type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="add-enrollment-section"
+                                   name="add-enrollment-section"
+                                   value="<?php echo $_GET['Tsection'] ?>"
+                                   readonly="true"
+                                   required/>
+<!--                            --><?php
+//                                $sql = "select * from grade_info";
+//                                $result = mysqli_query($conn, $sql);
+//                                if (mysqli_num_rows($result)) { ?>
+<!--                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">-->
+<!--                                        <option value=""></option>-->
+<!--                                        --><?php
+//                                        $i = 0;
+//                                        while ($rows = mysqli_fetch_assoc($result)) {
+//                                            $i++;
+//                                            ?>
+<!--                                                <option value="--><?php //= $rows['grade'] ?><!--">--><?php //= $rows['grade'] ?><!--</option>-->
+<!--                                        --><?php //} ?>
+<!--                                    </select>-->
+<!--                                --><?php //}
+//                             ?>
 
                             <div class="w-70p m-l-1em">School Year</div>
                             <input type="number" min="1900" max="2099" step="1" value="2016" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -1219,9 +1275,9 @@ if (isset($_POST['update-student-info'])) {
     function searchName() {
         var search = $('#search_name').val();
         if (search !== '') {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&searchName=' + search;
         } else {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>';
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>';
         }
     }
 
@@ -1320,7 +1376,7 @@ if (isset($_POST['update-student-info'])) {
     }
 
     function viewStudentEnrollment(lrn) {
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&lrn=' + lrn);
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=' + lrn);
         window.location.reload();
     }
 
@@ -1375,6 +1431,12 @@ if (isset($_POST['update-student-info'])) {
         var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
         if (searchName !== '') {
             $('#search_name').val(searchName);
+        }
+
+        var lrnexist = '<?php echo isset($_GET['lrnexist']) ? $_GET['lrnexist'] : '' ?>';
+        if (lrnexist !== '') {
+            $('#add-new-student #lrn').val(lrnexist);
+           showModal('add-new-student', 'Add New Student', '');
         }
     }
 

@@ -11,10 +11,9 @@ if (isset($_POST['promoteStudent'])) {
     $promoteStudent = explode(',', $promoteStudent);
     $lrn = $promoteStudent[0];
     $grade = $promoteStudent[1];
-    $section = $promoteStudent[2];
     $grade_plus = $grade + 1;
-    $grade_status = $promoteStudent[3];
-    $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted', section=''  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
+    $grade_status = $promoteStudent[2];
+    $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted'  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
     $result = mysqli_query($conn, $sql);
 
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
@@ -23,7 +22,7 @@ if (isset($_POST['promoteStudent'])) {
     $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn) VALUES ('$lrn')";
     $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
 
-    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade', '$section',now())";
+    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, date) VALUES ('$lrn', '$grade_plus', now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 }
 
@@ -84,48 +83,27 @@ if (isset($_POST['removeStudents'])) {
                     </div>
                 </div>
                 <br/>
-               Grade: &nbsp;&nbsp;<select name="search_grade" id="search_grade" onchange="SearchGrade('')"
-                        class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                    <option value=""  selected></option>
+                <select name="search_grade" id="search_grade" onchange="SearchGrade('promote_student')"
+                        class="h-3em f-size-1em b-radius-10px m-1em m-t-5px">
+                    <option value="" disabled selected>Search Grade &nbsp;</option>
                     <option value="1">Grade 1</option>
                     <option value="2">Grade 2</option>
                     <option value="3">Grade 3</option>
                     <option value="4">Grade 4</option>
                     <option value="5">Grade 5</option>
                     <option value="6">Grade 6</option>
-                </select> <br>
-               Section:  <select name="search_section" id="search_section" onchange="SearchSection('')"
-                        class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                    <option value=""  selected></option>
-                    <?php
-                    $grade = $_GET['grade'];
-                    $sql = "SELECT * FROM `grade_info` where grade = '$grade'";
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                        <option value="<?php echo $row['section'] ?>"><?php echo $row['section'] ?></option>
-                    <?php } ?>
                 </select>
-
-                <div class="f-right m-t-19px m-r-13px d-none">
-                    <button type="submit"
-                            class="c-hand bg-hover-skyBlue btn"
-                            onclick="promoteStudent()">Promote
-                    </button>
-                </div>
-                <br/> <br/>
 
                 <?php
                 if (isset($_GET['grade'])) {
                 $grade = $_GET['grade'];
-                $section = isset($_GET['section']) ? $_GET['section'] : '';
+
 
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         where sei.grade='$grade'
-                        and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -134,11 +112,10 @@ if (isset($_POST['removeStudents'])) {
 
                 // Get the total number of records from our table "students".
                 $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         where sei.grade='$grade'
-                         and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -146,11 +123,10 @@ if (isset($_POST['removeStudents'])) {
                 $num_results_on_page = 10;
 
                 if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         where sei.grade='$grade'
-                         and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -172,8 +148,7 @@ if (isset($_POST['removeStudents'])) {
                             <th>LRN</th>
                             <th>Name</th>
                             <th>Gender</th>
-                            <th>Grade</th>
-                            <th>Section</th>
+                            <th>Grade Level</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -187,14 +162,13 @@ if (isset($_POST['removeStudents'])) {
                             <tr>
                                 <td class="d-flex-center"><label>
                                         <input type="checkbox" class="sc-1-3 c-hand check"
-                                               id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>,<?= $row['section'] ?>,<?= $row['grade_status'] ?>"/>
+                                               id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>,<?= $row['grade_status'] ?>"/>
                                     </label></td>
                                 <th scope="row"><?= $i ?> </th>
                                 <td><?= $row['lrn'] ?></td>
                                 <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
                                 <td><?= $row['gender'] ?></td>
-                                <td><?= $row['g_level'] ?></td>
-                                <td><?= $row['section'] ?></td>
+                                <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
                                 <td><?= $row['grade_status'] === 'promoted' ? 'promoted(cant promote again, wait for final grades)' : $row['grade_status'] ?></td>
                             </tr>
                         <?php endwhile; ?>
@@ -412,51 +386,34 @@ if (isset($_POST['removeStudents'])) {
                 <div class="m-2em d-flex-align-start">
                     <div class="bg-white w-100p b-radius-10px ">
 
-                        Grade: &nbsp;&nbsp;<select name="search_grade_promoted" id="search_grade_promoted" onchange="SearchGrade('promoted_student')"
-                                                   class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                            <option value=""  selected></option>
+                        <select name="search_grade_promoted" id="search_grade_promoted"
+                                onchange="SearchGrade('promoted_student')"
+                                class="h-3em f-size-1em b-radius-10px m-1em m-t-5px">
+                            <option value="" disabled selected>Search Grade &nbsp;</option>
                             <option value="1">Grade 1</option>
                             <option value="2">Grade 2</option>
                             <option value="3">Grade 3</option>
                             <option value="4">Grade 4</option>
                             <option value="5">Grade 5</option>
                             <option value="6">Grade 6</option>
-                        </select> <br>
-                        Section:  <select name="search_section_promoted" id="search_section_promoted" onchange="SearchSection('promoted_student')"
-                                          class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                            <option value=""  selected></option>
-                            <?php
-                            $grade = $_GET['grade_promoted'];
-                            $sql = "SELECT * FROM `grade_info` where grade = '$grade'";
-                            $result = mysqli_query($conn, $sql);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
-                                <option value="<?php echo $row['section'] ?>"><?php echo $row['section'] ?></option>
-                            <?php } ?>
                         </select>
-                        <br/> <br/>
-
-
-
-                        <div class="f-right m-t-19px m-r-13px d-none">
+                        <div class="f-right m-t-19px m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
                                     onclick="removePromotedStudents()">Remove
                             </button>
                         </div>
-                        <br/>   <br/> <br/>
                         <?php
-                        if (isset($_GET['grade_promoted']) ) {
+                        if (isset($_GET['grade_promoted'])) {
                         $grade = $_GET['grade_promoted'];
-                        $section = isset($_GET['section_promoted']) ? $_GET['section_promoted'] : '';
                         echo "<script>showModal('view-promoted-students', 'Promoted Students Candidates')</script>";
 
                         $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade' and sei.section='$section'
+                        where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
@@ -465,11 +422,11 @@ if (isset($_POST['removeStudents'])) {
 
                         // Get the total number of records from our table "students".
                         $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade'  and sei.section='$section'
+                        where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -477,11 +434,11 @@ if (isset($_POST['removeStudents'])) {
                         $num_results_on_page = 10;
 
                         if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
-                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade'  and sei.section='$section'
+                        where sei.grade='$grade'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
@@ -503,8 +460,7 @@ if (isset($_POST['removeStudents'])) {
                                     <th>LRN</th>
                                     <th>Name</th>
                                     <th>Gender</th>
-                                    <th>Grade</th>
-                                    <th>Section</th>
+                                    <th>Grade Level</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
@@ -525,7 +481,6 @@ if (isset($_POST['removeStudents'])) {
                                         <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
                                         <td><?= $row['gender'] ?></td>
                                         <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
-                                        <td><?= $row['section'] ?></td>
                                         <td><?= $row['grade_status'] ?></td>
                                     </tr>
                                 <?php endwhile; ?>
@@ -765,8 +720,7 @@ if (isset($_POST['removeStudents'])) {
             var grade_promoted = $('#search_grade_promoted').val();
             var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
             var grade = '<?php if (isset($_GET['grade'])) echo $_GET['grade']?>';
-            var section = '<?php if (isset($_GET['section'])) echo $_GET['section']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&grade=' + grade + '&&section=' + section + '&&grade_promoted=' + grade_promoted);
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&grade=' + grade + '&&grade_promoted=' + grade_promoted);
             window.location.reload();
         } else {
             var grade = $('#search_grade').val();
@@ -776,42 +730,15 @@ if (isset($_POST['removeStudents'])) {
         }
     }
 
-    function SearchSection(status) {
-        if(status === 'promoted_student') {
-            var section_promoted = $('#search_section_promoted').val();
-            var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            var grade_promoted = '<?php if (isset($_GET['grade_promoted'])) echo $_GET['grade_promoted']?>';
-            var grade = '<?php if (isset($_GET['grade'])) echo $_GET['grade']?>';
-            var section = '<?php if (isset($_GET['section'])) echo $_GET['section']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&grade=' + grade + '&&section=' + section + '&&grade_promoted=' + grade_promoted + '&&section_promoted=' + section_promoted);
-            window.location.reload();
-        } else {
-            var section = $('#search_section').val();
-            var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            var grade = '<?php if (isset($_GET['grade'])) echo $_GET['grade']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&grade=' + grade + '&&section=' + section);
-            window.location.reload();
-        }
-
-    }
-
     function loadPage() {
         var grade = '<?php if (isset($_GET['grade'])) echo $_GET['grade']?>';
         var grade_promoted = '<?php if (isset($_GET['grade_promoted'])) echo $_GET['grade_promoted']?>';
-        var section = '<?php if (isset($_GET['section'])) echo $_GET['section']?>';
-        var section_promoted = '<?php if (isset($_GET['section_promoted'])) echo $_GET['section_promoted']?>';
 
         if (grade) {
             $('#search_grade').val(grade);
         }
         if (grade_promoted) {
             $('#search_grade_promoted').val(grade_promoted);
-        }
-        if(section){
-            $('#search_section').val(section);
-        }
-        if(section_promoted){
-            $('#search_section_promoted').val(section_promoted);
         }
 
     }
@@ -835,7 +762,6 @@ if (isset($_POST['removeStudents'])) {
             } else {
                 var r = confirm("Are you sure you want to promote ?");
                 if (r === true) {
-                    console.log(studentID)
                     studentID.forEach(function (studId) {
                         $.post('', {promoteStudent: studId})
                     });

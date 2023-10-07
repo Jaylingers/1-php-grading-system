@@ -8,12 +8,23 @@ include "../../db_conn.php";
 
 if (isset($_POST['add_grade'])) {
     $grade = $_POST['grade'];
+    $section = $_POST['section'];
     if ($grade == date("Y")) {
         $current = 'Yes';
     } else {
         $current = 'No';
     }
-    $sql = "insert into grade_info (grade) values ('$grade')";
+    if($grade == '' || $section == ''){
+        echo '<script>';
+        echo '   
+              alert("Please fill up all fields");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                    window.location.reload();
+            ';
+        echo '</script>';
+        return;
+    }
+    $sql = "insert into grade_info (grade,section) values ('$grade','$section')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -29,12 +40,13 @@ if (isset($_POST['add_grade'])) {
 if (isset($_POST['update_grade'])) {
     $id = $_POST['id'];
     $grade = $_POST['grade'];
+    $section = $_POST['section'];
     if ($grade == date("Y")) {
         $current = 'Yes';
     } else {
         $current = 'No';
     }
-    $sql = "update grade_info set grade = '$grade' where id = '$id'";
+    $sql = "update grade_info set grade = '$grade', section = '$section' where id = '$id'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -45,6 +57,12 @@ if (isset($_POST['update_grade'])) {
             ';
         echo '</script>';
     }
+}
+
+if(isset($_POST['gradeId'])){
+    $id = $_POST['gradeId'];
+    $sql = "delete from grade_info where id = '$id'";
+    $result = mysqli_query($conn, $sql);
 }
 
 ?>
@@ -83,10 +101,21 @@ if (isset($_POST['update_grade'])) {
                         <div class="f-weight-bold d-flex" style="    border: 1px solid gray;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;">
-                            <h3 class="m-t-13px m-l-18px">
-                                List of Grade
-                            </h3>
+                            <div class="custom-grid-container w-100p" tabindex="2">
+                                <div class="custom-grid-item">
+                                    <h3 class="m-t-13px m-l-18px">
+                                        List of Grade
+                                    </h3>
+                                </div>
+                                <div class="custom-grid-item d-flex-end">
+                                    <button
+                                            class="btn bg-hover-gray-dark-v1"
+                                            onclick="deleteStudents('grade-list')">Delete Selected
+                                    </button> &nbsp; &nbsp;
+                                </div>
+                            </div>
                         </div>
+
 
                         <?php
                         $sql = "select * from grade_info order by id desc Limit 1";
@@ -121,6 +150,7 @@ if (isset($_POST['update_grade'])) {
                                                 class="sc-1-3 c-hand"/></th>
                                     <th>No</th>
                                     <th>Grade</th>
+                                    <th>Section</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -137,9 +167,10 @@ if (isset($_POST['update_grade'])) {
                                             </label></td>
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['grade'] ?></td>
+                                        <td><?= $row['section'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editSchoolYear('<?= $row['id'] ?>','<?= $row['grade'] ?>')">
+                                                   onclick="editSchoolYear('<?= $row['id'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')">
                                                 Edit</label>
                                         </td>
                                     </tr>
@@ -225,6 +256,10 @@ if (isset($_POST['update_grade'])) {
                                         <input type="number" placeholder=" grade" id="grade"
                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                name="grade">
+                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Section:</div>
+                                        <input type="text" placeholder=" section" id="section"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                               name="section">
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
@@ -265,6 +300,10 @@ if (isset($_POST['update_grade'])) {
                                             <input type="number" placeholder=" grade" id="grade"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                    name="grade">
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Section:</div>
+                                            <input type="text" placeholder=" section" id="section"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                   name="section">
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em">
@@ -310,9 +349,10 @@ if (isset($_POST['update_grade'])) {
         $('#user_type').val('');
     }
 
-    function editSchoolYear(id, grade) {
+    function editSchoolYear(id, grade,section) {
         $('#update-school-year #id').val(id);
         $('#update-school-year #grade').val(grade);
+        $('#update-school-year #section').val(section);
         showModal('update-school-year', 'Manage Grade', '', 'small')
     }
 
@@ -322,6 +362,34 @@ if (isset($_POST['update_grade'])) {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchSubject=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
+        }
+    }
+
+    function deleteStudents(id) {
+        var studentID = [];
+        var studentCount = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            studentID.push($(this).attr('id'));
+            studentCount++;
+        });
+        if (studentCount > 0) {
+            var r = confirm("Are you sure you want to delete this records? This action will remove all data with all related tables.");
+            if (r === true) {
+                studentID.forEach(function (gradeId) {
+                    $.post('', {gradeId: gradeId})
+                });
+
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+                alert('Successfully deleted!')
+                window.location.reload();
+
+            }
+        } else {
+            if (id === 'student-enrollment') {
+                alert('Please select a enrollment!');
+            } else {
+                alert('Please select a student!');
+            }
         }
     }
 

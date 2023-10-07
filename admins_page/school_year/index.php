@@ -47,6 +47,21 @@ if(isset($_POST['update_school_year'])) {
     }
 }
 
+if (isset($_POST['schoolYearId'])) {
+    $schoolYearId = $_POST['schoolYearId'];
+    $sql = "delete from school_years_info where id = '$schoolYearId'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+              alert("deleted successfully");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                    window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
+
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
@@ -80,14 +95,23 @@ if(isset($_POST['update_school_year'])) {
 
                 <div class="custom-grid-container" tabindex="2">
                     <div class="custom-grid-item pad-1em">
+
                         <div class="f-weight-bold d-flex" style="    border: 1px solid gray;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;">
-                            <h3 class="m-t-13px m-l-18px">
-                                List of School Years
-                            </h3>
-
-
+                            <div class="custom-grid-container w-100p" tabindex="2">
+                                <div class="custom-grid-item">
+                                    <h3 class="m-t-13px m-l-18px">
+                                        List of School Years
+                                    </h3>
+                                </div>
+                                <div class="custom-grid-item d-flex-end">
+                                    <button
+                                            class="btn bg-hover-gray-dark-v1"
+                                            onclick="deleteStudents('school-year-list')">Delete Selected
+                                    </button> &nbsp; &nbsp;
+                                </div>
+                            </div>
                         </div>
 
                         <?php
@@ -329,6 +353,34 @@ if(isset($_POST['update_school_year'])) {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchSubject=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
+        }
+    }
+
+    function deleteStudents(id) {
+        var studentID = [];
+        var studentCount = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            studentID.push($(this).attr('id'));
+            studentCount++;
+        });
+        if (studentCount > 0) {
+            var r = confirm("Are you sure you want to delete this records? This action will remove all data with all related tables.");
+            if (r === true) {
+                studentID.forEach(function (schoolYearId) {
+                    $.post('', {schoolYearId: schoolYearId})
+                });
+
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+                alert('Successfully deleted!')
+                window.location.reload();
+
+            }
+        } else {
+            if (id === 'student-enrollment') {
+                alert('Please select a enrollment!');
+            } else {
+                alert('Please select a student!');
+            }
         }
     }
 

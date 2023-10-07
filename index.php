@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
         if (strtolower($user_type) == 'student') {
             header("Location: /1-php-grading-system/students_page/home?id=" . $row['id']);
         } else if (strtolower($user_type) == 'teacher') {
-            header("Location: /1-php-grading-system/admins_page/teacher_info?id=" . $row['id']);
+            header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
         } else {
             header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
         }
@@ -53,7 +53,7 @@ if (isset($_SESSION['user_type'])) {
     if(strtolower($userType) == 'student'){
         header("Location: /1-php-grading-system/students_page/home?id=" . $id);
     } else if (strtolower($userType) == 'teacher') {
-        header("Location: /1-php-grading-system/admins_page/teacher_info?id=" . $id);
+        header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $id);
     } else {
         header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $id);
     }
@@ -242,7 +242,7 @@ if (isset($_SESSION['user_type'])) {
                     data-aos="zoom-in"
                     data-aos-duration="850"
                     data-aos-duration="700"
-                    data-img="mabes-frontpage/mabes\ rooms2.jpg"
+                    data-img="mabes-frontpage/mabesRooms2.jpg"
             >
                 <div
                         class="thumbnail"

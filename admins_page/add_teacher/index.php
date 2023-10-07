@@ -63,8 +63,25 @@ if (isset($_POST['add-new-teacher'])) {
     $gender = $_POST['gender'];
     $civilStatus = $_POST['civilStatus'];
     $emailAddress = $_POST['emailAddress'];
+    $grade = $_POST['grade'];
+    $section = $_POST['section'];
 
-    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress')";
+    $selectTeacher = "select * from teachers_info where lrn = '$lrn'";
+    $resultSelectTeacher = mysqli_query($conn, $selectTeacher);
+    $rowsSelectTeacher = mysqli_fetch_assoc($resultSelectTeacher);
+    if ($rowsSelectTeacher) {
+        echo '<script>';
+        echo '
+             alert("Teacher Already Exist");
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&lrnExist=' . $lrn . '");
+                window.location.reload();
+            ';
+        echo '</script>';
+        return;
+    }
+
+
+    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress','$grade','$section')";
     $result = mysqli_query($conn, $sql);
 
     $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','teacher','$lrn')";
@@ -89,7 +106,9 @@ if (isset($_POST['edit-teacher'])) {
     $gender = $_POST['gender'];
     $civilStatus = $_POST['civilStatus'];
     $emailAddress = $_POST['emailAddress'];
-    $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress' where lrn='$lrn'";
+    $grade = $_POST['grade'];
+    $section = $_POST['section'];
+    $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress', grade='$grade', section='$section' where lrn='$lrn'";
     $resultUpdateTeacher = mysqli_query($conn, $sqlUpdateTeacher);
     if ($resultUpdateTeacher) {
         echo '<script>';
@@ -209,7 +228,7 @@ if (isset($_POST['teacherStudentID'])) {
 
                 <div class="pad-1em  f-weight-bold d-flex">
                     <h3>
-                        TEACHER LIST
+                        Teacher List
                     </h3>
                     <div class="r-50px p-absolute t-54px">
                         <button
@@ -227,7 +246,7 @@ if (isset($_POST['teacherStudentID'])) {
 
                 <?php
                 $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
-                $sql = "SELECT ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                $sql = "SELECT ti.grade, ti.section, ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn 
@@ -239,7 +258,7 @@ if (isset($_POST['teacherStudentID'])) {
                 $lrn = 'T' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "teachers".
-                $total_pages = $mysqli->query("SELECT ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                $total_pages = $mysqli->query("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn
@@ -250,7 +269,7 @@ if (isset($_POST['teacherStudentID'])) {
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare("SELECT ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                if ($stmt = $mysqli->prepare("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn 
@@ -277,10 +296,10 @@ if (isset($_POST['teacherStudentID'])) {
                             <th>Address</th>
                             <th>Gender</th>
                             <th>Civil Status</th>
-                            <th>Subject</th>
                             <th>Email Address</th>
-                            <th>Action</th>
-
+                            <th>Grade</th>
+                            <th>Section</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody id="teachers-list">
@@ -298,12 +317,16 @@ if (isset($_POST['teacherStudentID'])) {
                                 <td><?= $row['address'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['civil_status'] ?></td>
-                                <td><?= $row['subject'] ?></td>
                                 <td><?= $row['email_address'] ?></td>
+                                <td><?= $row['grade'] ?></td>
+                                <td><?= $row['section'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>')"
-                                    >Edit</label>
+                                           onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')"
+                                    >Edit</label> &nbsp;&nbsp;&nbsp;
+                                    <label for="" class="t-color-red c-hand f-weight-bold"
+                                           onclick="viewStudentList('<?= $row['grade'] ?>', '<?= $row['section'] ?>','<?= $row['lrn'] ?>')"
+                                    >Student</label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -397,7 +420,6 @@ if (isset($_POST['teacherStudentID'])) {
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="lrn-add"
                                    name="lrn-add"
-                                   readonly="true"
                                    value="<?php echo $lrn ?>">
                             <div class="w-70p m-l-1em">First Name</div>
                             <input placeholder="First Name" type="text"
@@ -439,6 +461,38 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="emailAddress"
                                    name="emailAddress"
                                    required>
+                            <div class="w-70p m-l-1em">Grade</div>
+                            <select name="grade" id="grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                    onchange="selectGrade('add')">
+                                <option value="0" selected></option>
+                                <?php
+                                $sql = "select * from grade_info";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['grade'] ?>">
+                                        Grade <?php echo $row['grade'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                            <div class="w-70p m-l-1em">Section</div>
+                            <select name="section" id="section"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="0" selected></option>
+                                <?php
+                                $grade = isset($_GET['searchGradeAdd']) ? $_GET['searchGradeAdd'] : '';
+                                $sql = "select * from grade_info where grade = '$grade'";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['section'] ?>">
+                                        Grade <?php echo $row['section'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
 
                         </div>
 
@@ -487,11 +541,13 @@ if (isset($_POST['teacherStudentID'])) {
                                 <option value="Female">Female</option>
                             </select>
                             <div class="w-70p m-l-1em">Civil Status</div>
-                            <input placeholder="Civil Status" type="text"
-                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                   id="civilStatus"
-                                   name="civilStatus"
-                                   required>
+                            <select name="civilStatus" id="civilStatus"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="" disabled selected>Civil Status</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Devorced">Devorced</option>
+                            </select>
 
                             <div class="w-70p m-l-1em">Email</div>
                             <input placeholder="Email Address" type="email"
@@ -499,6 +555,41 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="emailAddress"
                                    name="emailAddress"
                                    required>
+
+
+                            <div class="w-70p m-l-1em">Grade</div>
+                            <select name="grade" id="grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                    onchange="selectGrade('edit')">
+                                <option value="0" selected></option>
+                                <?php
+                                $sql = "select * from grade_info";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['grade'] ?>">
+                                        Grade <?php echo $row['grade'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                            <div class="w-70p m-l-1em">Section</div>
+                            <select name="section" id="section"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
+                                <option value="0" selected></option>
+                                <?php
+                                $grade = isset($_GET['searchGradeEdit']) ? $_GET['searchGradeEdit'] : '';
+                                $sql = "select * from grade_info where grade = '$grade'";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['section'] ?>">
+                                        Grade <?php echo $row['section'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+
 
                         </div>
 
@@ -1345,7 +1436,7 @@ if (isset($_POST['teacherStudentID'])) {
         }
     }
 
-    function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email) {
+    function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email, grade, section) {
         $('#edit-teacher #lrnUpdate').val(lrn);
         $('#edit-teacher #lastName').val(lastName);
         $('#edit-teacher #firstName').val(firstName);
@@ -1354,13 +1445,53 @@ if (isset($_POST['teacherStudentID'])) {
         $('#edit-teacher #civilStatus').val(civilStatus);
         $('#edit-teacher #subject').val(subject);
         $('#edit-teacher #emailAddress').val(email);
-        showModal('edit-teacher', 'Edit Teacher');
+        $('#edit-teacher #grade').val(grade);
+        $('#edit-teacher #section').val(section);
+        showModal('edit-teacher', 'Edit Teacher', '', 'small');
+    }
+
+    function viewStudentList(grade, section, teacher_lrn) {
+        history.pushState({page: 'another page'}, 'another page', '/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=' + grade + '&&Tsection=' + section + '&&Tlrn=' + teacher_lrn);
+        window.location.reload();
+    }
+
+    function selectGrade(status) {
+        if (status === 'add') {
+            var grade = $('#add-new-teacher #grade').val();
+            var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeAdd=' + grade);
+            window.location.reload();
+        } else {
+            var grade = $('#edit-teacher #grade').val();
+            var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeEdit=' + grade);
+            window.location.reload();
+        }
+
     }
 
     function loadPage() {
         var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
         if (searchName !== '') {
             $('#search_name').val(searchName);
+        }
+
+        var lrnExists = '<?php echo isset($_GET['lrnExist']) ? $_GET['lrnExist'] : '' ?>';
+        if (lrnExists !== '') {
+            $('#lrn-add').val(lrnExists);
+            showModal('add-new-teacher', 'New Teacher', '', 'small');
+        }
+
+        var searchGradeAdd = '<?php echo isset($_GET['searchGradeAdd']) ? $_GET['searchGradeAdd'] : '' ?>';
+        if (searchGradeAdd !== '') {
+            $('#add-new-teacher #grade').val(searchGradeAdd);
+            showModal('add-new-teacher', 'New Teacher', '', 'small');
+        }
+
+        var searchGradeEdit = '<?php echo isset($_GET['searchGradeEdit']) ? $_GET['searchGradeEdit'] : '' ?>';
+        if (searchGradeEdit !== '') {
+            $('#edit-teacher #grade').val(searchGradeEdit);
+            showModal('edit-teacher', 'Edit Teacher', '', 'small');
         }
     }
 

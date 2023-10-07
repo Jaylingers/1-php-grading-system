@@ -41,7 +41,7 @@ function closeModal() {
     $('body').css('overflow', 'auto');
 
     var url = window.location.href;
-    var arr = ['&&lrn=', '&&teachers_lrn=','&&searchGrade=','&&grade_promoted='];
+    var arr = ['&&lrn=', '&&teachers_lrn=','&&searchGrade=','&&grade_promoted=','&&lrnexist='];
 
     arr.map((item) => {
         item = url.substring(url.lastIndexOf(item))
