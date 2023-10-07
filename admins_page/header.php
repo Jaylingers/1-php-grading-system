@@ -292,7 +292,7 @@ if (!isset($_SESSION['user_type'])) {
                                class="h-100p w-3em t-align-center d-flex-center c-hand d-none f-size-26px w-2em bg-hover-white"
                                for="" onclick="tops()">
             ☰</label></div>
-    <div class="d-flex-end w-70p">
+    <div class="d-flex-end w-70p m-r-13px">
         <!--        <input type="text" placeholder="Search...">-->
         <div class="d-flex-center m-l-13px m-r-13px">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
@@ -300,16 +300,16 @@ if (!isset($_SESSION['user_type'])) {
         <?php if ($rows['img_path'] == '') { ?>
             <img src="../../assets/users_img/noImage.png"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                    alt="" class="w-32px">
+                    alt="" class="w-32px c-hand" onclick="settings()">
         <?php } else { ?>
             <img src="<?= $rows['img_path'] ?>"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                    alt="" class="w-32px">
+                    alt="" class="w-32px c-hand" onclick="settings()">
         <?php } ?>
 
 
-        <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"
-             class="w-18px m-r-13px c-hand transition-0-5s" alt="" onclick="settings()"/>
+<!--        <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"-->
+<!--             class="w-18px m-r-13px c-hand transition-0-5s" alt="" />-->
 
     </div>
 
