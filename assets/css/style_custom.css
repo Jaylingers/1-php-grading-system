@@ -594,6 +594,10 @@
     border-bottom: 3px solid gray !important;
 }
 
+.b-bottom-gray-1px{
+    border-bottom: 1px solid gray !important;
+}
+
 .b-bottom-light-gray-3px {
     border-bottom: 3px solid #80808038 !important;
 }
@@ -849,6 +853,10 @@
 
 .m-t-5px {
     margin-top: 5px;
+}
+
+.m-t-9px{
+    margin-top: 9px;
 }
 
 .m-t-2em {

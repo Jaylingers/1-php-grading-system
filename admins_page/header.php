@@ -252,17 +252,48 @@ if (!isset($_SESSION['user_type'])) {
     </div>
 </div>
 
-<div id="settings-details" class="p-absolute j-content-center z-i-999910" style=" position:fixed;  height: 19em;
+<div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: fixed;
+    height: 14em;
     width: 14em;
     top: 64px;
     right: 17px;
     display: none;
-    background: #006ebf;">
-    <form action="index.php" method="post">
-        <button type="submit"
-                name="logout">LOGOUT
-        </button>
-    </form>
+    background: #e6e6e6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+">
+
+    <style>
+        .admin-settings {
+            border-radius: 13px;
+        }
+        .admin-settings:hover {
+            background: #808080a8;
+        }
+    </style>
+<!--    <form action="index.php" method="post">-->
+        <div class="custom-grid-container w-100p pad-1em" tabindex="1">
+            <div class="custom-grid-item d-flex-start c-hand admin-settings">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                    <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for="" class="c-hand m-t-9px f-weight-bold">Profile</label>
+                </div>
+            </div>
+            <div class="custom-grid-item d-flex-start c-hand admin-settings">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                    <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for="" class="c-hand m-t-9px f-weight-bold">Change Password</label>
+                </div>
+
+            </div>
+            <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="logout()">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                    <img src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em">   <label for="" class="c-hand m-t-9px f-weight-bold">Logout</label>
+                </div>
+
+<!--                <button type="submit"-->
+<!--                        name="logout">LOGOUT-->
+<!--                </button>-->
+            </div>
+        </div>
+<!--    </form>-->
 </div>
 
 <div id="top" class="bg-blue p-fixed  w-80p d-flex r-0 h-4em z-i-9999">
@@ -445,6 +476,13 @@ if (!isset($_SESSION['user_type'])) {
                 $('.tab-teacherList').removeClass('d-none')
                 $('.tab-notification').removeClass('d-none')
             }
+        }
+    }
+
+    function logout() {
+        var r = confirm("Are you sure you want to logout?");
+        if (r === true) {
+            Post('', {logout: 'logout'});
         }
     }
 
