@@ -79,15 +79,6 @@ if (!isset($_SESSION['user_type'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student
-                </div>
-            </div>
-            <div class=" h-4em d-flex-end m-t-5px">
-                <div class="d-flex-center w-4em"><img
-                            src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                            alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
                     Admin
                 </div>
@@ -242,7 +233,7 @@ if (!isset($_SESSION['user_type'])) {
             </div>
             <div class="d-flex-end w-4em m-t-5px"></div>
         </div>
-        <div class="tab-trash d-none h-5em  d-flex-center m-t-5px ">
+        <div class="tab-trash d-none h-4em  d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                  onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
                 Trash
@@ -375,8 +366,7 @@ if (!isset($_SESSION['user_type'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-            tabName === 'recordsTab' ||  tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
-                    : tabName === 'userTab'  ? 'h-13em'
+            tabName === 'userTab' ||  tabName === 'recordsTab' ||  tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-8em'
                         : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -397,48 +387,48 @@ if (!isset($_SESSION['user_type'])) {
 
         if (get === '1') {
             $('#arrowLeftButton').addClass('bg-img-2')
-            $('#userTab').addClass('h-13em')
+            $('#userTab').addClass('h-8-8em')
         } else {
             $('#arrowLeftButton').addClass('bg-img-1')
-            $('#userTab').removeClass('h-13em')
+            $('#userTab').removeClass('h-8-8em')
         }
 
         let get_rec = localStorage.getItem('studArrowLeft_records');
 
         if (get_rec === '1') {
             $('#arrowLeftButton_records').addClass('bg-img-2')
-            $('#recordsTab').addClass('h-8-5em')
+            $('#recordsTab').addClass('h-8-8em')
         } else {
             $('#arrowLeftButton_records').addClass('bg-img-1')
-            $('#recordsTab').removeClass('h-8-5em')
+            $('#recordsTab').removeClass('h-8-8em')
         }
 
         let get_main = localStorage.getItem('studArrowLeft_maintenance');
 
         if (get_main === '1') {
             $('#arrowLeftButton_maintenance').addClass('bg-img-2')
-            $('#maintenanceTab').addClass('h-8-5em')
+            $('#maintenanceTab').addClass('h-8-8em')
         } else {
             $('#arrowLeftButton_maintenance').addClass('bg-img-1')
-            $('#maintenanceTab').removeClass('h-8-5em')
+            $('#maintenanceTab').removeClass('h-8-8em')
         }
 
         let get_masterlist = localStorage.getItem('studArrowLeft_masterlist');
         if (get_masterlist === '1') {
             $('#arrowLeftButton_masterlist').addClass('bg-img-2')
-            $('#masterlistTab').addClass('h-8-5em')
+            $('#masterlistTab').addClass('h-8-8em')
         } else {
             $('#arrowLeftButton_masterlist').addClass('bg-img-1')
-            $('#masterlistTab').removeClass('h-8-5em')
+            $('#masterlistTab').removeClass('h-8-8em')
         }
 
         let get_studentRecord = localStorage.getItem('studArrowLeft_studentRecord');
         if (get_studentRecord === '1') {
             $('#arrowLeftButton_studentRecord').addClass('bg-img-2')
-            $('#studentRecordTab').addClass('h-8-5em')
+            $('#studentRecordTab').addClass('h-8-8em')
         } else {
             $('#arrowLeftButton_studentRecord').addClass('bg-img-1')
-            $('#studentRecordTab').removeClass('h-8-5em')
+            $('#studentRecordTab').removeClass('h-8-8em')
         }
     }
 
