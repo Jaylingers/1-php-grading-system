@@ -285,7 +285,7 @@ if (isset($_POST['update-student-info'])) {
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                    and sei.grade= '$Tgrade'
 	                    and sei.section= '$Tsection'
-	                    OR si.teacher_lrn = '$Tlrn'
+	                    and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -320,7 +320,7 @@ if (isset($_POST['update-student-info'])) {
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                    and sei.grade= '$Tgrade'
 	                    and sei.section= '$Tsection'
-	                       OR si.teacher_lrn = '$Tlrn'
+	                       and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -354,7 +354,7 @@ if (isset($_POST['update-student-info'])) {
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                    and sei.grade= '$Tgrade'
 	                    and sei.section= '$Tsection'
-	                       OR si.teacher_lrn = '$Tlrn'
+	                       and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;

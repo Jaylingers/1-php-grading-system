@@ -287,9 +287,9 @@ if (isset($_POST['teacherStudentID'])) {
                     <table class="table table-1  b-shadow-dark ">
                         <thead>
                         <tr>
-                            <th class="t-align-center"><label for="teacher-list-cb" class="d-flex-center"></label><input
-                                        id="teacher-list-cb" type="checkbox"
-                                        onclick="checkCBteachers('teacher-list', 'teacher-list-cb')"
+                            <th class="t-align-center"><label for="teachers-list-cb" class="d-flex-center"></label><input
+                                        id="teachers-list-cb" type="checkbox"
+                                        onclick="checkCBteachers('teachers-list', 'teachers-list-cb')"
                                         class="sc-1-3 c-hand"/></th>
                             <th>No</th>
                             <th>FullName</th>
@@ -467,7 +467,7 @@ if (isset($_POST['teacherStudentID'])) {
                                     onchange="selectGrade('add')">
                                 <option value="0" selected></option>
                                 <?php
-                                $sql = "select * from grade_info";
+                                $sql = "select * from grade_info group by grade";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
@@ -488,7 +488,7 @@ if (isset($_POST['teacherStudentID'])) {
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <option value="<?php echo $row['section'] ?>">
-                                        Grade <?php echo $row['section'] ?></option>
+                                         <?php echo $row['section'] ?></option>
                                     <?php
                                 }
                                 ?>
@@ -563,12 +563,12 @@ if (isset($_POST['teacherStudentID'])) {
                                     onchange="selectGrade('edit')">
                                 <option value="0" selected></option>
                                 <?php
-                                $sql = "select * from grade_info";
+                                $sql = "select * from grade_info group by grade";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <option value="<?php echo $row['grade'] ?>">
-                                        Grade <?php echo $row['grade'] ?></option>
+                                         <?php echo $row['grade'] ?></option>
                                     <?php
                                 }
                                 ?>
@@ -584,7 +584,7 @@ if (isset($_POST['teacherStudentID'])) {
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <option value="<?php echo $row['section'] ?>">
-                                        Grade <?php echo $row['section'] ?></option>
+                                         <?php echo $row['section'] ?></option>
                                     <?php
                                 }
                                 ?>
