@@ -44,7 +44,7 @@
 
 /*----------------MODAL----------------*/
 /* The Modal (background) */
-#myModal {
+#myModal, #myModalAdminSettings {
     border-radius: 8px;
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

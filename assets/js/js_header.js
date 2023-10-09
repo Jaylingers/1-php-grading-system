@@ -5,39 +5,74 @@ function signin() {
 
 // Get the modal
 function showModal(id, title, theme, size) {
-    $('.modal-header').empty();
-    $('.modal-header').append('<h2>' + title + '</h2>');
-    $('.modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
+    $('#myModal .modal-header').empty();
+    $('#myModal .modal-header').append('<h2>' + title + '</h2>');
+    $('#myModal .modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
     if (theme === 'dark') {
-        $('.modal-content').css('background-color', '#757575');
-        $('.modal-content').css('color', 'white');
-        $('.modal-header').css('border-bottom', '3px solid black');
-        $('.modal-body').addClass('d-flex-center');
+        $('#myModal .modal-content').css('background-color', '#757575');
+        $('#myModal .modal-content').css('color', 'white');
+        $('#myModal .modal-header').css('border-bottom', '3px solid black');
+        $('#myModal .modal-body').addClass('d-flex-center');
     } else if (theme === 'gray') {
-        $('.modal-content').css('background-color', '#c3c3c3');
-        $('.modal-content').css('color', 'white');
-        $('.modal-header').css('border-bottom', '3px solid black');
+        $('#myModal .modal-content').css('background-color', '#c3c3c3');
+        $('#myModal .modal-content').css('color', 'white');
+        $('#myModal .modal-header').css('border-bottom', '3px solid black');
     } else {
-        $('.modal-content').css('background-color', '#fff');
-        $('.modal-header').css('border-bottom', '3px solid #80808038');
-        $('.modal-content').css('color', 'black');
-        $('.modal-body').removeClass('d-flex-center');
+        $('#myModal .modal-content').css('background-color', '#fff');
+        $('#myModal .modal-header').css('border-bottom', '3px solid #80808038');
+        $('#myModal .modal-content').css('color', 'black');
+        $('#myModal .modal-body').removeClass('d-flex-center');
     }
 
     $('#myModal').css('display', 'block');
     $('body').css('overflow', 'hidden');
-    $('.modal-body .modal-child').addClass('d-none');
+    $('#myModal .modal-body .modal-child').addClass('d-none');
     $('#' + id).removeClass('d-none');
     localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
 
     if(size === 'small') {
-        $('.modal-content').css('width', '50%');
-        $('.modal-body').css('height', '37em');
+        $('#myModal .modal-content').css('width', '50%');
+        $('#myModal .modal-body').css('height', '37em');
     }
 }
 
+function showModalAdminSettings(id, title, theme, size) {
+    $('#myModalAdminSettings .modal-header').empty();
+    $('#myModalAdminSettings .modal-header').append('<h2>' + title + '</h2>');
+    $('.modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
+    if (theme === 'dark') {
+        $('#myModalAdminSettings .modal-content').css('background-color', '#757575');
+        $('#myModalAdminSettings .modal-content').css('color', 'white');
+        $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid black');
+        $('#myModalAdminSettings .modal-body').addClass('d-flex-center');
+    } else if (theme === 'gray') {
+        $('#myModalAdminSettings .modal-content').css('background-color', '#c3c3c3');
+        $('#myModalAdminSettings .modal-content').css('color', 'white');
+        $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid black');
+    } else {
+        $('#myModalAdminSettings .modal-content').css('background-color', '#fff');
+        $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid #80808038');
+        $('#myModalAdminSettings .modal-content').css('color', 'black');
+        $('#myModalAdminSettings .modal-body').removeClass('d-flex-center');
+    }
+
+    $('#myModalAdminSettings').css('display', 'block');
+    $('body').css('overflow', 'hidden');
+    $('#myModalAdminSettings .modal-body .modal-child').addClass('d-none');
+    $('#' + id).removeClass('d-none');
+    localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
+
+    if(size === 'small') {
+        $('#myModalAdminSettings .modal-content').css('width', '50%');
+        $('#myModalAdminSettings .modal-body').css('height', '37em');
+    }
+}
+
+
+
 function closeModal() {
     $('#myModal').css('display', 'none');
+    $('#myModalAdminSettings').css('display', 'none');
     $('body').css('overflow', 'auto');
 
     var url = window.location.href;

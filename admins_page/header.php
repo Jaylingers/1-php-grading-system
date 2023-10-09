@@ -8,16 +8,31 @@ session_start();
 if (!isset($_SESSION['user_type'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
-        $id = $_GET['id'];
-        $sql = "SELECT * FROM users_info WHERE id='$id'";
-        $result = mysqli_query($conn, $sql);
-        $rows = mysqli_fetch_assoc($result);
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM users_info WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    if ($row['user_type'] === 'student') {
+        $sqlStudent = "SELECT * FROM students_info si
+             left join users_info ui on ui.user_lrn = si.lrn
+             WHERE ui.id='$id'";
+        $resultStudent = mysqli_query($conn, $sqlStudent);
+        $rows = mysqli_fetch_assoc($resultStudent);
+    } else if ($row['user_type'] === 'teacher') {
+        $sqlTeacher = "SELECT * FROM teachers_info ti
+             left join users_info ui on ui.user_lrn = ti.lrn
+             WHERE ui.id='$id'";
+        $resultTeacher = mysqli_query($conn, $sqlTeacher);
+        $rows = mysqli_fetch_assoc($resultTeacher);
+    } else {
+        $rows =$row;
+    }
 
-        if (isset($_POST['logout'])) {
-            unset($_SESSION['user_type']); // remove it now we have used it
-            unset($_SESSION['ids']); // remove it now we have used it
-            header("Location: /1-php-grading-system/");
-        }
+    if (isset($_POST['logout'])) {
+        unset($_SESSION['user_type']); // remove it now we have used it
+        unset($_SESSION['ids']); // remove it now we have used it
+        header("Location: /1-php-grading-system/");
+    }
 }
 ?>
 
@@ -56,7 +71,7 @@ if (!isset($_SESSION['user_type'])) {
         </div>
         <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
             <div class="d-flex-end w-4em">
@@ -70,7 +85,7 @@ if (!isset($_SESSION['user_type'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list" ) { ?> style="background: #bababa;"  <?php } ?>>
+                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Teacher
                 </div>
             </div>
@@ -257,34 +272,36 @@ if (!isset($_SESSION['user_type'])) {
         .admin-settings {
             border-radius: 13px;
         }
+
         .admin-settings:hover {
             background: #808080a8;
         }
     </style>
-<!--    <form action="index.php" method="post">-->
-        <div class="custom-grid-container w-100p pad-1em" tabindex="1">
-            <div class="custom-grid-item d-flex-start c-hand admin-settings">
-                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                    <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for="" class="c-hand m-t-9px f-weight-bold">Profile</label>
-                </div>
-            </div>
-            <div class="custom-grid-item d-flex-start c-hand admin-settings">
-                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                    <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for="" class="c-hand m-t-9px f-weight-bold">Change Password</label>
-                </div>
-
-            </div>
-            <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="logout()">
-                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                    <img src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em">   <label for="" class="c-hand m-t-9px f-weight-bold">Logout</label>
-                </div>
-
-<!--                <button type="submit"-->
-<!--                        name="logout">LOGOUT-->
-<!--                </button>-->
+    <!--    <form action="index.php" method="post">-->
+    <div class="custom-grid-container w-100p pad-1em" tabindex="1">
+        <div class="custom-grid-item d-flex-start c-hand admin-settings"
+             onclick="showProfileInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>')">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                       class="c-hand m-t-9px f-weight-bold">Profile</label>
             </div>
         </div>
-<!--    </form>-->
+        <div class="custom-grid-item d-flex-start c-hand admin-settings">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                              class="c-hand m-t-9px f-weight-bold">Change
+                    Password</label>
+            </div>
+
+        </div>
+        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="logout()">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+                <img src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                      class="c-hand m-t-9px f-weight-bold">Logout</label>
+            </div>
+        </div>
+    </div>
+    <!--    </form>-->
 </div>
 
 <div id="top" class="bg-blue p-fixed  w-80p d-flex r-0 h-4em z-i-9999">
@@ -300,16 +317,16 @@ if (!isset($_SESSION['user_type'])) {
         <?php if ($rows['img_path'] == '') { ?>
             <img src="../../assets/users_img/noImage.png"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                    alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" onclick="settings()">
         <?php } else { ?>
             <img src="<?= $rows['img_path'] ?>"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                    alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" onclick="settings()">
         <?php } ?>
 
 
-<!--        <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"-->
-<!--             class="w-18px m-r-13px c-hand transition-0-5s" alt="" />-->
+        <!--        <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"-->
+        <!--             class="w-18px m-r-13px c-hand transition-0-5s" alt="" />-->
 
     </div>
 
@@ -323,10 +340,35 @@ if (!isset($_SESSION['user_type'])) {
     bottom: 10px;
     right: 10px;
     z-index: 99999;">
-    <img src="../../assets/img/writeMessage.png" alt="sds"  style="height: 2em; width: 2em">
+    <img src="../../assets/img/writeMessage.png" alt="sds" style="height: 2em; width: 2em">
 </div>
 
-
+<div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
+    <div class="modal-content" style="width: 100% !important;">
+        <div id="top-icon"
+             class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
+             onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
+        </div>
+        <div class="modal-header a-center">
+        </div>
+        <div class="modal-body" style="overflow: hidden; background: #adadad;">
+            <div id="show-profile-info" class="modal-child d-none h-100p">
+                <div class="custom-grid-container h-100p" tabindex="2">
+                    <div class="custom-grid-item h-100p">
+                        <img class="pad-1em" src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>" alt="" style="width: 100%;  height: 41em; border-radius: 50%;">
+                    </div>
+                    <div class="custom-grid-item b-shadow-dark pad-1em" style="background: #d6d6d6; height: 41em;">
+                        LRN: <?= isset($rows['lrn']) ?  $rows['lrn']  : $rows['id'] ?> <br>
+                        First Name: <?= $rows['first_name'] ?> <br>
+                        User Type: <?= $rows['user_type'] ?> <br>
+                        Section: <?= isset($rows['section']) ? $rows['section'] : 'none' ?> <br>
+                        Gender: <?= isset($rows['gender']) ? $rows['gender'] : 'none'  ?> <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
@@ -366,8 +408,8 @@ if (!isset($_SESSION['user_type'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-            tabName === 'userTab' ||  tabName === 'recordsTab' ||  tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-8em'
-                        : 'none')
+                tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-8em'
+                    : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
                 $(e).addClass('bg-img-1')
@@ -467,6 +509,10 @@ if (!isset($_SESSION['user_type'])) {
                 $('.tab-notification').removeClass('d-none')
             }
         }
+    }
+
+    function showProfileInfo(userType, lastname) {
+        showModalAdminSettings('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
     }
 
     function logout() {

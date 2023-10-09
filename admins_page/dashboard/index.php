@@ -28,7 +28,15 @@ include '../header.php'; ?>
                      onclick="chooseCategory('students')"><img
                             src="https://cdn3.iconfinder.com/data/icons/school-and-education-4-8/48/181-512.png" alt=""
                             class="w-7em m-3-6px"/>
-                    <div class="h-8em"> Students</div>
+                    <div class="h-8em"> Students1</div>
+                    <div class="h-8em" style=" position: absolute; margin-left: 3.5em;margin-top: 6em;font-weight: bolder;font-size: 2em;">
+                        <?php
+                            $sql = "select count(*) as total from students_info";
+                            $result = mysqli_query($conn, $sql);
+                            $rows = mysqli_fetch_assoc($result);
+                            echo $rows['total'];
+                        ?>
+                    </div>
                 </div>
                 <div id="teacher" class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center c-hand"
                      onclick="chooseCategory('teacher')"><img
@@ -36,12 +44,28 @@ include '../header.php'; ?>
                             alt=""
                             class="w-7em m-3-6px"/>
                     <div class="h-8em"> Teacher</div>
+                    <div class="h-8em" style=" position: absolute; margin-left: 3.5em;margin-top: 6em;font-weight: bolder;font-size: 2em;">
+                    <?php
+                            $sql = "select count(*) as total from teachers_info";
+                            $result = mysqli_query($conn, $sql);
+                            $rows = mysqli_fetch_assoc($result);
+                            echo $rows['total'];
+                        ?>
+                    </div>
                 </div>
                 <div id="pageVisited" class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center c-hand"
                      onclick="chooseCategory('pageVisited')"><img
                             src="https://cdn3.iconfinder.com/data/icons/font-awesome-solid/576/eye-512.png" alt=""
                             class="w-7em m-3-6px"/>
                     <div class="h-8em"> Page Visited</div>
+                    <div class="h-8em" style=" position: absolute; margin-left: 3.5em;margin-top: 6em;font-weight: bolder;font-size: 2em;">
+                    <?php
+                            $sql = "select count(*) as total from page_visited_info";
+                            $result = mysqli_query($conn, $sql);
+                            $rows = mysqli_fetch_assoc($result);
+                            echo $rows['total'];
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
