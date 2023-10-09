@@ -258,7 +258,7 @@ if (isset($_POST['update-student-info'])) {
                 $Tsection = isset($_GET['Tsection']) ? $_GET['Tsection'] : '';
                 $Tlrn = isset($_GET['Tlrn']) ? $_GET['Tlrn'] : '';
 
-                $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                $sql = "SELECT 
                         si.id, 
                         si.lrn, 
                         si.f_name, 
@@ -276,15 +276,15 @@ if (isset($_POST['update-student-info'])) {
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        sei.grade,
-                        sei.section
+                        ti.grade,
+                        ti.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
-	                    and sei.grade= '$Tgrade'
-	                    and sei.section= '$Tsection'
+	                    and ti.grade= '$Tgrade'
+	                    and ti.section= '$Tsection'
 	                    and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
@@ -293,7 +293,7 @@ if (isset($_POST['update-student-info'])) {
                 $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "students".
-                $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                $total_pages = $mysqli->query("SELECT 
                         si.id, 
                         si.lrn, 
                         si.f_name, 
@@ -311,23 +311,23 @@ if (isset($_POST['update-student-info'])) {
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        sei.grade,
-                        sei.section
+                        ti.grade,
+                        ti.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
-	                    and sei.grade= '$Tgrade'
-	                    and sei.section= '$Tsection'
-	                       and si.teacher_lrn = '$Tlrn'
+	                    and ti.grade= '$Tgrade'
+	                    and ti.section= '$Tsection'
+	                    and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
+                if ($stmt = $mysqli->prepare("SELECT 
                         si.id, 
                         si.lrn, 
                         si.f_name, 
@@ -345,16 +345,16 @@ if (isset($_POST['update-student-info'])) {
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        sei.grade,
-                        sei.section
+                        ti.grade,
+                        ti.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
-	                    and sei.grade= '$Tgrade'
-	                    and sei.section= '$Tsection'
-	                       and si.teacher_lrn = '$Tlrn'
+	                    and ti.grade= '$Tgrade'
+	                    and ti.section= '$Tsection'
+	                    and si.teacher_lrn = '$Tlrn'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -1275,7 +1275,7 @@ if (isset($_POST['update-student-info'])) {
     function searchName() {
         var search = $('#search_name').val();
         if (search !== '') {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&searchName=' + search;
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&searchName=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>';
         }

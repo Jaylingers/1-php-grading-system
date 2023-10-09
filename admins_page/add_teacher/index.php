@@ -45,6 +45,9 @@ if (isset($_POST['lrn'])) {
     $sqlDelete = "delete from teachers_subject_info where teachers_info_lrn = '$lrn'";
     $resultDelete = mysqli_query($conn, $sqlDelete);
 
+    $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
+    $resultDeleteUser = mysqli_query($conn, $sqlDeleteUser);
+
     if ($resultDelete) {
         echo '<script>';
         echo '
