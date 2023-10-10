@@ -1460,14 +1460,27 @@ if (isset($_POST['teacherStudentID'])) {
 
     function selectGrade(status) {
         if (status === 'add') {
+            var fname = $('#add-new-teacher #firstName').val();
+            var lname = $('#add-new-teacher #lastName').val();
+            var address = $('#add-new-teacher #address').val();
+            var gender = $('#add-new-teacher #gender').val();
+            var civilStatus = $('#add-new-teacher #civilStatus').val();
+            var email = $('#add-new-teacher #emailAddress').val();
             var grade = $('#add-new-teacher #grade').val();
             var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeAdd=' + grade);
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeAdd=' + grade + '&&fname=' + fname + '&&lname=' + lname + '&&address=' + address + '&&gender=' + gender + '&&civilStatus=' + civilStatus + '&&email=' + email );
             window.location.reload();
         } else {
+            var lrnUpdate = $('#edit-teacher #lrnUpdate').val();
+            var fname = $('#edit-teacher #firstName').val();
+            var lname = $('#edit-teacher #lastName').val();
+            var address = $('#edit-teacher #address').val();
+            var gender = $('#edit-teacher #gender').val();
+            var civilStatus = $('#edit-teacher #civilStatus').val();
+            var email = $('#edit-teacher #emailAddress').val();
             var grade = $('#edit-teacher #grade').val();
             var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeEdit=' + grade);
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeEdit=' + grade + '&&lrnUpdate=' + lrnUpdate + '&&fname=' + fname + '&&lname=' + lname + '&&address=' + address + '&&gender=' + gender + '&&civilStatus=' + civilStatus + '&&email=' + email );
             window.location.reload();
         }
 
@@ -1486,14 +1499,34 @@ if (isset($_POST['teacherStudentID'])) {
         }
 
         var searchGradeAdd = '<?php echo isset($_GET['searchGradeAdd']) ? $_GET['searchGradeAdd'] : '' ?>';
+        var fname = '<?php echo isset($_GET['fname']) ? $_GET['fname'] : '' ?>';
+        var lname = '<?php echo isset($_GET['lname']) ? $_GET['lname'] : '' ?>';
+        var address = '<?php echo isset($_GET['address']) ? $_GET['address'] : '' ?>';
+        var gender = '<?php echo isset($_GET['gender']) ? $_GET['gender'] : '' ?>';
+        var civilStatus = '<?php echo isset($_GET['civilStatus']) ? $_GET['civilStatus'] : '' ?>';
+        var email = '<?php echo isset($_GET['email']) ? $_GET['email'] : '' ?>';
         if (searchGradeAdd !== '') {
             $('#add-new-teacher #grade').val(searchGradeAdd);
+            $('#add-new-teacher #firstName').val(fname);
+            $('#add-new-teacher #lastName').val(lname);
+            $('#add-new-teacher #address').val(address);
+            $('#add-new-teacher #gender').val(gender);
+            $('#add-new-teacher #civilStatus').val(civilStatus);
+            $('#add-new-teacher #emailAddress').val(email);
             showModal('add-new-teacher', 'New Teacher', '', 'small');
         }
 
         var searchGradeEdit = '<?php echo isset($_GET['searchGradeEdit']) ? $_GET['searchGradeEdit'] : '' ?>';
+        var lrnUpdate = '<?php echo isset($_GET['lrnUpdate']) ? $_GET['lrnUpdate'] : '' ?>';
         if (searchGradeEdit !== '') {
+            $('#edit-teacher #lrnUpdate').val(lrnUpdate);
             $('#edit-teacher #grade').val(searchGradeEdit);
+            $('#edit-teacher #firstName').val(fname);
+            $('#edit-teacher #lastName').val(lname);
+            $('#edit-teacher #address').val(address);
+            $('#edit-teacher #gender').val(gender);
+            $('#edit-teacher #civilStatus').val(civilStatus);
+            $('#edit-teacher #emailAddress').val(email);
             showModal('edit-teacher', 'Edit Teacher', '', 'small');
         }
     }

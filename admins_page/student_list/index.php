@@ -48,7 +48,7 @@ if (isset($_POST['id'])) {
         }
     }
 
-    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy')";
+    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 
     $sql = "delete from students_info where lrn = '$lrn'";
@@ -90,7 +90,7 @@ if (isset($_POST['add-enrollment'])) {
     $gradeLevel = $_POST['add-enrollment-grade'];
     $section = $_POST['add-enrollment-section'];
     $schoolYear = $_POST['add-enrollment-school-year'];
-    $schoolYear = date("Y-m-d", strtotime($schoolYear));
+//    $schoolYear = date("Y-m-d", strtotime($schoolYear));
     $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
     $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
     $status = $_POST['add-enrollment-status'];
@@ -102,7 +102,7 @@ if (isset($_POST['add-enrollment'])) {
         echo '<script>';
         echo '   
               alert("Grade Level already exist");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $lrn . '");
             window.location.reload();
             ';
         echo '</script>';
@@ -116,7 +116,7 @@ if (isset($_POST['add-enrollment'])) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $lrn . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -166,7 +166,7 @@ if (isset($_POST['add-new-student'])) {
         echo '<script>';
         echo '   
               alert("saved successfully");
-              window.location.href = "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn']. '";
+              window.location.href = "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '";
             ';
         echo '</script>';
     } else {
@@ -263,21 +263,21 @@ if (isset($_POST['update-student-info'])) {
                         si.lrn, 
                         si.f_name, 
                         si.l_name, 
-                        si.b_date, 
-                        si.age, 
+                        si.m_name,
                         si.gender,
+                        si.b_date, 
+                        si.b_place, 
                         si.c_status,
+                        si.age, 
+                        si.nationality, 
                         si.religion, 
                         si.contact_number, 
-                        si.m_name, 
-                        si.b_place, 
-                        si.nationality, 
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        ti.grade,
-                        ti.section
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
@@ -298,21 +298,21 @@ if (isset($_POST['update-student-info'])) {
                         si.lrn, 
                         si.f_name, 
                         si.l_name, 
-                        si.b_date, 
-                        si.age, 
+                        si.m_name,
                         si.gender,
+                        si.b_date, 
+                        si.b_place, 
                         si.c_status,
+                        si.age, 
+                        si.nationality, 
                         si.religion, 
                         si.contact_number, 
-                        si.m_name, 
-                        si.b_place, 
-                        si.nationality, 
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        ti.grade,
-                        ti.section
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
@@ -328,25 +328,25 @@ if (isset($_POST['update-student-info'])) {
                 $num_results_on_page = 10;
 
                 if ($stmt = $mysqli->prepare("SELECT 
-                        si.id, 
+                       si.id, 
                         si.lrn, 
                         si.f_name, 
                         si.l_name, 
-                        si.b_date, 
-                        si.age, 
+                        si.m_name,
                         si.gender,
+                        si.b_date, 
+                        si.b_place, 
                         si.c_status,
+                        si.age, 
+                        si.nationality, 
                         si.religion, 
                         si.contact_number, 
-                        si.m_name, 
-                        si.b_place, 
-                        si.nationality, 
                         si.email_address,
                         si.home_address, 
                         si.guardian_name, 
                         CONCAT( ui.last_name ,'', ui.first_name) as addedBy,
-                        ti.grade,
-                        ti.section
+                        sei.grade,
+                        sei.section
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
@@ -402,8 +402,8 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['b_date'] ?></td>
                                 <td><?= $row['age'] ?></td>
                                 <td><?= $row['gender'] ?></td>
-                                <td><?= $_GET['Tgrade'] ?></td>
-                                <td><?= $_GET['Tsection'] ?></td>
+                                <td><?= $row['grade'] ?></td>
+                                <td><?= $row['section'] ?></td>
                                 <td><?= $row['addedBy'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
@@ -411,7 +411,7 @@ if (isset($_POST['update-student-info'])) {
                                     >View Enrollment</label>
                                     &nbsp;
                                     <label for="" class="t-color-red c-hand f-weight-bold"
-                                           onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
+                                           onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['m_name'] . "?" . $row['gender'] . "?" . $row['b_date'] . "?" . $row['b_place'] . "?" . $row['c_status'] . "?" . $row['age'] . "?" . $row['nationality'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['email_address'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "]" ?>')"
                                     >View Details</label>
                                 </td>
                             </tr>
@@ -632,20 +632,19 @@ if (isset($_POST['update-student-info'])) {
                 <h4>LRN: <label></label></h4>
                 <h4>Firstname: <label></label></h4>
                 <h4>Lastname: <label></label></h4>
+                <h4>Middle Name: <label></label></h4>
+                <h4>Gender: <label></label></h4>
                 <h4>Birthdate: <label></label></h4>
+                <h4>Birth Place: <label></label></h4>
+                <h4>Civil Status: <label></label></h4>
                 <h4>Age: <label></label></h4>
-                <h4>Address: <label></label></h4>
+                <h4>Nationality: <label></label></h4>
+                <h4>Religion: <label></label></h4>
+                <h4>Contact Number: <label></label></h4>
+                <h4>Email Address: <label></label></h4>
+                <h4>Home Address: <label></label></h4>
                 <h4>Guardian Name: <label></label></h4>
-                <h4>Enrolled Grade: <label></label></h4>
 
-                <h4 class="d-none">Civil Status: <label></label></h4>
-                <h4 class="d-none">Religion: <label></label></h4>
-                <h4 class="d-none">Contact Number: <label></label></h4>
-                <h4 class="d-none">Middle Name: <label></label></h4>
-                <h4 class="d-none">Birth Place: <label></label></h4>
-                <h4 class="d-none">Nationality: <label></label></h4>
-                <h4 class="d-none">Email address: <label></label></h4>
-                <h4 class="d-none">Gender: <label></label></h4>
                 <div class="p-absolute btm-1em r-1em">
                     <button class="c-hand btn-primary btn"
                             name="save" onclick="updateStudentInformation()">Update
@@ -941,7 +940,8 @@ if (isset($_POST['update-student-info'])) {
                             <div class="w-70p m-l-1em">Grade</div>
                             <select name="add-enrollment-grade" id="add-enrollment-grade"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
-                                <option value="<?php echo $_GET['Tgrade'] ?>">Grade <?php echo $_GET['Tgrade'] ?></option>
+                                <option value="<?php echo $_GET['Tgrade'] ?>">
+                                    Grade <?php echo $_GET['Tgrade'] ?></option>
                             </select>
                             <div class="w-70p m-l-1em">Section</div>
                             <input type="text" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -950,25 +950,27 @@ if (isset($_POST['update-student-info'])) {
                                    value="<?php echo $_GET['Tsection'] ?>"
                                    readonly="true"
                                    required/>
-<!--                            --><?php
-//                                $sql = "select * from grade_info";
-//                                $result = mysqli_query($conn, $sql);
-//                                if (mysqli_num_rows($result)) { ?>
-<!--                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">-->
-<!--                                        <option value=""></option>-->
-<!--                                        --><?php
-//                                        $i = 0;
-//                                        while ($rows = mysqli_fetch_assoc($result)) {
-//                                            $i++;
-//                                            ?>
-<!--                                                <option value="--><?php //= $rows['grade'] ?><!--">--><?php //= $rows['grade'] ?><!--</option>-->
-<!--                                        --><?php //} ?>
-<!--                                    </select>-->
-<!--                                --><?php //}
-//                             ?>
+                            <!--                            --><?php
+                            //                                $sql = "select * from grade_info";
+                            //                                $result = mysqli_query($conn, $sql);
+                            //                                if (mysqli_num_rows($result)) { ?>
+                            <!--                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">-->
+                            <!--                                        <option value=""></option>-->
+                            <!--                                        --><?php
+                            //                                        $i = 0;
+                            //                                        while ($rows = mysqli_fetch_assoc($result)) {
+                            //                                            $i++;
+                            //                                            ?>
+                            <!--                                                <option value="-->
+                            <?php //= $rows['grade'] ?><!--">--><?php //= $rows['grade'] ?><!--</option>-->
+                            <!--                                        --><?php //} ?>
+                            <!--                                    </select>-->
+                            <!--                                --><?php //}
+                            //                             ?>
 
                             <div class="w-70p m-l-1em">School Year</div>
-                            <input type="number" min="1900" max="2099" step="1" value="2016" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                            <input type="number" min="1900" max="2099" step="1" value="2016"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="add-enrollment-school-year"
                                    name="add-enrollment-school-year"
                                    required/>
@@ -1277,7 +1279,7 @@ if (isset($_POST['update-student-info'])) {
         if (search !== '') {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&searchName=' + search;
         } else {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>';
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>';
         }
     }
 
@@ -1327,6 +1329,7 @@ if (isset($_POST['update-student-info'])) {
     function viewStudentInformation(data) {
         data = data.replaceAll("[", "['").replaceAll("]", "']").replaceAll("?", "','");
         data = eval(data);
+        console.log(data);
         $('#view-student-info h4:nth-child(1) label').text(data[0]);
         $('#view-student-info h4:nth-child(2) label').text(data[1]);
         $('#view-student-info h4:nth-child(3) label').text(data[2]);
@@ -1343,34 +1346,30 @@ if (isset($_POST['update-student-info'])) {
         $('#view-student-info h4:nth-child(14) label').text(data[13]);
         $('#view-student-info h4:nth-child(15) label').text(data[14]);
         $('#view-student-info h4:nth-child(16) label').text(data[15]);
-
         showModal('view-student-info', 'Student Information', 'dark');
     }
 
     function updateStudentInformation() {
         $('#up-lrn').val($('#view-student-info h4:nth-child(1) label').text());
-        $('#up-lastName').val($('#view-student-info h4:nth-child(3) label').text());
-        $('#up-gender').val($('#view-student-info h4:nth-child(16) label').text());
-        $('#up-civilStatus').val($('#view-student-info h4:nth-child(9) label').text());
-        $('#up-religion').val($('#view-student-info h4:nth-child(10) label').text())
-        $('#up-homeAddress').val($('#view-student-info h4:nth-child(6) label').text());
-
-        var birthDate = new Date($('#view-student-info h4:nth-child(4) label').text());
-        var month = String(birthDate.getMonth() + 1).length === 1 ? '0' + (birthDate.getMonth() + 1) : (birthDate.getMonth() + 1);
-        var day = String(birthDate.getDate()).length === 1 ? '0' + birthDate.getDate() : birthDate.getDate();
-        $('#up-birthDate').val(birthDate.getFullYear() + '-' + month + '-' + day)
-
         $('#up-firstName').val($('#view-student-info h4:nth-child(2) label').text());
-        $('#up-age').val($('#view-student-info h4:nth-child(5) label').text());
-        $('#up-contactNumber').val($('#view-student-info h4:nth-child(11) label').text());
+        $('#up-lastName').val($('#view-student-info h4:nth-child(3) label').text());
+        $('#up-middleName').val($('#view-student-info h4:nth-child(4) label').text());
+        $('#up-gender').val($('#view-student-info h4:nth-child(5) label').text());
+        $('#up-birthDate').val($('#view-student-info h4:nth-child(6) label').text());
+        $('#up-birthPlace').val($('#view-student-info h4:nth-child(7) label').text());
+        $('#up-civilStatus').val($('#view-student-info h4:nth-child(8) label').text());
+        $('#up-age').val($('#view-student-info h4:nth-child(9) label').text());
+        $('#up-nationality').val($('#view-student-info h4:nth-child(10) label').text());
+        $('#up-religion').val($('#view-student-info h4:nth-child(11) label').text());
+        $('#up-contactNumber').val($('#view-student-info h4:nth-child(12) label').text());
+        $('#up-emailAddress').val($('#view-student-info h4:nth-child(13) label').text());
+        $('#up-homeAddress').val($('#view-student-info h4:nth-child(14) label').text());
+        $('#up-guardianName').val($('#view-student-info h4:nth-child(15) label').text());
 
-        $('#up-middleName').val($('#view-student-info h4:nth-child(12) label').text());
-        $('#up-birthPlace').val($('#view-student-info h4:nth-child(13) label').text());
-        $('#up-nationality').val($('#view-student-info h4:nth-child(14) label').text());
-        $('#up-emailAddress').val($('#view-student-info h4:nth-child(15) label').text());
-
-        $('#up-guardianName').val($('#view-student-info h4:nth-child(7) label').text());
-        $('#up-gradeLevel').val($('#view-student-info h4:nth-child(8) label').text());
+        // var birthDate = new Date($('#view-student-info h4:nth-child(4) label').text());
+        // var month = String(birthDate.getMonth() + 1).length === 1 ? '0' + (birthDate.getMonth() + 1) : (birthDate.getMonth() + 1);
+        // var day = String(birthDate.getDate()).length === 1 ? '0' + birthDate.getDate() : birthDate.getDate();
+        // $('#up-birthDate').val(birthDate.getFullYear() + '-' + month + '-' + day)
 
         showModal('update-student-info', 'Update Student')
     }
@@ -1380,7 +1379,7 @@ if (isset($_POST['update-student-info'])) {
         window.location.reload();
     }
 
-    function showGrade(fname,lname,mname, gradeLevel, schoolYear) {
+    function showGrade(fname, lname, mname, gradeLevel, schoolYear) {
         $('#view-student-grade #view-student-grade-name').text(lname + ', ' + fname + ' ' + mname + '.');
         $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
         $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
@@ -1436,7 +1435,7 @@ if (isset($_POST['update-student-info'])) {
         var lrnexist = '<?php echo isset($_GET['lrnexist']) ? $_GET['lrnexist'] : '' ?>';
         if (lrnexist !== '') {
             $('#add-new-student #lrn').val(lrnexist);
-           showModal('add-new-student', 'Add New Student', '');
+            showModal('add-new-student', 'Add New Student', '');
         }
     }
 
