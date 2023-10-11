@@ -149,14 +149,14 @@ if (isset($_POST['studId'])) {
         }
 
         $sLrn = trim(str_replace("lrn: ", "", $studentInfo[1]));
-        $sFname = trim(str_replace("first_name: ", "", $studentInfo[2]));
-        $sLname = trim(str_replace("last_name: ", "", $studentInfo[3]));
-        $sMname = trim(str_replace("middle_name: ", "", $studentInfo[4]));
+        $sFname = trim(str_replace("f_name: ", "", $studentInfo[2]));
+        $sLname = trim(str_replace("l_name: ", "", $studentInfo[3]));
+        $sMname = trim(str_replace("m_name: ", "", $studentInfo[4]));
         $sGender = trim(str_replace("gender: ", "", $studentInfo[5]));
         $sBdate = trim(str_replace("birth_date: ", "", $studentInfo[6]));
         $sBdate = date("Y-m-d", strtotime($sBdate));
-        $sBplace = trim(str_replace("birth_place: ", "", $studentInfo[7]));
-        $sCstatus = trim(str_replace("civil_status: ", "", $studentInfo[8]));
+        $sBplace = trim(str_replace("b_place: ", "", $studentInfo[7]));
+        $sCstatus = trim(str_replace("c_status: ", "", $studentInfo[8]));
         $sAge = trim(str_replace("age: ", "", $studentInfo[9]));
         $sNationality = trim(str_replace("nationality: ", "", $studentInfo[10]));
         $sReligion = trim(str_replace("religion: ", "", $studentInfo[11]));
