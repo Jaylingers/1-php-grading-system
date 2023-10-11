@@ -168,7 +168,6 @@ if (isset($_POST['studId'])) {
         $insertStudent = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy,teacher_lrn) VALUES ('$sFname', '$sLname', '$sMname', '$sGender', '$sBplace', '$sCstatus', '$sAge', '$sBdate' , '$sNationality', '$sReligion', '$sContact', '$sEmail', '$sHome', '$sLrn', '$sGuardian', '$sAddedBy', '$sTeacherLrn')";
         $result = mysqli_query($conn, $insertStudent);
 
-
         $studentEnrollmentInfo = str_replace("Student Enrollment Info</h3>", "", $history[2]);
         $studentEnrollmentInfo = explode("<br/>", $studentEnrollmentInfo);
         echo '<script> console.log("' . implode($studentEnrollmentInfo) . '"); </script>';
@@ -195,10 +194,10 @@ if (isset($_POST['studId'])) {
             $insertStudentGradeInfo = "insert into students_grade_info (students_info_lrn,grade_level,subject,first_grading,second_grading,third_grading,fourth_grading,final_grading) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
             $result = mysqli_query($conn, $insertStudentGradeInfo);
         }
-
-
-        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$sLname','student','$sLrn')";
-        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+        if($sFname] !== undefined) {
+            $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$sLname','student','$sLrn')";
+            $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+        }
 
     } else if ($position === 'teacher') {
         $teacherInfo = str_replace("Teachers Info</h3>", "", $history[1]);
@@ -227,6 +226,7 @@ if (isset($_POST['studId'])) {
         $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
 
     }
+
     $sqlDeleteTrash = "delete from trash_info where id = '$id'";
     $result = mysqli_query($conn, $sqlDeleteTrash);
 
