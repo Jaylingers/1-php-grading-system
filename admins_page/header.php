@@ -289,8 +289,7 @@ if (!isset($_SESSION['user_type'])) {
         <div class="custom-grid-item d-flex-start c-hand admin-settings">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
                 <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                              class="c-hand m-t-9px f-weight-bold">Change
-                    Password</label>
+                                                                                                              class="c-hand m-t-9px f-weight-bold">Themes</label>
             </div>
 
         </div>
@@ -363,6 +362,20 @@ if (!isset($_SESSION['user_type'])) {
                         User Type: <?= $rows['user_type'] ?> <br>
                         Section: <?= isset($rows['section']) ? $rows['section'] : 'none' ?> <br>
                         Gender: <?= isset($rows['gender']) ? $rows['gender'] : 'none'  ?> <br>
+
+
+                        <div>
+
+                            <button
+                                    class="btn btn-success bg-hover-gray-dark-v1"
+                                    style="    position: absolute;
+    right: 24px;
+    bottom: 29px;"
+                                >
+                                Edit
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             </div>
