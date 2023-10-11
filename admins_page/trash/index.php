@@ -137,7 +137,6 @@ if (isset($_POST['studId'])) {
             }
         }
 
-
         $studentGradeInfo = str_replace("Student Grade Info</h3>", "", $history[3]);
         $studentGradeInfo = explode("<br/>", $studentGradeInfo);
         echo '<script> console.log("' . implode($studentGradeInfo) . '"); </script>';
@@ -187,16 +186,19 @@ if (isset($_POST['studId'])) {
         $studentEnrollmentDateEnrolled = trim(str_replace("date_enrolled: ", "", $studentEnrollmentInfo[5]));
         $studentEnrollmentDateEnrolled = date("Y-m-d", strtotime($studentEnrollmentDateEnrolled));
         $studentEnrollmentStatus = trim(str_replace("status: ", "", $studentEnrollmentInfo[6]));
+        if($studentEnrollmentGrade !== undefined) {
+            $insertStudentEnrollmentInfo = "insert into students_enrollment_info (students_info_lrn,grade,section,school_year,date_enrolled,status) VALUES ('$studentEnrollmentLrn','$studentEnrollmentGrade','$studentEnrollmentSection','$studentEnrollmentSchoolYear','$studentEnrollmentDateEnrolled','$studentEnrollmentStatus')";
+            $result = mysqli_query($conn, $insertStudentEnrollmentInfo);
+        }
 
-        $insertStudentEnrollmentInfo = "insert into students_enrollment_info (students_info_lrn,grade,section,school_year,date_enrolled,status) VALUES ('$studentEnrollmentLrn','$studentEnrollmentGrade','$studentEnrollmentSection','$studentEnrollmentSchoolYear','$studentEnrollmentDateEnrolled','$studentEnrollmentStatus')";
-        $result = mysqli_query($conn, $insertStudentEnrollmentInfo);
+        if($studentGradeInfo[2] !== undefined) {
+            $insertStudentGradeInfo = "insert into students_grade_info (students_info_lrn,grade_level,subject,first_grading,second_grading,third_grading,fourth_grading,final_grading) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
+            $result = mysqli_query($conn, $insertStudentGradeInfo);
+        }
 
-        $insertStudentGradeInfo = "insert into students_grade_info (students_info_lrn,grade_level,subject,first_grading,second_grading,third_grading,fourth_grading,final_grading) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
-        $result = mysqli_query($conn, $insertStudentGradeInfo);
 
         $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$sLname','student','$sLrn')";
         $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
-
 
     } else if ($position === 'teacher') {
         $teacherInfo = str_replace("Teachers Info</h3>", "", $history[1]);
