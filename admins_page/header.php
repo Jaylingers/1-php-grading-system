@@ -331,7 +331,7 @@ if (isset($_POST['editProfile'])) {
             ☰</label></div>
     <div class="d-flex-end w-70p m-r-13px">
         <!--        <input type="text" placeholder="Search...">-->
-        <div class="d-flex-center m-l-13px m-r-13px">
+        <div class="d-flex-center m-l-13px m-r-13px" style="font-family: cursive">
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
         </div>
         <?php if ($rows['img_path'] == '') { ?>
