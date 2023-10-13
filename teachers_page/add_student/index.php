@@ -48,7 +48,7 @@ if (isset($_POST['id'])) {
         }
     }
 
-    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy')";
+    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 
     $sql = "delete from students_info where lrn = '$lrn'";
@@ -155,7 +155,12 @@ if (isset($_POST['add-new-student'])) {
         return;
     }
 
-    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id')";
+    $sqlSelectUsersInfo = "select * from users_info where id = '$id'";
+    $resultSelectUsersInfo = mysqli_query($conn, $sqlSelectUsersInfo);
+    $rowsSelectUsersInfo = mysqli_fetch_assoc($resultSelectUsersInfo);
+    $userLrn = $rowsSelectUsersInfo['user_lrn'];
+
+    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy,teacher_lrn) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id', '$userLrn')";
     $result = mysqli_query($conn, $sql);
 
     $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','student','$lrn')";
@@ -255,6 +260,12 @@ if (isset($_POST['update-student-info'])) {
                 <?php
 
                 $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                $id = $_GET['id'];
+
+                $SqlSelectUser = "select * from users_info where id = '$id'";
+                $ResultSelectUser = mysqli_query($conn, $SqlSelectUser);
+                $RowsSelectUser = mysqli_fetch_assoc($ResultSelectUser);
+                $userLrn = $RowsSelectUser['user_lrn'];
 
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
                         si.id, 
@@ -281,6 +292,7 @@ if (isset($_POST['update-student-info'])) {
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -313,6 +325,7 @@ if (isset($_POST['update-student-info'])) {
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                      and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -344,6 +357,7 @@ if (isset($_POST['update-student-info'])) {
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                      and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -395,13 +409,13 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['section'] ?></td>
                                 <td><?= $row['addedBy'] ?></td>
                                 <td>
-                                    <label for="" class="t-color-red c-hand f-weight-bold"
+                                    <label for="" class="t-color-blue c-hand f-weight-bold"
                                            onclick="viewStudentEnrollment('<?= $row['lrn'] ?>')"
                                     >View Enrollment</label>
-                                    &nbsp;
-                                    <label for="" class="t-color-red c-hand f-weight-bold"
+                                    <label for="" class="t-color-blue c-hand f-weight-bold"
                                            onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['b_date'] . "?" . $row['age'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "?" . $row['g_level'] . "?" . $row['c_status'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['m_name'] . "?" . $row['b_place'] . "?" . $row['nationality'] . "?" . $row['email_address'] . "?" . $row['gender'] . "]" ?>')"
-                                    >View Details</label>
+                                    >&nbsp;&nbsp; View Details</label>
+
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -621,20 +635,19 @@ if (isset($_POST['update-student-info'])) {
                 <h4>LRN: <label></label></h4>
                 <h4>Firstname: <label></label></h4>
                 <h4>Lastname: <label></label></h4>
+                <h4>Middle Name: <label></label></h4>
+                <h4>Gender: <label></label></h4>
                 <h4>Birthdate: <label></label></h4>
+                <h4>Birth Place: <label></label></h4>
+                <h4>Civil Status: <label></label></h4>
                 <h4>Age: <label></label></h4>
-                <h4>Address: <label></label></h4>
+                <h4>Nationality: <label></label></h4>
+                <h4>Religion: <label></label></h4>
+                <h4>Contact Number: <label></label></h4>
+                <h4>Email Address: <label></label></h4>
+                <h4>Home Address: <label></label></h4>
                 <h4>Guardian Name: <label></label></h4>
-                <h4>Enrolled Grade: <label></label></h4>
 
-                <h4 class="d-none">Civil Status: <label></label></h4>
-                <h4 class="d-none">Religion: <label></label></h4>
-                <h4 class="d-none">Contact Number: <label></label></h4>
-                <h4 class="d-none">Middle Name: <label></label></h4>
-                <h4 class="d-none">Birth Place: <label></label></h4>
-                <h4 class="d-none">Nationality: <label></label></h4>
-                <h4 class="d-none">Email address: <label></label></h4>
-                <h4 class="d-none">Gender: <label></label></h4>
                 <div class="p-absolute btm-1em r-1em">
                     <button class="c-hand btn-primary btn"
                             name="save" onclick="updateStudentInformation()">Update
@@ -847,8 +860,11 @@ if (isset($_POST['update-student-info'])) {
 
                                     <td>
                                         <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
-                                            Grade</label>
+                                               onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">
+                                            View Grade</label>
+                                        <label for="" class="t-color-red c-hand f-weight-bold"
+                                               onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">
+                                            &nbsp; &nbsp;Add Grade</label>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

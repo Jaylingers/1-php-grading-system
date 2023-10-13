@@ -127,7 +127,7 @@ include '../header.php'; ?>
                         } else if ($category === 'students') {
                             if ($grade === '') {
                                 $sql = "select si.f_name as first_name, si.l_name as last_name, ui.img_path from students_info si
-                                        left join users_info ui on ui.user_lrn = si.lrn";
+                                        left join users_info ui on ui.user_lrn = si.lrn group by si.lrn";
                                 $result = mysqli_query($conn, $sql);
                             } else {
                                 $sql = "select si.f_name as first_name, si.l_name as last_name,ui.img_path from students_enrollment_info  sei

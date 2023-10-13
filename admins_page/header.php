@@ -474,11 +474,6 @@ if (isset($_POST['editProfile'])) {
 
 <script>
 
-    function edit() {
-        $('#editProfile #display').addClass('d-none')
-        $('#editProfile #editForm').removeClass('d-none')
-    }
-
     function settings() {
         $('#settings').toggleClass("rotate")
         $('#settings-details').toggleClass("d-flex")
@@ -626,6 +621,11 @@ if (isset($_POST['editProfile'])) {
 
     }
 
+    function edit() {
+        $('#editProfile #display').addClass('d-none')
+        $('#editProfile #editForm').removeClass('d-none')
+    }
+
     function logout() {
         var r = confirm("Are you sure you want to logout?");
         if (r === true) {
@@ -640,7 +640,7 @@ if (isset($_POST['editProfile'])) {
 
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
-            showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>');
+            showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>','profile');
         }
 
     });

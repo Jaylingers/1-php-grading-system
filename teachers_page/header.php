@@ -34,6 +34,27 @@ if (!isset($_SESSION['user_type'])) {
         header("Location: /1-php-grading-system/");
     }
 }
+
+if (isset($_POST['editProfile'])) {
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $id = $_GET['id'];
+
+    $sql = "UPDATE users_info SET first_name='$firstname', last_name='$lastname', username='$username', password='$password', email='$email' WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+              alert("saved successfully");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&updateProfile=success");
+                    window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -281,17 +302,16 @@ if (!isset($_SESSION['user_type'])) {
     <!--    <form action="index.php" method="post">-->
     <div class="custom-grid-container w-100p pad-1em" tabindex="1">
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
-             onclick="showProfileInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>')">
+             onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
                 <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for=""
                                                                                                        class="c-hand m-t-9px f-weight-bold">Profile</label>
             </div>
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings">
+        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','themes')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
                 <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                              class="c-hand m-t-9px f-weight-bold">Change
-                    Password</label>
+                                                                                                              class="c-hand m-t-9px f-weight-bold">Themes</label>
             </div>
 
         </div>
@@ -344,8 +364,8 @@ if (!isset($_SESSION['user_type'])) {
     <img src="../../assets/img/writeMessage.png" alt="sds"  style="height: 2em; width: 2em">
 </div>
 
-<div id="myModal" style="    z-index: 9999999 !important; width: 100% !important;">
-    <div class="modal-content">
+<div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
+    <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
         <div id="top-icon"
              class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
              onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
@@ -355,18 +375,98 @@ if (!isset($_SESSION['user_type'])) {
         <div class="modal-body" style="overflow: hidden; background: #adadad;">
             <div id="show-profile-info" class="modal-child d-none h-100p">
                 <div class="custom-grid-container h-100p" tabindex="2">
-                    <div class="custom-grid-item h-100p">
-                        <img class="pad-1em" src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>" alt="" style="width: 100%;  height: 41em; border-radius: 50%;">
+                    <div class="custom-grid-item h-100p d-flex-center">
+                        <img class="pad-1em b-shadow-dark"
+                             src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>"
+                             alt="" style="width: 86%;
+    height: 35em; border-radius: 50%;">
                     </div>
-                    <div class="custom-grid-item pad-1em b-shadow-dark" style="background: #d6d6d6; height: 41em;">
-                        LRN: <?= $rows['lrn'] ?> <br>
-                        First Name: <?= $rows['first_name'] ?> <br>
-                        User Type: <?= $rows['user_type'] ?> <br>
-                        Section: <?= $rows['section'] ?> <br>
-                        Gender: <?= $rows['gender'] ?> <br>
+                    <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
+                         style="background: #d6d6d6; height: 41em;">
+
+
+                        <div id="display">
+                            LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                            First Name: <label for=""> <?= $rows['first_name'] ?> </label>
+                            <br>
+                            Last Name: <label for=""> <?= $rows['last_name'] ?> </label>
+                            <br>
+                            UserName: <label for=""> <?= $rows['username'] ?> </label>
+                            <br>
+                            Password: <label for=""> <?= $rows['password'] ?> </label>
+                            <br>
+                            Email: <label for=""> <?= isset($rows['email']) ? $rows['email'] : 'none' ?> </label> <br>
+                            User Type: <label for=""> <?= $rows['user_type'] ?> </label>
+                            <br>
+                            <div>
+                                <button id="edit"
+                                        class="btn btn-success bg-hover-gray-dark-v1"
+                                        style="position: absolute; right: 24px; bottom: 29px;"
+                                        onclick="edit()">
+                                    Edit
+                                </button>
+                            </div>
+
+                        </div>
+                        <div id="editForm" class="d-none">
+                            <form method="post">
+                                LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                                First Name: <input
+                                        value="<?= $rows['first_name'] ?>" id="firstname" type="text" name="firstname"
+                                        class=" m-b-5px"/>
+                                <br>
+                                Last Name: <input
+                                        value="<?= $rows['last_name'] ?>" id="lastname" type="text" name="lastname"
+                                        class=" m-b-5px"/>
+                                <br>
+                                UserName: <input
+                                        value="<?= $rows['username'] ?>" id="username" type="text"
+                                        class=" m-b-5px" name="username"/>
+                                <br>
+                                Password: <input
+                                        value="<?= $rows['password'] ?>" id="password" type="text"
+                                        class=" m-b-5px" name="password"/>
+                                <br>
+                                Email:
+                                <input
+                                        value="<?= $rows['email'] ?>"
+                                        id="email" type="email" name="email"
+                                        class=" m-b-5px"/> <br>
+                                User Type: <input
+                                        value="<?= $rows['user_type'] ?>" id="user_type" type="text"
+                                        class=" m-b-5px"
+                                        readonly="true"/>
+                                <br>
+
+                                <div>
+                                    <button id="saveButton" type="submit" class="c-hand btn-success btn "
+                                            name="editProfile" style="position: absolute; right: 24px; bottom: 29px;">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
+            <div id="show-themes" class="modal-child d-none h-100p">
+                <h2>Side Bar</h2>
+                BG Color:  <input type="color" id="sideBarColor"> <br>
+                Font Color: <input type="color" id="sideBarFontColor"> <br>
+                Font Style: <input type="text" id="sideBarFontStyle"> <br>
+                Font Size: <input type="number" id="sideBarFontSize"> <br>
+                Font Weight: <input type="number" id="sideBarFontWeight"> <br>
+
+                <h2>Header</h2>
+                BG Color:  <input type="color" id="topBarColor"> <br>
+                Font Color: <input type="color" id="topBarFontColor"> <br>
+                Font Style: <input type="text" id="topBarFontStyle"> <br>
+                Font Size: <input type="number" id="topBarFontSize"> <br>
+                font Weight: <input type="number" id="topBarFontWeight"> <br>
+            </div>
+
         </div>
     </div>
 </div>
@@ -514,10 +614,18 @@ if (!isset($_SESSION['user_type'])) {
     }
 
 
-    function showProfileInfo(userType, lastname) {
-        showModal('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
+    function edit() {
+        $('#editProfile #display').addClass('d-none')
+        $('#editProfile #editForm').removeClass('d-none')
     }
 
+    function showModalInfo(userType, lastname,status) {
+        if(status === 'profile'){
+            showModalAdminSettings('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
+        } else {
+            showModalAdminSettings('show-themes', 'THEMES', '', '')
+        }
+    }
 
     function logout() {
         var r = confirm("Are you sure you want to logout?");
@@ -527,7 +635,41 @@ if (!isset($_SESSION['user_type'])) {
     }
 
 
-    viewUserTabs();
-    loadStudArrowLeft();
+    $(document).ready(function () {
+        loadStudArrowLeft();
+        viewUserTabs();
 
+        var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
+        if (updateProfile) {
+            showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
+        }
+
+    });
+
+    var colorWell;
+    var defaultColor = "#0000ff";
+    window.addEventListener("load", startup, false);
+    function startup()
+    {
+        colorWell = document.querySelector("#sideBarColor");
+        colorWell.addEventListener("input", updateFirst, false);
+        colorWell.select();
+
+        colorWell = document.querySelector("#topBarColor");
+        colorWell.addEventListener("input", updateSecond, false);
+        colorWell.select();
+
+    }
+    function updateFirst(event)
+    {
+        document.querySelector("#side").setAttribute('style','background-color:'+event.target.value+' !important;');
+    }
+    function updateSecond(event)
+    {
+        document.querySelector("#top").setAttribute('style','background-color:'+event.target.value+' !important;');
+
+    }
+
+
+</script>
 </script>
