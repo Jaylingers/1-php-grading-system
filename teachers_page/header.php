@@ -137,7 +137,7 @@ if (isset($_POST['editProfile'])) {
         </div>
         <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "teacher_subject_list" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                 Masterlist
             </div>
             <div class="d-flex-end w-4em">
@@ -151,8 +151,8 @@ if (isset($_POST['editProfile'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add Student
+                     onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                   Student List
                 </div>
             </div>
             <div class=" h-4em d-flex-end m-t-5px">
@@ -160,8 +160,8 @@ if (isset($_POST['editProfile'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student List
+                     onclick="selectTab('teacher_subject_list')" <?php if ($var === "teacher_subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Teacher Subject
                 </div>
             </div>
         </div>

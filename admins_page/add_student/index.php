@@ -1028,15 +1028,7 @@ if (isset($_POST['update-student-info'])) {
                 </div>
                 <div>
 
-                    <style>
-                        .table-bordered td, .table-bordered th {
-                            border: 2px solid black;
-                        }
 
-                        .table-bordered {
-                            border: 2px solid black;
-                        }
-                    </style>
 
                     <table class="table-bordered w-100p m-t-2em">
                         <col>

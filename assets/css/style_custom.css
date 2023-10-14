@@ -521,7 +521,9 @@
 .w-100p {
     width: 100% !important;
 }
-
+.w-10em{
+    width: 10em;
+}
 .w-80p {
     width: 80%;
 }
@@ -1016,4 +1018,12 @@
 }
 #writeMessage:hover::before {
     display: block;
+}
+
+.table-bordered {
+    border: 2px solid black !important;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 2px solid black !important;
 }
