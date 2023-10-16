@@ -1,4 +1,4 @@
-<?php global $mysqli, $rows;
+<?php global $mysqli, $rows, $schoolName;
 $var = "student_list";
 include '../header.php'; ?>
 
@@ -204,6 +204,87 @@ if (isset($_POST['update-student-info'])) {
         echo '<script>';
         echo '   
               alert("updated successfully");
+              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+            ';
+        echo '</script>';
+    }
+}
+
+if (isset($_POST['add-student-grade'])) {
+    $juneClasses = $_POST['june_days_classes'];
+    $junePresents = $_POST['june_days_presents'];
+    $julyClasses = $_POST['july_days_classes'];
+    $julyPresents = $_POST['july_days_presents'];
+    $augustClasses = $_POST['august_days_classes'];
+    $augustPresents = $_POST['august_days_presents'];
+    $septemberClasses = $_POST['september_days_classes'];
+    $septemberPresents = $_POST['september_days_presents'];
+    $octoberClasses = $_POST['october_days_classes'];
+    $octoberPresents = $_POST['october_days_presents'];
+    $novemberClasses = $_POST['november_days_classes'];
+    $novemberPresents = $_POST['november_days_presents'];
+    $decemberClasses = $_POST['december_days_classes'];
+    $decemberPresents = $_POST['december_days_presents'];
+    $januaryClasses = $_POST['january_days_classes'];
+    $januaryPresents = $_POST['january_days_presents'];
+    $februaryClasses = $_POST['february_days_classes'];
+    $februaryPresents = $_POST['february_days_presents'];
+    $marchClasses = $_POST['march_days_classes'];
+    $marchPresents = $_POST['march_days_presents'];
+    $aprilClasses = $_POST['april_days_classes'];
+    $aprilPresents = $_POST['april_days_presents'];
+    $mayClasses = $_POST['may_days_classes'];
+    $mayPresents = $_POST['may_days_presents'];
+    $id = $_GET['id'];
+    $studentLrn = $_GET['lrn'];
+    $grade = $_POST['grade'];
+
+    $sqlSelectUser = "select * from users_info where id = '$id'";
+    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+    $rowsSelectUser = mysqli_fetch_assoc($resultSelectUser);
+    $teacherLrn = $rowsSelectUser['user_lrn'];
+
+    $sqlDeleteStudentGradeAttendanceInfo = "delete from students_grade_attendance_info where student_lrn = '$studentLrn' and teacher_lrn = '$teacherLrn' and grade = '$grade'";
+    $resultDeleteStudentGradeAttendanceInfo = mysqli_query($conn, $sqlDeleteStudentGradeAttendanceInfo);
+
+    $sqlDeleteStudentGradeInfo = "delete from students_grade_info where student_lrn = '$studentLrn' and teacher_lrn = '$teacherLrn' and grade = '$grade'";
+    $resultDeleteStudentGradeInfo = mysqli_query($conn, $sqlDeleteStudentGradeInfo);
+
+    $sqlInsertStudentGradeAttendanceInfo = "insert into students_grade_attendance_info (grade,student_lrn,teacher_lrn,june_days_classes,june_days_presents,july_days_classes,july_days_presents,aug_days_classes,aug_days_presents,sep_days_classes,sep_days_presents,oct_days_classes,oct_days_presents,nov_days_classes,nov_days_presents,dec_days_classes,dec_days_presents,jan_days_classes,jan_days_presents,feb_days_classes,feb_days_presents,mar_days_classes,mar_days_presents,apr_days_classes,apr_days_presents,may_days_classes,may_days_presents) VALUES ('$grade','$studentLrn','$teacherLrn','$juneClasses','$junePresents','$julyClasses','$julyPresents','$augustClasses','$augustPresents','$septemberClasses','$septemberPresents','$octoberClasses','$octoberPresents','$novemberClasses','$novemberPresents','$decemberClasses','$decemberPresents','$januaryClasses','$januaryPresents','$februaryClasses','$februaryPresents','$marchClasses','$marchPresents','$aprilClasses','$aprilPresents','$mayClasses','$mayPresents')";
+    $resultInsertStudentGradeAttendanceInfo = mysqli_query($conn, $sqlInsertStudentGradeAttendanceInfo);
+
+
+    $sqlSelectTeacherSubject = "select * from teachers_subject_info where teachers_lrn = '$teacherLrn' and grade = '$grade'";
+    $resultSelectTeacherSubject = mysqli_query($conn, $sqlSelectTeacherSubject);
+    foreach ($resultSelectTeacherSubject as $key => $value) {
+        $subject = $value['subject'];
+
+        $first_ = $subject . '1';
+        $first = $_POST["$first_"];
+
+        $second_ = $subject . '2';
+        $second = $_POST["$second_"];
+
+        $third_ = $subject . '3';
+        $third = $_POST["$third_"];
+
+        $fourth_ = $subject . '4';
+        $fourth = $_POST["$fourth_"];
+
+        $final_ = $subject . 'final';
+        $final = $_POST["$final_"];
+
+        $unit_ = $subject . 'units';
+        $unit = $_POST["$unit_"];
+        $status = "jay";
+        $sqlInsertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status) VALUES ('$studentLrn','$teacherLrn','$subject','$grade','$first','$second','$third','$fourth','$final','$unit','$status')";
+        $resultInsertStudentGradeInfo = mysqli_query($conn, $sqlInsertStudentGradeInfo);
+    }
+
+    if ($resultInsertStudentGradeAttendanceInfo) {
+        echo '<script>';
+        echo '
+              alert("saved successfully");
               window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
             ';
         echo '</script>';
@@ -946,13 +1027,14 @@ if (isset($_POST['update-student-info'])) {
                             <div class="w-70p m-l-1em">Grade</div>
                             <select name="add-enrollment-grade" id="add-enrollment-grade"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" onchange="selectGrade()">
-                                <option value="0"  selected></option>
+                                <option value="0" selected></option>
                                 <?php
                                 $sql = "select * from grade_info";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
-                                    <option value="<?php echo $row['grade'] ?>">Grade <?php echo $row['grade'] ?></option>
+                                    <option value="<?php echo $row['grade'] ?>">
+                                        Grade <?php echo $row['grade'] ?></option>
                                     <?php
                                 }
                                 ?>
@@ -960,40 +1042,42 @@ if (isset($_POST['update-student-info'])) {
                             <div class="w-70p m-l-1em">Section</div>
                             <select name="add-enrollment-section" id="add-enrollment-section"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
-                                <option value="0"  selected></option>
+                                <option value="0" selected></option>
                                 <?php
                                 $grade = isset($_GET['searchGrade']) ? $_GET['searchGrade'] : '';
                                 $sql = "select * from grade_info where grade = '$grade'";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
-                                    <option value="<?php echo $row['section'] ?>">Grade <?php echo $row['section'] ?></option>
+                                    <option value="<?php echo $row['section'] ?>">
+                                        Grade <?php echo $row['section'] ?></option>
                                     <?php
                                 }
                                 ?>
                             </select>
 
 
-
-<!--                            --><?php
-//                                $sql = "select * from grade_info";
-//                                $result = mysqli_query($conn, $sql);
-//                                if (mysqli_num_rows($result)) { ?>
-<!--                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">-->
-<!--                                        <option value=""></option>-->
-<!--                                        --><?php
-//                                        $i = 0;
-//                                        while ($rows = mysqli_fetch_assoc($result)) {
-//                                            $i++;
-//                                            ?>
-<!--                                                <option value="--><?php //= $rows['grade'] ?><!--">--><?php //= $rows['grade'] ?><!--</option>-->
-<!--                                        --><?php //} ?>
-<!--                                    </select>-->
-<!--                                --><?php //}
-//                             ?>
+                            <!--                            --><?php
+                            //                                $sql = "select * from grade_info";
+                            //                                $result = mysqli_query($conn, $sql);
+                            //                                if (mysqli_num_rows($result)) { ?>
+                            <!--                                    <select name="add-enrollment-grade" id="add-enrollment-grade"  class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">-->
+                            <!--                                        <option value=""></option>-->
+                            <!--                                        --><?php
+                            //                                        $i = 0;
+                            //                                        while ($rows = mysqli_fetch_assoc($result)) {
+                            //                                            $i++;
+                            //                                            ?>
+                            <!--                                                <option value="-->
+                            <?php //= $rows['grade'] ?><!--">--><?php //= $rows['grade'] ?><!--</option>-->
+                            <!--                                        --><?php //} ?>
+                            <!--                                    </select>-->
+                            <!--                                --><?php //}
+                            //                             ?>
 
                             <div class="w-70p m-l-1em">School Year</div>
-                            <input type="number" min="1900" max="2099" step="1" value="2016" class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                            <input type="number" min="1900" max="2099" step="1" value="2016"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                    id="add-enrollment-school-year"
                                    name="add-enrollment-school-year"
                                    required/>
@@ -1029,19 +1113,33 @@ if (isset($_POST['update-student-info'])) {
             </div>
             <div id="view-student-grade" class="modal-child d-none">
 
-                <div class="m-l-6em m-t-1em">
-                    <div>Student name: <label for="" id="view-student-grade-name">&nbsp;</label></div>
-                    <div>School: <label for="" id="view-student-grade-school"
-                                        class="b-bottom-gray-3px w-27em t-align-center">&nbsp;</label></div>
-                    <div class="d-inline-flex">
-                        <div>Grade & Section: <label for="" id="view-student-grade-grade"
-                                                     class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                <?php
+
+                $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                $sqlStudents = mysqli_query($conn, $sqlStudents);
+                while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
+                    ?>
+                    <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
+                    <div>Student Name: <label
+                                class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
+                            , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
+                    <div>School Name:<input type="text"
+                                            class="w-27em b-bottom-gray-3px b-none t-align-center" value="<?php echo $schoolName ?>"></div>
+                    <div>
+                        <div class="d-inline-flex">Grade & Section: <label for=""
+                                                                           class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
+                        </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div>School Year:
-                            <label for="" id="view-student-grade-school-year"
-                                   class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                        <div class="d-inline-flex">School Year:
+                            <label for=""
+                                   class="b-bottom-gray-3px w-10em t-align-center">&nbsp; <?= $rowStudent['school_year'] ?>
+                                - <?= (1 + $rowStudent['school_year']) ?> </label></div>
                     </div>
-                </div>
+
+                <?php } ?>
                 <div>
 
                     <table class="table-bordered w-100p m-t-2em">
@@ -1053,6 +1151,7 @@ if (isset($_POST['update-student-info'])) {
                         <tr>
                             <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
                                 Learning Area
+                                <!--                                jay-->
                             </th>
                             <th colspan="4" style="text-align:center;" class="b-bottom-none">Quarter</th>
                             <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
@@ -1065,46 +1164,30 @@ if (isset($_POST['update-student-info'])) {
                             <th scope="col" class="b-top-none b-none t-align-center">3</th>
                             <th scope="col" class="b-top-none b-none t-align-center">4</th>
                         </tr>
-                        <tr>
-                            <td>Filipino</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>Match</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>English</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <?php
+
+                        $studentLrn = $_GET['lrn'];
+
+                        $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn'
+                                            group by si.lrn";
+                        $sqlStudents = mysqli_query($conn, $sqlStudents);
+                        $row = mysqli_fetch_assoc($sqlStudents);
+                        $grade = $row['grade'];
+
+                        $sqlUser = "select * from students_grade_info where student_lrn='$studentLrn' and grade='$grade'";
+                        $resultUsers = mysqli_query($conn, $sqlUser);
+                        while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                            ?>
+                            <tr>
+                                <td class="t-align-center"> <?= $rowUser['subject'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['first_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['second_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['third_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['fourth_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['final'] ?></td>
+                            </tr>
+                        <?php } ?>
                     </table>
 
                     <table class="table-bordered w-100p m-t-2em">
@@ -1114,53 +1197,71 @@ if (isset($_POST['update-student-info'])) {
                         <colgroup span="4"></colgroup>
                         <col>
                         <tr>
-                            <th rowspan="1">Months</th>
-                            <th colspan="1">Jun</th>
-                            <th rowspan="1">July</th>
-                            <th rowspan="1">Aug</th>
-                            <th rowspan="1">Sep</th>
-                            <th rowspan="1">Oct</th>
-                            <th rowspan="1">Nov</th>
-                            <th rowspan="1">Dec</th>
-                            <th rowspan="1">Jan</th>
-                            <th rowspan="1">Feb</th>
-                            <th rowspan="1">Mar</th>
-                            <th rowspan="1">Apr</th>
-                            <th rowspan="1">May</th>
-                            <th rowspan="1">Total</th>
+                            <th rowspan="1" class="t-align-center">Months</th>
+                            <th colspan="1" class="t-align-center">Jun</th>
+                            <th rowspan="1" class="t-align-center">July</th>
+                            <th rowspan="1" class="t-align-center">Aug</th>
+                            <th rowspan="1" class="t-align-center">Sep</th>
+                            <th rowspan="1" class="t-align-center">Oct</th>
+                            <th rowspan="1" class="t-align-center">Nov</th>
+                            <th rowspan="1" class="t-align-center">Dec</th>
+                            <th rowspan="1" class="t-align-center">Jan</th>
+                            <th rowspan="1" class="t-align-center">Feb</th>
+                            <th rowspan="1" class="t-align-center">Mar</th>
+                            <th rowspan="1" class="t-align-center">Apr</th>
+                            <th rowspan="1" class="t-align-center">May</th>
+                            <th rowspan="1" class="t-align-center">Total</th>
                         </tr>
-                        <tr>
-                            <th scope="col">Days of School</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">Days Present</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
+                        <?php
+                        $id = $_GET['id'];
+                        $studentLrn = $_GET['lrn'];
+
+                        $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn'
+                                            group by si.lrn";
+                        $sqlStudents = mysqli_query($conn, $sqlStudents);
+                        $row = mysqli_fetch_assoc($sqlStudents);
+                        $grade = $row['grade'];
+                        $teacherLrn = $row['teacher_lrn'];
+
+                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$grade'";
+                        $resultUsers = mysqli_query($conn, $sqlUser);
+                        while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                            ?>
+                            <tr>
+                                <th >Days of School</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
+                            </tr>
+                            <tr>
+                                <th >Days Present</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
+                            </tr>
+                        <?php } ?>
+
                     </table>
                 </div>
                 <div class="p-absolute btm-1em r-1em action-button">
@@ -1272,158 +1373,212 @@ if (isset($_POST['update-student-info'])) {
                 </div>
             </div>
             <div id="add-student-grade" class="modal-child d-none">
-                <div class="custom-grid-container w-100p gap-1em" tabindex="2">
-                    <div class="custom-grid-item ">
-                        <div class="m-t-1em">
-                            <?php
 
-                           $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
-                            $sqlStudents = "select * from students_info si 
+                <form method="post">
+                    <div class="custom-grid-container w-100p gap-1em" tabindex="2">
+                        <div class="custom-grid-item ">
+                            <div class="m-t-1em">
+                                <?php
+
+                                $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                $sqlStudents = "select * from students_info si 
                                             left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
                                             group by si.lrn";
-                            $sqlStudents = mysqli_query($conn, $sqlStudents);
-                            while ($rowStudent= mysqli_fetch_assoc($sqlStudents)) {
-                                ?>
-                                <div>Student Name: <label for="" id="view-student-grade-name" class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>, <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
-                                <div>School Name:<input type="text" class="w-27em b-bottom-gray-3px b-none t-align-center"></div>
-                                <div>
-                                    <div  class="d-inline-flex">Grade & Section: <label for="" id="view-student-grade-grade"
-                                                                                        class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label></div>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <div  class="d-inline-flex">School Year:
-                                        <label for="" id="view-student-grade-school-year"
-                                               class="b-bottom-gray-3px w-10em t-align-center">&nbsp;  <?= $rowStudent['school_year'] ?> -  <?= (1+$rowStudent['school_year']) ?> </label></div>
-                                </div>
-                                <div>Total No. of Yrs. : <input type="number" class="w-27em b-bottom-gray-3px b-none t-align-center"></div>
+                                $sqlStudents = mysqli_query($conn, $sqlStudents);
+                                while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
+                                    ?>
+                                    <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
+                                    <div>Student Name: <label for="" id="view-student-grade-name"
+                                                              class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
+                                            , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
+                                    <div>School Name:<input type="text"
+                                                            class="w-27em b-bottom-gray-3px b-none t-align-center" value="<?php echo $schoolName ?>">
+                                    </div>
+                                    <div>
+                                        <div class="d-inline-flex">Grade & Section: <label for=""
+                                                                                           id="view-student-grade-grade"
+                                                                                           class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="d-inline-flex">School Year:
+                                            <label for="" id="view-student-grade-school-year"
+                                                   class="b-bottom-gray-3px w-10em t-align-center">&nbsp; <?= $rowStudent['school_year'] ?>
+                                                - <?= (1 + $rowStudent['school_year']) ?> </label></div>
+                                    </div>
+                                    <div>Total No. of Yrs. : <input type="number"
+                                                                    class="w-27em b-bottom-gray-3px b-none t-align-center">
+                                    </div>
 
-                            <?php } ?>
+                                <?php } ?>
 
 
-                        </div>
-                        <div>
-                            <table class="w-100p table-bordered m-t-2em">
-                                <tr>
-                                    <th class="pad-1em">Subjects</th>
-                                    <th class="t-align-center">1</th>
-                                    <th class="t-align-center">2</th>
-                                    <th class="t-align-center">3</th>
-                                    <th class="t-align-center">4</th>
-                                    <th class="t-align-center">Final</th>
-                                    <th class="t-align-center">Units</th>
-                                    <th class="t-align-center">Passed or Failed</th>
-                                </tr>
-                                <?php
-                                $id = $_GET['id'];
-                                $sqlUser = "select * from teachers_subject_info tsi
+                            </div>
+                            <div>
+                                <table class="w-100p table-bordered m-t-2em">
+                                    <tr>
+                                        <th class="pad-1em">Subjects</th>
+                                        <th class="t-align-center">1</th>
+                                        <th class="t-align-center">2</th>
+                                        <th class="t-align-center">3</th>
+                                        <th class="t-align-center">4</th>
+                                        <th class="t-align-center">Final</th>
+                                        <th class="t-align-center">Units</th>
+                                        <th class="t-align-center">Passed or Failed</th>
+                                    </tr>
+                                    <?php
+                                    $id = $_GET['id'];
+                                    $sqlUser = "select * from teachers_subject_info tsi
                                             left join users_info ui on ui.user_lrn = tsi.teachers_lrn
                                             where ui.id='$id'";
-                                $resultUsers = mysqli_query($conn, $sqlUser);
-                                while ($rowUser= mysqli_fetch_assoc($resultUsers)) {
-                                    ?>
+                                    $resultUsers = mysqli_query($conn, $sqlUser);
+                                    while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                                        ?>
+                                        <tr>
+                                            <td> <?= $rowUser['subject'] ?></td>
+                                            <td><input type="number" id="<?= $rowUser['subject'] ?>1"
+                                                       name="<?= $rowUser['subject'] ?>1"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="<?= $rowUser['subject'] ?>2"
+                                                       name="<?= $rowUser['subject'] ?>2"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="<?= $rowUser['subject'] ?>3"
+                                                       name="<?= $rowUser['subject'] ?>3"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="<?= $rowUser['subject'] ?>4"
+                                                       name="<?= $rowUser['subject'] ?>4"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input readonly="true" type="number" id="<?= $rowUser['subject'] ?>final"
+                                                       name="<?= $rowUser['subject'] ?>final"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="<?= $rowUser['subject'] ?>units"
+                                                       name="<?= $rowUser['subject'] ?>units"
+                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                            <td><input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status"
+                                                       name="<?= $rowUser['subject'] ?>status"
+                                                       class="w-100p b-none t-align-center" placeholder="?"></td>
+                                        </tr>
+                                    <?php } ?>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="custom-grid-item ">
+                            <div>
+                                <table class="w-100p table-bordered">
                                     <tr>
-                                        <td> <?= $rowUser['subject'] ?></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>1" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>2" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>3" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>4" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>final" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input type="number" id="<?= $rowUser['subject'] ?>units" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td> <input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status" class="w-100p b-none t-align-center" placeholder="?"></td>
+                                        <th class="t-align-center">Months</th>
+                                        <th class="t-align-center">Days of Classes</th>
+                                        <th class="t-align-center">Days Present</th>
                                     </tr>
-                                      <?php } ?>
-                            </table>
-
+                                    <tr>
+                                        <td class="t-align-center">June</td>
+                                        <td><input type="number" id="june_days_classes" name="june_days_classes"
+                                                   class="w-100p b-none t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="june_days_presents" name="june_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">July</td>
+                                        <td><input type="number" id="july_days_classes" name="july_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="july_days_presents" name="july_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">August</td>
+                                        <td><input type="number" id="august_days_classes" name="august_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="august_days_presents" name="august_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">September</td>
+                                        <td><input type="number" id="september_days_classes"
+                                                   name="september_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="september_days_presents"
+                                                   name="september_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">October</td>
+                                        <td><input type="number" id="october_days_classes" name="october_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="october_days_presents" name="october_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">November</td>
+                                        <td><input type="number" id="november_days_classes" name="november_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="november_days_presents"
+                                                   name="november_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">December</td>
+                                        <td><input type="number" id="december_days_classes" name="december_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="december_days_presents"
+                                                   name="december_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">January</td>
+                                        <td><input type="number" id="january_days_classes" name="january_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="january_days_presents" name="january_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">February</td>
+                                        <td><input type="number" id="february_days_classes" name="february_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="february_days_presents"
+                                                   name="february_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">March</td>
+                                        <td><input type="number" id="march_days_classes" name="march_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="march_days_presents" name="march_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">April</td>
+                                        <td><input type="number" id="april_days_classes" name="april_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="april_days_presents" name="april_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">May</td>
+                                        <td><input type="number" id="may_days_classes" name="may_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        <td><input type="number" id="may_days_presents" name="may_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-align-center">Total</td>
+                                        <td><input type="number" id="total_days_classes" name="total_days_classes"
+                                                   class="w-100p b-none  t-align-center" placeholder="?"></td>
+                                        <td><input type="number" id="total_days_presents" name="total_days_presents"
+                                                   class="w-100p b-none  t-align-center" placeholder="?"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="custom-grid-item ">
-                        <div>
-                            <table class="w-100p table-bordered">
-                                <tr>
-                                    <th class="t-align-center">Months</th>
-                                    <th class="t-align-center">Days of Classes</th>
-                                    <th class="t-align-center">Days Present</th>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">June</td>
-                                    <td><input type="number" id="june_days_classes" class="w-100p b-none t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="june_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">July</td>
-                                    <td><input type="number" id="july_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="july_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">August</td>
-                                    <td><input type="number" id="august_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="august_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">September</td>
-                                    <td><input type="number" id="september_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="september_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">October</td>
-                                    <td><input type="number" id="october_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="october_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">November</td>
-                                    <td><input type="number" id="november_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="november_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">December</td>
-                                    <td><input type="number" id="december_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="december_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">January</td>
-                                    <td><input type="number" id="january_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="january_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">February</td>
-                                    <td><input type="number" id="february_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="february_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">March</td>
-                                    <td><input type="number" id="march_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="march_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">April</td>
-                                    <td><input type="number" id="april_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="april_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">May</td>
-                                    <td><input type="number" id="may_days_classes" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    <td><input type="number" id="may_days_presents" class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-align-center">Total</td>
-                                    <td><input type="number" id="total_days_classes" class="w-100p b-none  t-align-center" placeholder="?"></td>
-                                    <td><input type="number" id="total_days_presents" class="w-100p b-none  t-align-center" placeholder="?"></td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div class="p-absolute btm-1em r-1em action-button">
+                        <label class="btn bg-hover-gray-dark-v1 m-b-0"
+                               onclick="backModal('view-student-enrollment', 'Student Enrollment','white')">
+                            Back
+                        </label>
+                        <button type="submit" class="c-hand btn-primary btn" name="add-student-grade">Save
+                        </button>
                     </div>
-                </div>
-
-
-                <div class="p-absolute btm-1em r-1em action-button">
-                    <label class="btn bg-hover-gray-dark-v1 m-b-0"
-                           onclick="backModal('view-student-enrollment', 'Student Enrollment','white')">
-                        Back
-                    </label>
-                    <button class="c-hand btn-primary btn"
-                            onclick="print('view-student-grade')">Save
-                    </button>
-
-                </div>
+                </form>
 
             </div>
         </div>
@@ -1550,13 +1705,14 @@ if (isset($_POST['update-student-info'])) {
         window.location.reload();
     }
 
-    function showGrade(fname,lname,mname, gradeLevel, schoolYear) {
+    function showGrade(fname, lname, mname, gradeLevel, schoolYear) {
         $('#view-student-grade #view-student-grade-name').text(lname + ', ' + fname + ' ' + mname + '.');
         $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
         $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
         showModal('view-student-grade', 'Student Grade')
     }
-    function addGrade(fname,lname,mname, gradeLevel, schoolYear) {
+
+    function addGrade(fname, lname, mname, gradeLevel, schoolYear) {
         $('#view-student-grade #view-student-grade-name').text(lname + ', ' + fname + ' ' + mname + '.');
         $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
         $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
@@ -1604,11 +1760,11 @@ if (isset($_POST['update-student-info'])) {
     }
 
     function selectGrade() {
-            var grade = $('#add-enrollment #add-enrollment-grade').val();
-            var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            var lrn = '<?php if (isset($_GET['lrn'])) echo $_GET['lrn']?>';
-            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGrade=' + grade + '&&lrn=' + lrn);
-            window.location.reload();
+        var grade = $('#add-enrollment #add-enrollment-grade').val();
+        var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
+        var lrn = '<?php if (isset($_GET['lrn'])) echo $_GET['lrn']?>';
+        history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGrade=' + grade + '&&lrn=' + lrn);
+        window.location.reload();
     }
 
     function loadPage() {
@@ -1619,7 +1775,7 @@ if (isset($_POST['update-student-info'])) {
 
         var lrnexist = '<?php echo isset($_GET['lrnexist']) ? $_GET['lrnexist'] : '' ?>';
         if (lrnexist !== '') {
-           showModal('add-new-student', 'Add New Student', '');
+            showModal('add-new-student', 'Add New Student', '');
         }
 
         var searchGrade = '<?php echo isset($_GET['searchGrade']) ? $_GET['searchGrade'] : '' ?>';
