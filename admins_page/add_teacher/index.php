@@ -252,7 +252,7 @@ if (isset($_POST['teacherStudentID'])) {
                 $sql = "SELECT ti.grade, ti.section, ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn 
+                right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
                 WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
                 GROUP BY ti.lrn order by ti.id desc";
                 $result = mysqli_query($conn, $sql);
@@ -264,7 +264,7 @@ if (isset($_POST['teacherStudentID'])) {
                 $total_pages = $mysqli->query("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn
+                right join teachers_info ti on ti.lrn = tsi.teachers_lrn
                 WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
                 GROUP BY ti.lrn order by ti.id desc")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -275,7 +275,7 @@ if (isset($_POST['teacherStudentID'])) {
                 if ($stmt = $mysqli->prepare("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
-                right join teachers_info ti on ti.lrn = tsi.teachers_info_lrn 
+                right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
                 WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
                 GROUP BY ti.lrn ORDER BY ti.id LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
