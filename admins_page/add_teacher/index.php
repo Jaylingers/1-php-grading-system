@@ -28,7 +28,7 @@ if (isset($_POST['lrn'])) {
         $historyData .= $key . ': ' . $value . ' <br/>';
     }
 
-    $sqlStudentSubjectInfo = "select * from teachers_subject_info where teachers_info_lrn = '$lrn'";
+    $sqlStudentSubjectInfo = "select * from teachers_subject_info where teachers_lrn = '$lrn'";
     $resultStudentSubjectInfo = mysqli_query($conn, $sqlStudentSubjectInfo);
     $rowsStudentSubjectInfo = mysqli_fetch_assoc($resultStudentSubjectInfo);
     $historyData .= ' <h3> Teachers Subject Info</h3>';
@@ -42,7 +42,7 @@ if (isset($_POST['lrn'])) {
     $sql = "delete from teachers_info where lrn = '$lrn'";
     $result = mysqli_query($conn, $sql);
 
-    $sqlDelete = "delete from teachers_subject_info where teachers_info_lrn = '$lrn'";
+    $sqlDelete = "delete from teachers_subject_info where teachers_lrn = '$lrn'";
     $resultDelete = mysqli_query($conn, $sqlDelete);
 
     $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
@@ -147,7 +147,7 @@ if (isset($_POST['add-new-subject'])) {
     $time_out = $_POST['time-out'];
     $schedule_day = $_POST['schedule-day'];
 
-    $sql = "insert into teachers_subject_info (subject,room,grade_level,schedule_time_in, schedule_time_out,schedule_day,teachers_info_lrn) values ('$subject','$room','$grade_level','$time_in','$time_out','$schedule_day','$lrn')";
+    $sql = "insert into teachers_subject_info (subject,room,grade_level,schedule_time_in, schedule_time_out,schedule_day,teachers_lrn) values ('$subject','$room','$grade_level','$time_in','$time_out','$schedule_day','$lrn')";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
@@ -185,7 +185,7 @@ if (isset($_POST['studentID'])) {
     $teacher_lrn = $_GET['teachers_lrn'];
     $grade = $_GET['searchGrade'];
 
-    $sqlSelect = "select * from teachers_subject_info where teachers_info_lrn='$teacher_lrn' and grade_level='$grade'";
+    $sqlSelect = "select * from teachers_subject_info where teachers_lrn='$teacher_lrn' and grade_level='$grade'";
     $resultSelect = mysqli_query($conn, $sqlSelect);
     $row = mysqli_fetch_assoc($resultSelect);
     foreach ($resultSelect as $key => $value) {
@@ -622,21 +622,21 @@ if (isset($_POST['teacherStudentID'])) {
                     $lrns = $_GET['lrn'];
                     $name = $_GET['name'] . '"s';
                     echo "<script>showModal('view-subject-loads', '$name Subjects')</script>";
-                    $sql = " select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ";
+                    $sql = " select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_lrn='$lrns' ";
                     $teachers_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($teachers_enrollment_info_result);
                     $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                     $lrn = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                     // Get the total number of records from our table "teachers".
-                    $total_pages = $mysqli->query("select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ")->num_rows;
+                    $total_pages = $mysqli->query("select id, subject,grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_lrn='$lrns' ")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
 
                     // Number of results to show on each page.
                     $num_results_on_page = 5;
 
-                    if ($stmt = $mysqli->prepare("select id, subject, grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_info_lrn='$lrns' ORDER BY id LIMIT ?,?")) {
+                    if ($stmt = $mysqli->prepare("select id, subject, grade_level, schedule_day, room, CONCAT(`schedule_time_in`, ' - ', `schedule_time_out`) as 'schedule_time', schedule_time_in, schedule_time_out from teachers_subject_info where teachers_lrn='$lrns' ORDER BY id LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
                         $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -1012,7 +1012,7 @@ if (isset($_POST['teacherStudentID'])) {
                 <?php
                 if (isset($_GET['teachers_lrn'])) {
                     $teacher_lrn = $_GET['teachers_lrn'];
-                    $sql = "select * from teachers_subject_info where teachers_info_lrn='$teacher_lrn' GROUP BY grade_level order by grade_level ASC";
+                    $sql = "select * from teachers_subject_info where teachers_lrn='$teacher_lrn' GROUP BY grade_level order by grade_level ASC";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result)) { ?>
