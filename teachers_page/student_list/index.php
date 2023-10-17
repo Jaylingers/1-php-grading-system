@@ -1472,9 +1472,10 @@ if (isset($_POST['add-student-grade'])) {
                                                        class="w-100p b-none t-align-center" placeholder="?"></td>
                                         </tr>
                                     <?php } ?>
-                                    <input type="text" id="average" name="average">
-                                </table>
 
+                                </table>
+                                <br>
+                               average:  <input type="text" id="average" name="average" class="t-align-center">
                             </div>
                         </div>
                         <div class="custom-grid-item ">
