@@ -239,6 +239,17 @@ if (isset($_POST['add-student-grade'])) {
     $studentLrn = $_GET['lrn'];
     $grade = $_POST['grade'];
 
+    $average = $_POST['average'];
+
+    if($average >= 75) {
+        $gradeStatus = "Passed";
+    } else {
+        $gradeStatus = "Failed";
+    }
+
+    $sqlUpdateStudentEnrollmentInfo = "update students_enrollment_info set grade_status = '$gradeStatus' where students_info_lrn = '$studentLrn' and grade = '$grade'";
+    $resultUpdateStudentEnrollmentInfo = mysqli_query($conn, $sqlUpdateStudentEnrollmentInfo);
+
     $sqlSelectUser = "select * from users_info where id = '$id'";
     $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
     $rowsSelectUser = mysqli_fetch_assoc($resultSelectUser);
@@ -276,7 +287,10 @@ if (isset($_POST['add-student-grade'])) {
 
         $unit_ = $subject . 'units';
         $unit = $_POST["$unit_"];
-        $status = "jay";
+
+        $status_ = $subject . 'status';
+        $status = $_POST["$status_"];
+
         $sqlInsertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status) VALUES ('$studentLrn','$teacherLrn','$subject','$grade','$first','$second','$third','$fourth','$final','$unit','$status')";
         $resultInsertStudentGradeInfo = mysqli_query($conn, $sqlInsertStudentGradeInfo);
     }
@@ -285,7 +299,7 @@ if (isset($_POST['add-student-grade'])) {
         echo '<script>';
         echo '
               alert("saved successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+              window.location.href = "?id=' . $rows['id'] . '&&lrn=' . $studentLrn . '";
             ';
         echo '</script>';
     }
@@ -343,10 +357,13 @@ if (isset($_POST['add-student-grade'])) {
                 $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
                 $id = $_GET['id'];
 
-                $SqlSelectUser = "select * from users_info where id = '$id'";
+                $SqlSelectUser = "select * from users_info ui
+                                    left join teachers_info ti on ti.lrn = ui.user_lrn
+                                    where ui.id='$id'";
                 $ResultSelectUser = mysqli_query($conn, $SqlSelectUser);
                 $RowsSelectUser = mysqli_fetch_assoc($ResultSelectUser);
                 $userLrn = $RowsSelectUser['user_lrn'];
+                $grade = $RowsSelectUser['grade'];
 
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level,
                         si.id, 
@@ -374,6 +391,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                    and si.teacher_lrn = '$userLrn'
+	                    and sei.grade = '$grade'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -407,6 +425,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                      and si.teacher_lrn = '$userLrn'
+	                      and sei.grade = '$grade'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -439,6 +458,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
 	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
 	                      and si.teacher_lrn = '$userLrn'
+	                      and sei.grade = '$grade'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -1272,9 +1292,6 @@ if (isset($_POST['add-student-grade'])) {
                     <button class="c-hand btn-primary btn"
                             onclick="print('view-student-grade')">Print
                     </button>
-                    <button class="c-hand btn-success btn"
-                            onclick="showModal('add-student-subject', 'Subject List')">Add Subject
-                    </button>
                 </div>
 
             </div>
@@ -1388,7 +1405,7 @@ if (isset($_POST['add-student-grade'])) {
                                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
                                     ?>
                                     <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
-                                    <div>Student Name: <label for="" id="view-student-grade-name"
+                                    <div>Student Name1: <label for="" id="view-student-grade-name"
                                                               class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
                                             , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
                                     <div>School Name:<input type="text"
@@ -1414,7 +1431,7 @@ if (isset($_POST['add-student-grade'])) {
 
                             </div>
                             <div>
-                                <table class="w-100p table-bordered m-t-2em">
+                                <table id="student-grade" class="w-100p table-bordered m-t-2em">
                                     <tr>
                                         <th class="pad-1em">Subjects</th>
                                         <th class="t-align-center">1</th>
@@ -1435,16 +1452,16 @@ if (isset($_POST['add-student-grade'])) {
                                         ?>
                                         <tr>
                                             <td> <?= $rowUser['subject'] ?></td>
-                                            <td><input type="number" id="<?= $rowUser['subject'] ?>1"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')" type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input type="number" id="<?= $rowUser['subject'] ?>2"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')" type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input type="number" id="<?= $rowUser['subject'] ?>3"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')" type="number" id="<?= $rowUser['subject'] ?>3"
                                                        name="<?= $rowUser['subject'] ?>3"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input type="number" id="<?= $rowUser['subject'] ?>4"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')" type="number" id="<?= $rowUser['subject'] ?>4"
                                                        name="<?= $rowUser['subject'] ?>4"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
                                             <td><input readonly="true" type="number" id="<?= $rowUser['subject'] ?>final"
@@ -1458,6 +1475,7 @@ if (isset($_POST['add-student-grade'])) {
                                                        class="w-100p b-none t-align-center" placeholder="?"></td>
                                         </tr>
                                     <?php } ?>
+                                    <input type="text" id="average" name="average">
                                 </table>
 
                             </div>
@@ -1765,6 +1783,30 @@ if (isset($_POST['add-student-grade'])) {
         var lrn = '<?php if (isset($_GET['lrn'])) echo $_GET['lrn']?>';
         history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGrade=' + grade + '&&lrn=' + lrn);
         window.location.reload();
+    }
+
+    function getFinalScore(subject, num) {
+        var final = (parseInt($('#' + subject + '1').val()) + parseInt($('#' + subject + '2').val()) + parseInt($('#' + subject + '3').val()) + parseInt($('#' + subject + '4').val())) / 4;
+        $('#' + subject + 'final').val(final);
+        if (final >= 75) {
+            $('#' + subject + 'status').val('Passed');
+        } else {
+            $('#' + subject + 'status').val('Failed');
+        }
+
+        var average = 0;
+        var count = 0
+        var totalAverage = 0;
+        $('#student-grade tr').each(function () {
+            var subject = $(this).find('td:nth-child(1)').text();
+            var final = $(this).find('td:nth-child(6) input').val();
+            if (subject !== '' && final !== '') {
+                average += parseInt(final);
+                count++;
+            }
+                });
+        totalAverage = average / count;
+        $('#average').val(totalAverage);
     }
 
     function loadPage() {
