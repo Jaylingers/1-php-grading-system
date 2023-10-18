@@ -1006,19 +1006,33 @@ if (isset($_POST['update-student-info'])) {
             </div>
             <div id="view-student-grade" class="modal-child d-none">
 
-                <div class="m-l-6em m-t-1em">
-                    <div>Student name: <label for="" id="view-student-grade-name">&nbsp;</label></div>
-                    <div>School: <label for="" id="view-student-grade-school"
-                                        class="b-bottom-gray-3px w-27em t-align-center">&nbsp;</label></div>
-                    <div class="d-inline-flex">
-                        <div>Grade & Section: <label for="" id="view-student-grade-grade"
-                                                     class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                <?php
+
+                $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                $sqlStudents = mysqli_query($conn, $sqlStudents);
+                while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
+                    ?>
+                    <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
+                    <div>Student Name: <label
+                                class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
+                            , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
+                    <div>School Name:<input type="text"
+                                            class="w-27em b-bottom-gray-3px b-none t-align-center" value="<?php echo $schoolName ?>"></div>
+                    <div>
+                        <div class="d-inline-flex">Grade & Section: <label for=""
+                                                                           class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
+                        </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div>School Year:
-                            <label for="" id="view-student-grade-school-year"
-                                   class="b-bottom-gray-3px w-8em t-align-center"></label></div>
+                        <div class="d-inline-flex">School Year:
+                            <label for=""
+                                   class="b-bottom-gray-3px w-10em t-align-center">&nbsp; <?= $rowStudent['school_year'] ?>
+                                - <?= (1 + $rowStudent['school_year']) ?> </label></div>
                     </div>
-                </div>
+
+                <?php } ?>
                 <div>
 
                     <table class="table-bordered w-100p m-t-2em">
@@ -1030,6 +1044,7 @@ if (isset($_POST['update-student-info'])) {
                         <tr>
                             <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
                                 Learning Area
+                                <!--                                jay-->
                             </th>
                             <th colspan="4" style="text-align:center;" class="b-bottom-none">Quarter</th>
                             <th rowspan="2" style="vertical-align : middle;text-align:center;" class="b-bottom-none">
@@ -1042,46 +1057,30 @@ if (isset($_POST['update-student-info'])) {
                             <th scope="col" class="b-top-none b-none t-align-center">3</th>
                             <th scope="col" class="b-top-none b-none t-align-center">4</th>
                         </tr>
-                        <tr>
-                            <td>Filipino</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>Match</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>English</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>Not Functioning</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <?php
+
+                        $studentLrn = $_GET['lrn'];
+
+                        $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn'
+                                            group by si.lrn";
+                        $sqlStudents = mysqli_query($conn, $sqlStudents);
+                        $row = mysqli_fetch_assoc($sqlStudents);
+                        $grade = $row['grade'];
+
+                        $sqlUser = "select * from students_grade_info where student_lrn='$studentLrn' and grade='$grade'";
+                        $resultUsers = mysqli_query($conn, $sqlUser);
+                        while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                            ?>
+                            <tr>
+                                <td class="t-align-center"> <?= $rowUser['subject'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['first_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['second_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['third_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['fourth_grade'] ?></td>
+                                <td class="t-align-center"> <?= $rowUser['final'] ?></td>
+                            </tr>
+                        <?php } ?>
                     </table>
 
                     <table class="table-bordered w-100p m-t-2em">
@@ -1091,53 +1090,71 @@ if (isset($_POST['update-student-info'])) {
                         <colgroup span="4"></colgroup>
                         <col>
                         <tr>
-                            <th rowspan="1">Months</th>
-                            <th colspan="1">Jun</th>
-                            <th rowspan="1">July</th>
-                            <th rowspan="1">Aug</th>
-                            <th rowspan="1">Sep</th>
-                            <th rowspan="1">Oct</th>
-                            <th rowspan="1">Nov</th>
-                            <th rowspan="1">Dec</th>
-                            <th rowspan="1">Jan</th>
-                            <th rowspan="1">Feb</th>
-                            <th rowspan="1">Mar</th>
-                            <th rowspan="1">Apr</th>
-                            <th rowspan="1">May</th>
-                            <th rowspan="1">Total</th>
+                            <th rowspan="1" class="t-align-center">Months</th>
+                            <th colspan="1" class="t-align-center">Jun</th>
+                            <th rowspan="1" class="t-align-center">July</th>
+                            <th rowspan="1" class="t-align-center">Aug</th>
+                            <th rowspan="1" class="t-align-center">Sep</th>
+                            <th rowspan="1" class="t-align-center">Oct</th>
+                            <th rowspan="1" class="t-align-center">Nov</th>
+                            <th rowspan="1" class="t-align-center">Dec</th>
+                            <th rowspan="1" class="t-align-center">Jan</th>
+                            <th rowspan="1" class="t-align-center">Feb</th>
+                            <th rowspan="1" class="t-align-center">Mar</th>
+                            <th rowspan="1" class="t-align-center">Apr</th>
+                            <th rowspan="1" class="t-align-center">May</th>
+                            <th rowspan="1" class="t-align-center">Total</th>
                         </tr>
-                        <tr>
-                            <th scope="col">Days of School</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">Days Present</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
+                        <?php
+                        $id = $_GET['id'];
+                        $studentLrn = $_GET['lrn'];
+
+                        $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn'
+                                            group by si.lrn";
+                        $sqlStudents = mysqli_query($conn, $sqlStudents);
+                        $row = mysqli_fetch_assoc($sqlStudents);
+                        $grade = $row['grade'];
+                        $teacherLrn = $row['teacher_lrn'];
+
+                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$grade'";
+                        $resultUsers = mysqli_query($conn, $sqlUser);
+                        while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                            ?>
+                            <tr>
+                                <th >Days of School</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
+                            </tr>
+                            <tr>
+                                <th >Days Present</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
+                            </tr>
+                        <?php } ?>
+
                     </table>
                 </div>
                 <div class="p-absolute btm-1em r-1em action-button">
@@ -1147,9 +1164,6 @@ if (isset($_POST['update-student-info'])) {
                     </label>
                     <button class="c-hand btn-primary btn"
                             onclick="print('view-student-grade')">Print
-                    </button>
-                    <button class="c-hand btn-success btn"
-                            onclick="showModal('add-student-subject', 'Subject List')">Add Subject
                     </button>
                 </div>
 

@@ -17,10 +17,19 @@ if (isset($_POST['promoteStudent'])) {
     $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted', section=''  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
     $result = mysqli_query($conn, $sql);
 
+    $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn=''  WHERE lrn = '$lrn'";
+    $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
+
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
     $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 
-    $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn) VALUES ('$lrn')";
+    $id = $_GET['id'];
+    $sqlUserInfo = "SELECT * FROM `users_info` where id = '$id'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+    $row = mysqli_fetch_assoc($resultUserInfo);
+    $teacher_lrn = $row['user_lrn'];
+
+    $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn, teacher_lrn, section) VALUES ('$lrn', '$teacher_lrn', '$section')";
     $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
 
     $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade', '$section',now())";
@@ -33,8 +42,18 @@ if (isset($_POST['removeStudents'])) {
     $lrn_promoted = $removePromotedStudents[0];
     $grade_promoted = $removePromotedStudents[1];
     $grade_minus = $grade_promoted - 1;
-    $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus', grade_status='passed'  WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
+
+    $sqlSelectPromotedStudents = "SELECT * FROM `promoted_students` where student_lrn = '$lrn_promoted'";
+    $resultSelectPromotedStudents = mysqli_query($conn, $sqlSelectPromotedStudents);
+    $row = mysqli_fetch_assoc($resultSelectPromotedStudents);
+    $teacher_lrn = $row['teacher_lrn'];
+    $section = $row['section'];
+
+    $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus', grade_status='Passed', section='$section' WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
     $result = mysqli_query($conn, $sql);
+
+    $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn='$teacher_lrn'  WHERE lrn = '$lrn_promoted'";
+    $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
 
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
     $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
@@ -84,28 +103,6 @@ if (isset($_POST['removeStudents'])) {
                     </div>
                 </div>
                 <br/>
-               Grade: &nbsp;&nbsp;<select name="search_grade" id="search_grade" onchange="SearchGrade('')"
-                        class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                    <option value=""  selected></option>
-                    <option value="1">Grade 1</option>
-                    <option value="2">Grade 2</option>
-                    <option value="3">Grade 3</option>
-                    <option value="4">Grade 4</option>
-                    <option value="5">Grade 5</option>
-                    <option value="6">Grade 6</option>
-                </select> <br>
-               Section:  <select name="search_section" id="search_section" onchange="SearchSection('')"
-                        class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                    <option value=""  selected></option>
-                    <?php
-                    $grade = $_GET['grade'];
-                    $sql = "SELECT * FROM `grade_info` where grade = '$grade'";
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                        <option value="<?php echo $row['section'] ?>"><?php echo $row['section'] ?></option>
-                    <?php } ?>
-                </select>
 
                 <div class="f-right m-t-19px m-r-13px">
                     <button type="submit"
@@ -113,19 +110,28 @@ if (isset($_POST['removeStudents'])) {
                             onclick="promoteStudent()">Promote
                     </button>
                 </div>
-                <br/> <br/>
+                <br/> <br/><br/>
 
                 <?php
-                if (isset($_GET['grade'])) {
-                $grade = $_GET['grade'];
-                $section = isset($_GET['section']) ? $_GET['section'] : '';
+                $id = $_GET['id'];
+                $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
+                $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                $row = mysqli_fetch_assoc($resultSelectUser);
+                $teacher_lrn = $row['user_lrn'];
+
+                $sqlSelectTeacher = "SELECT * FROM `teachers_info` where lrn = '$teacher_lrn'";
+                $resultSelectTeacher = mysqli_query($conn, $sqlSelectTeacher);
+                $rows = mysqli_fetch_assoc($resultSelectTeacher);
+                $teacher_grade = $rows['grade'];
+                $teacher_section = $rows['section'];
 
                 $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        where sei.grade='$grade'
-                        and sei.section='$section'
+                        where sei.grade='$teacher_grade'
+                        and sei.section='$teacher_section'
+                        and si.teacher_lrn = '$teacher_lrn'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -137,8 +143,9 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        where sei.grade='$grade'
-                         and sei.section='$section'
+                        where sei.grade='$teacher_grade'
+                         and sei.section='$teacher_section'
+                          and si.teacher_lrn = '$teacher_lrn'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -149,8 +156,9 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        where sei.grade='$grade'
-                         and sei.section='$section'
+                        where sei.grade='$teacher_grade'
+                         and sei.section='$teacher_section'
+                          and si.teacher_lrn = '$teacher_lrn'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -203,7 +211,6 @@ if (isset($_POST['removeStudents'])) {
 
                     <?php
                     $stmt->close();
-                }
 
                 ?>
                 Total Records: <?= $total_pages ?>

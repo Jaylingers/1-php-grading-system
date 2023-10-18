@@ -15,7 +15,13 @@ if(isset($_POST['add_subject'])) {
     $time_out = $_POST['time_out'];
     $schedule_day = $_POST['schedule_day'];
 
-    $sqlCheckTeachersSubjectInfo = "select * from teachers_subject_info where subject='$subject'";
+    $id = $_GET['id'];
+    $sqlUser = "select * from users_info where id='$id'";
+    $resultUser = mysqli_query($conn, $sqlUser);
+    $rowUser = mysqli_fetch_assoc($resultUser);
+    $userLrn = $rowUser['user_lrn'];
+
+    $sqlCheckTeachersSubjectInfo = "select * from teachers_subject_info where subject='$subject' and teachers_lrn='$userLrn'";
     $resultCheckTeachersSubjectInfo = mysqli_query($conn, $sqlCheckTeachersSubjectInfo);
     $rowCheckTeachersSubjectInfo = mysqli_fetch_assoc($resultCheckTeachersSubjectInfo);
     if ($rowCheckTeachersSubjectInfo['subject'] == $subject) {
@@ -29,11 +35,7 @@ if(isset($_POST['add_subject'])) {
         exit();
     }
 
-    $id = $_GET['id'];
-    $sqlUser = "select * from users_info where id='$id'";
-    $resultUser = mysqli_query($conn, $sqlUser);
-    $rowUser = mysqli_fetch_assoc($resultUser);
-    $userLrn = $rowUser['user_lrn'];
+
 
     $sqlTeachersSubjectInfo = "insert into teachers_subject_info (subject, room, grade, schedule_time_in, schedule_time_out, schedule_day, teachers_lrn) values ('$subject', '$room', '$grade', '$time_in', '$time_out', '$schedule_day', '$userLrn')";
     $resultTeachersSubjectInfo = mysqli_query($conn, $sqlTeachersSubjectInfo);
@@ -156,20 +158,27 @@ if(isset($_POST['deleteId'])) {
 
                         <?php
                         $searchSubject = isset($_GET['searchSubject']) ? $_GET['searchSubject'] : '';
-                        $sql = "select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' order by id desc Limit 1";
+                        $id = $_GET['id'];
+
+                        $sqlUser = "select * from users_info where id='$id'";
+                        $resultUser = mysqli_query($conn, $sqlUser);
+                        $rowUser = mysqli_fetch_assoc($resultUser);
+                        $userLrn = $rowUser['user_lrn'];
+
+                        $sql = "select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' and teachers_lrn='$userLrn' order by id desc Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' order by id desc")->num_rows;
+                        $total_pages = $mysqli->query("select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' and teachers_lrn='$userLrn' order by id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' order by id desc LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select * from teachers_subject_info WHERE subject LIKE '%$searchSubject%' and teachers_lrn='$userLrn' order by id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);

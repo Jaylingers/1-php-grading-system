@@ -241,11 +241,17 @@ if (isset($_POST['add-student-grade'])) {
 
     $average = $_POST['average'];
 
-    if($average >= 75) {
+    if ($average >= 75) {
         $gradeStatus = "Passed";
     } else {
         $gradeStatus = "Failed";
     }
+
+    $sqlDeleteStudentGradeAverage = "delete from students_grade_average_info where students_lrn = '$studentLrn' and grade = '$grade'";
+    $resultDeleteStudentGradeAverage = mysqli_query($conn, $sqlDeleteStudentGradeAverage);
+
+    $sqlInsertStudentGradeAverage = "insert into students_grade_average_info (students_lrn,grade,average) VALUES ('$studentLrn','$grade','$average')";
+    $resultInsertStudentGradeAverage = mysqli_query($conn, $sqlInsertStudentGradeAverage);
 
     $sqlUpdateStudentEnrollmentInfo = "update students_enrollment_info set grade_status = '$gradeStatus' where students_info_lrn = '$studentLrn' and grade = '$grade'";
     $resultUpdateStudentEnrollmentInfo = mysqli_query($conn, $sqlUpdateStudentEnrollmentInfo);
@@ -1144,7 +1150,8 @@ if (isset($_POST['add-student-grade'])) {
                                 class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
                             , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
                     <div>School Name:<input type="text"
-                                            class="w-27em b-bottom-gray-3px b-none t-align-center" value="<?php echo $schoolName ?>"></div>
+                                            class="w-27em b-bottom-gray-3px b-none t-align-center"
+                                            value="<?php echo $schoolName ?>"></div>
                     <div>
                         <div class="d-inline-flex">Grade & Section: <label for=""
                                                                            class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
@@ -1207,6 +1214,27 @@ if (isset($_POST['add-student-grade'])) {
                         <?php } ?>
                     </table>
 
+                    <?php
+
+                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                    $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                    $sqlStudents = mysqli_query($conn, $sqlStudents);
+                    $row = mysqli_fetch_assoc($sqlStudents);
+                    $grade = $row['grade'];
+
+                    $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
+                    $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
+                    while ($rowStudent = mysqli_fetch_assoc($sqlStudentsGrade)) {
+                        ?>
+                        <br>
+                        <div>Average:  <?= $rowStudent['average'] ?></div>
+                    <?php } ?>
+
+
+
+
                     <table class="table-bordered w-100p m-t-2em">
                         <col>
                         <col>
@@ -1246,7 +1274,7 @@ if (isset($_POST['add-student-grade'])) {
                         while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                             ?>
                             <tr>
-                                <th >Days of School</th>
+                                <th>Days of School</th>
                                 <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
                                 <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
                                 <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
@@ -1262,7 +1290,7 @@ if (isset($_POST['add-student-grade'])) {
                                 <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
                             </tr>
                             <tr>
-                                <th >Days Present</th>
+                                <th>Days Present</th>
                                 <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
                                 <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
                                 <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
@@ -1403,10 +1431,11 @@ if (isset($_POST['add-student-grade'])) {
                                     ?>
                                     <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
                                     <div>Student Name1: <label for="" id="view-student-grade-name"
-                                                              class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
+                                                               class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
                                             , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
                                     <div>School Name:<input type="text"
-                                                            class="w-27em b-bottom-gray-3px b-none t-align-center" value="<?php echo $schoolName ?>">
+                                                            class="w-27em b-bottom-gray-3px b-none t-align-center"
+                                                            value="<?php echo $schoolName ?>">
                                     </div>
                                     <div>
                                         <div class="d-inline-flex">Grade & Section: <label for=""
@@ -1449,19 +1478,24 @@ if (isset($_POST['add-student-grade'])) {
                                         ?>
                                         <tr>
                                             <td> <?= $rowUser['subject'] ?></td>
-                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')" type="number" id="<?= $rowUser['subject'] ?>1"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
+                                                       type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')" type="number" id="<?= $rowUser['subject'] ?>2"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')"
+                                                       type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')" type="number" id="<?= $rowUser['subject'] ?>3"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')"
+                                                       type="number" id="<?= $rowUser['subject'] ?>3"
                                                        name="<?= $rowUser['subject'] ?>3"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')" type="number" id="<?= $rowUser['subject'] ?>4"
+                                            <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')"
+                                                       type="number" id="<?= $rowUser['subject'] ?>4"
                                                        name="<?= $rowUser['subject'] ?>4"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
-                                            <td><input readonly="true" type="number" id="<?= $rowUser['subject'] ?>final"
+                                            <td><input readonly="true" type="number"
+                                                       id="<?= $rowUser['subject'] ?>final"
                                                        name="<?= $rowUser['subject'] ?>final"
                                                        class="w-100p b-none t-align-center" placeholder="0"></td>
                                             <td><input type="number" id="<?= $rowUser['subject'] ?>units"
@@ -1475,7 +1509,8 @@ if (isset($_POST['add-student-grade'])) {
 
                                 </table>
                                 <br>
-                               average:  <input type="text" id="average" name="average" class="t-align-center">
+                                Average: <input type="text" id="average" name="average" class="t-align-center d-none" readonly="true">
+                                <label for="" id="lbl_average"></label>
                             </div>
                         </div>
                         <div class="custom-grid-item ">
@@ -1802,9 +1837,10 @@ if (isset($_POST['add-student-grade'])) {
                 average += parseInt(final);
                 count++;
             }
-                });
+        });
         totalAverage = average / count;
         $('#average').val(totalAverage);
+        $('#lbl_average').text(totalAverage);
     }
 
     function loadPage() {
