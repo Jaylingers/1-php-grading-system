@@ -1229,10 +1229,8 @@ if (isset($_POST['add-student-grade'])) {
                     while ($rowStudent = mysqli_fetch_assoc($sqlStudentsGrade)) {
                         ?>
                         <br>
-                        <div>Average:  <?= $rowStudent['average'] ?></div>
+                        <div>Average: <?= $rowStudent['average'] ?></div>
                     <?php } ?>
-
-
 
 
                     <table class="table-bordered w-100p m-t-2em">
@@ -1474,6 +1472,28 @@ if (isset($_POST['add-student-grade'])) {
                                             left join users_info ui on ui.user_lrn = tsi.teachers_lrn
                                             where ui.id='$id'";
                                     $resultUsers = mysqli_query($conn, $sqlUser);
+
+
+                                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                    $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                                    $sqlStudents = mysqli_query($conn, $sqlStudents);
+                                    $row = mysqli_fetch_assoc($sqlStudents);
+                                    $grade = $row['grade'];
+
+                                    $sqlSelectStudentGradeInfo = "select * from students_grade_info where student_lrn='$lrn' and grade='$grade'";
+                                    $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeInfo);
+                                    $rowGrade = mysqli_fetch_assoc($sqlStudentsGrade);
+                                    $subject = $rowGrade['subject'];
+                                    $firstGrade = $rowGrade['first_grade'];
+                                    $secondGrade = $rowGrade['second_grade'];
+                                    $thirdGrade = $rowGrade['third_grade'];
+                                    $fourthGrade = $rowGrade['fourth_grade'];
+                                    $finalGrade = $rowGrade['final'];
+                                    $units = $rowGrade['units'];
+                                    $status = $rowGrade['status'];
+
                                     while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                                         ?>
                                         <tr>
@@ -1481,35 +1501,36 @@ if (isset($_POST['add-student-grade'])) {
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
                                                        type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($firstGrade) ? $firstGrade : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')"
                                                        type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($secondGrade) ? $secondGrade : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')"
                                                        type="number" id="<?= $rowUser['subject'] ?>3"
                                                        name="<?= $rowUser['subject'] ?>3"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($thirdGrade) ? $thirdGrade : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')"
                                                        type="number" id="<?= $rowUser['subject'] ?>4"
                                                        name="<?= $rowUser['subject'] ?>4"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($fourthGrade) ? $fourthGrade : 0 ?>"></td>
                                             <td><input readonly="true" type="number"
                                                        id="<?= $rowUser['subject'] ?>final"
                                                        name="<?= $rowUser['subject'] ?>final"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($finalGrade) ? $finalGrade : 0 ?>"></td>
                                             <td><input type="number" id="<?= $rowUser['subject'] ?>units"
                                                        name="<?= $rowUser['subject'] ?>units"
-                                                       class="w-100p b-none t-align-center" placeholder="0"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0"  value="<?= isset($units) ? $units : 0 ?>"></td>
                                             <td><input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status"
                                                        name="<?= $rowUser['subject'] ?>status"
-                                                       class="w-100p b-none t-align-center" placeholder="?"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="?" value="<?= isset($status) ? $status : 0 ?>"></td>
                                         </tr>
                                     <?php } ?>
 
                                 </table>
                                 <br>
-                                Average: <input type="text" id="average" name="average" class="t-align-center d-none" readonly="true">
+                                Average: <input type="text" id="average" name="average" class="t-align-center d-none"
+                                                readonly="true">
                                 <label for="" id="lbl_average"></label>
                             </div>
                         </div>
@@ -1521,102 +1542,263 @@ if (isset($_POST['add-student-grade'])) {
                                         <th class="t-align-center">Days of Classes</th>
                                         <th class="t-align-center">Days Present</th>
                                     </tr>
-                                    <tr>
-                                        <td class="t-align-center">June</td>
-                                        <td><input type="number" id="june_days_classes" name="june_days_classes"
-                                                   class="w-100p b-none t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="june_days_presents" name="june_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">July</td>
-                                        <td><input type="number" id="july_days_classes" name="july_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="july_days_presents" name="july_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">August</td>
-                                        <td><input type="number" id="august_days_classes" name="august_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="august_days_presents" name="august_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">September</td>
-                                        <td><input type="number" id="september_days_classes"
-                                                   name="september_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="september_days_presents"
-                                                   name="september_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">October</td>
-                                        <td><input type="number" id="october_days_classes" name="october_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="october_days_presents" name="october_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">November</td>
-                                        <td><input type="number" id="november_days_classes" name="november_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="november_days_presents"
-                                                   name="november_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">December</td>
-                                        <td><input type="number" id="december_days_classes" name="december_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="december_days_presents"
-                                                   name="december_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">January</td>
-                                        <td><input type="number" id="january_days_classes" name="january_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="january_days_presents" name="january_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">February</td>
-                                        <td><input type="number" id="february_days_classes" name="february_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="february_days_presents"
-                                                   name="february_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">March</td>
-                                        <td><input type="number" id="march_days_classes" name="march_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="march_days_presents" name="march_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">April</td>
-                                        <td><input type="number" id="april_days_classes" name="april_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="april_days_presents" name="april_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">May</td>
-                                        <td><input type="number" id="may_days_classes" name="may_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                        <td><input type="number" id="may_days_presents" name="may_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-align-center">Total</td>
-                                        <td><input type="number" id="total_days_classes" name="total_days_classes"
-                                                   class="w-100p b-none  t-align-center" placeholder="?"></td>
-                                        <td><input type="number" id="total_days_presents" name="total_days_presents"
-                                                   class="w-100p b-none  t-align-center" placeholder="?"></td>
-                                    </tr>
+                                    <?php
+                                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                    $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                                    $sqlStudents = mysqli_query($conn, $sqlStudents);
+                                    $row = mysqli_fetch_assoc($sqlStudents);
+                                    $grade = $row['grade'];
+                                    $teacherLrn = $row['teacher_lrn'];
+
+                                    $sqlUser = "select * from students_grade_attendance_info where student_lrn='$lrn' and grade='$grade'";
+                                    $resultUsers = mysqli_query($conn, $sqlUser);
+                                    $total = $resultUsers->num_rows;
+
+                                    while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                                        ?>
+                                        <tr>
+                                            <td class="t-align-center">June</td>
+                                            <td><input type="number" id="june_days_classes" name="june_days_classes"
+                                                       class="w-100p b-none t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['june_days_classes'] ?>"></td>
+                                            <td><input type="number" id="june_days_presents" name="june_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['june_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">July</td>
+                                            <td><input type="number" id="july_days_classes" name="july_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['july_days_classes'] ?>"></td>
+                                            <td><input type="number" id="july_days_presents" name="july_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['july_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">August</td>
+                                            <td><input type="number" id="august_days_classes" name="august_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['aug_days_classes'] ?>"></td>
+                                            <td><input type="number" id="august_days_presents"
+                                                       name="august_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['aug_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">September</td>
+                                            <td><input type="number" id="september_days_classes"
+                                                       name="september_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['sep_days_classes'] ?>"></td>
+                                            <td><input type="number" id="september_days_presents"
+                                                       name="september_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['sep_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">October</td>
+                                            <td><input type="number" id="october_days_classes"
+                                                       name="october_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['oct_days_classes'] ?>"></td>
+                                            <td><input type="number" id="october_days_presents"
+                                                       name="october_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['oct_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">November</td>
+                                            <td><input type="number" id="november_days_classes"
+                                                       name="november_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['nov_days_classes'] ?>"></td>
+                                            <td><input type="number" id="november_days_presents"
+                                                       name="november_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['nov_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">December</td>
+                                            <td><input type="number" id="december_days_classes"
+                                                       name="december_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['dec_days_classes'] ?>"></td>
+                                            <td><input type="number" id="december_days_presents"
+                                                       name="december_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['dec_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">January</td>
+                                            <td><input type="number" id="january_days_classes"
+                                                       name="january_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['jan_days_classes'] ?>"></td>
+                                            <td><input type="number" id="january_days_presents"
+                                                       name="january_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['jan_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">February</td>
+                                            <td><input type="number" id="february_days_classes"
+                                                       name="february_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['feb_days_classes'] ?>"></td>
+                                            <td><input type="number" id="february_days_presents"
+                                                       name="february_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['feb_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">March</td>
+                                            <td><input type="number" id="march_days_classes" name="march_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['mar_days_classes'] ?>"></td>
+                                            <td><input type="number" id="march_days_presents" name="march_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['mar_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">April</td>
+                                            <td><input type="number" id="april_days_classes" name="april_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['apr_days_classes'] ?>"></td>
+                                            <td><input type="number" id="april_days_presents" name="april_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['apr_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">May</td>
+                                            <td><input type="number" id="may_days_classes" name="may_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['may_days_classes'] ?>"></td>
+                                            <td><input type="number" id="may_days_presents" name="may_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['may_days_presents'] ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">Total</td>
+                                            <td><input readonly="true" type="number" id="total_days_classes"
+                                                       name="total_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['total_days_classes'] ?>"></td>
+                                            <td><input readonly="true" type="number" id="total_days_presents"
+                                                       name="total_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"
+                                                       value="<?= $rowUser['total_days_presents'] ?>"></td>
+                                        </tr>
+                                    <?php }
+                                    if ($total == 0) {
+                                        ?>
+                                        <tr>
+                                            <td class="t-align-center">June</td>
+                                            <td><input type="number" id="july_days_classes" name="june_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="july_days_presents" name="june_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">July</td>
+                                            <td><input type="number" id="july_days_classes" name="july_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="july_days_presents" name="july_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">August</td>
+                                            <td><input type="number" id="august_days_classes" name="august_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="august_days_presents"
+                                                       name="august_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">September</td>
+                                            <td><input type="number" id="september_days_classes"
+                                                       name="september_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="september_days_presents"
+                                                       name="september_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">October</td>
+                                            <td><input type="number" id="october_days_classes"
+                                                       name="october_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="october_days_presents"
+                                                       name="october_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">November</td>
+                                            <td><input type="number" id="november_days_classes"
+                                                       name="november_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="november_days_presents"
+                                                       name="november_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">December</td>
+                                            <td><input type="number" id="december_days_classes"
+                                                       name="december_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="december_days_presents"
+                                                       name="december_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">January</td>
+                                            <td><input type="number" id="january_days_classes"
+                                                       name="january_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="january_days_presents"
+                                                       name="january_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">February</td>
+                                            <td><input type="number" id="february_days_classes"
+                                                       name="february_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="february_days_presents"
+                                                       name="february_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">March</td>
+                                            <td><input type="number" id="march_days_classes" name="march_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="march_days_presents" name="march_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">April</td>
+                                            <td><input type="number" id="april_days_classes" name="april_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="april_days_presents" name="april_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">May</td>
+                                            <td><input type="number" id="may_days_classes" name="may_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                            <td><input type="number" id="may_days_presents" name="may_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="t-align-center">Total</td>
+                                            <td><input type="number" id="total_days_classes" name="total_days_classes"
+                                                       class="w-100p b-none  t-align-center" placeholder="?"></td>
+                                            <td><input type="number" id="total_days_presents" name="total_days_presents"
+                                                       class="w-100p b-none  t-align-center" placeholder="?"></td>
+                                        </tr>
+                                    <?php } ?>
+
                                 </table>
                             </div>
                         </div>
