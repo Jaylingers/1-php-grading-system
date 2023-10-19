@@ -120,10 +120,12 @@ if (isset($_POST['removeStudents'])) {
                 $grade = $_GET['grade'];
                 $section = isset($_GET['section']) ? $_GET['section'] : '';
 
-                $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                $sql = "SELECT  ui.last_name, ui.first_name,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                       left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                         and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
@@ -133,10 +135,12 @@ if (isset($_POST['removeStudents'])) {
                 $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "students".
-                $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                $total_pages = $mysqli->query("SELECT  ui.last_name, ui.first_name,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                          left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                          and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
@@ -145,10 +149,12 @@ if (isset($_POST['removeStudents'])) {
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                if ($stmt = $mysqli->prepare("SELECT  ui.last_name, ui.first_name, GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                          and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
@@ -174,6 +180,7 @@ if (isset($_POST['removeStudents'])) {
                             <th>Gender</th>
                             <th>Grade</th>
                             <th>Section</th>
+                            <th>Promoted By</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -195,6 +202,7 @@ if (isset($_POST['removeStudents'])) {
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['g_level'] ?></td>
                                 <td><?= $row['section'] ?></td>
+                                <td><?= $row['last_name'] ?>, <?= $row['first_name'] ?></td>
                                 <td><?= $row['grade_status'] === 'promoted' ? 'promoted(cant promote again, wait for final grades)' : $row['grade_status'] ?></td>
                             </tr>
                         <?php endwhile; ?>

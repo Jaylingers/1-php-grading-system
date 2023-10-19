@@ -418,52 +418,31 @@ if (isset($_POST['removeStudents'])) {
             <div id="view-promoted-students" class="modal-child pad-bottom-2em d-none">
                 <div class="m-2em d-flex-align-start">
                     <div class="bg-white w-100p b-radius-10px ">
-
-                        Grade: &nbsp;&nbsp;<select name="search_grade_promoted" id="search_grade_promoted" onchange="SearchGrade('promoted_student')"
-                                                   class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                            <option value=""  selected></option>
-                            <option value="1">Grade 1</option>
-                            <option value="2">Grade 2</option>
-                            <option value="3">Grade 3</option>
-                            <option value="4">Grade 4</option>
-                            <option value="5">Grade 5</option>
-                            <option value="6">Grade 6</option>
-                        </select> <br>
-                        Section:  <select name="search_section_promoted" id="search_section_promoted" onchange="SearchSection('promoted_student')"
-                                          class="h-3em f-size-1em b-radius-10px m-t-5px w-30p">
-                            <option value=""  selected></option>
-                            <?php
-                            $grade = $_GET['grade_promoted'];
-                            $sql = "SELECT * FROM `grade_info` where grade = '$grade'";
-                            $result = mysqli_query($conn, $sql);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
-                                <option value="<?php echo $row['section'] ?>"><?php echo $row['section'] ?></option>
-                            <?php } ?>
-                        </select>
-                        <br/> <br/>
-
-
-
-                        <div class="f-right m-t-19px m-r-13px">
+                        <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
                                     onclick="removePromotedStudents()">Remove
                             </button>
                         </div>
-                        <br/>   <br/> <br/>
+                        <br/>   <br/>
                         <?php
-                        if (isset($_GET['grade_promoted']) ) {
-                        $grade = $_GET['grade_promoted'];
-                        $section = isset($_GET['section_promoted']) ? $_GET['section_promoted'] : '';
-                        echo "<script>showModal('view-promoted-students', 'Promoted Students Candidates')</script>";
+                        $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
+                        $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                        $row = mysqli_fetch_assoc($resultSelectUser);
+                        $teacher_lrn = $row['user_lrn'];
+
+                        $sqlSelectTeacher = "SELECT * FROM `teachers_info` where lrn = '$teacher_lrn'";
+                        $resultSelectTeacher = mysqli_query($conn, $sqlSelectTeacher);
+                        $rows = mysqli_fetch_assoc($resultSelectTeacher);
+                        $grade = $rows['grade'] + 1;
+                        $section = $rows['section'];
 
                         $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade' and sei.section='$section'
+                        where sei.grade='$grade' and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
@@ -476,7 +455,7 @@ if (isset($_POST['removeStudents'])) {
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade'  and sei.section='$section'
+                        where sei.grade='$grade'  and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -488,7 +467,7 @@ if (isset($_POST['removeStudents'])) {
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade'  and sei.section='$section'
+                        where sei.grade='$grade'  and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
@@ -541,7 +520,6 @@ if (isset($_POST['removeStudents'])) {
 
                             <?php
                             $stmt->close();
-                        }
 
                         ?>
                         Total Records: <?= $total_pages ?>
