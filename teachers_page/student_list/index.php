@@ -1055,32 +1055,43 @@ if (isset($_POST['add-student-grade'])) {
                             <div class="w-70p m-l-1em">Grade</div>
                             <select name="add-enrollment-grade" id="add-enrollment-grade"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px" onchange="selectGrade()">
-                                <option value="0" selected></option>
                                 <?php
-                                $sql = "select * from grade_info";
-                                $result = mysqli_query($conn, $sql);
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                                $sqlSelectUserInfo = "select * from users_info where id = '$id'";
+                                $result = mysqli_query($conn, $sqlSelectUserInfo);
+                                $row = mysqli_fetch_assoc($result);
+                                $teacherId = $row['user_lrn'];
+
+                                $sqlSelectTeachersInfo = "select * from teachers_info where lrn = '$teacherId'";
+                                $result = mysqli_query($conn, $sqlSelectTeachersInfo);
+                                $row = mysqli_fetch_assoc($result);
+                                $teacherGrade = $row['grade'];
                                     ?>
-                                    <option value="<?php echo $row['grade'] ?>">
-                                        Grade <?php echo $row['grade'] ?></option>
+                                    <option value="<?php echo $teacherGrade ?>">
+                                        Grade <?php echo $teacherGrade ?></option>
                                     <?php
-                                }
                                 ?>
                             </select>
                             <div class="w-70p m-l-1em">Section</div>
                             <select name="add-enrollment-section" id="add-enrollment-section"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
-                                <option value="0" selected></option>
                                 <?php
-                                $grade = isset($_GET['searchGrade']) ? $_GET['searchGrade'] : '';
-                                $sql = "select * from grade_info where grade = '$grade'";
-                                $result = mysqli_query($conn, $sql);
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                                $sqlSelectUserInfo = "select * from users_info where id = '$id'";
+                                $result = mysqli_query($conn, $sqlSelectUserInfo);
+                                $row = mysqli_fetch_assoc($result);
+                                $teacherId = $row['user_lrn'];
+
+                                $sqlSelectTeachersInfo = "select * from teachers_info where lrn = '$teacherId'";
+                                $result = mysqli_query($conn, $sqlSelectTeachersInfo);
+                                $row = mysqli_fetch_assoc($result);
+                                $teacherSection = $row['section'];
                                     ?>
-                                    <option value="<?php echo $row['section'] ?>">
-                                        Grade <?php echo $row['section'] ?></option>
+                                    <option value="<?php echo $teacherSection ?>">
+                                         <?php echo $teacherSection ?></option>
                                     <?php
-                                }
                                 ?>
                             </select>
 
