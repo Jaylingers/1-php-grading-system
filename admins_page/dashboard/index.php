@@ -120,7 +120,7 @@ include '../header.php'; ?>
                                 $sql = "select ti.first_name, ti.last_name, ui.img_path from teachers_subject_info  tsi
                                         left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                                         left join users_info ui on ui.user_lrn = ti.lrn
-                                        where tsi.grade_level = $grade
+                                        where tsi.grade = $grade
                                         group by tsi.teachers_lrn";
                                 $result = mysqli_query($conn, $sql);
                             }
