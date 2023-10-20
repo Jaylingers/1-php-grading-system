@@ -10,9 +10,12 @@ if (isset($_POST['id'])) {
     $lrn = $_POST['id'];
 
     $id = $_GET['id'];
-    $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+    $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name',user_lrn from users_info where id = '$id'";
     $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
     $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+
+    $user_lrn = $rowsSelectRemovedBy['user_lrn'];
+
     $removedBy = '';
     foreach ($rowsSelectRemovedBy as $key => $value) {
         $removedBy .= $value;
@@ -48,7 +51,9 @@ if (isset($_POST['id'])) {
         }
     }
 
-    $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','student')";
+
+
+    $sqlInsertTrash = "insert into trash_info (user_lrn,teacher_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$user_lrn','$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 
     $sql = "delete from students_info where lrn = '$lrn'";
@@ -1479,7 +1484,9 @@ if (isset($_POST['add-student-grade'])) {
                                             left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
                                             group by si.lrn";
                                     $sqlStudents = mysqli_query($conn, $sqlStudents);
+                                    $totals = $sqlStudents->num_rows;
                                     $row = mysqli_fetch_assoc($sqlStudents);
+
                                     $grade = $row['grade'];
 
                                     $sqlSelectStudentGradeInfo = "select * from students_grade_info where student_lrn='$lrn' and grade='$grade'";
