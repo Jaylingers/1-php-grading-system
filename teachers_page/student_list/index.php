@@ -1684,11 +1684,11 @@ if (isset($_POST['add-student-grade'])) {
                                             <td><input readonly="true" type="number" id="total_days_classes"
                                                        name="total_days_classes"
                                                        class="w-100p b-none  t-align-center" placeholder="0"
-                                                       value="<?= $rowUser['total_days_classes'] ?>"></td>
+                                                       value=""></td>
                                             <td><input readonly="true" type="number" id="total_days_presents"
                                                        name="total_days_presents"
                                                        class="w-100p b-none  t-align-center" placeholder="0"
-                                                       value="<?= $rowUser['total_days_presents'] ?>"></td>
+                                                       value=""></td>
                                         </tr>
                                     <?php }
                                     if ($total == 0) {
