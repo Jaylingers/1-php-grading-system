@@ -149,7 +149,7 @@ if (isset($_POST['studId'])) {
                 }
             }
 
-            $insertStudentGradeInfo = "insert into students_grade_info (student_lrn,grade,subject,first_grading,second_grading,third_grading,fourth_grading,final_grading) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
+            $insertStudentGradeInfo = "insert into students_grade_info (student_lrn,grade,subject,first_grade,second_grade,third_grade,fourth_grade,final) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
             $result = mysqli_query($conn, $insertStudentGradeInfo);
         }
 
