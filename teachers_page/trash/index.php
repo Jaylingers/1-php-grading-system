@@ -129,30 +129,14 @@ if (isset($_POST['studId'])) {
     if ($position === 'student') {
         $studentInfo = str_replace("Student Info</h3>", "", $history[1]);
         echo '<script> console.log("Student Info"); </script>';
+
         $studentInfo = explode("<br/>", $studentInfo);
-        foreach ($studentInfo as $key => $value) {
-            if ($value !== " ") {
-                $val = str_replace(" ", "", $value);
-                echo '<script> console.log("' . $val . '"); </script>';
-            }
-        }
-
-        $studentGradeInfo = str_replace("Student Grade Info</h3>", "", $history[3]);
-        if ($studentGradeInfo !== " ") {
-            echo '<script> console.log("Student Grade Info"); </script>';
-            $studentGradeInfo = explode("<br/>", $studentGradeInfo);
-//        echo '<script> console.log("' . implode($studentGradeInfo) . '"); </script>';
-            foreach ($studentGradeInfo as $key => $value) {
-                if ($value !== " ") {
-                    $val = str_replace(" ", "", $value);
-                    echo '<script> console.log("' . $val . '"); </script>';
-                }
-            }
-
-            $insertStudentGradeInfo = "insert into students_grade_info (student_lrn,grade,subject,first_grade,second_grade,third_grade,fourth_grade,final) VALUES ('$sLrn','$studentGradeInfo[1]','$studentGradeInfo[2]','$studentGradeInfo[3]','$studentGradeInfo[4]','$studentGradeInfo[5]','$studentGradeInfo[6]','$studentGradeInfo[7]')";
-            $result = mysqli_query($conn, $insertStudentGradeInfo);
-        }
-
+//        foreach ($studentInfo as $key => $value) {
+//            if ($value !== " ") {
+//                $val = str_replace(" ", "", $value);
+//                echo '<script> console.log("' . $val . '"); </script>';
+//            }
+//        }
         $sLrn = trim(str_replace("lrn: ", "", $studentInfo[1]));
         $sFname = trim(str_replace("f_name: ", "", $studentInfo[2]));
         $sLname = trim(str_replace("l_name: ", "", $studentInfo[3]));
@@ -178,12 +162,12 @@ if (isset($_POST['studId'])) {
         if ($studentEnrollmentInfo !== " ") {
             echo '<script> console.log("Student Enrollment Info"); </script>';
             $studentEnrollmentInfo = explode("<br/>", $studentEnrollmentInfo);
-            foreach ($studentEnrollmentInfo as $key => $value) {
-                if ($value !== " ") {
-                    $val = str_replace(" ", "", $value);
-                    echo '<script> console.log("' . $val . '"); </script>';
-                }
-            }
+//            foreach ($studentEnrollmentInfo as $key => $value) {
+//                if ($value !== " ") {
+//                    $val = str_replace(" ", "", $value);
+//                    echo '<script> console.log("' . $val . '"); </script>';
+//                }
+//            }
             $studentEnrollmentLrn = trim(str_replace("students_info_lrn: ", "", $studentEnrollmentInfo[1]));
             $studentEnrollmentGrade = trim(str_replace("grade: ", "", $studentEnrollmentInfo[2]));
             $studentEnrollmentSection = trim(str_replace("section: ", "", $studentEnrollmentInfo[3]));
@@ -195,6 +179,91 @@ if (isset($_POST['studId'])) {
 
             $insertStudentEnrollmentInfo = "insert into students_enrollment_info (students_info_lrn,grade,section,school_year,date_enrolled,status) VALUES ('$studentEnrollmentLrn','$studentEnrollmentGrade','$studentEnrollmentSection','$studentEnrollmentSchoolYear','$studentEnrollmentDateEnrolled','$studentEnrollmentStatus')";
             $result = mysqli_query($conn, $insertStudentEnrollmentInfo);
+
+        }
+
+        $studentGradeInfo = str_replace("Student Grade Info</h3>", "", $history[3]);
+        if ($studentGradeInfo !== " ") {
+            echo '<script> console.log("Student Grade Info"); </script>';
+
+            $studentGradeInfo = explode("id:", $studentGradeInfo);
+            foreach ($studentGradeInfo as $key => $value) {
+                if ($value !== " ") {
+                    $value = explode("<br/>", $value);
+//                    foreach ($value as $key => $val) {
+//                        if ($val !== " ") {
+//                            $val = str_replace(" ", "", $val);
+//                            echo '<script> console.log("' . $val . '"); </script>';
+//                        }
+//
+//                    }
+
+                    $sLrn = trim(str_replace("student_lrn: ", "", $value[1]));
+                    $sTeacherLrn = trim(str_replace("teacher_lrn: ", "", $value[2]));
+                    $sSubject = trim(str_replace("subject: ", "", $value[3]));
+                    $sGrade = trim(str_replace("grade: ", "", $value[4]));
+                    $sFirstGrade = trim(str_replace("first_grade: ", "", $value[5]));
+                    $sSecondGrade = trim(str_replace("second_grade: ", "", $value[6]));
+                    $sThirdGrade = trim(str_replace("third_grade: ", "", $value[7]));
+                    $sFourthGrade = trim(str_replace("fourth_grade: ", "", $value[8]));
+                    $sFinal = trim(str_replace("final: ", "", $value[9]));
+                    $sUnits = trim(str_replace("units: ", "", $value[10]));
+                    $sStatus = trim(str_replace("status: ", "", $value[11]));
+                    $insertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status) VALUES ('$sLrn','$sTeacherLrn','$sSubject','$sGrade','$sFirstGrade','$sSecondGrade','$sThirdGrade','$sFourthGrade','$sFinal','$sUnits','$sStatus')";
+                    $result = mysqli_query($conn, $insertStudentGradeInfo);
+                }
+            }
+
+        }
+
+        $studentGradeAttendanceInfo = str_replace("Student Grade Attendance Info</h3>", "", $history[4]);
+        if ($studentGradeAttendanceInfo !== " ") {
+            echo '<script> console.log("Student Grade Attendance Info"); </script>';
+
+            $studentGradeAttendanceInfo = explode("id:", $studentGradeAttendanceInfo);
+            foreach ($studentGradeAttendanceInfo as $key => $value) {
+                if ($value !== " ") {
+                    $value = explode("<br/>", $value);
+//                    foreach ($value as $key => $val) {
+//                        if ($val !== " ") {
+//                            $val = str_replace(" ", "", $val);
+//                            echo '<script> console.log("' . $val . '"); </script>';
+//                        }
+//                    }
+
+                    $sGrade = trim(str_replace("grade: ", "", $value[1]));
+                    $sLrn = trim(str_replace("student_lrn: ", "", $value[2]));
+                    $sTeacherLrn = trim(str_replace("teacher_lrn: ", "", $value[3]));
+                    $sJuneDaysClasses = trim(str_replace("june_days_classes: ", "", $value[4]));
+                    $sJuneDaysPresents = trim(str_replace("june_days_presents: ", "", $value[5]));
+                    $sJulyDaysClasses = trim(str_replace("july_days_classes: ", "", $value[6]));
+                    $sJulyDaysPresents = trim(str_replace("july_days_presents: ", "", $value[7]));
+                    $sAugDaysClasses = trim(str_replace("aug_days_classes: ", "", $value[8]));
+                    $sAugDaysPresents = trim(str_replace("aug_days_presents: ", "", $value[9]));
+                    $sSepDaysClasses = trim(str_replace("sep_days_classes: ", "", $value[10]));
+                    $sSepDaysPresents = trim(str_replace("sep_days_presents: ", "", $value[11]));
+                    $sOctDaysClasses = trim(str_replace("oct_days_classes: ", "", $value[12]));
+                    $sOctDaysPresents = trim(str_replace("oct_days_presents: ", "", $value[13]));
+                    $sNovDaysClasses = trim(str_replace("nov_days_classes: ", "", $value[14]));
+                    $sNovDaysPresents = trim(str_replace("nov_days_presents: ", "", $value[15]));
+                    $sDecDaysClasses = trim(str_replace("dec_days_classes: ", "", $value[16]));
+                    $sDecDaysPresents = trim(str_replace("dec_days_presents: ", "", $value[17]));
+                    $sJanDaysClasses = trim(str_replace("jan_days_classes: ", "", $value[18]));
+                    $sJanDaysPresents = trim(str_replace("jan_days_presents: ", "", $value[19]));
+                    $sFebDaysClasses = trim(str_replace("feb_days_classes: ", "", $value[20]));
+                    $sFebDaysPresents = trim(str_replace("feb_days_presents: ", "", $value[21]));
+                    $sMarDaysClasses = trim(str_replace("mar_days_classes: ", "", $value[22]));
+                    $sMarDaysPresents = trim(str_replace("mar_days_presents: ", "", $value[23]));
+                    $sAprDaysClasses = trim(str_replace("apr_days_classes: ", "", $value[24]));
+                    $sAprDaysPresents = trim(str_replace("apr_days_presents: ", "", $value[25]));
+                    $sMayDaysClasses = trim(str_replace("may_days_classes: ", "", $value[26]));
+                    $sMayDaysPresents = trim(str_replace("may_days_presents: ", "", $value[27]));
+
+                    $insertStudentGradeAttendanceInfo = "insert into students_grade_attendance_info (student_lrn,teacher_lrn,grade,june_days_classes,june_days_presents,july_days_classes,july_days_presents,aug_days_classes,aug_days_presents,sep_days_classes,sep_days_presents,oct_days_classes,oct_days_presents,nov_days_classes,nov_days_presents,dec_days_classes,dec_days_presents,jan_days_classes,jan_days_presents,feb_days_classes,feb_days_presents,mar_days_classes,mar_days_presents,apr_days_classes,apr_days_presents,may_days_classes,may_days_presents) VALUES ('$sLrn','$sTeacherLrn','$sGrade','$sJuneDaysClasses','$sJuneDaysPresents','$sJulyDaysClasses','$sJulyDaysPresents','$sAugDaysClasses','$sAugDaysPresents','$sSepDaysClasses','$sSepDaysPresents','$sOctDaysClasses','$sOctDaysPresents','$sNovDaysClasses','$sNovDaysPresents','$sDecDaysClasses','$sDecDaysPresents','$sJanDaysClasses','$sJanDaysPresents','$sFebDaysClasses','$sFebDaysPresents','$sMarDaysClasses','$sMarDaysPresents','$sAprDaysClasses','$sAprDaysPresents','$sMayDaysClasses','$sMayDaysPresents')";
+                    $result = mysqli_query($conn, $insertStudentGradeAttendanceInfo);
+                }
+            }
+
         }
 
         $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$sLname','student','$sLrn')";

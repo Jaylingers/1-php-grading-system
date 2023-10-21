@@ -51,7 +51,15 @@ if (isset($_POST['id'])) {
         }
     }
 
-
+    $sqlStudentGradeAttendanceInfo = "select * from students_grade_attendance_info where student_lrn = '$lrn'";
+    $resultStudentGradeAttendanceInfo = mysqli_query($conn, $sqlStudentGradeAttendanceInfo);
+    $rowsStudentGradeAttendanceInfo = mysqli_fetch_assoc($resultStudentGradeAttendanceInfo);
+    $historyData .= ' <h3> Student Grade Attendance Info</h3>';
+    foreach ($resultStudentGradeAttendanceInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
 
     $sqlInsertTrash = "insert into trash_info (user_lrn,teacher_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$user_lrn','$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
@@ -67,6 +75,9 @@ if (isset($_POST['id'])) {
 
     $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
     $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+
+    $sqlDeleteStudentGradeAttendanceInfo = "delete from students_grade_attendance_info where student_lrn = '$lrn'";
+    $resultDeleteStudentGradeAttendanceInfo = mysqli_query($conn, $sqlDeleteStudentGradeAttendanceInfo);
 
     $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
     $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
@@ -1444,7 +1455,7 @@ if (isset($_POST['add-student-grade'])) {
                                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
                                     ?>
                                     <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
-                                    <div>Student Name1: <label for="" id="view-student-grade-name"
+                                    <div>Student Name: <label for="" id="view-student-grade-name"
                                                                class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
                                             , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
                                     <div>School Name:<input type="text"
@@ -1502,46 +1513,52 @@ if (isset($_POST['add-student-grade'])) {
 
                                     $sqlSelectStudentGradeInfo = "select * from students_grade_info where student_lrn='$lrn' and grade='$grade'";
                                     $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeInfo);
-                                    $rowGrade = mysqli_fetch_assoc($sqlStudentsGrade);
-                                    $subject = $rowGrade['subject'];
-                                    $firstGrade = $rowGrade['first_grade'];
-                                    $secondGrade = $rowGrade['second_grade'];
-                                    $thirdGrade = $rowGrade['third_grade'];
-                                    $fourthGrade = $rowGrade['fourth_grade'];
-                                    $finalGrade = $rowGrade['final'];
-                                    $units = $rowGrade['units'];
-                                    $status = $rowGrade['status'];
 
+                                    $ret = array();
+                                    $count1 = 0;
+                                    while ($rowUser1 = mysqli_fetch_assoc($sqlStudentsGrade)) {
+                                        $count1++;
+                                        $ret['first_grade'][$count1] = $rowUser1['first_grade'];
+                                        $ret['second_grade'][$count1] = $rowUser1['second_grade'];
+                                        $ret['third_grade'][$count1] = $rowUser1['third_grade'];
+                                        $ret['fourth_grade'][$count1] = $rowUser1['fourth_grade'];
+                                        $ret['final'][$count1] = $rowUser1['final'];
+                                        $ret['units'][$count1] = $rowUser1['units'];
+                                        $ret['status'][$count1] = $rowUser1['status'];
+                                    }
+
+                                    echo '<script> console.log("' . ($ret['second_grade'][1]) . '"); </script>';
+                                    $count = 0;
                                     while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                                         ?>
                                         <tr>
-                                            <td> <?= $rowUser['subject'] ?></td>
+                                            <td> <?= $rowUser['subject'] ?> <?= $count++ ?> </td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
                                                        type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($firstGrade) ? $firstGrade : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['first_grade'][$count]) ? $ret['first_grade'][$count] : 0  ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')"
                                                        type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($secondGrade) ? $secondGrade : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['second_grade'][$count]) ? $ret['second_grade'][$count] : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')"
                                                        type="number" id="<?= $rowUser['subject'] ?>3"
                                                        name="<?= $rowUser['subject'] ?>3"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($thirdGrade) ? $thirdGrade : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['third_grade'][$count]) ? $ret['third_grade'][$count] : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')"
                                                        type="number" id="<?= $rowUser['subject'] ?>4"
                                                        name="<?= $rowUser['subject'] ?>4"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($fourthGrade) ? $fourthGrade : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['fourth_grade'][$count]) ? $ret['fourth_grade'][$count] : 0  ?>"></td>
                                             <td><input readonly="true" type="number"
                                                        id="<?= $rowUser['subject'] ?>final"
                                                        name="<?= $rowUser['subject'] ?>final"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($finalGrade) ? $finalGrade : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['final'][$count]) ? $ret['final'][$count] : 0  ?>"></td>
                                             <td><input type="number" id="<?= $rowUser['subject'] ?>units"
                                                        name="<?= $rowUser['subject'] ?>units"
-                                                       class="w-100p b-none t-align-center" placeholder="0"  value="<?= isset($units) ? $units : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0"  value="<?= isset($ret['units'][$count]) ? $ret['units'][$count] : 0 ?>"></td>
                                             <td><input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status"
                                                        name="<?= $rowUser['subject'] ?>status"
-                                                       class="w-100p b-none t-align-center" placeholder="?" value="<?= isset($status) ? $status : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="?" value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : 0  ?>"></td>
                                         </tr>
                                     <?php } ?>
 
