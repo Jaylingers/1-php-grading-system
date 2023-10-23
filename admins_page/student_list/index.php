@@ -48,6 +48,16 @@ if (isset($_POST['id'])) {
         }
     }
 
+    $sqlStudentGradeAttendanceInfo = "select * from students_grade_attendance_info where student_lrn = '$lrn'";
+    $resultStudentGradeAttendanceInfo = mysqli_query($conn, $sqlStudentGradeAttendanceInfo);
+    $rowsStudentGradeAttendanceInfo = mysqli_fetch_assoc($resultStudentGradeAttendanceInfo);
+    $historyData .= ' <h3> Student Grade Attendance Info</h3>';
+    foreach ($resultStudentGradeAttendanceInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
+    }
+
     $tLrn = $_GET['Tlrn'];
 
     $sqlInsertTrash = "insert into trash_info (user_lrn,teacher_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn','$tLrn', '$name','$historyData', now(),'$removedBy','student')";
@@ -64,6 +74,9 @@ if (isset($_POST['id'])) {
 
     $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
     $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+
+    $sqlDeleteStudentGradeAttendanceInfo = "delete from students_grade_attendance_info where student_lrn = '$lrn'";
+    $resultDeleteStudentGradeAttendanceInfo = mysqli_query($conn, $sqlDeleteStudentGradeAttendanceInfo);
 
     $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
     $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
