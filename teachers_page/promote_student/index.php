@@ -96,7 +96,7 @@ if (isset($_POST['removeStudents'])) {
 
                         <button
                                 class="btn bg-hover-gray-dark-v1"
-                                onclick="showModal('view-promoted-students', 'Promoted Students Candidates')">
+                                onclick="viewPromote()">
                             View Promote
                         </button>
 
@@ -160,57 +160,57 @@ if (isset($_POST['removeStudents'])) {
                          and sei.section='$teacher_section'
                           and si.teacher_lrn = '$teacher_lrn'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
-                    // Calculate the page to get the results we need from our table.
-                    $calc_page = ($page - 1) * $num_results_on_page;
-                    $stmt->bind_param('ii', $calc_page, $num_results_on_page);
-                    $stmt->execute();
-                    // Get the results...
-                    $result = $stmt->get_result();
-                    ?>
+                // Calculate the page to get the results we need from our table.
+                $calc_page = ($page - 1) * $num_results_on_page;
+                $stmt->bind_param('ii', $calc_page, $num_results_on_page);
+                $stmt->execute();
+                // Get the results...
+                $result = $stmt->get_result();
+                ?>
 
-                    <table class="table table-1 b-shadow-dark ">
-                        <thead>
-                        <tr>
-                            <th class="t-align-center"><label for="student-list-cb"
-                                                              class="d-flex-center"></label><input
-                                        id="student-list-cb" type="checkbox"
-                                        onclick="checkCBStudents('student-list', 'student-list-cb')"
-                                        class="sc-1-3 c-hand"/></th>
-                            <th>No</th>
-                            <th>LRN</th>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Grade</th>
-                            <th>Section</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody id="student-list">
-                        <?php
-                        $i = 0;
-                        while ($row = $result->fetch_assoc()):
-
-                            $i++;
-                            ?>
-                            <tr>
-                                <td class="d-flex-center"><label>
-                                        <input type="checkbox" class="sc-1-3 c-hand check"
-                                               id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>,<?= $row['section'] ?>,<?= $row['grade_status'] ?>"/>
-                                    </label></td>
-                                <th scope="row"><?= $i ?> </th>
-                                <td><?= $row['lrn'] ?></td>
-                                <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
-                                <td><?= $row['gender'] ?></td>
-                                <td><?= $row['g_level'] ?></td>
-                                <td><?= $row['section'] ?></td>
-                                <td><?= $row['grade_status'] === 'promoted' ? 'promoted(cant promote again, wait for final grades)' : $row['grade_status'] ?></td>
-                            </tr>
-                        <?php endwhile; ?>
-                        </tbody>
-                    </table>
-
+                <table class="table table-1 b-shadow-dark ">
+                    <thead>
+                    <tr>
+                        <th class="t-align-center"><label for="student-list-cb"
+                                                          class="d-flex-center"></label><input
+                                    id="student-list-cb" type="checkbox"
+                                    onclick="checkCBStudents('student-list', 'student-list-cb')"
+                                    class="sc-1-3 c-hand"/></th>
+                        <th>No</th>
+                        <th>LRN</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Grade</th>
+                        <th>Section</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="student-list">
                     <?php
-                    $stmt->close();
+                    $i = 0;
+                    while ($row = $result->fetch_assoc()):
+
+                        $i++;
+                        ?>
+                        <tr>
+                            <td class="d-flex-center"><label>
+                                    <input type="checkbox" class="sc-1-3 c-hand check"
+                                           id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>,<?= $row['section'] ?>,<?= $row['grade_status'] ?>"/>
+                                </label></td>
+                            <th scope="row"><?= $i ?> </th>
+                            <td><?= $row['lrn'] ?></td>
+                            <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
+                            <td><?= $row['gender'] ?></td>
+                            <td><?= $row['g_level'] ?></td>
+                            <td><?= $row['section'] ?></td>
+                            <td><?= $row['grade_status'] === 'promoted' ? 'promoted(cant promote again, wait for final grades)' : $row['grade_status'] ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                    </tbody>
+                </table>
+
+                <?php
+                $stmt->close();
 
                 ?>
                 Total Records: <?= $total_pages ?>
@@ -424,8 +424,10 @@ if (isset($_POST['removeStudents'])) {
                                     onclick="removePromotedStudents()">Remove
                             </button>
                         </div>
-                        <br/>   <br/>
+                        <br/> <br/>
                         <?php
+
+
                         $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
                         $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
                         $row = mysqli_fetch_assoc($resultSelectUser);
@@ -469,57 +471,57 @@ if (isset($_POST['removeStudents'])) {
                         inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
-                            // Calculate the page to get the results we need from our table.
-                            $calc_page = ($page - 1) * $num_results_on_page;
-                            $stmt->bind_param('ii', $calc_page, $num_results_on_page);
-                            $stmt->execute();
-                            // Get the results...
-                            $result = $stmt->get_result();
-                            ?>
+                        // Calculate the page to get the results we need from our table.
+                        $calc_page = ($page - 1) * $num_results_on_page;
+                        $stmt->bind_param('ii', $calc_page, $num_results_on_page);
+                        $stmt->execute();
+                        // Get the results...
+                        $result = $stmt->get_result();
+                        ?>
 
-                            <table class="table table-1 b-shadow-dark ">
-                                <thead>
-                                <tr>
-                                    <th class="t-align-center"><label for="student-list-cb"
-                                                                      class="d-flex-center"></label><input
-                                                id="student-list-cb" type="checkbox"
-                                                onclick="checkCBStudents('student-list', 'student-list-cb')"
-                                                class="sc-1-3 c-hand"/></th>
-                                    <th>No</th>
-                                    <th>LRN</th>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Grade</th>
-                                    <th>Section</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="promoted-students">
-                                <?php
-                                $i = 0;
-                                while ($row = $result->fetch_assoc()):
-
-                                    $i++;
-                                    ?>
-                                    <tr>
-                                        <td class="d-flex-center"><label>
-                                                <input type="checkbox" class="sc-1-3 c-hand check"
-                                                       id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>"/>
-                                            </label></td>
-                                        <th scope="row"><?= $i ?> </th>
-                                        <td><?= $row['lrn'] ?></td>
-                                        <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
-                                        <td><?= $row['gender'] ?></td>
-                                        <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
-                                        <td><?= $row['section'] ?></td>
-                                        <td><?= $row['grade_status'] ?></td>
-                                    </tr>
-                                <?php endwhile; ?>
-                                </tbody>
-                            </table>
-
+                        <table class="table table-1 b-shadow-dark ">
+                            <thead>
+                            <tr>
+                                <th class="t-align-center"><label for="student-list-cb"
+                                                                  class="d-flex-center"></label><input
+                                            id="student-list-cb" type="checkbox"
+                                            onclick="checkCBStudents('student-list', 'student-list-cb')"
+                                            class="sc-1-3 c-hand"/></th>
+                                <th>No</th>
+                                <th>LRN</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="promoted-students">
                             <?php
-                            $stmt->close();
+                            $i = 0;
+                            while ($row = $result->fetch_assoc()):
+
+                                $i++;
+                                ?>
+                                <tr>
+                                    <td class="d-flex-center"><label>
+                                            <input type="checkbox" class="sc-1-3 c-hand check"
+                                                   id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>"/>
+                                        </label></td>
+                                    <th scope="row"><?= $i ?> </th>
+                                    <td><?= $row['lrn'] ?></td>
+                                    <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
+                                    <td><?= $row['gender'] ?></td>
+                                    <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
+                                    <td><?= $row['section'] ?></td>
+                                    <td><?= $row['grade_status'] ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            </tbody>
+                        </table>
+
+                        <?php
+                        $stmt->close();
 
                         ?>
                         Total Records: <?= $total_pages ?>
@@ -530,49 +532,49 @@ if (isset($_POST['removeStudents'])) {
                                     <ul class="pagination">
                                         <?php if ($page > 1): ?>
                                             <li class="prev"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page - 1 ?>">Prev</a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page > 3): ?>
                                             <li class="start"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page + 1 ?>">1</a>
                                             </li>
                                             <li class="dots">...</li>
                                         <?php endif; ?>
 
                                         <?php if ($page - 2 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page - 1 > 0): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                             </li><?php endif; ?>
 
                                         <li class="currentpage"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page ?>"><?php echo $page ?></a>
                                         </li>
 
                                         <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                             </li><?php endif; ?>
                                         <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                             <li class="page"><a
-                                                    href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                             </li><?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                             <li class="dots">...</li>
                                             <li class="end"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                             </li>
                                         <?php endif; ?>
 
                                         <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                             <li class="next"><a
-                                                        href="/1-php-grading-system/admins_page/promote_student/?id=<?php echo $_GET['id'] ?>&&grade=<?php echo $_GET['grade'] ?>&&grade_promoted=<?php echo $_GET['grade_promoted'] ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&promoted=1&&page=<?php echo $page + 1 ?>">Next</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -762,7 +764,7 @@ if (isset($_POST['removeStudents'])) {
     }
 
     function SearchSection(status) {
-        if(status === 'promoted_student') {
+        if (status === 'promoted_student') {
             var section_promoted = $('#search_section_promoted').val();
             var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
             var grade_promoted = '<?php if (isset($_GET['grade_promoted'])) echo $_GET['grade_promoted']?>';
@@ -780,26 +782,6 @@ if (isset($_POST['removeStudents'])) {
 
     }
 
-    function loadPage() {
-        var grade = '<?php if (isset($_GET['grade'])) echo $_GET['grade']?>';
-        var grade_promoted = '<?php if (isset($_GET['grade_promoted'])) echo $_GET['grade_promoted']?>';
-        var section = '<?php if (isset($_GET['section'])) echo $_GET['section']?>';
-        var section_promoted = '<?php if (isset($_GET['section_promoted'])) echo $_GET['section_promoted']?>';
-
-        if (grade) {
-            $('#search_grade').val(grade);
-        }
-        if (grade_promoted) {
-            $('#search_grade_promoted').val(grade_promoted);
-        }
-        if(section){
-            $('#search_section').val(section);
-        }
-        if(section_promoted){
-            $('#search_section_promoted').val(section_promoted);
-        }
-
-    }
 
     function promoteStudent() {
         var studentID = [];
@@ -855,6 +837,20 @@ if (isset($_POST['removeStudents'])) {
         } else {
             alert('Please select a student!');
         }
+    }
+
+    function viewPromote() {
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&promoted=1')
+        window.location.reload();
+    }
+
+    function loadPage() {
+        var promoted = '<?php if (isset($_GET['promoted'])) echo $_GET['promoted']?>';
+
+        if (promoted) {
+            showModal('view-promoted-students', 'Promoted Students')
+        }
+
     }
 
     loadPage();
