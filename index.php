@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
         mysqli_query($conn, $sqlInsertPageVisited);
 
         if (strtolower($user_type) == 'student') {
-            header("Location: /1-php-grading-system/students_page/home?id=" . $row['id']);
+            header("Location: /1-php-grading-system/students_page/student_info?id=" . $row['id']);
         } else if (strtolower($user_type) == 'teacher') {
             header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
         } else {
@@ -51,7 +51,7 @@ if (isset($_SESSION['user_type'])) {
     $id = $_SESSION['ids'];
     echo "<script> alert('$userType')</script>";
     if(strtolower($userType) == 'student'){
-        header("Location: /1-php-grading-system/students_page/home?id=" . $id);
+        header("Location: /1-php-grading-system/students_page/student_info?id=" . $id);
     } else if (strtolower($userType) == 'teacher') {
         header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $id);
     } else {

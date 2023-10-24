@@ -18,6 +18,7 @@ if (!isset($_SESSION['user_type'])) {
         unset($_SESSION['ids']); // remove it now we have used it
         header("Location: /1-php-grading-system/");
     }
+
 }
 ?>
 
@@ -37,7 +38,7 @@ if (!isset($_SESSION['user_type'])) {
     <link rel="stylesheet" href="../../assets/css/style.css">
         <script src="../../assets/js/js_header.js" defer></script>
     <?php } ?>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -66,22 +67,19 @@ if (!isset($_SESSION['user_type'])) {
     <div class="navbar-links">
         <ul>
             <li>
-                <a href="/1-php-grading-system/students_page/home/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "home") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
+                <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
             </li>
             <li>
-                <a href="/1-php-grading-system/students_page/about/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "about") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers Info
+                <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers Info
                     Us</a></li>
             <li>
-                <a href="/1-php-grading-system/students_page/contact/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "contact") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
+                <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
                     </a></li>
         </ul>
     </div>
     <div>
-        <form action="index.php" method="post">
-            <button type="submit" class="c-hand"
-                    name="logout">LOGOUT
-            </button>
-        </form>
+        <button class="c-hand" onclick="logout()">LOGOUT
+        </button>
     </div>
 </nav>
 <style>
@@ -126,4 +124,13 @@ if (!isset($_SESSION['user_type'])) {
     </div>
 </footer>
 </body>
+
+<script>
+    function logout() {
+        var r = confirm("Are you sure you want to logout?");
+        if (r === true) {
+            Post('', {logout: 'logout'});
+        }
+    }
+</script>
 </html>

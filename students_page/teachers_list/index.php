@@ -1,4 +1,4 @@
-<?php $var = "contact";
+<?php $var = "teachers_list";
 include '../../students_page/header.php'; ?>
 <div style="background: #14ae5c;">
     <div class="d-flex-center w-100p">
