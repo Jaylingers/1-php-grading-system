@@ -76,7 +76,7 @@ if (isset($_POST['editProfile'])) {
                     class="w-38px m-3-6px"/></a>
         <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
         <p class=" m-0 pad-left-6px">GRADE INQUIRY</p>
-        <div class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
+        <div id="x-hide-show-side-bar" class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
              onclick="tops()">x
         </div>
     </div>
@@ -303,14 +303,14 @@ if (isset($_POST['editProfile'])) {
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> <label for=""
                                                                                                        class="c-hand m-t-9px f-weight-bold">Profile</label>
             </div>
         </div>
         <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','themes')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                              class="c-hand m-t-9px f-weight-bold">Themes</label>
+                <img src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                              class="c-hand m-t-9px f-weight-bold">Dark Mode</label>
             </div>
 
         </div>

@@ -25,7 +25,7 @@ if (!isset($_SESSION['user_type'])) {
         $resultTeacher = mysqli_query($conn, $sqlTeacher);
         $rows = mysqli_fetch_assoc($resultTeacher);
     } else {
-        $rows =$row;
+        $rows = $row;
     }
 
     if (isset($_POST['logout'])) {
@@ -55,6 +55,22 @@ if (isset($_POST['editProfile'])) {
         echo '</script>';
     }
 }
+
+if (isset($_POST['darkMode'])) {
+    $id = $_GET['id'];
+    $darkMode = $_POST['darkMode'];
+    $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+               alert("saved successfully");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                    window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,7 +91,7 @@ if (isset($_POST['editProfile'])) {
                     class="w-38px m-3-6px"/></a>
         <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
         <p class=" m-0 pad-left-6px">GRADE INQUIRY</p>
-        <div class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
+        <div id="x-hide-show-side-bar" class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
              onclick="tops()">x
         </div>
     </div>
@@ -91,7 +107,7 @@ if (isset($_POST['editProfile'])) {
         </div>
         <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
             <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user"  || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
+                 onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
             <div class="d-flex-end w-4em">
@@ -105,7 +121,7 @@ if (isset($_POST['editProfile'])) {
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list" ) { ?> style="background: #bababa;"  <?php } ?>>
+                     onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Teacher
                 </div>
             </div>
@@ -152,7 +168,7 @@ if (isset($_POST['editProfile'])) {
                             alt="" class="w-18px c-hand rotate"></div>
                 <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
-                   Student List
+                    Student List
                 </div>
             </div>
             <div class=" h-4em d-flex-end m-t-5px">
@@ -300,18 +316,38 @@ if (isset($_POST['editProfile'])) {
         }
     </style>
     <!--    <form action="index.php" method="post">-->
-    <div class="custom-grid-container w-100p pad-1em" tabindex="1">
+    <div id="settings-1" class="custom-grid-container w-100p pad-1em" tabindex="1">
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/profile.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                       class="c-hand m-t-9px f-weight-bold">Profile</label>
+
+<!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
+              <svg style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/><g id="about"><path d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/><path d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/></g></svg>
+                <label for=""
+                                                                                                        class="c-hand m-t-9px f-weight-bold">Profile</label>
             </div>
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','themes')">
+        <div class="custom-grid-item d-flex-start c-hand admin-settings"
+             onclick="darkMode()">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/changePassword.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                              class="c-hand m-t-9px f-weight-bold">Themes</label>
+                <img src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                        class="c-hand m-t-9px f-weight-bold">Dark
+                    Mode</label>
+                <div class="pad-left-44px transition-0-5s" id="circle-parent" style="
+    height: 2em;
+    width: 4em;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    background: rgb(11, 224, 155);
+ margin-left: 12px;">
+                    <div id="circle-child" style="
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: white;
+   "></div>
+                </div>
             </div>
 
         </div>
@@ -333,7 +369,7 @@ if (isset($_POST['editProfile'])) {
     <div class="d-flex-end w-70p m-r-13px">
         <!--        <input type="text" placeholder="Search...">-->
         <div class="d-flex-center m-l-13px m-r-13px">
-            Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
+            Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?>  </label>
         </div>
         <?php if ($rows['img_path'] == '') { ?>
             <img src="../../assets/users_img/noImage.png"
@@ -361,7 +397,7 @@ if (isset($_POST['editProfile'])) {
     bottom: 10px;
     right: 10px;
     z-index: 99999;">
-    <img src="../../assets/img/writeMessage.png" alt="sds"  style="height: 2em; width: 2em">
+    <img src="../../assets/img/writeMessage.png" alt="sds" style="height: 2em; width: 2em">
 </div>
 
 <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
@@ -453,14 +489,14 @@ if (isset($_POST['editProfile'])) {
             </div>
             <div id="show-themes" class="modal-child d-none h-100p">
                 <h2>Side Bar</h2>
-                BG Color:  <input type="color" id="sideBarColor"> <br>
+                BG Color: <input type="color" id="sideBarColor"> <br>
                 Font Color: <input type="color" id="sideBarFontColor"> <br>
                 Font Style: <input type="text" id="sideBarFontStyle"> <br>
                 Font Size: <input type="number" id="sideBarFontSize"> <br>
                 Font Weight: <input type="number" id="sideBarFontWeight"> <br>
 
                 <h2>Header</h2>
-                BG Color:  <input type="color" id="topBarColor"> <br>
+                BG Color: <input type="color" id="topBarColor"> <br>
                 Font Color: <input type="color" id="topBarFontColor"> <br>
                 Font Style: <input type="text" id="topBarFontStyle"> <br>
                 Font Size: <input type="number" id="topBarFontSize"> <br>
@@ -509,8 +545,8 @@ if (isset($_POST['editProfile'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-            tabName === 'recordsTab' ||  tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
-                    : tabName === 'userTab'  ? 'h-13em'
+                tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
+                    : tabName === 'userTab' ? 'h-13em'
                         : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -586,6 +622,7 @@ if (isset($_POST['editProfile'])) {
             $('#content').addClass('pressed')
             $('#myModal').addClass('full-width')
         }
+        loadPage();
     }
 
     function viewUserTabs() {
@@ -613,14 +650,43 @@ if (isset($_POST['editProfile'])) {
         }
     }
 
+    function darkMode() {
+        let darkMode = "<?= $rows['dark_mode'] ?>";
+        if(darkMode === '1') {
+            $.post('', {darkMode: 0});
+        } else {
+            $.post('', {darkMode: 1});
+        }
+        window.location.reload();
+        // $('#circle-parent').toggleClass('pad-left-44px')
+        // $('#circle-parent').toggleClass('bg-gray')
+        // $('#settings-1').toggleClass('bg-dark')
+        // $('#top').toggleClass('bg-dark')
+        // $('#top').toggleClass('b-bottom-white-3px')
+        // $('#top').toggleClass('w-79-9p')
+        // $('#side').toggleClass('bg-dark')
+        // $('#side').toggleClass('b-right-1px-white')
+        // $('body').toggleClass('bg-dark')
+        // $('#content').toggleClass('bg-dark')
+        // $('#x-hide-show-side-bar').toggleClass('bg-dark')
+        //
+        // if(!$('#circle-parent').hasClass('pad-left-44px')) {
+        //    $('#settings-1 label').css('color', 'white')
+        //     $('#top div').css('color', 'white')
+        // } else {
+        //     $('#settings-1 label').css('color', 'black')
+        //     $('#top div').css('color', 'black')
+        // }
+    }
+
 
     function edit() {
         $('#editProfile #display').addClass('d-none')
         $('#editProfile #editForm').removeClass('d-none')
     }
 
-    function showModalInfo(userType, lastname,status) {
-        if(status === 'profile'){
+    function showModalInfo(userType, lastname, status) {
+        if (status === 'profile') {
             showModalAdminSettings('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
         } else {
             showModalAdminSettings('show-themes', 'THEMES', '', '')
@@ -644,13 +710,50 @@ if (isset($_POST['editProfile'])) {
             showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
         }
 
+        function loadPage() {
+            let darkMode = "<?= $rows['dark_mode'] ?>";
+            if(darkMode === '1') {
+                $('#circle-parent').removeClass('pad-left-44px')
+                $('#circle-parent').removeClass('bg-gray')
+                $('#settings-1').removeClass('bg-dark')
+                $('#top').removeClass('bg-dark')
+                $('#top').removeClass('b-bottom-white-3px')
+                $('#top').removeClass('w-79-9p')
+                $('#side').removeClass('bg-dark')
+                $('#side').removeClass('b-right-1px-white')
+                $('body').removeClass('bg-dark')
+                $('#content').removeClass('bg-dark')
+                $('#x-hide-show-side-bar').removeClass('bg-dark')
+
+                $('#settings-1 label').css('color', 'black')
+                $('#top div').css('color', 'black')
+            } else {
+                $('#circle-parent').addClass('pad-left-44px')
+                $('#circle-parent').addClass('bg-gray')
+                $('#settings-1').addClass('bg-dark')
+                $('#top').addClass('bg-dark')
+                $('#top').addClass('b-bottom-white-3px')
+                $('#top').addClass('w-79-9p')
+                $('#side').addClass('bg-dark')
+                $('#side').addClass('b-right-1px-white')
+                $('body').addClass('bg-dark')
+                $('#content').addClass('bg-dark')
+                $('#x-hide-show-side-bar').addClass('bg-dark')
+
+                $('#settings-1 label').css('color', 'white')
+                $('#top div').css('color', 'white')
+            }
+        }
+
+        loadPage();
+
     });
 
     var colorWell;
     var defaultColor = "#0000ff";
     window.addEventListener("load", startup, false);
-    function startup()
-    {
+
+    function startup() {
         colorWell = document.querySelector("#sideBarColor");
         colorWell.addEventListener("input", updateFirst, false);
         colorWell.select();
@@ -660,13 +763,13 @@ if (isset($_POST['editProfile'])) {
         colorWell.select();
 
     }
-    function updateFirst(event)
-    {
-        document.querySelector("#side").setAttribute('style','background-color:'+event.target.value+' !important;');
+
+    function updateFirst(event) {
+        document.querySelector("#side").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
     }
-    function updateSecond(event)
-    {
-        document.querySelector("#top").setAttribute('style','background-color:'+event.target.value+' !important;');
+
+    function updateSecond(event) {
+        document.querySelector("#top").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
 
     }
 

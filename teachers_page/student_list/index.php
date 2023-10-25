@@ -1527,12 +1527,11 @@ if (isset($_POST['add-student-grade'])) {
                                         $ret['status'][$count1] = $rowUser1['status'];
                                     }
 
-                                    echo '<script> console.log("' . ($ret['second_grade'][1]) . '"); </script>';
                                     $count = 0;
                                     while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                                         ?>
                                         <tr>
-                                            <td> <?= $rowUser['subject'] ?> <?= $count++ ?> </td>
+                                            <td class="t-align-center""> <?= $rowUser['subject'] ?>  </td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
                                                        type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
@@ -1564,9 +1563,26 @@ if (isset($_POST['add-student-grade'])) {
 
                                 </table>
                                 <br>
-                                Average: <input type="text" id="average" name="average" class="t-align-center d-none"
-                                                readonly="true">
-                                <label for="" id="lbl_average"></label>
+                                <?php
+
+                                $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                $sqlStudents = "select * from students_info si 
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            group by si.lrn";
+                                $sqlStudents = mysqli_query($conn, $sqlStudents);
+                                $row = mysqli_fetch_assoc($sqlStudents);
+                                $grade = $row['grade'];
+
+                                $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
+                                $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
+                                while ($rowStudent = mysqli_fetch_assoc($sqlStudentsGrade)) {
+                                    ?>
+                                    Average: <input type="text" id="average" name="average" class="t-align-center d-none" value="<?= $rowStudent['average'] ?>"
+                                                    readonly="true">
+                                    <label for="" id="lbl_average"><?= $rowStudent['average'] ?></label>
+                                <?php } ?>
+
+
                             </div>
                         </div>
                         <div class="custom-grid-item ">
