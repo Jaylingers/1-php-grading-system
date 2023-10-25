@@ -298,6 +298,10 @@
     background: #2f2f2f !important;
 }
 
+.bg-light-green{
+    background: rgb(11, 224, 155);
+}
+
 .t-color-white {
     color: white;
 }
@@ -548,8 +552,13 @@
     width: 80%;
 }
 
+.w-82p{
+    width: 82%;
+}
+
+
 .w-79-8p {
-    width: 79.8%;
+    width: 80%;
 }
 
 .w-79-9p{
@@ -984,6 +993,9 @@
 
 .z-i-9999 {
     z-index: 9999;
+}
+.z-i-99999{
+    z-index: 99999;
 }
 
 .z-i-999910 {

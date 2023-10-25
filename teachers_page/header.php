@@ -56,21 +56,21 @@ if (isset($_POST['editProfile'])) {
     }
 }
 
-if (isset($_POST['darkMode'])) {
-    $id = $_GET['id'];
-    $darkMode = $_POST['darkMode'];
-    $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-               alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                    window.location.reload();
-            ';
-        echo '</script>';
-    }
-}
+//if (isset($_POST['darkMode'])) {
+//    $id = $_GET['id'];
+//    $darkMode = $_POST['darkMode'];
+//    $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
+//    $result = mysqli_query($conn, $sql);
+//    if ($result) {
+//        echo '<script>';
+//        echo '
+//               alert("saved successfully");
+//                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+//                    window.location.reload();
+//            ';
+//        echo '</script>';
+//    }
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,16 +82,18 @@ if (isset($_POST['darkMode'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="../../assets/js/js_header.js" defer></script>
+
 </head>
-<body class="bg-blue" onload="loadTopArrow()">
-<div class="p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-9999" id="side">
+<body onload="loadTopArrow()">
+<div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
     <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
         <a href="/1-php-grading-system/"> <img
                     src="../../assets/img/mabes.png" alt=""
                     class="w-38px m-3-6px"/></a>
         <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
         <p class=" m-0 pad-left-6px">GRADE INQUIRY</p>
-        <div id="x-hide-show-side-bar" class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
+        <div id="x-hide-show-side-bar"
+             class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
              onclick="tops()">x
         </div>
     </div>
@@ -321,10 +323,15 @@ if (isset($_POST['darkMode'])) {
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
 
-<!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
-              <svg style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/><g id="about"><path d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/><path d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/></g></svg>
+                <!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
+                <svg style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/>
+                    <g id="about">
+                        <path d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
+                        <path d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
+                    </g>
+                </svg>
                 <label for=""
-                                                                                                        class="c-hand m-t-9px f-weight-bold">Profile</label>
+                       class="c-hand m-t-9px f-weight-bold">Profile</label>
             </div>
         </div>
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
@@ -339,8 +346,8 @@ if (isset($_POST['darkMode'])) {
     border-radius: 17px;
     display: flex;
     align-items: center;
-    background: rgb(11, 224, 155);
- margin-left: 12px;">
+    margin-left: 12px;
+ ">
                     <div id="circle-child" style="
     height: 18px;
     width: 18px;
@@ -361,7 +368,7 @@ if (isset($_POST['darkMode'])) {
     <!--    </form>-->
 </div>
 
-<div id="top" class="bg-blue p-fixed  w-80p d-flex r-0 h-4em z-i-9999">
+<div id="top" class="p-fixed  w-82p d-flex r-0 h-4em z-i-9999 bg-blue b-shadow-dark">
     <div class="w-30p "><label id="top-icon"
                                class="h-100p w-3em t-align-center d-flex-center c-hand d-none f-size-26px w-2em bg-hover-white"
                                for="" onclick="tops()">
@@ -402,10 +409,6 @@ if (isset($_POST['darkMode'])) {
 
 <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
     <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
-        <div id="top-icon"
-             class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
-             onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
-        </div>
         <div class="modal-header a-center">
         </div>
         <div class="modal-body" style="overflow: hidden; background: #adadad;">
@@ -651,32 +654,40 @@ if (isset($_POST['darkMode'])) {
     }
 
     function darkMode() {
-        let darkMode = "<?= $rows['dark_mode'] ?>";
-        if(darkMode === '1') {
-            $.post('', {darkMode: 0});
+
+        $('#settings-1').toggleClass('bg-dark')
+        $('#top').toggleClass('bg-dark')
+        $('#top').toggleClass('b-bottom-white-3px')
+        $('#top').toggleClass('w-79-9p')
+        $('#side').toggleClass('bg-dark')
+        $('#side').toggleClass('b-right-1px-white')
+        $('body').toggleClass('bg-dark')
+
+        $('#x-hide-show-side-bar').toggleClass('bg-dark')
+
+        let darkMode = localStorage.getItem("darkMode");
+        if (darkMode !== '1') {
+            localStorage.setItem("darkMode", "1");
+
+            $('#settings-1 label').css('color', 'white')
+            $('#top div').css('color', 'white')
+            $('#circle-parent').addClass('pad-left-44px')
+            $('#circle-parent').removeClass('bg-gray')
+            $('#circle-parent').addClass('bg-light-green')
+            $('#content').addClass('bg-dark')
+
         } else {
-            $.post('', {darkMode: 1});
+            localStorage.setItem("darkMode", "0");
+            $('#settings-1 label').css('color', 'black')
+            $('#top div').css('color', 'black')
+
+            $('#circle-parent').removeClass('pad-left-44px')
+            $('#circle-parent').addClass('bg-gray')
+            $('#content').removeClass('bg-dark')
+
+            $('#top').addClass('bg-blue')
+
         }
-        window.location.reload();
-        // $('#circle-parent').toggleClass('pad-left-44px')
-        // $('#circle-parent').toggleClass('bg-gray')
-        // $('#settings-1').toggleClass('bg-dark')
-        // $('#top').toggleClass('bg-dark')
-        // $('#top').toggleClass('b-bottom-white-3px')
-        // $('#top').toggleClass('w-79-9p')
-        // $('#side').toggleClass('bg-dark')
-        // $('#side').toggleClass('b-right-1px-white')
-        // $('body').toggleClass('bg-dark')
-        // $('#content').toggleClass('bg-dark')
-        // $('#x-hide-show-side-bar').toggleClass('bg-dark')
-        //
-        // if(!$('#circle-parent').hasClass('pad-left-44px')) {
-        //    $('#settings-1 label').css('color', 'white')
-        //     $('#top div').css('color', 'white')
-        // } else {
-        //     $('#settings-1 label').css('color', 'black')
-        //     $('#top div').css('color', 'black')
-        // }
     }
 
 
@@ -711,25 +722,11 @@ if (isset($_POST['darkMode'])) {
         }
 
         function loadPage() {
-            let darkMode = "<?= $rows['dark_mode'] ?>";
-            if(darkMode === '1') {
-                $('#circle-parent').removeClass('pad-left-44px')
-                $('#circle-parent').removeClass('bg-gray')
-                $('#settings-1').removeClass('bg-dark')
-                $('#top').removeClass('bg-dark')
-                $('#top').removeClass('b-bottom-white-3px')
-                $('#top').removeClass('w-79-9p')
-                $('#side').removeClass('bg-dark')
-                $('#side').removeClass('b-right-1px-white')
-                $('body').removeClass('bg-dark')
-                $('#content').removeClass('bg-dark')
-                $('#x-hide-show-side-bar').removeClass('bg-dark')
-
-                $('#settings-1 label').css('color', 'black')
-                $('#top div').css('color', 'black')
-            } else {
+            let darkMode = localStorage.getItem("darkMode");
+            if (darkMode === '1') {
                 $('#circle-parent').addClass('pad-left-44px')
-                $('#circle-parent').addClass('bg-gray')
+                $('#circle-parent').addClass('bg-light-green')
+
                 $('#settings-1').addClass('bg-dark')
                 $('#top').addClass('bg-dark')
                 $('#top').addClass('b-bottom-white-3px')
@@ -742,11 +739,27 @@ if (isset($_POST['darkMode'])) {
 
                 $('#settings-1 label').css('color', 'white')
                 $('#top div').css('color', 'white')
+            } else {
+                $('#circle-parent').removeClass('pad-left-44px')
+                $('#circle-parent').addClass('bg-gray')
+
+                $('#settings-1').removeClass('bg-dark')
+                $('#top').removeClass('bg-dark')
+                $('#top').removeClass('b-bottom-white-3px')
+                $('#top').addClass('bg-blue')
+                $('#top').removeClass('w-79-9p')
+                $('#side').removeClass('bg-dark')
+                $('#side').removeClass('b-right-1px-white')
+                $('body').removeClass('bg-dark')
+                $('#content').removeClass('bg-dark')
+                $('#x-hide-show-side-bar').removeClass('bg-dark')
+
+                $('#settings-1 label').css('color', 'black')
+                $('#top div').css('color', 'black')
             }
         }
 
         loadPage();
-
     });
 
     var colorWell;
@@ -774,5 +787,4 @@ if (isset($_POST['darkMode'])) {
     }
 
 
-</script>
 </script>

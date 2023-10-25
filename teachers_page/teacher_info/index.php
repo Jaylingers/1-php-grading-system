@@ -89,7 +89,7 @@ if (isset($_POST['saveImage'])) {
                             <form method="post" enctype="multipart/form-data">
                                 <input type="hidden" id="lrn" name="lrn" value="<?= $rows['lrn'] ?>"> <br>
                                 <input type="file" name="image" id="image" class="d-none"> <br> <br>
-                                <button id="saveButton" type="submit"
+                                <button id="saveButton-teachers" type="submit"
                                         class="c-hand btn-success btn d-none"
                                         name="saveImage">Save
                                 </button>
@@ -126,7 +126,7 @@ if (isset($_POST['saveImage'])) {
                 console.log(file)
                 $('#view-image').attr('src', URL.createObjectURL(file));
                 setTimeout(() => {
-                    $('#saveButton').click();
+                    $('#saveButton-teachers').click();
                 }, 2000)
             }
         });
