@@ -69,7 +69,7 @@ if (isset($_POST['editProfile'])) {
     <script src="../../assets/js/js_header.js" defer></script>
 </head>
 <body class="bg-blue" onload="loadTopArrow()">
-<div class="p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-9999" id="side">
+<div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
     <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
         <a href="/1-php-grading-system/"> <img
                     src="../../assets/img/mabes.png" alt=""
@@ -299,49 +299,75 @@ if (isset($_POST['editProfile'])) {
         }
     </style>
     <!--    <form action="index.php" method="post">-->
-    <div class="custom-grid-container w-100p pad-1em" tabindex="1">
+    <div class="custom-grid-container w-100p pad-1em  settings-1" tabindex="1">
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                       class="c-hand m-t-9px f-weight-bold">Profile</label>
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+
+                <!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
+                <svg class=" settings-1" style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/>
+                    <g id="about">
+                        <path class="settings-1" d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
+                        <path class="settings-1" d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
+                    </g>
+                </svg>
+                <label for=""
+                       class="c-hand m-t-9px f-weight-bold  settings-1">Profile</label>
             </div>
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','themes')">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                              class="c-hand m-t-9px f-weight-bold">Dark Mode</label>
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1"
+             onclick="darkMode()">
+            <div class="settings-1 b-bottom-gray-1px w-100p h-100p d-flex-start">
+                <img class="settings-1" src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em">
+                <label for=""
+                       class="settings-1 c-hand m-t-9px f-weight-bold">Dark
+                    Mode</label>
+                <div class="settings-1 pad-left-44px transition-0-5s" id="circle-parent" style="
+    height: 2em;
+    width: 4em;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+ ">
+                    <div class="settings-1" id="circle-child" style="
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: white;
+   "></div>
+                </div>
             </div>
 
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="logout()">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                      class="c-hand m-t-9px f-weight-bold">Logout</label>
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                <img class="settings-1" src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                                         class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
             </div>
         </div>
     </div>
     <!--    </form>-->
 </div>
 
-<div id="top" class="bg-blue p-fixed  w-79-8p d-flex r-0 h-4em z-i-9999">
+<div id="top" class="p-fixed  w-82p d-flex r-0 h-4em z-i-9999 bg-blue b-shadow-dark">
     <div class="w-30p "><label id="top-icon"
                                class="h-100p w-3em t-align-center d-flex-center c-hand d-none f-size-26px w-2em bg-hover-white"
                                for="" onclick="tops()">
             ☰</label></div>
     <div class="d-flex-end w-70p m-r-13px">
         <!--        <input type="text" placeholder="Search...">-->
-        <div class="d-flex-center m-l-13px m-r-13px" style="font-family: cursive">
-            Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?> </label>
+        <div class="d-flex-center m-l-13px m-r-13px">
+            Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?>  </label>
         </div>
         <?php if ($rows['img_path'] == '') { ?>
-            <img src="../../assets/users_img/noImage.png"
+            <img id="settings" src="../../assets/users_img/noImage.png"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" >
         <?php } else { ?>
-            <img src="<?= $rows['img_path'] ?>"
+            <img id="settings" src="<?= $rows['img_path'] ?>"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" >
         <?php } ?>
 
 
@@ -473,6 +499,59 @@ if (isset($_POST['editProfile'])) {
 </html>
 
 <script>
+
+    document.body.onclick = function (e) {
+        if(e.target.id === 'settings') {
+            if($('#settings-details').hasClass("d-flex")) {
+                $('#settings-details').removeClass("d-flex")
+                x = 0;
+            } else {
+                x = 1;
+                $('#settings-details').addClass("d-flex")
+            }
+        } else if(e.target.className.includes('settings-1')) {
+            $('#settings-details').addClass("d-flex")
+        } else {
+            $('#settings-details').removeClass("d-flex")
+        }
+    }
+
+    function darkMode() {
+
+        $('#settings-details').toggleClass('bg-dark')
+        $('#top').toggleClass('bg-dark')
+        $('#top').toggleClass('b-bottom-white-3px')
+        $('#top').toggleClass('w-79-9p')
+        $('#side').toggleClass('bg-dark')
+        $('#side').toggleClass('b-right-1px-white')
+        $('body').toggleClass('bg-dark')
+
+        $('#x-hide-show-side-bar').toggleClass('bg-dark')
+
+        let darkMode = localStorage.getItem("darkMode");
+        if (darkMode !== '1') {
+            localStorage.setItem("darkMode", "1");
+
+            $('.settings-1 label').css('color', 'white')
+            $('#top div').css('color', 'white')
+            $('#circle-parent').addClass('pad-left-44px')
+            $('#circle-parent').removeClass('bg-gray')
+            $('#circle-parent').addClass('bg-light-green')
+            $('#content').addClass('bg-dark')
+
+        } else {
+            localStorage.setItem("darkMode", "0");
+            $('.settings-1 label').css('color', 'black')
+            $('#top div').css('color', 'black')
+
+            $('#circle-parent').removeClass('pad-left-44px')
+            $('#circle-parent').addClass('bg-gray')
+            $('#content').removeClass('bg-dark')
+
+            $('#top').addClass('bg-blue')
+
+        }
+    }
 
     function settings() {
         $('#settings').toggleClass("rotate")
@@ -642,6 +721,46 @@ if (isset($_POST['editProfile'])) {
         if (updateProfile) {
             showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>','profile');
         }
+
+        function loadPage() {
+            let darkMode = localStorage.getItem("darkMode");
+            if (darkMode === '1') {
+                $('#circle-parent').addClass('pad-left-44px')
+                $('#circle-parent').addClass('bg-light-green')
+
+                $('#settings-details').addClass('bg-dark')
+                $('#top').addClass('bg-dark')
+                $('#top').addClass('b-bottom-white-3px')
+                $('#top').addClass('w-79-9p')
+                $('#side').addClass('bg-dark')
+                $('#side').addClass('b-right-1px-white')
+                $('body').addClass('bg-dark')
+                $('#content').addClass('bg-dark')
+                $('#x-hide-show-side-bar').addClass('bg-dark')
+
+                $('.settings-1 label').css('color', 'white')
+                $('#top div').css('color', 'white')
+            } else {
+                $('#circle-parent').removeClass('pad-left-44px')
+                $('#circle-parent').addClass('bg-gray')
+
+                $('#settings-details').removeClass('bg-dark')
+                $('#top').removeClass('bg-dark')
+                $('#top').removeClass('b-bottom-white-3px')
+                $('#top').addClass('bg-blue')
+                $('#top').removeClass('w-79-9p')
+                $('#side').removeClass('bg-dark')
+                $('#side').removeClass('b-right-1px-white')
+                $('body').removeClass('bg-dark')
+                $('#content').removeClass('bg-dark')
+                $('#x-hide-show-side-bar').removeClass('bg-dark')
+
+                $('.settings-1 label').css('color', 'black')
+                $('#top div').css('color', 'black')
+            }
+        }
+
+        loadPage();
 
     });
 

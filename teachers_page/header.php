@@ -653,7 +653,7 @@ if (isset($_POST['editProfile'])) {
 
     function darkMode() {
 
-        $('#settings-1').toggleClass('bg-dark')
+        $('#settings-details').toggleClass('bg-dark')
         $('#top').toggleClass('bg-dark')
         $('#top').toggleClass('b-bottom-white-3px')
         $('#top').toggleClass('w-79-9p')
@@ -667,7 +667,7 @@ if (isset($_POST['editProfile'])) {
         if (darkMode !== '1') {
             localStorage.setItem("darkMode", "1");
 
-            $('#settings-1 label').css('color', 'white')
+            $('.settings-1 label').css('color', 'white')
             $('#top div').css('color', 'white')
             $('#circle-parent').addClass('pad-left-44px')
             $('#circle-parent').removeClass('bg-gray')
@@ -676,7 +676,7 @@ if (isset($_POST['editProfile'])) {
 
         } else {
             localStorage.setItem("darkMode", "0");
-            $('#settings-1 label').css('color', 'black')
+            $('.settings-1 label').css('color', 'black')
             $('#top div').css('color', 'black')
 
             $('#circle-parent').removeClass('pad-left-44px')
@@ -725,7 +725,7 @@ if (isset($_POST['editProfile'])) {
                 $('#circle-parent').addClass('pad-left-44px')
                 $('#circle-parent').addClass('bg-light-green')
 
-                $('#settings-1').addClass('bg-dark')
+                $('#settings-details').addClass('bg-dark')
                 $('#top').addClass('bg-dark')
                 $('#top').addClass('b-bottom-white-3px')
                 $('#top').addClass('w-79-9p')
@@ -735,13 +735,13 @@ if (isset($_POST['editProfile'])) {
                 $('#content').addClass('bg-dark')
                 $('#x-hide-show-side-bar').addClass('bg-dark')
 
-                $('#settings-1 label').css('color', 'white')
+                $('.settings-1 label').css('color', 'white')
                 $('#top div').css('color', 'white')
             } else {
                 $('#circle-parent').removeClass('pad-left-44px')
                 $('#circle-parent').addClass('bg-gray')
 
-                $('#settings-1').removeClass('bg-dark')
+                $('#settings-details').removeClass('bg-dark')
                 $('#top').removeClass('bg-dark')
                 $('#top').removeClass('b-bottom-white-3px')
                 $('#top').addClass('bg-blue')
@@ -752,7 +752,7 @@ if (isset($_POST['editProfile'])) {
                 $('#content').removeClass('bg-dark')
                 $('#x-hide-show-side-bar').removeClass('bg-dark')
 
-                $('#settings-1 label').css('color', 'black')
+                $('.settings-1 label').css('color', 'black')
                 $('#top div').css('color', 'black')
             }
         }

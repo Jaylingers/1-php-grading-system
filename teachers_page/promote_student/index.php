@@ -59,6 +59,34 @@ if (isset($_POST['removeStudents'])) {
     $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 }
 
+if (isset($_POST['addStudents'])) {
+    $addPromotedStudents = $_POST['addStudents'];
+    $addPromotedStudents = explode(',', $addPromotedStudents);
+    $lrn_promoted = $addPromotedStudents[0];
+    $grade_promoted = $addPromotedStudents[1];
+
+    $id = $_GET['id'];
+    $sqlUserInfo = "SELECT * FROM `users_info` ui
+                    left join teachers_info ti on ti.lrn = ui.user_lrn
+                    where ui.id = '$id'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+    $row = mysqli_fetch_assoc($resultUserInfo);
+    $teacher_lrn = $row['user_lrn'];
+    $section = $row['section'];
+
+
+    $sql = "UPDATE students_enrollment_info SET grade = '$grade_promoted', grade_status='promoted', section='$section' WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
+    $result = mysqli_query($conn, $sql);
+
+    $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn='$teacher_lrn'  WHERE lrn = '$lrn_promoted'";
+    $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
+
+    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
+    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
+
+
+}
+
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
@@ -93,10 +121,21 @@ if (isset($_POST['removeStudents'])) {
                         Promote Students
                     </h3>
                     <div class="r-50px p-absolute t-54px">
-
                         <button
                                 class="btn bg-hover-gray-dark-v1"
-                                onclick="viewPromote()">
+                                onclick="viewPromote('add promoted students')">
+                            Add Promoted Students(Grade <?php
+                            $id = $_GET['id'];
+                            $sqlSelectUser = "SELECT * FROM `users_info` ui
+                                                left join teachers_info ti on ti.lrn = ui.user_lrn
+                                                where ui.id = '$id'";
+                            $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                            $row = mysqli_fetch_assoc($resultSelectUser);
+                            echo $row['grade'] ?>)
+                        </button>
+                        <button
+                                class="btn bg-hover-gray-dark-v1"
+                                onclick="viewPromote('')">
                             View Promote
                         </button>
 
@@ -586,6 +625,174 @@ if (isset($_POST['removeStudents'])) {
                     </div>
                 </div>
             </div>
+            <div id="add-promoted-students" class="modal-child pad-bottom-2em d-none">
+                <div class="m-2em d-flex-align-start">
+                    <div class="bg-white w-100p b-radius-10px ">
+                        <div class="f-right  m-r-13px">
+                            <button type="submit"
+                                    class="c-hand bg-hover-skyBlue btn"
+                                    onclick="addPromotedStudents()">Add
+                            </button>
+                        </div>
+                        <br/> <br/>
+                        <?php
+                        $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
+                        $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                        $row = mysqli_fetch_assoc($resultSelectUser);
+                        $teacher_lrn = $row['user_lrn'];
+
+                        $sqlSelectTeacher = "SELECT * FROM `teachers_info` where lrn = '$teacher_lrn'";
+                        $resultSelectTeacher = mysqli_query($conn, $sqlSelectTeacher);
+                        $rows = mysqli_fetch_assoc($resultSelectTeacher);
+                        $grade = $rows['grade'];
+
+                        $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        where sei.grade='$grade' 
+                        GROUP BY si.id order by si.lrn DESC Limit 1";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($result);
+                        $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
+                        $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
+
+                        // Get the total number of records from our table "students".
+                        $total_pages = $mysqli->query("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        where sei.grade='$grade' 
+                        GROUP BY si.id order by si.lrn DESC")->num_rows;
+                        // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
+                        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+                        // Number of results to show on each page.
+                        $num_results_on_page = 10;
+
+                        if ($stmt = $mysqli->prepare("SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
+                        sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
+                        FROM `students_info` si 
+                        left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
+                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        where sei.grade='$grade'  
+                        GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
+                        // Calculate the page to get the results we need from our table.
+                        $calc_page = ($page - 1) * $num_results_on_page;
+                        $stmt->bind_param('ii', $calc_page, $num_results_on_page);
+                        $stmt->execute();
+                        // Get the results...
+                        $result = $stmt->get_result();
+                        ?>
+
+                        <table class="table table-1 b-shadow-dark ">
+                            <thead>
+                            <tr>
+                                <th class="t-align-center"><label for="student-list-cb"
+                                                                  class="d-flex-center"></label><input
+                                            id="student-list-cb" type="checkbox"
+                                            onclick="checkCBStudents('student-list', 'student-list-cb')"
+                                            class="sc-1-3 c-hand"/></th>
+                                <th>No</th>
+                                <th>LRN</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="promoted-students">
+                            <?php
+                            $i = 0;
+                            while ($row = $result->fetch_assoc()):
+
+                                $i++;
+                                ?>
+                                <tr>
+                                    <td class="d-flex-center"><label>
+                                            <input type="checkbox" class="sc-1-3 c-hand check"
+                                                   id="<?= $row['lrn'] ?>,<?= $row['g_level'] ?>"/>
+                                        </label></td>
+                                    <th scope="row"><?= $i ?> </th>
+                                    <td><?= $row['lrn'] ?></td>
+                                    <td><?= $row['l_name'] ?> <?= $row['f_name'] ?></td>
+                                    <td><?= $row['gender'] ?></td>
+                                    <td><?= $row['g_level'] === 0 ? 'not enrolled' : $row['g_level'] ?></td>
+                                    <td><?= $row['section'] ?></td>
+                                    <td><?= $row['grade_status'] ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                            </tbody>
+                        </table>
+
+                        <?php
+                        $stmt->close();
+
+                        ?>
+                        Total Records: <?= $total_pages ?>
+
+                        <div class="m-2em d-flex-end m-t-n1em">
+                            <div class="d-flex-center">
+                                <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
+                                    <ul class="pagination">
+                                        <?php if ($page > 1): ?>
+                                            <li class="prev"><a
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page - 1 ?>">Prev</a>
+                                            </li>
+                                        <?php endif; ?>
+
+                                        <?php if ($page > 3): ?>
+                                            <li class="start"><a
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page + 1 ?>">1</a>
+                                            </li>
+                                            <li class="dots">...</li>
+                                        <?php endif; ?>
+
+                                        <?php if ($page - 2 > 0): ?>
+                                            <li class="page"><a
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                            </li><?php endif; ?>
+                                        <?php if ($page - 1 > 0): ?>
+                                            <li class="page"><a
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                            </li><?php endif; ?>
+
+                                        <li class="currentpage"><a
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                        </li>
+
+                                        <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                                            <li class="page"><a
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                            </li><?php endif; ?>
+                                        <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
+                                            <li class="page"><a
+                                                    href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                            </li><?php endif; ?>
+
+                                        <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
+                                            <li class="dots">...</li>
+                                            <li class="end"><a
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                            </li>
+                                        <?php endif; ?>
+
+                                        <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
+                                            <li class="next"><a
+                                                        href="/1-php-grading-system//teachers_page/promote_student/?id=<?php echo $_GET['id'] ?>&&addPromoted=1&&page=<?php echo $page + 1 ?>">Next</a>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                <?php endif;
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -839,16 +1046,45 @@ if (isset($_POST['removeStudents'])) {
         }
     }
 
-    function viewPromote() {
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&promoted=1')
+    function addPromotedStudents() {
+        var studentID = [];
+        var studentCount = 0;
+        $('#promoted-students input[type="checkbox"]:checked').each(function () {
+            studentID.push($(this).attr('id'));
+            studentCount++;
+        });
+        if (studentCount > 0) {
+            var r = confirm("Are you sure you want to remove ?");
+            if (r === true) {
+                studentID.forEach(function (studId) {
+                    $.post('', {addStudents: studId})
+                });
+                alert('Successfully removed!')
+                window.location.reload();
+            }
+        } else {
+            alert('Please select a student!');
+        }
+    }
+
+    function viewPromote(status) {
+        if (status === 'add promoted students') {
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&addPromoted=1')
+        } else {
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&promoted=1')
+        }
         window.location.reload();
     }
 
     function loadPage() {
         var promoted = '<?php if (isset($_GET['promoted'])) echo $_GET['promoted']?>';
+        var addPromoted = '<?php if (isset($_GET['addPromoted'])) echo $_GET['addPromoted']?>';
 
         if (promoted) {
             showModal('view-promoted-students', 'Promoted Students')
+        }
+        if (addPromoted) {
+            showModal('add-promoted-students', 'Add Promoted Students')
         }
 
     }
