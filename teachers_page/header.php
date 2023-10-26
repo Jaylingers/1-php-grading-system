@@ -56,21 +56,6 @@ if (isset($_POST['editProfile'])) {
     }
 }
 
-//if (isset($_POST['darkMode'])) {
-//    $id = $_GET['id'];
-//    $darkMode = $_POST['darkMode'];
-//    $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
-//    $result = mysqli_query($conn, $sql);
-//    if ($result) {
-//        echo '<script>';
-//        echo '
-//               alert("saved successfully");
-//                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-//                    window.location.reload();
-//            ';
-//        echo '</script>';
-//    }
-//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -318,29 +303,30 @@ if (isset($_POST['editProfile'])) {
         }
     </style>
     <!--    <form action="index.php" method="post">-->
-    <div id="settings-1" class="custom-grid-container w-100p pad-1em" tabindex="1">
+    <div class="custom-grid-container w-100p pad-1em  settings-1" tabindex="1">
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
 
                 <!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
-                <svg style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/>
+                <svg class=" settings-1" style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/>
                     <g id="about">
-                        <path d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
-                        <path d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
+                        <path class="settings-1" d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
+                        <path class="settings-1" d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
                     </g>
                 </svg>
                 <label for=""
-                       class="c-hand m-t-9px f-weight-bold">Profile</label>
+                       class="c-hand m-t-9px f-weight-bold  settings-1">Profile</label>
             </div>
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings"
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1"
              onclick="darkMode()">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                        class="c-hand m-t-9px f-weight-bold">Dark
+            <div class="settings-1 b-bottom-gray-1px w-100p h-100p d-flex-start">
+                <img class="settings-1" src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em">
+                <label for=""
+                                                                                                        class="settings-1 c-hand m-t-9px f-weight-bold">Dark
                     Mode</label>
-                <div class="pad-left-44px transition-0-5s" id="circle-parent" style="
+                <div class="settings-1 pad-left-44px transition-0-5s" id="circle-parent" style="
     height: 2em;
     width: 4em;
     border-radius: 17px;
@@ -348,7 +334,7 @@ if (isset($_POST['editProfile'])) {
     align-items: center;
     margin-left: 12px;
  ">
-                    <div id="circle-child" style="
+                    <div class="settings-1" id="circle-child" style="
     height: 18px;
     width: 18px;
     border-radius: 50%;
@@ -358,10 +344,10 @@ if (isset($_POST['editProfile'])) {
             </div>
 
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings" onclick="logout()">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start">
-                <img src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
-                                                                                                      class="c-hand m-t-9px f-weight-bold">Logout</label>
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                <img class="settings-1" src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                      class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
             </div>
         </div>
     </div>
@@ -379,13 +365,13 @@ if (isset($_POST['editProfile'])) {
             Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?>  </label>
         </div>
         <?php if ($rows['img_path'] == '') { ?>
-            <img src="../../assets/users_img/noImage.png"
+            <img id="settings" src="../../assets/users_img/noImage.png"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" >
         <?php } else { ?>
-            <img src="<?= $rows['img_path'] ?>"
+            <img id="settings" src="<?= $rows['img_path'] ?>"
                  style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand" onclick="settings()">
+                 alt="" class="w-32px c-hand" >
         <?php } ?>
 
 
@@ -513,9 +499,21 @@ if (isset($_POST['editProfile'])) {
 </html>
 
 <script>
-    function settings() {
-        $('#settings').toggleClass("rotate")
-        $('#settings-details').toggleClass("d-flex")
+
+    document.body.onclick = function (e) {
+        if(e.target.id === 'settings') {
+            if($('#settings-details').hasClass("d-flex")) {
+                $('#settings-details').removeClass("d-flex")
+                x = 0;
+            } else {
+                x = 1;
+                $('#settings-details').addClass("d-flex")
+            }
+        } else if(e.target.className.includes('settings-1')) {
+            $('#settings-details').addClass("d-flex")
+        } else {
+            $('#settings-details').removeClass("d-flex")
+        }
     }
 
     function tops() {
