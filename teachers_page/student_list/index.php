@@ -1529,13 +1529,15 @@ if (isset($_POST['add-student-grade'])) {
 
                                     $count = 0;
                                     while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
+                                        $count++;
                                         ?>
                                         <tr>
                                             <td class="t-align-center""> <?= $rowUser['subject'] ?>  </td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
                                                        type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['first_grade'][$count]) ? $ret['first_grade'][$count] : 0  ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="0"
+                                                       value="<?= isset($ret['first_grade'][$count]) ? $ret['first_grade'][$count] : 0  ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')"
                                                        type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
@@ -1564,7 +1566,6 @@ if (isset($_POST['add-student-grade'])) {
                                 </table>
                                 <br>
                                 <?php
-
                                 $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
                                 $sqlStudents = "select * from students_info si 
                                             left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
@@ -1575,13 +1576,19 @@ if (isset($_POST['add-student-grade'])) {
 
                                 $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
                                 $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
+                                $total = $sqlStudentsGrade->num_rows;
                                 while ($rowStudent = mysqli_fetch_assoc($sqlStudentsGrade)) {
                                     ?>
                                     Average: <input type="text" id="average" name="average" class="t-align-center d-none" value="<?= $rowStudent['average'] ?>"
                                                     readonly="true">
                                     <label for="" id="lbl_average"><?= $rowStudent['average'] ?></label>
+                                <?php }
+                                if ($total == 0) {
+                                ?>
+                                Average: <input type="text" id="average" name="average" class="t-align-center d-none" value="0"
+                                                readonly="true">
+                                <label for="" id="lbl_average">0</label>
                                 <?php } ?>
-
 
                             </div>
                         </div>

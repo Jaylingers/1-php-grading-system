@@ -84,6 +84,16 @@ if (isset($_POST['addStudents'])) {
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
     $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 
+    $sqlDeleteGradeInfo = "DELETE FROM students_grade_info WHERE student_lrn = '$lrn_promoted'";
+    $resultDeleteGradeInfo = mysqli_query($conn, $sqlDeleteGradeInfo);
+
+    $sqlDeletGradeAttendance = "DELETE FROM students_grade_attendance_info WHERE student_lrn = '$lrn_promoted'";
+    $resultDeletGradeAttendance = mysqli_query($conn, $sqlDeletGradeAttendance);
+
+    $sqlDeleteGradeAverageInfo = "DELETE FROM students_grade_average_info WHERE students_lrn = '$lrn_promoted'";
+    $resultDeleteGradeAverageInfo = mysqli_query($conn, $sqlDeleteGradeAverageInfo);
+
+
 
 }
 
