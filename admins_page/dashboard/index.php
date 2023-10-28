@@ -19,7 +19,7 @@ include '../header.php'; ?>
     }
 </style>
 <div class="d-flex-end p-absolute w-100p t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page">
+    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?>">
 
 
         <div class="m-2em d-flex-align-start ">

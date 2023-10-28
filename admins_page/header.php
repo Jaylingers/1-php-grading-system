@@ -55,8 +55,26 @@ if (isset($_POST['editProfile'])) {
         echo '</script>';
     }
 }
+
+if (isset($_POST['darkMode'])) {
+    $id = $_GET['id'];
+    $darkMode = $_POST['darkMode'];
+    $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
+
 ?>
 
+
+<?php if ($rows['dark_mode'] === '1') { ?>
 <!DOCTYPE html>
 <html>
 <title>MABES GRADE INQUIRY</title>
@@ -68,8 +86,8 @@ if (isset($_POST['editProfile'])) {
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="../../assets/js/js_header.js" defer></script>
 </head>
-<body class="bg-blue" onload="loadTopArrow()">
-<div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
+<body class="bg-dark" onload="loadTopArrow()">
+<div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999 bg-dark" id="side">
     <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
         <a href="/1-php-grading-system/"> <img
                     src="../../assets/img/mabes.png" alt=""
@@ -299,7 +317,7 @@ if (isset($_POST['editProfile'])) {
         }
     </style>
     <!--    <form action="index.php" method="post">-->
-    <div class="custom-grid-container w-100p pad-1em  settings-1" tabindex="1">
+    <div class="custom-grid-container w-100p pad-1em  settings-1 bg-dark t-color-white" tabindex="1">
         <div class="custom-grid-item d-flex-start c-hand admin-settings"
              onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
@@ -322,7 +340,7 @@ if (isset($_POST['editProfile'])) {
                 <label for=""
                        class="settings-1 c-hand m-t-9px f-weight-bold">Dark
                     Mode</label>
-                <div class="settings-1 pad-left-44px transition-0-5s" id="circle-parent" style="
+                <div class="settings-1 transition-0-5s" id="circle-parent" style="
     height: 2em;
     width: 4em;
     border-radius: 17px;
@@ -350,7 +368,7 @@ if (isset($_POST['editProfile'])) {
     <!--    </form>-->
 </div>
 
-<div id="top" class="p-fixed  w-82p d-flex r-0 h-4em z-i-9999 bg-blue b-shadow-dark">
+<div id="top" class="p-fixed  w-82p d-flex r-0 h-4em z-i-9999 bg-blue b-shadow-dark bg-dark">
     <div class="w-30p "><label id="top-icon"
                                class="h-100p w-3em t-align-center d-flex-center c-hand d-none f-size-26px w-2em bg-hover-white"
                                for="" onclick="tops()">
@@ -497,7 +515,448 @@ if (isset($_POST['editProfile'])) {
 </div>
 </body>
 </html>
+<?php } else { ?>
+    <!DOCTYPE html>
+    <html>
+    <title>MABES GRADE INQUIRY</title>
+    <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
+    <head>
+        <link rel="stylesheet" href="../../assets/css/style_custom.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="../../assets/js/js_header.js" defer></script>
+    </head>
+    <body class="bg-dark" onload="loadTopArrow()">
+    <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
+        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
+            <a href="/1-php-grading-system/"> <img
+                        src="../../assets/img/mabes.png" alt=""
+                        class="w-38px m-3-6px"/></a>
+            <p class="m-0 b-right-2px-white pad-left-6px pad-right-6px t-color-green"> MABES </p>
+            <p class=" m-0 pad-left-6px">GRADE INQUIRY</p>
+            <div id="x-hide-show-side-bar" class="c-hand p-absolute r-0 d-flex-center w-2-5em h-60px f-weight-100 bg-hover-blue b-top-right-radius-10"
+                 onclick="tops()">x
+            </div>
+        </div>
 
+        <div id="sideTab" class="pad-1em t-color-white f-weight-bold">
+            <div class="m-t-3em"></div>
+            <div class="tab-dashboard d-none h-4em d-flex-center ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('dashboard')" <?php if ($var === "dashboard") { ?> style="background: #bababa;"  <?php } ?> >
+                    Dashboard <?= $var1 ?>
+                </div>
+                <div class="d-flex-end w-4em "></div>
+            </div>
+            <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Add User
+                </div>
+                <div class="d-flex-end w-4em">
+                    <div id="arrowLeftButton" class="w-1-5em h-1-5em c-hand "
+                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft','userTab')"></div>
+                </div>
+            </div>
+            <div class="tab-addUser d-none ov-hidden transition-0-5s " id="userTab" style="height: 0">
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
+                        Teacher
+                    </div>
+                </div>
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
+                        Admin
+                    </div>
+                </div>
+            </div>
+            <div class="tab-teacherInfo d-none h-5em  d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
+                    Teacher Information
+                </div>
+                <div class="d-flex-end w-4em"></div>
+            </div>
+            <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
+                    Masterlist
+                </div>
+                <div class="d-flex-end w-4em">
+                    <div id="arrowLeftButton_masterlist" class="w-1-5em h-1-5em c-hand "
+                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_masterlist','masterlistTab')"></div>
+                </div>
+            </div>
+            <div class="tab-masterlist d-none ov-hidden transition-0-5s " id="masterlistTab" style="height: 0">
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
+                        Add Student
+                    </div>
+                </div>
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('student_list_masterlist')" <?php if ($var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
+                        Student List
+                    </div>
+                </div>
+            </div>
+            <div class="tab-records d-none h-4em d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Records
+                </div>
+                <div class="d-flex-end w-4em">
+                    <div id="arrowLeftButton_records" class="w-1-5em h-1-5em c-hand "
+                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_records','recordsTab')"></div>
+                </div>
+            </div>
+            <div class="tab-records d-none ov-hidden transition-0-5s " id="recordsTab" style="height: 0">
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('promote_student')" <?php if ($var === "promote_student") { ?> style="background: #bababa;"  <?php } ?>>
+                        Promote Student
+                    </div>
+                </div>
+
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('subject_list')" <?php if ($var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                        Subject List
+                    </div>
+                </div>
+            </div>
+            <div class="tab-maintenance d-none h-4em d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('maintenance')" <?php if ($var === "maintenance" || $var === "school_year" || $var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
+                    Maintenance
+                </div>
+                <div class="d-flex-end w-4em">
+                    <div id="arrowLeftButton_maintenance" class="w-1-5em h-1-5em c-hand "
+                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_maintenance','maintenanceTab')"></div>
+                </div>
+            </div>
+            <div class="tab-maintenance d-none ov-hidden transition-0-5s " id="maintenanceTab" style="height: 0">
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
+                        School Year
+                    </div>
+                </div>
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
+                        Grade and Section List
+                    </div>
+                </div>
+            </div>
+            <div class="tab-studentInfo d-none h-4em  d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('student_info')" <?php if ($var === "student_info") { ?> style="background: #bababa;"  <?php } ?>>
+                    Student Info
+                </div>
+                <div class="d-flex-end w-4em m-t-5px"></div>
+            </div>
+            <div class="tab-studentRecord d-none h-4em d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('studentRecord')" <?php if ($var === "studentRecord" || $var === "grade" || $var === "report") { ?> style="background: #bababa;"  <?php } ?>>
+                    Student Record
+                </div>
+                <div class="d-flex-end w-4em">
+                    <div id="arrowLeftButton_studentRecord" class="w-1-5em h-1-5em c-hand "
+                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_studentRecord','studentRecordTab')"></div>
+                </div>
+            </div>
+            <div class="tab-studentRecord d-none ov-hidden transition-0-5s " id="studentRecordTab" style="height: 0">
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('grade')" <?php if ($var === "grade") { ?> style="background: #bababa;"  <?php } ?>>
+                        Grade
+                    </div>
+                </div>
+                <div class=" h-4em d-flex-end m-t-5px">
+                    <div class="d-flex-center w-4em"><img
+                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
+                                alt="" class="w-18px c-hand rotate"></div>
+                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                         onclick="selectTab('report')" <?php if ($var === "report") { ?> style="background: #bababa;"  <?php } ?>>
+                        Report
+                    </div>
+                </div>
+            </div>
+            <div class="tab-teacherList d-none h-5em  d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('teacher_list')" <?php if ($var === "teacherList") { ?> style="background: #bababa;"  <?php } ?>>
+                    Teacher List
+                </div>
+                <div class="d-flex-end w-4em"></div>
+            </div>
+            <div class="tab-notification d-none h-4em  d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('notification')" <?php if ($var === "notification") { ?> style="background: #bababa;"  <?php } ?>>
+                    Notification
+                </div>
+                <div class="d-flex-end w-4em m-t-5px"></div>
+            </div>
+            <div class="tab-trash d-none h-4em  d-flex-center m-t-5px ">
+                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                     onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
+                    Trash
+                </div>
+                <div class="d-flex-end w-4em"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: fixed;
+    height: 14em;
+    width: 14em;
+    top: 64px;
+    right: 17px;
+    display: none;
+    background: #e6e6e6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+">
+
+        <style>
+            .admin-settings {
+                border-radius: 13px;
+            }
+
+            .admin-settings:hover {
+                background: #808080a8;
+            }
+        </style>
+        <!--    <form action="index.php" method="post">-->
+        <div class="custom-grid-container w-100p pad-1em  settings-1" tabindex="1">
+            <div class="custom-grid-item d-flex-start c-hand admin-settings"
+                 onclick="showModalInfo('<?= $rows['user_type'] ?>','<?= $rows['last_name'] ?>','profile')">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+
+                    <!--                <img src="../../assets/img/profile1.png" alt="" style="width: 2em; height: 2em"> -->
+                    <svg class=" settings-1" style="width: 2em; height: 2em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/>
+                        <g id="about">
+                            <path class="settings-1" d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
+                            <path class="settings-1" d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
+                        </g>
+                    </svg>
+                    <label for=""
+                           class="c-hand m-t-9px f-weight-bold  settings-1">Profile</label>
+                </div>
+            </div>
+            <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1"
+                 onclick="darkMode()">
+                <div class="settings-1 b-bottom-gray-1px w-100p h-100p d-flex-start">
+                    <img class="settings-1" src="../../assets/img/darkMode.png" alt="" style="width: 2em; height: 2em">
+                    <label for=""
+                           class="settings-1 c-hand m-t-9px f-weight-bold">Dark
+                        Mode</label>
+                    <div class="settings-1  transition-0-5s bg-gray" id="circle-parent" style="
+    height: 2em;
+    width: 4em;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+ ">
+                        <div class="settings-1" id="circle-child" style="
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: white;
+   "></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                    <img class="settings-1" src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
+                                                                                                                             class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
+                </div>
+            </div>
+        </div>
+        <!--    </form>-->
+    </div>
+
+    <div id="top" class="p-fixed  w-82p d-flex r-0 h-4em z-i-9999 bg-blue b-shadow-dark">
+        <div class="w-30p "><label id="top-icon"
+                                   class="h-100p w-3em t-align-center d-flex-center c-hand d-none f-size-26px w-2em bg-hover-white"
+                                   for="" onclick="tops()">
+                ☰</label></div>
+        <div class="d-flex-end w-70p m-r-13px">
+            <!--        <input type="text" placeholder="Search...">-->
+            <div class="d-flex-center m-l-13px m-r-13px">
+                Hello, <label for="" class="m-b-0 m-l-3px">   <?= $rows['user_type'] ?> <?= $rows['last_name'] ?>  </label>
+            </div>
+            <?php if ($rows['img_path'] == '') { ?>
+                <img id="settings" src="../../assets/users_img/noImage.png"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     alt="" class="w-32px c-hand" >
+            <?php } else { ?>
+                <img id="settings" src="<?= $rows['img_path'] ?>"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     alt="" class="w-32px c-hand" >
+            <?php } ?>
+
+
+            <!--        <img id="settings" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-512.png"-->
+            <!--             class="w-18px m-r-13px c-hand transition-0-5s" alt="" />-->
+
+        </div>
+
+    </div>
+
+    <div id="writeMessage" class="p-fixed d-flex-center c-hand" style="
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+
+    bottom: 10px;
+    right: 10px;
+    z-index: 99999;">
+        <img src="../../assets/img/writeMessage.png" alt="sds" style="height: 2em; width: 2em">
+    </div>
+
+    <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
+        <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
+            <div id="top-icon"
+                 class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
+                 onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
+            </div>
+            <div class="modal-header a-center">
+            </div>
+            <div class="modal-body" style="overflow: hidden; background: #adadad;">
+                <div id="show-profile-info" class="modal-child d-none h-100p">
+                    <div class="custom-grid-container h-100p" tabindex="2">
+                        <div class="custom-grid-item h-100p d-flex-center">
+                            <img class="pad-1em b-shadow-dark"
+                                 src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>"
+                                 alt="" style="width: 86%;
+    height: 35em; border-radius: 50%;">
+                        </div>
+                        <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
+                             style="background: #d6d6d6; height: 41em;">
+
+
+                            <div id="display">
+                                LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                                First Name: <label for=""> <?= $rows['first_name'] ?> </label>
+                                <br>
+                                Last Name: <label for=""> <?= $rows['last_name'] ?> </label>
+                                <br>
+                                UserName: <label for=""> <?= $rows['username'] ?> </label>
+                                <br>
+                                Password: <label for=""> <?= $rows['password'] ?> </label>
+                                <br>
+                                Email: <label for=""> <?= isset($rows['email']) ? $rows['email'] : 'none' ?> </label> <br>
+                                User Type: <label for=""> <?= $rows['user_type'] ?> </label>
+                                <br>
+                                <div>
+                                    <button id="edit"
+                                            class="btn btn-success bg-hover-gray-dark-v1"
+                                            style="position: absolute; right: 24px; bottom: 29px;"
+                                            onclick="edit()">
+                                        Edit
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div id="editForm" class="d-none">
+                                <form method="post">
+                                    LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                                    First Name: <input
+                                            value="<?= $rows['first_name'] ?>" id="firstname" type="text" name="firstname"
+                                            class=" m-b-5px"/>
+                                    <br>
+                                    Last Name: <input
+                                            value="<?= $rows['last_name'] ?>" id="lastname" type="text" name="lastname"
+                                            class=" m-b-5px"/>
+                                    <br>
+                                    UserName: <input
+                                            value="<?= $rows['username'] ?>" id="username" type="text"
+                                            class=" m-b-5px" name="username"/>
+                                    <br>
+                                    Password: <input
+                                            value="<?= $rows['password'] ?>" id="password" type="text"
+                                            class=" m-b-5px" name="password"/>
+                                    <br>
+                                    Email:
+                                    <input
+                                            value="<?= $rows['email'] ?>"
+                                            id="email" type="email" name="email"
+                                            class=" m-b-5px"/> <br>
+                                    User Type: <input
+                                            value="<?= $rows['user_type'] ?>" id="user_type" type="text"
+                                            class=" m-b-5px"
+                                            readonly="true"/>
+                                    <br>
+
+                                    <div>
+                                        <button id="saveButton" type="submit" class="c-hand btn-success btn "
+                                                name="editProfile" style="position: absolute; right: 24px; bottom: 29px;">
+                                            Save
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="show-themes" class="modal-child d-none h-100p">
+                    <h2>Side Bar</h2>
+                    BG Color:  <input type="color" id="sideBarColor"> <br>
+                    Font Color: <input type="color" id="sideBarFontColor"> <br>
+                    Font Style: <input type="text" id="sideBarFontStyle"> <br>
+                    Font Size: <input type="number" id="sideBarFontSize"> <br>
+                    Font Weight: <input type="number" id="sideBarFontWeight"> <br>
+
+                    <h2>Header</h2>
+                    BG Color:  <input type="color" id="topBarColor"> <br>
+                    Font Color: <input type="color" id="topBarFontColor"> <br>
+                    Font Style: <input type="text" id="topBarFontStyle"> <br>
+                    Font Size: <input type="number" id="topBarFontSize"> <br>
+                    font Weight: <input type="number" id="topBarFontWeight"> <br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+<?php } ?>
 <script>
 
     document.body.onclick = function (e) {
@@ -521,7 +980,6 @@ if (isset($_POST['editProfile'])) {
         $('#settings-details').toggleClass('bg-dark')
         $('#top').toggleClass('bg-dark')
         $('#top').toggleClass('b-bottom-white-3px')
-        $('#top').toggleClass('w-79-9p')
         $('#side').toggleClass('bg-dark')
         $('#side').toggleClass('b-right-1px-white')
         $('body').toggleClass('bg-dark')
@@ -546,10 +1004,15 @@ if (isset($_POST['editProfile'])) {
 
             $('#circle-parent').removeClass('pad-left-44px')
             $('#circle-parent').addClass('bg-gray')
-            $('#content').removeClass('bg-dark')
+
 
             $('#top').addClass('bg-blue')
 
+            $('#x-hide-show-side-bar').removeClass('bg-dark')
+            $('#settings-details').removeClass('bg-dark')
+            $('#settings-details > div').removeClass('bg-dark')
+            $('body').addClass('bg-dark')
+            $('#content').removeClass('bg-dark')
         }
     }
 
@@ -722,47 +1185,36 @@ if (isset($_POST['editProfile'])) {
             showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>','profile');
         }
 
-        function loadPage() {
-            let darkMode = localStorage.getItem("darkMode");
-            if (darkMode === '1') {
-                $('#circle-parent').addClass('pad-left-44px')
-                $('#circle-parent').addClass('bg-light-green')
-
-                $('#settings-details').addClass('bg-dark')
-                $('#top').addClass('bg-dark')
-                $('#top').addClass('b-bottom-white-3px')
-                $('#top').addClass('w-79-9p')
-                $('#side').addClass('bg-dark')
-                $('#side').addClass('b-right-1px-white')
-                $('body').addClass('bg-dark')
-                $('#content').addClass('bg-dark')
-                $('#x-hide-show-side-bar').addClass('bg-dark')
-
-                $('.settings-1 label').css('color', 'white')
-                $('#top div').css('color', 'white')
-            } else {
-                $('#circle-parent').removeClass('pad-left-44px')
-                $('#circle-parent').addClass('bg-gray')
-
-                $('#settings-details').removeClass('bg-dark')
-                $('#top').removeClass('bg-dark')
-                $('#top').removeClass('b-bottom-white-3px')
-                $('#top').addClass('bg-blue')
-                $('#top').removeClass('w-79-9p')
-                $('#side').removeClass('bg-dark')
-                $('#side').removeClass('b-right-1px-white')
-                $('body').removeClass('bg-dark')
-                $('#content').removeClass('bg-dark')
-                $('#x-hide-show-side-bar').removeClass('bg-dark')
-
-                $('.settings-1 label').css('color', 'black')
-                $('#top div').css('color', 'black')
-            }
-        }
-
-        loadPage();
 
     });
+    function loadPage() {
+        let load = localStorage.getItem("load");
+        let darkMode = localStorage.getItem("darkMode");
+        if (darkMode === '1') {
+            $.post('', {darkMode: 1});
+
+            if (load !== '1') {
+                localStorage.setItem("load", "1");
+                window.location.reload();
+            }
+            $('.settings-1 label').css('color', 'white')
+            $('#top div').css('color', 'white')
+            $('#circle-parent').addClass('pad-left-44px')
+            $('#circle-parent').removeClass('bg-gray')
+            $('#circle-parent').addClass('bg-light-green')
+            $('#top').addClass('b-bottom-white-3px')
+
+        } else {
+            $.post('', {darkMode: 0});
+            if (load === '1') {
+                localStorage.setItem("load", "0");
+                window.location.reload();
+            }
+            $('body').removeClass('bg-dark')
+        }
+    }
+
+    loadPage();
 
     var colorWell;
     var defaultColor = "#0000ff";
