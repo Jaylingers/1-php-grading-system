@@ -70,8 +70,8 @@ if (!isset($_SESSION['user_type'])) {
                 <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
             </li>
             <li>
-                <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers Info
-                    Us</a></li>
+                <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Record
+                    </a></li>
             <li>
                 <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
                     </a></li>

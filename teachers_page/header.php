@@ -1135,7 +1135,6 @@ if (isset($_POST['darkMode'])) {
         $('#top').toggleClass('bg-dark')
         $('#top').toggleClass('b-bottom-white-3px')
         $('#side').toggleClass('bg-dark')
-        $('#side').toggleClass('b-right-1px-white')
         $('body').toggleClass('bg-dark')
 
         $('#x-hide-show-side-bar').toggleClass('bg-dark')
@@ -1191,18 +1190,15 @@ if (isset($_POST['darkMode'])) {
         }
     }
 
-
     $(document).ready(function () {
         loadStudArrowLeft();
         viewUserTabs();
-
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
             showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
         }
-
-
     });
+
     function loadPage() {
         let load = localStorage.getItem("load");
         let darkMode = localStorage.getItem("darkMode");

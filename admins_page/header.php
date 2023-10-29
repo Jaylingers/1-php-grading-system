@@ -981,37 +981,29 @@ if (isset($_POST['darkMode'])) {
         $('#top').toggleClass('bg-dark')
         $('#top').toggleClass('b-bottom-white-3px')
         $('#side').toggleClass('bg-dark')
-        $('#side').toggleClass('b-right-1px-white')
-        $('body').toggleClass('bg-dark')
-
         $('#x-hide-show-side-bar').toggleClass('bg-dark')
 
         let darkMode = localStorage.getItem("darkMode");
         if (darkMode !== '1') {
             localStorage.setItem("darkMode", "1");
-
             $('.settings-1 label').css('color', 'white')
             $('#top div').css('color', 'white')
             $('#circle-parent').addClass('pad-left-44px')
             $('#circle-parent').removeClass('bg-gray')
             $('#circle-parent').addClass('bg-light-green')
             $('#content').addClass('bg-dark')
-
+            $('body').addClass('bg-dark')
         } else {
             localStorage.setItem("darkMode", "0");
             $('.settings-1 label').css('color', 'black')
             $('#top div').css('color', 'black')
-
             $('#circle-parent').removeClass('pad-left-44px')
             $('#circle-parent').addClass('bg-gray')
-
-
             $('#top').addClass('bg-blue')
-
             $('#x-hide-show-side-bar').removeClass('bg-dark')
             $('#settings-details').removeClass('bg-dark')
             $('#settings-details > div').removeClass('bg-dark')
-            $('body').addClass('bg-dark')
+            $('body').removeClass('bg-dark')
             $('#content').removeClass('bg-dark')
         }
     }
@@ -1175,18 +1167,15 @@ if (isset($_POST['darkMode'])) {
         }
     }
 
-
     $(document).ready(function () {
         loadStudArrowLeft();
         viewUserTabs();
-
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
             showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>','profile');
         }
-
-
     });
+
     function loadPage() {
         let load = localStorage.getItem("load");
         let darkMode = localStorage.getItem("darkMode");

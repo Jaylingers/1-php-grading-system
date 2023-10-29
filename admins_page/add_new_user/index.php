@@ -144,7 +144,8 @@ if (isset($_POST['studId'])) {
                                                 class="sc-1-3 c-hand"/></th>
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>User</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
                                     <th>Type</th>
                                     <th>Actions</th>
                                 </tr>
@@ -163,6 +164,7 @@ if (isset($_POST['studId'])) {
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
                                         <td><?= $row['username'] ?></td>
+                                        <td><?= $row['password'] ?></td>
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
