@@ -78,10 +78,21 @@ if (!isset($_SESSION['user_type'])) {
         </ul>
     </div>
     <div>
-        <button class="c-hand" onclick="logout()">LOGOUT
-        </button>
+<!--        <button class="c-hand" onclick="logout()">LOGOUT-->
+<!--        </button>-->
+        <?php if ($rows['img_path'] == '') { ?>
+            <img id="settings" src="../../assets/users_img/noImage.png"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                 alt="" class="w-32px c-hand">
+        <?php } else { ?>
+            <img id="settings" src="<?= $rows['img_path'] ?>"
+                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                 alt="" class="w-32px c-hand">
+        <?php } ?>
+
     </div>
 </nav>
+
 <style>
 
     body {
@@ -124,7 +135,37 @@ if (!isset($_SESSION['user_type'])) {
     </div>
 </footer>
 </body>
+<div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: fixed;
+    height: 5em;
+    width: 14em;
+    top: 129px;
+    right: 17px;
+    display: none;
+    background: #e6e6e6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+">
 
+    <style>
+        .admin-settings {
+            border-radius: 13px;
+        }
+
+        .admin-settings:hover {
+            background: #808080a8;
+        }
+    </style>
+    <!--    <form action="index.php" method="post">-->
+    <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                <img class="settings-1" src="../../assets/img/logout2.png" alt="" style="width: 2em; height: 2em">
+                <label for=""
+                       class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
+            </div>
+        </div>
+    </div>
+    <!--    </form>-->
+</div>
 <script>
     function logout() {
         var r = confirm("Are you sure you want to logout?");
@@ -132,5 +173,21 @@ if (!isset($_SESSION['user_type'])) {
             Post('', {logout: 'logout'});
         }
     }
+    document.body.onclick = function (e) {
+        if (e.target.id === 'settings') {
+            if ($('#settings-details').hasClass("d-flex")) {
+                $('#settings-details').removeClass("d-flex")
+                x = 0;
+            } else {
+                x = 1;
+                $('#settings-details').addClass("d-flex")
+            }
+        } else if (e.target.className.includes('settings-1')) {
+            $('#settings-details').addClass("d-flex")
+        } else {
+            $('#settings-details').removeClass("d-flex")
+        }
+    }
+
 </script>
 </html>
