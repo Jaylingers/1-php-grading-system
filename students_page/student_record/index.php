@@ -177,13 +177,15 @@ include '../../students_page/header.php'; ?>
 
                                     <?php
 
-                                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                   $id = $_GET['id'];
                                     $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                             left join users_info ui on si.lrn = ui.user_lrn
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id'
                                             group by si.lrn";
                                     $sqlStudents = mysqli_query($conn, $sqlStudents);
                                     $row = mysqli_fetch_assoc($sqlStudents);
                                     $grade = $row['grade'];
+                                    $lrn = $row['lrn'];
 
                                     $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
                                     $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
