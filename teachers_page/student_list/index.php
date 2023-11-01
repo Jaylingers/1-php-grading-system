@@ -1276,7 +1276,6 @@ if (isset($_POST['add-student-grade'])) {
                         <div>Average: <?= $rowStudent['average'] ?></div>
                     <?php } ?>
 
-
                     <table class="table-bordered w-100p m-t-2em">
                         <col>
                         <col>
@@ -1595,13 +1594,12 @@ if (isset($_POST['add-student-grade'])) {
                                 </table>
                                 <br>
                                 <?php
-                                $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
-                                $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
-                                            group by si.lrn";
-                                $sqlStudents = mysqli_query($conn, $sqlStudents);
-                                $row = mysqli_fetch_assoc($sqlStudents);
-                                $grade = $row['grade'];
+                                $id = isset($_GET['id']) ? $_GET['id'] : '';
+                                $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                                $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                                $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                                $grade = $rowSelectUser['grade'];
 
                                 $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
                                 $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
