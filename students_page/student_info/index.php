@@ -16,7 +16,7 @@ include '../../students_page/header.php'; ?>
                         $sql = "select * from users_info ui
                                 left join students_info si on si.lrn = ui.user_lrn 
                                 left join students_enrollment_info sei on sei.students_info_lrn = si.lrn
-                                where ui.id='$id'";
+                                where ui.id='$id' group by si.lrn";
                         $result = mysqli_query($conn, $sql);
                         while ($rowStudent = mysqli_fetch_assoc($result)) {
                         ?>
@@ -30,7 +30,6 @@ include '../../students_page/header.php'; ?>
                         Age: <label for="" id="age`"><?= $rowStudent['age'] ?></label> <br>
                         Address: <label for="" id="address"><?= $rowStudent['home_address'] ?></label> <br>
                         Guardian Name: <label for="" id="g-name"><?= $rowStudent['guardian_name'] ?></label> <br>
-                        Enrolled Grade: <label for="" id="e-grade"><?= $rowStudent['grade'] ?></label> <br>
                 <?php } ?>
                     </div>
 

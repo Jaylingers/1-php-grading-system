@@ -14,8 +14,10 @@ if (isset($_POST['promoteStudent'])) {
     $section = $promoteStudent[2];
     $grade_plus = $grade + 1;
     $grade_status = $promoteStudent[3];
-    $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted', section=''  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
-    $result = mysqli_query($conn, $sql);
+    $date = date('Y');
+
+    $sqlInsertStudentEnrollment = "INSERT INTO students_enrollment_info (students_info_lrn, grade, section, school_year,date_enrolled,status,grade_status) VALUES ('$lrn', '$grade_plus', '',$date,now(),'Enrolled','Promoted')";
+    $resultInsertStudentEnrollment = mysqli_query($conn, $sqlInsertStudentEnrollment);
 
     $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn=''  WHERE lrn = '$lrn'";
     $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
@@ -32,7 +34,7 @@ if (isset($_POST['promoteStudent'])) {
     $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn, teacher_lrn, section) VALUES ('$lrn', '$teacher_lrn', '$section')";
     $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
 
-    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade', '$section',now())";
+    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade_plus', '$section',now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 }
 
@@ -84,23 +86,16 @@ if (isset($_POST['addStudents'])) {
     $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
     $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 
-    $sqlDeleteGradeInfo = "DELETE FROM students_grade_info WHERE student_lrn = '$lrn_promoted'";
-    $resultDeleteGradeInfo = mysqli_query($conn, $sqlDeleteGradeInfo);
-
-    $sqlDeletGradeAttendance = "DELETE FROM students_grade_attendance_info WHERE student_lrn = '$lrn_promoted'";
-    $resultDeletGradeAttendance = mysqli_query($conn, $sqlDeletGradeAttendance);
-
-    $sqlDeleteGradeAverageInfo = "DELETE FROM students_grade_average_info WHERE students_lrn = '$lrn_promoted'";
-    $resultDeleteGradeAverageInfo = mysqli_query($conn, $sqlDeleteGradeAverageInfo);
-
-
+    $sqlDeletePromotedStudentsHistory = "DELETE FROM promoted_students_history WHERE student_lrn = '$lrn_promoted'";
+    $resultDeletePromotedStudentsHistory = mysqli_query($conn, $sqlDeletePromotedStudentsHistory);
 
 }
 
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?>">
+    <div id="content"
+         class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : '' ?>">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {
@@ -660,8 +655,8 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade' 
+                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                        where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
@@ -673,8 +668,8 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade' 
+                       inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                        where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -685,8 +680,8 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
-                        where sei.grade='$grade'  
+                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                        where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                         // Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;

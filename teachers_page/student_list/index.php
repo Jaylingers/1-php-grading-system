@@ -914,9 +914,17 @@ if (isset($_POST['add-student-grade'])) {
                 <?php
                 if (isset($_GET['lrn'])) {
                     $lrns = $_GET['lrn'];
+                    $id = $_GET['id'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
+
+                    $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                    $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                    $grade = $rowSelectUser['grade'];
+
                     $sql = "select si.l_name, si.f_name, si.m_name, sei.grade,sei.section, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' and sei.grade = '$grade'
                             GROUP BY sei.grade order by sei.id ASC";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($students_enrollment_info_result);
@@ -925,7 +933,7 @@ if (isset($_POST['add-student-grade'])) {
 
                     // Get the total number of records from our table "students".
                     $total_pages = $mysqli->query("select si.l_name, si.f_name, si.m_name, sei.grade,sei.section, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' and sei.grade = '$grade'
                             GROUP BY sei.grade order by sei.id ASC")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
@@ -934,7 +942,7 @@ if (isset($_POST['add-student-grade'])) {
                     $num_results_on_page = 5;
 
                     if ($stmt = $mysqli->prepare("select si.l_name, si.f_name, si.m_name, sei.grade,sei.section, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' and sei.grade = '$grade'
                             GROUP BY sei.grade order by sei.id ASC LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
@@ -1166,8 +1174,16 @@ if (isset($_POST['add-student-grade'])) {
                 <?php
 
                 $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                $grade = $rowSelectUser['grade'];
+
                 $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn' and sei.grade = '$grade'
                                             group by si.lrn";
                 $sqlStudents = mysqli_query($conn, $sqlStudents);
                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
@@ -1218,13 +1234,13 @@ if (isset($_POST['add-student-grade'])) {
                         <?php
 
                         $studentLrn = $_GET['lrn'];
+                        $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-                        $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn'
-                                            group by si.lrn";
-                        $sqlStudents = mysqli_query($conn, $sqlStudents);
-                        $row = mysqli_fetch_assoc($sqlStudents);
-                        $grade = $row['grade'];
+                        $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                        $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                        $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                        $grade = $rowSelectUser['grade'];
 
                         $sqlUser = "select * from students_grade_info where student_lrn='$studentLrn' and grade='$grade'";
                         $resultUsers = mysqli_query($conn, $sqlUser);
@@ -1244,12 +1260,13 @@ if (isset($_POST['add-student-grade'])) {
                     <?php
 
                     $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
-                    $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
-                                            group by si.lrn";
-                    $sqlStudents = mysqli_query($conn, $sqlStudents);
-                    $row = mysqli_fetch_assoc($sqlStudents);
-                    $grade = $row['grade'];
+                    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                    $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                    $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                    $grade = $rowSelectUser['grade'];
 
                     $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
                     $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
@@ -1294,7 +1311,15 @@ if (isset($_POST['add-student-grade'])) {
                         $grade = $row['grade'];
                         $teacherLrn = $row['teacher_lrn'];
 
-                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$grade'";
+                        $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                        $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                        $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                        $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                        $tGrade = $rowSelectUser['grade'];
+
+                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$tGrade'";
                         $resultUsers = mysqli_query($conn, $sqlUser);
                         while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                             ?>
@@ -1448,8 +1473,16 @@ if (isset($_POST['add-student-grade'])) {
                                 <?php
 
                                 $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
+                                $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                                $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                                $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                                $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                                $grade = $rowSelectUser['grade'];
+
                                 $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn' and sei.grade = '$grade'
                                             group by si.lrn";
                                 $sqlStudents = mysqli_query($conn, $sqlStudents);
                                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
@@ -1463,7 +1496,7 @@ if (isset($_POST['add-student-grade'])) {
                                                             value="<?php echo $schoolName ?>">
                                     </div>
                                     <div>
-                                        <div class="d-inline-flex">Grade & Section: <label for=""
+                                        <div class="d-inline-flex">Grade & Section:1 <label for=""
                                                                                            id="view-student-grade-grade"
                                                                                            class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
                                         </div>
@@ -1494,22 +1527,18 @@ if (isset($_POST['add-student-grade'])) {
                                         <th class="t-align-center">Passed or Failed</th>
                                     </tr>
                                     <?php
+                                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
                                     $id = $_GET['id'];
                                     $sqlUser = "select * from teachers_subject_info tsi
                                             left join users_info ui on ui.user_lrn = tsi.teachers_lrn
                                             where ui.id='$id'";
                                     $resultUsers = mysqli_query($conn, $sqlUser);
 
-
-                                    $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
-                                    $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn'
-                                            group by si.lrn";
-                                    $sqlStudents = mysqli_query($conn, $sqlStudents);
-                                    $totals = $sqlStudents->num_rows;
-                                    $row = mysqli_fetch_assoc($sqlStudents);
-
-                                    $grade = $row['grade'];
+                                    $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                                    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                                    $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                                    $grade = $rowSelectUser['grade'];
 
                                     $sqlSelectStudentGradeInfo = "select * from students_grade_info where student_lrn='$lrn' and grade='$grade'";
                                     $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeInfo);
@@ -1610,7 +1639,15 @@ if (isset($_POST['add-student-grade'])) {
                                     $grade = $row['grade'];
                                     $teacherLrn = $row['teacher_lrn'];
 
-                                    $sqlUser = "select * from students_grade_attendance_info where student_lrn='$lrn' and grade='$grade'";
+                                    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+                                    $sqlSelectUser = "select * from users_info ui
+                                        left join teachers_info ti on ti.lrn = ui.user_lrn where ui.id='$id'";
+                                    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                                    $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+                                    $tGrade = $rowSelectUser['grade'];
+
+                                    $sqlUser = "select * from students_grade_attendance_info where student_lrn='$lrn' and grade='$tGrade'";
                                     $resultUsers = mysqli_query($conn, $sqlUser);
                                     $total = $resultUsers->num_rows;
 

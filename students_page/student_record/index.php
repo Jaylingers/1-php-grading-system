@@ -65,7 +65,7 @@ include '../../students_page/header.php'; ?>
                                         <td><?= $row['date_enrolled'] ?></td>
                                         <td>
                                             <label for="" class="t-color-blue c-hand f-weight-bold"
-                                                   onclick="viewStudentGrade()"
+                                                   onclick="viewStudentGrade('<?= $row['grade'] ?>')"
                                             >Grade</label>
                                         </td>
                                     </tr>
@@ -91,13 +91,18 @@ include '../../students_page/header.php'; ?>
                         <div class="modal-header a-center">
                         </div>
                         <div class="modal-body">
-                            <div id="view-student-grade" class="modal-child d-none">
 
+                            <div id="view-student-grade" class="modal-child d-none">
                                 <?php
+                                if (isset($_GET['grade'])) {
+                                    echo "<script>showModal('view-student-grade', 'Student Grade', 'white')</script>";
+                                    ?>
+                                <?php
+                                $sGrade = $_GET['grade'];
                                 $id = $_GET['id'];
                                 $sqlStudents = "select * from students_info si 
-                            left join users_info ui on si.lrn = ui.user_lrn
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id'
+                                           left join users_info ui on si.lrn = ui.user_lrn
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id' and sei.grade='$sGrade'
                                             group by si.lrn";
                                 $sqlStudents = mysqli_query($conn, $sqlStudents);
                                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
@@ -149,11 +154,12 @@ include '../../students_page/header.php'; ?>
                                             <th scope="col" class="b-top-none b-none t-align-center">4</th>
                                         </tr>
                                         <?php
+                                        $sGrade = $_GET['grade'];
                                         $id = $_GET['id'];
 
                                         $sqlStudents = "select * from students_info si 
                                         left join users_info ui on si.lrn = ui.user_lrn
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id' and sei.grade='$sGrade'
                                             group by si.lrn";
                                         $sqlStudents = mysqli_query($conn, $sqlStudents);
                                         $row = mysqli_fetch_assoc($sqlStudents);
@@ -176,11 +182,11 @@ include '../../students_page/header.php'; ?>
                                     </table>
 
                                     <?php
-
+                                    $sGrade = $_GET['grade'];
                                    $id = $_GET['id'];
                                     $sqlStudents = "select * from students_info si 
                                              left join users_info ui on si.lrn = ui.user_lrn
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id' and sei.grade='$sGrade'
                                             group by si.lrn";
                                     $sqlStudents = mysqli_query($conn, $sqlStudents);
                                     $row = mysqli_fetch_assoc($sqlStudents);
@@ -220,10 +226,10 @@ include '../../students_page/header.php'; ?>
                                         </tr>
                                         <?php
                                         $id = $_GET['id'];
-
+                                        $sGrade = $_GET['grade'];
                                         $sqlStudents = "select * from students_info si 
                                         left join users_info ui on si.lrn = ui.user_lrn 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where ui.id='$id' and sei.grade='$sGrade'
                                             group by si.lrn";
                                         $sqlStudents = mysqli_query($conn, $sqlStudents);
                                         $row = mysqli_fetch_assoc($sqlStudents);
@@ -231,7 +237,7 @@ include '../../students_page/header.php'; ?>
                                         $teacherLrn = $row['teacher_lrn'];
                                         $studentLrn = $row['students_info_lrn'];
 
-                                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$grade'";
+                                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and grade='$grade'";
                                         $resultUsers = mysqli_query($conn, $sqlUser);
                                         while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                                             ?>
@@ -277,7 +283,10 @@ include '../../students_page/header.php'; ?>
                                     </button>
                                 </div>
 
+                                <?php } ?>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -288,8 +297,10 @@ include '../../students_page/header.php'; ?>
     </div>
 
     <script>
-        function viewStudentGrade() {
-            showModal('view-student-grade', 'Student Grade', 'white')
+        function viewStudentGrade(grade) {
+            history.pushState(null, null, "?id=" + <?php echo $_GET['id'] ?> + "&&grade=" + grade);
+            window.location.reload();
+
         }
         function print(id) {
             var orientation;
