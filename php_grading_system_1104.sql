@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2023 at 04:14 AM
+-- Generation Time: Nov 04, 2023 at 04:18 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `page_visited_info` (
   `id` int(11) NOT NULL,
   `user_id` int(25) DEFAULT NULL,
   `date_visited` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `page_visited_info`
@@ -68,7 +68,10 @@ INSERT INTO `page_visited_info` (`id`, `user_id`, `date_visited`) VALUES
 (40, 6, '2023-11-04 11:12:53'),
 (41, 1, '2023-11-04 11:13:11'),
 (42, 6, '2023-11-04 11:13:26'),
-(43, 1, '2023-11-04 11:14:00');
+(43, 1, '2023-11-04 11:14:00'),
+(44, 7, '2023-11-04 11:16:29'),
+(45, 7, '2023-11-04 11:17:29'),
+(46, 7, '2023-11-04 11:17:50');
 
 -- --------------------------------------------------------
 
@@ -357,8 +360,7 @@ INSERT INTO `users_info` (`id`, `last_name`, `first_name`, `username`, `password
 (1, 'limpangog', 'daisy', 'admin', 'admin', '', 'admin', '1', '', 0),
 (2, 'teacher1', 'teacher1', 'T0000001', 'teacher1', '', 'teacher', 'T0000001', '', 0),
 (3, 'teacher2', 'teacher2', 'T0000002', 'teacher2', '', 'teacher', 'T0000002', '', 0),
-(6, 'teacher3', 'teacher3', 'T0000003', 'teacher3', '', 'teacher', 'T0000003', '', 0),
-(7, 'student1', 'student1F', 'S0000001', 'student1', '', 'student', 'S0000001', '', 0);
+(6, 'teacher3', 'teacher3', 'T0000003', 'teacher3', '', 'teacher', 'T0000003', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -473,7 +475,7 @@ ALTER TABLE `grade_info`
 -- AUTO_INCREMENT for table `page_visited_info`
 --
 ALTER TABLE `page_visited_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `promoted_students`
 --
