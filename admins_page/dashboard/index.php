@@ -15,7 +15,7 @@ include '../header.php'; ?>
         border-radius: 50%;
         height: 16em;
         width: 78%;
-        margin-bottom: 4em;
+        margin-bottom: 6em;
     }
 </style>
 <div class="d-flex-end p-absolute w-100p t-60px">

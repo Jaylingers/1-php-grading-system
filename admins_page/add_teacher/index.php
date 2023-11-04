@@ -302,6 +302,7 @@ if (isset($_POST['teacherStudentID'])) {
                             <th>Email Address</th>
                             <th>Grade</th>
                             <th>Section</th>
+                            <th>Subject</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -323,6 +324,7 @@ if (isset($_POST['teacherStudentID'])) {
                                 <td><?= $row['email_address'] ?></td>
                                 <td><?= $row['grade'] ?></td>
                                 <td><?= $row['section'] ?></td>
+                                <td><?= $row['subject'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')"
