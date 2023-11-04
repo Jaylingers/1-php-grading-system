@@ -114,10 +114,11 @@ include '../header.php'; ?>
                         if ($category === 'teacher') {
                             if ($grade === '') {
                                 $sql = "select * from teachers_info ti
+                                          left join teachers_subject_info tsi on tsi.teachers_lrn = ti.lrn
                                         left join users_info ui on ui.user_lrn = ti.lrn";
                                 $result = mysqli_query($conn, $sql);
                             } else {
-                                $sql = "select ti.first_name, ti.last_name, ui.img_path from teachers_subject_info  tsi
+                                $sql = "select ti.first_name, ti.last_name, ui.img_path, tsi.subject,tsi.grade from teachers_subject_info  tsi
                                         left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                                         left join users_info ui on ui.user_lrn = ti.lrn
                                         where tsi.grade = $grade
@@ -126,11 +127,12 @@ include '../header.php'; ?>
                             }
                         } else if ($category === 'students') {
                             if ($grade === '') {
-                                $sql = "select si.f_name as first_name, si.l_name as last_name, ui.img_path from students_info si
+                                $sql = "select si.f_name as first_name, si.l_name as last_name, ui.img_path, sei.grade from students_info si
+                                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn
                                         left join users_info ui on ui.user_lrn = si.lrn group by si.lrn";
                                 $result = mysqli_query($conn, $sql);
                             } else {
-                                $sql = "select si.f_name as first_name, si.l_name as last_name,ui.img_path from students_enrollment_info  sei
+                                $sql = "select si.f_name as first_name, si.l_name as last_name,ui.img_path,sei.grade from students_enrollment_info  sei
                                         left join students_info si on si.lrn = sei.students_info_lrn
                                         left join users_info ui on ui.user_lrn = si.lrn
                                         where sei.grade = $grade
@@ -193,8 +195,14 @@ include '../header.php'; ?>
                                             <?php if ($category === 'pageVisited') { ?>
                                                 name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
                                                 date visited: <?php echo $rows['date_visited'] ?>
-                                            <?php } else { ?>
+                                            <?php } else if($category === 'teacher') { ?>
+                                                <br>
                                                 name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
+                                                grade: <?php echo $rows['grade'] ?> <br>
+                                                subject: <?php echo $rows['subject'] ?>
+                                            <?php } else { ?>
+                                            name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
+                                            grade: <?php echo $rows['grade'] ?>
                                             <?php } ?>
                                         </div>
                                     </div>

@@ -641,21 +641,18 @@ if (isset($_POST['addStudents'])) {
                         </div>
                         <br/> <br/>
                         <?php
-                        $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
+                        $sqlSelectUser = "select * from teachers_info ti
+                                            left join users_info ui on ui.user_lrn=ti.lrn 
+                                            where ui.id='$id'";
                         $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
                         $row = mysqli_fetch_assoc($resultSelectUser);
-                        $teacher_lrn = $row['user_lrn'];
-
-                        $sqlSelectTeacher = "SELECT * FROM `teachers_info` where lrn = '$teacher_lrn'";
-                        $resultSelectTeacher = mysqli_query($conn, $sqlSelectTeacher);
-                        $rows = mysqli_fetch_assoc($resultSelectTeacher);
-                        $grade = $rows['grade'];
+                        $grade = $row['grade'];
 
                         $sql = "SELECT GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn and sei.grade = psh.grade
                         where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -668,7 +665,7 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                       inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                       inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn and sei.grade = psh.grade
                         where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -680,7 +677,7 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history psh on psh.student_lrn = sei.students_info_lrn and sei.grade = psh.grade
                         where psh.grade='$grade' 
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                         // Calculate the page to get the results we need from our table.

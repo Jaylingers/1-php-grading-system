@@ -14,7 +14,7 @@ include '../../students_page/header.php'; ?>
                         $sql = "select * from users_info ui
                                     left join students_info si on si.lrn = ui.user_lrn
                                     left join students_enrollment_info se on se.students_info_lrn = si.lrn
-                                    where ui.id='$id' order by  si.lrn DESC Limit 1";
+                                    where ui.id='$id' order by  se.grade ASC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
@@ -24,7 +24,7 @@ include '../../students_page/header.php'; ?>
                         $total_pages = $mysqli->query("select * from users_info ui
                                     left join students_info si on si.lrn = ui.user_lrn
                                     left join students_enrollment_info se on se.students_info_lrn = si.lrn
-                                    where ui.id='$id' order by  si.lrn DESC")->num_rows;
+                                    where ui.id='$id' order by  se.grade ASC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
@@ -33,7 +33,7 @@ include '../../students_page/header.php'; ?>
                         if ($stmt = $mysqli->prepare(" select * from users_info ui
                                     left join students_info si on si.lrn = ui.user_lrn
                                     left join students_enrollment_info se on se.students_info_lrn = si.lrn
-                                    where ui.id='$id' order by  si.lrn DESC LIMIT ?,?")) {
+                                    where ui.id='$id' order by se.grade ASC LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -66,7 +66,7 @@ include '../../students_page/header.php'; ?>
                                         <td>
                                             <label for="" class="t-color-blue c-hand f-weight-bold"
                                                    onclick="viewStudentGrade('<?= $row['grade'] ?>')"
-                                            >Grade</label>
+                                            >View Grade</label>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

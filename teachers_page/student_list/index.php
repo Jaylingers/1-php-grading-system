@@ -106,7 +106,6 @@ if (isset($_POST['add-enrollment'])) {
     $gradeLevel = $_POST['add-enrollment-grade'];
     $section = $_POST['add-enrollment-section'];
     $schoolYear = $_POST['add-enrollment-school-year'];
-    $schoolYear = date("Y-m-d", strtotime($schoolYear));
     $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
     $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
     $status = $_POST['add-enrollment-status'];
@@ -1564,30 +1563,30 @@ if (isset($_POST['add-student-grade'])) {
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','1')"
                                                        type="number" id="<?= $rowUser['subject'] ?>1"
                                                        name="<?= $rowUser['subject'] ?>1"
-                                                       class="w-100p b-none t-align-center" placeholder="0"
-                                                       value="<?= isset($ret['first_grade'][$count]) ? $ret['first_grade'][$count] : 0  ?>"></td>
+                                                       class="w-100p b-none t-align-center"
+                                                       placeholder="<?= isset($ret['first_grade'][$count]) ? $ret['first_grade'][$count] : 0  ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','2')"
                                                        type="number" id="<?= $rowUser['subject'] ?>2"
                                                        name="<?= $rowUser['subject'] ?>2"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['second_grade'][$count]) ? $ret['second_grade'][$count] : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="<?= isset($ret['second_grade'][$count]) ? $ret['second_grade'][$count] : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','3')"
                                                        type="number" id="<?= $rowUser['subject'] ?>3"
                                                        name="<?= $rowUser['subject'] ?>3"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['third_grade'][$count]) ? $ret['third_grade'][$count] : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="<?= isset($ret['third_grade'][$count]) ? $ret['third_grade'][$count] : 0 ?>"></td>
                                             <td><input onchange="getFinalScore('<?= $rowUser['subject'] ?>','4')"
                                                        type="number" id="<?= $rowUser['subject'] ?>4"
                                                        name="<?= $rowUser['subject'] ?>4"
-                                                       class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['fourth_grade'][$count]) ? $ret['fourth_grade'][$count] : 0  ?>"></td>
+                                                       class="w-100p b-none t-align-center"placeholder="<?= isset($ret['fourth_grade'][$count]) ? $ret['fourth_grade'][$count] : 0  ?>"></td>
                                             <td><input readonly="true" type="number"
                                                        id="<?= $rowUser['subject'] ?>final"
                                                        name="<?= $rowUser['subject'] ?>final"
                                                        class="w-100p b-none t-align-center" placeholder="0" value="<?= isset($ret['final'][$count]) ? $ret['final'][$count] : 0  ?>"></td>
                                             <td><input type="number" id="<?= $rowUser['subject'] ?>units"
                                                        name="<?= $rowUser['subject'] ?>units"
-                                                       class="w-100p b-none t-align-center" placeholder="0"  value="<?= isset($ret['units'][$count]) ? $ret['units'][$count] : 0 ?>"></td>
+                                                       class="w-100p b-none t-align-center" placeholder="<?= isset($ret['units'][$count]) ? $ret['units'][$count] : 0 ?>"></td>
                                             <td><input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status"
                                                        name="<?= $rowUser['subject'] ?>status"
-                                                       class="w-100p b-none t-align-center" placeholder="?" value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : 0  ?>"></td>
+                                                       class="w-100p b-none t-align-center" value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : 0  ?>"></td>
                                         </tr>
                                     <?php } ?>
 
