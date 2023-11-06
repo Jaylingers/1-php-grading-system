@@ -79,9 +79,6 @@ if (isset($_POST['id'])) {
     $sqlDeleteStudentGradeAttendanceInfo = "delete from students_grade_attendance_info where student_lrn = '$lrn'";
     $resultDeleteStudentGradeAttendanceInfo = mysqli_query($conn, $sqlDeleteStudentGradeAttendanceInfo);
 
-    $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
-    $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
-
     $sqlPromotedStudentsHistory = "delete from promoted_students_history where student_lrn = '$lrn'";
     $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
 

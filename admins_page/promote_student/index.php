@@ -17,12 +17,6 @@ if (isset($_POST['promoteStudent'])) {
     $sql = "UPDATE students_enrollment_info SET grade = '$grade_plus', grade_status='promoted', section=''  WHERE students_info_lrn = '$lrn' and grade = '$grade'";
     $result = mysqli_query($conn, $sql);
 
-    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
-    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
-
-    $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn) VALUES ('$lrn')";
-    $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
-
     $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade', '$section',now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 }
@@ -35,9 +29,6 @@ if (isset($_POST['removeStudents'])) {
     $grade_minus = $grade_promoted - 1;
     $sql = "UPDATE students_enrollment_info SET grade = '$grade_minus', grade_status='passed'  WHERE students_info_lrn = '$lrn_promoted' and grade = '$grade_promoted'";
     $result = mysqli_query($conn, $sql);
-
-    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
-    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 }
 
 ?>
@@ -124,7 +115,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                         left join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                        left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                         and sei.section='$section'
@@ -139,7 +130,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                         left join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                           left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                          and sei.section='$section'
@@ -153,7 +144,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                         left join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                         left join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         left join users_info ui on ui.user_lrn = ps.teacher_lrn
                         where sei.grade='$grade'
                          and sei.section='$section'
@@ -463,7 +454,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade' and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -476,7 +467,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -488,7 +479,7 @@ if (isset($_POST['removeStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and sei.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.

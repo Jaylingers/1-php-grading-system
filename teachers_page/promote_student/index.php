@@ -22,19 +22,13 @@ if (isset($_POST['promoteStudent'])) {
     $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn=''  WHERE lrn = '$lrn'";
     $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
 
-    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn'";
-    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
-
     $id = $_GET['id'];
     $sqlUserInfo = "SELECT * FROM `users_info` where id = '$id'";
     $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
     $row = mysqli_fetch_assoc($resultUserInfo);
     $teacher_lrn = $row['user_lrn'];
 
-    $sqlInsertPromoteStudents = "INSERT INTO promoted_students (student_lrn, teacher_lrn, section) VALUES ('$lrn', '$teacher_lrn', '$section')";
-    $resultInsertPromoteStudents = mysqli_query($conn, $sqlInsertPromoteStudents);
-
-    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, grade, section, date) VALUES ('$lrn', '$grade_plus', '$section',now())";
+    $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_students_history (student_lrn, teacher_lrn, grade, section, date) VALUES ('$lrn', '$teacher_lrn', '$grade_plus', '$section',now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 }
 
@@ -57,8 +51,6 @@ if (isset($_POST['removeStudents'])) {
     $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn='$teacher_lrn'  WHERE lrn = '$lrn_promoted'";
     $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
 
-    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
-    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 }
 
 if (isset($_POST['addStudents'])) {
@@ -82,9 +74,6 @@ if (isset($_POST['addStudents'])) {
 
     $sqlUpdateStudentinfo = "UPDATE students_info SET teacher_lrn='$teacher_lrn'  WHERE lrn = '$lrn_promoted'";
     $resultUpdateStudentinfo = mysqli_query($conn, $sqlUpdateStudentinfo);
-
-    $sqlDeletePromoteStudents = "DELETE FROM promoted_students WHERE student_lrn = '$lrn_promoted'";
-    $resultDeletePromoteStudents = mysqli_query($conn, $sqlDeletePromoteStudents);
 
     $sqlDeletePromotedStudentsHistory = "DELETE FROM promoted_students_history WHERE student_lrn = '$lrn_promoted'";
     $resultDeletePromotedStudentsHistory = mysqli_query($conn, $sqlDeletePromotedStudentsHistory);
@@ -126,18 +115,21 @@ if (isset($_POST['addStudents'])) {
                         Promote Students
                     </h3>
                     <div class="r-50px p-absolute t-54px">
+                        <?php
+                        $id = $_GET['id'];
+                        $sqlSelectUser = "SELECT * FROM `users_info` ui
+                                                left join teachers_info ti on ti.lrn = ui.user_lrn
+                                                where ui.id = '$id'";
+                        $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+                        $row = mysqli_fetch_assoc($resultSelectUser);
+                        if($row['grade'] !== "1") {?>
+
                         <button
                                 class="btn bg-hover-gray-dark-v1"
                                 onclick="viewPromote('add promoted students')">
-                            Add Promoted Students(Grade <?php
-                            $id = $_GET['id'];
-                            $sqlSelectUser = "SELECT * FROM `users_info` ui
-                                                left join teachers_info ti on ti.lrn = ui.user_lrn
-                                                where ui.id = '$id'";
-                            $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
-                            $row = mysqli_fetch_assoc($resultSelectUser);
-                            echo $row['grade'] ?>)
+                            Add Promoted Students(Grade <?= $row['grade'] ?>)
                         </button>
+                        <?php } ?>
                         <button
                                 class="btn bg-hover-gray-dark-v1"
                                 onclick="viewPromote('')">
@@ -487,7 +479,7 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade' and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -500,7 +492,7 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -512,7 +504,7 @@ if (isset($_POST['addStudents'])) {
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
-                        inner join promoted_students ps on ps.student_lrn = sei.students_info_lrn
+                        inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and ps.section='$section'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                         // Calculate the page to get the results we need from our table.

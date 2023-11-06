@@ -63,9 +63,6 @@ if (isset($_POST['id'])) {
     $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
     $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
 
-    $sqlPromotedStudents = "delete from promoted_students where student_lrn = '$lrn'";
-    $resultPromotedStudents = mysqli_query($conn, $sqlPromotedStudents);
-
     $sqlPromotedStudentsHistory = "delete from promoted_students_history where student_lrn = '$lrn'";
     $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
 
