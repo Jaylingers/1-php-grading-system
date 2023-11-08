@@ -283,7 +283,8 @@ if (isset($_POST['add-student-grade'])) {
     $resultInsertStudentGradeAttendanceInfo = mysqli_query($conn, $sqlInsertStudentGradeAttendanceInfo);
 
 
-    $sqlSelectTeacherSubject = "select * from teachers_subject_info where teachers_lrn = '$teacherLrn' and grade = '$grade'";
+    $sqlSelectTeacherSubject = "select * from teachers_subject_info tsi
+                                left join teachers_info ti on ti.lrn = tsi.teachers_lrn where tsi.teachers_lrn = '$teacherLrn' and ti.grade = '$grade'";
     $resultSelectTeacherSubject = mysqli_query($conn, $sqlSelectTeacherSubject);
     foreach ($resultSelectTeacherSubject as $key => $value) {
         $subject = $value['subject'];
