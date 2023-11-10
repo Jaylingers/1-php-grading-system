@@ -87,10 +87,10 @@ INSERT INTO `page_visited_info` (`id`, `user_id`, `date_visited`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promoted_students_history`
+-- Table structure for table `promoted_info`
 --
 
-CREATE TABLE IF NOT EXISTS `promoted_students_history` (
+CREATE TABLE IF NOT EXISTS `promoted_info` (
   `id` int(11) NOT NULL,
   `student_lrn` varchar(50) NOT NULL DEFAULT '',
   `teacher_lrn` varchar(25) NOT NULL,
@@ -411,9 +411,9 @@ ALTER TABLE `page_visited_info`
   ADD PRIMARY KEY (`id`,`user_id`), ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `promoted_students_history`
+-- Indexes for table `promoted_info`
 --
-ALTER TABLE `promoted_students_history`
+ALTER TABLE `promoted_info`
   ADD PRIMARY KEY (`student_lrn`,`grade`), ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -497,9 +497,9 @@ ALTER TABLE `grade_info`
 ALTER TABLE `page_visited_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=78;
 --
--- AUTO_INCREMENT for table `promoted_students_history`
+-- AUTO_INCREMENT for table `promoted_info`
 --
-ALTER TABLE `promoted_students_history`
+ALTER TABLE `promoted_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `school_years_info`
@@ -556,10 +556,10 @@ ALTER TABLE `users_info`
 --
 
 --
--- Constraints for table `promoted_students_history`
+-- Constraints for table `promoted_info`
 --
-ALTER TABLE `promoted_students_history`
-ADD CONSTRAINT `promoted_students_history_ibfk_1` FOREIGN KEY (`student_lrn`) REFERENCES `students_enrollment_info` (`students_info_lrn`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `promoted_info`
+ADD CONSTRAINT `promoted_info_ibfk_1` FOREIGN KEY (`student_lrn`) REFERENCES `students_enrollment_info` (`students_info_lrn`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `students_enrollment_info`

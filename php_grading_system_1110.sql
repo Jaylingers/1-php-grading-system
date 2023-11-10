@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 01:32 PM
+-- Generation Time: Nov 10, 2023 at 03:03 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `page_visited_info` (
   `id` int(11) NOT NULL,
   `user_id` int(25) NOT NULL DEFAULT '0',
   `date_visited` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `page_visited_info`
@@ -59,7 +59,10 @@ CREATE TABLE IF NOT EXISTS `page_visited_info` (
 
 INSERT INTO `page_visited_info` (`id`, `user_id`, `date_visited`) VALUES
 (1, 10, '2023-11-09 20:17:11'),
-(2, 11, '2023-11-09 20:17:32');
+(2, 11, '2023-11-09 20:17:32'),
+(3, 10, '2023-11-10 20:50:29'),
+(4, 11, '2023-11-10 21:07:47'),
+(5, 14, '2023-11-10 22:01:58');
 
 -- --------------------------------------------------------
 
@@ -69,12 +72,42 @@ INSERT INTO `page_visited_info` (`id`, `user_id`, `date_visited`) VALUES
 
 CREATE TABLE IF NOT EXISTS `promoted_info` (
   `id` int(11) NOT NULL,
+  `student_lrn` varchar(50) DEFAULT NULL,
+  `teacher_lrn` varchar(50) DEFAULT NULL,
+  `grade` int(11) DEFAULT NULL,
+  `section` varchar(50) DEFAULT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `promoted_info`
+--
+
+INSERT INTO `promoted_info` (`id`, `student_lrn`, `teacher_lrn`, `grade`, `section`, `date`) VALUES
+(14, 'S0000001', 'T0000002', 3, 'section b', '2023-11-10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promoted_students_history`
+--
+
+CREATE TABLE IF NOT EXISTS `promoted_students_history` (
+  `id` int(11) NOT NULL,
   `student_lrn` varchar(50) NOT NULL DEFAULT '',
   `teacher_lrn` varchar(25) NOT NULL,
   `grade` int(11) NOT NULL DEFAULT '0',
   `section` varchar(25) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `promoted_students_history`
+--
+
+INSERT INTO `promoted_students_history` (`id`, `student_lrn`, `teacher_lrn`, `grade`, `section`, `date`) VALUES
+(11, 'S0000001', 'T0000001', 1, 'section a', '2023-11-10'),
+(12, 'S0000001', 'T0000002', 2, 'section b', '2023-11-10');
 
 -- --------------------------------------------------------
 
@@ -110,7 +143,16 @@ CREATE TABLE IF NOT EXISTS `students_enrollment_info` (
   `date_enrolled` date NOT NULL,
   `status` varchar(50) NOT NULL,
   `grade_status` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_enrollment_info`
+--
+
+INSERT INTO `students_enrollment_info` (`id`, `students_info_lrn`, `grade`, `section`, `school_year`, `date_enrolled`, `status`, `grade_status`) VALUES
+(10, 'S0000001', 1, 'section a', 2016, '2023-11-02', 'new', 'Passed'),
+(15, 'S0000001', 2, 'section b', 2023, '2023-11-10', 'Enrolled', 'Passed'),
+(16, 'S0000001', 3, '', 2023, '2023-11-10', 'Enrolled', 'Promoted');
 
 -- --------------------------------------------------------
 
@@ -147,7 +189,15 @@ CREATE TABLE IF NOT EXISTS `students_grade_attendance_info` (
   `apr_days_presents` int(11) DEFAULT NULL,
   `may_days_classes` int(11) DEFAULT NULL,
   `may_days_presents` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_grade_attendance_info`
+--
+
+INSERT INTO `students_grade_attendance_info` (`id`, `grade`, `student_lrn`, `teacher_lrn`, `june_days_classes`, `june_days_presents`, `july_days_classes`, `july_days_presents`, `aug_days_classes`, `aug_days_presents`, `sep_days_classes`, `sep_days_presents`, `oct_days_classes`, `oct_days_presents`, `nov_days_classes`, `nov_days_presents`, `dec_days_classes`, `dec_days_presents`, `jan_days_classes`, `jan_days_presents`, `feb_days_classes`, `feb_days_presents`, `mar_days_classes`, `mar_days_presents`, `apr_days_classes`, `apr_days_presents`, `may_days_classes`, `may_days_presents`) VALUES
+(6, 1, 'S0000001', 'T0000001', 1, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 2, 'S0000001', 'T0000002', 11, 11, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -160,7 +210,15 @@ CREATE TABLE IF NOT EXISTS `students_grade_average_info` (
   `students_lrn` varchar(25) NOT NULL DEFAULT '',
   `grade` int(11) NOT NULL,
   `average` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_grade_average_info`
+--
+
+INSERT INTO `students_grade_average_info` (`id`, `students_lrn`, `grade`, `average`) VALUES
+(6, 'S0000001', 1, 77),
+(8, 'S0000001', 2, 90);
 
 -- --------------------------------------------------------
 
@@ -181,7 +239,15 @@ CREATE TABLE IF NOT EXISTS `students_grade_info` (
   `final` int(11) DEFAULT NULL,
   `units` int(11) NOT NULL,
   `status` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_grade_info`
+--
+
+INSERT INTO `students_grade_info` (`id`, `student_lrn`, `teacher_lrn`, `subject`, `grade`, `first_grade`, `second_grade`, `third_grade`, `fourth_grade`, `final`, `units`, `status`) VALUES
+(6, 'S0000001', 'T0000001', 'Math', '1', 100, 70, 70, 70, 78, 0, 'Passed'),
+(8, 'S0000001', 'T0000002', 'Filipino', '2', 0, 0, 0, 0, 90, 0, 'Passed');
 
 -- --------------------------------------------------------
 
@@ -208,7 +274,14 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `guardian_name` varchar(50) NOT NULL,
   `addedBy` int(11) NOT NULL,
   `teacher_lrn` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_info`
+--
+
+INSERT INTO `students_info` (`id`, `lrn`, `f_name`, `l_name`, `m_name`, `gender`, `b_date`, `b_place`, `c_status`, `age`, `nationality`, `religion`, `contact_number`, `email_address`, `home_address`, `guardian_name`, `addedBy`, `teacher_lrn`) VALUES
+(1, 'S0000001', 'f', 'student1', 'm', 'Female', '2023-12-31', 'b', 'Single', 1, 'n', 'r', 'c', 'student1@gmail.com', 'h', 'g', 10, '');
 
 -- --------------------------------------------------------
 
@@ -318,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `users_info` (
   `user_lrn` varchar(25) NOT NULL,
   `img_path` varchar(255) NOT NULL,
   `dark_mode` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users_info`
@@ -326,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `users_info` (
 
 INSERT INTO `users_info` (`id`, `last_name`, `first_name`, `username`, `password`, `email`, `user_type`, `user_lrn`, `img_path`, `dark_mode`) VALUES
 (1, 'limpangog', 'daisy', 'admin', 'admin', '', 'admin', '1', '', 0),
+(14, 'student1', 'f', 'S0000001', 'student1', '', 'student', 'S0000001', '', 0),
 (10, 'lastname', 'teacher1', 'T0000001', 'lastname', '', 'teacher', 'T0000001', '', 0),
 (11, 'lastname', 'teacher2', 'T0000002', 'lastname', '', 'teacher', 'T0000002', '', 0),
 (13, 'lastname', 'teacher3', 'T0000003', 'lastname', '', 'teacher', 'T0000003', '', 0);
@@ -350,6 +424,12 @@ ALTER TABLE `page_visited_info`
 -- Indexes for table `promoted_info`
 --
 ALTER TABLE `promoted_info`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promoted_students_history`
+--
+ALTER TABLE `promoted_students_history`
   ADD PRIMARY KEY (`student_lrn`,`grade`), ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -431,12 +511,17 @@ ALTER TABLE `grade_info`
 -- AUTO_INCREMENT for table `page_visited_info`
 --
 ALTER TABLE `page_visited_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `promoted_info`
 --
 ALTER TABLE `promoted_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `promoted_students_history`
+--
+ALTER TABLE `promoted_students_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `school_years_info`
 --
@@ -446,27 +531,27 @@ ALTER TABLE `school_years_info`
 -- AUTO_INCREMENT for table `students_enrollment_info`
 --
 ALTER TABLE `students_enrollment_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `students_grade_attendance_info`
 --
 ALTER TABLE `students_grade_attendance_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `students_grade_average_info`
 --
 ALTER TABLE `students_grade_average_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `students_grade_info`
 --
 ALTER TABLE `students_grade_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `students_info`
 --
 ALTER TABLE `students_info`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `subject_list_info`
 --
@@ -491,7 +576,7 @@ ALTER TABLE `trash_info`
 -- AUTO_INCREMENT for table `users_info`
 --
 ALTER TABLE `users_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
