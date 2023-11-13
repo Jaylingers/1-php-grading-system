@@ -99,7 +99,7 @@ include '../header.php'; ?>
                                 <option value="" selected></option>
                                 <option value="admin">Admin</option>
                                 <option value="teacher">Teacher</option>
-                                <option value="students">Students</option>
+                                <option value="student">Student</option>
                             </select>
                         </div>
 
@@ -142,6 +142,8 @@ include '../header.php'; ?>
                                 $result = mysqli_query($conn, $sql);
                             }
                         } else if ($category === 'pageVisited') {
+
+                            $userType = isset($_GET['user']) ? $_GET['user'] : '';
                             if ($user === '') {
                                 $sql = "select * from page_visited_info pvi
                                     left join users_info ui on ui.id = pvi.user_id
@@ -150,7 +152,7 @@ include '../header.php'; ?>
                             } else {
                                 $sql = "select * from page_visited_info pvi
                                     left join users_info ui on ui.id = pvi.user_id
-                                    where ui.user_type = '$user' order by pvi.date_visited desc";
+                                    where ui.user_type = '$userType' order by pvi.date_visited desc";
                                 $result = mysqli_query($conn, $sql);
                             }
                         }

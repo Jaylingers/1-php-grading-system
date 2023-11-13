@@ -2106,10 +2106,11 @@ if (isset($_POST['add-student-grade'])) {
             var subject = $(this).find('td:nth-child(1)').text();
             var final = $(this).find('td:nth-child(6) input').val();
             if (subject !== '' && final !== '') {
-                average += parseInt(final);
+                average += parseFloat(final);
                 count++;
             }
         });
+
         totalAverage = average / count;
         $('#average').val(totalAverage);
         $('#lbl_average').text(totalAverage);
