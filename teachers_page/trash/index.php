@@ -308,6 +308,19 @@ if (isset($_POST['studId'])) {
     echo '</script>';
 }
 
+if(isset($_POST['deleteTrash'])) {
+    $id = $_POST['deleteTrash'];
+    $sql = "delete from trash_info where id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo '<script>';
+        echo '   
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                window.location.reload();
+            ';
+        echo '</script>';
+    }
+}
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
@@ -341,6 +354,12 @@ if (isset($_POST['studId'])) {
                     <h3>
                         Trash Lists
                     </h3>
+                    <div class="r-50px p-absolute t-54px">
+                        <button
+                                class="btn bg-hover-gray-dark-v1"
+                                onclick="deleteStudents('student-list')">Delete Permanent
+                        </button>
+                    </div>
                 </div>
                 <br/>
 
@@ -378,6 +397,10 @@ if (isset($_POST['studId'])) {
                     <table class="table table-1 b-shadow-dark ">
                         <thead>
                         <tr>
+                            <th class="t-align-center"><label for="student-list-cb" class="d-flex-center"></label><input
+                                        id="student-list-cb" type="checkbox"
+                                        onclick="checkCBStudents('student-list', 'student-list-cb')"
+                                        class="sc-1-3 c-hand"/></th>
                             <th>No</th>
                             <th>LRN</th>
                             <th>Name</th>
@@ -395,6 +418,9 @@ if (isset($_POST['studId'])) {
                             $i++;
                             ?>
                             <tr>
+                                <td class="d-flex-center"><label>
+                                        <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['id'] ?>"/>
+                                    </label></td>
                                 <th scope="row"><?= $i ?> </th>
                                 <td><?= $row['user_lrn'] ?></td>
                                 <td><?= $row['name'] ?></td>
@@ -529,7 +555,7 @@ if (isset($_POST['studId'])) {
                         $.post('', {studentEnrollmentId: studId})
                         isStudentEnrollment = true;
                     } else {
-                        $.post('', {id: studId})
+                        $.post('', {deleteTrash: studId})
                     }
                 });
                 if (isStudentEnrollment) {
