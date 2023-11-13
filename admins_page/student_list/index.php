@@ -414,7 +414,7 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $row['b_date'] ?></td>
                                 <td><?= $row['age'] ?></td>
                                 <td><?= $row['gender'] ?></td>
-                                <td><?= $row['grade'] ?></td>
+                                <td><?= $_GET['Tgrade'] ?></td>
                                 <td><?= $row['section'] ?></td>
                                 <td><?= $row['addedBy'] ?></td>
                                 <td>
@@ -806,7 +806,7 @@ if (isset($_POST['update-student-info'])) {
                     $TGrade = $_GET['Tgrade'];
                     echo "<script>showModal('view-student-enrollment', 'Student Enrollment')</script>";
                     $sql = "select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' and sei.grade = '$TGrade'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' 
                             GROUP BY sei.grade order by sei.id ASC";
                     $students_enrollment_info_result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($students_enrollment_info_result);
@@ -815,7 +815,7 @@ if (isset($_POST['update-student-info'])) {
 
                     // Get the total number of records from our table "students".
                     $total_pages = $mysqli->query("select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'  and sei.grade = '$TGrade'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns' 
                             GROUP BY sei.grade order by sei.id ASC")->num_rows;
                     //  Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                     $page = isset($_GET['page_enrollment']) && is_numeric($_GET['page_enrollment']) ? $_GET['page_enrollment'] : 1;
@@ -824,7 +824,7 @@ if (isset($_POST['update-student-info'])) {
                     $num_results_on_page = 5;
 
                     if ($stmt = $mysqli->prepare("select sei.grade, sei.section,si.l_name, si.f_name, si.m_name, sei.grade, sei.school_year, sei.date_enrolled, sei.status, sei.id from students_info si 
-                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'  and sei.grade = '$TGrade'
+                            inner join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn = '$lrns'  
                             GROUP BY sei.grade order by sei.id ASC LIMIT ?,?")) {
                         //    Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
@@ -1022,9 +1022,14 @@ if (isset($_POST['update-student-info'])) {
                 <?php
 
                 $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
-                $Tgrade = isset($_GET['Tgrade']) ? $_GET['Tgrade'] : '';
+                $Sgrade = isset($_GET['Sgrade']) ? $_GET['Sgrade'] : '';
+                if(isset($_GET['Sgrade'])){
+                    echo "<script>showModal('view-student-grade', 'Student Grade')</script>";
+                }
+
+
                 $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn' and sei.grade='$Tgrade'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$lrn' and sei.grade='$Sgrade'
                                             group by si.lrn";
                 $sqlStudents = mysqli_query($conn, $sqlStudents);
                 while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
@@ -1074,9 +1079,9 @@ if (isset($_POST['update-student-info'])) {
                         <?php
 
                         $studentLrn = $_GET['lrn'];
-                        $Tgrade = $_GET['Tgrade'];
+                        $Sgrade = isset($_GET['Sgrade']) ? $_GET['Sgrade'] : '';
                         $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn' and sei.grade='$Tgrade'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn' and sei.grade='$Sgrade'
                                             group by si.lrn";
                         $sqlStudents = mysqli_query($conn, $sqlStudents);
                         $row = mysqli_fetch_assoc($sqlStudents);
@@ -1096,6 +1101,27 @@ if (isset($_POST['update-student-info'])) {
                             </tr>
                         <?php } ?>
                     </table>
+
+                    <?php
+                    $Sgrade = $_GET['Sgrade'];
+                    $Slrn = $_GET['lrn'];
+                    $id = $_GET['id'];
+                    $sqlStudents = "select * from students_info si 
+                                             left join users_info ui on si.lrn = ui.user_lrn
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$Slrn' and sei.grade='$Sgrade'
+                                            group by si.lrn";
+                    $sqlStudents = mysqli_query($conn, $sqlStudents);
+                    $row = mysqli_fetch_assoc($sqlStudents);
+                    $grade = $row['grade'];
+                    $lrn = $row['lrn'];
+
+                    $sqlSelectStudentGradeAverage = "select * from students_grade_average_info where students_lrn='$lrn' and grade='$grade'";
+                    $sqlStudentsGrade = mysqli_query($conn, $sqlSelectStudentGradeAverage);
+                    while ($rowStudent = mysqli_fetch_assoc($sqlStudentsGrade)) {
+                        ?>
+                        <br>
+                        <div>Average: <?= $rowStudent['average'] ?></div>
+                    <?php } ?>
 
                     <table class="table-bordered w-100p m-t-2em">
                         <col>
@@ -1122,16 +1148,16 @@ if (isset($_POST['update-student-info'])) {
                         <?php
                         $id = $_GET['id'];
                         $studentLrn = $_GET['lrn'];
-                        $Tgrade = $_GET['Tgrade'];
+                        $Sgrade = isset($_GET['Sgrade']) ? $_GET['Sgrade'] : '';
                         $sqlStudents = "select * from students_info si 
-                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn' and sei.grade='$Tgrade'
+                                            left join students_enrollment_info sei on si.lrn = sei.students_info_lrn where si.lrn='$studentLrn' and sei.grade='$Sgrade'
                                             group by si.lrn";
                         $sqlStudents = mysqli_query($conn, $sqlStudents);
                         $row = mysqli_fetch_assoc($sqlStudents);
                         $grade = $row['grade'];
                         $teacherLrn = $row['teacher_lrn'];
 
-                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and teacher_lrn='$teacherLrn' and grade='$grade'";
+                        $sqlUser = "select * from students_grade_attendance_info where student_lrn='$studentLrn' and grade='$grade'";
                         $resultUsers = mysqli_query($conn, $sqlUser);
                         while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                             ?>
@@ -1401,7 +1427,11 @@ if (isset($_POST['update-student-info'])) {
         $('#view-student-grade #view-student-grade-name').text(lname + ', ' + fname + ' ' + mname + '.');
         $('#view-student-grade #view-student-grade-grade').text(gradeLevel);
         $('#view-student-grade #view-student-grade-school-year').text(schoolYear);
-        showModal('view-student-grade', 'Student Grade')
+
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>&&Sgrade='+gradeLevel);
+        window.location.reload();
+
+        // showModal('view-student-grade', 'Student Grade')
     }
 
     function print(id) {
