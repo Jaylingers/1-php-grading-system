@@ -290,15 +290,15 @@
     background: #0087e9;
 }
 
-.bg-dark1{
+.bg-dark1 {
     background: rgb(18, 18, 18) !important;
 }
 
-.bg-dark2{
+.bg-dark2 {
     background: #2f2f2f !important;
 }
 
-.bg-light-green{
+.bg-light-green {
     background: rgb(11, 224, 155);
 }
 
@@ -394,7 +394,7 @@
     height: 8.8em !important;
 }
 
-.h-12-5em{
+.h-12-5em {
     height: 12.5em !important;
 }
 
@@ -402,17 +402,18 @@
     height: 100%;
 }
 
-.l-height-27px{
+.l-height-27px {
     line-height: 27px;
 }
 
-.h-88p{
+.h-88p {
     height: 88%;
 }
 
-.bottom-0{
+.bottom-0 {
     bottom: 0;
 }
+
 .h-2-8em {
     height: 2.8em;
 }
@@ -445,7 +446,7 @@
     width: 29%;
 }
 
-.w-11em{
+.w-11em {
     width: 11em;
 }
 
@@ -469,16 +470,19 @@
     width: 77%;
 }
 
-.w-74p{
+.w-74p {
     width: 74%;
 }
-.w-66p{
+
+.w-66p {
     width: 66%;
 }
-.w-61p{
+
+.w-61p {
     width: 61%;
 }
-.w-69p{
+
+.w-69p {
     width: 69%;
 }
 
@@ -545,14 +549,16 @@
 .w-100p {
     width: 100% !important;
 }
-.w-10em{
+
+.w-10em {
     width: 10em;
 }
+
 .w-80p {
     width: 80%;
 }
 
-.w-82p{
+.w-82p {
     width: 82%;
 }
 
@@ -561,7 +567,7 @@
     width: 80%;
 }
 
-.w-79-9p{
+.w-79-9p {
     width: 79.9%;
 }
 
@@ -621,7 +627,7 @@
     border: 1px solid black;
 }
 
-.b-6px-gray{
+.b-6px-gray {
     border: 6px solid #e6e6e6;
 }
 
@@ -641,7 +647,7 @@
     border-bottom: 3px solid gray !important;
 }
 
-.b-bottom-gray-1px{
+.b-bottom-gray-1px {
     border-bottom: 1px solid gray !important;
 }
 
@@ -669,7 +675,7 @@
     border-bottom: none !important;
 }
 
-.b-bottom-white-1px{
+.b-bottom-white-1px {
     border-bottom: 1px solid white !important;
 }
 
@@ -704,7 +710,7 @@
     display: inline-grid;
 }
 
-.d-inline-table{
+.d-inline-table {
     display: inline-table;
 }
 
@@ -778,7 +784,7 @@
     padding-left: 6px;
 }
 
-.pad-left-44px{
+.pad-left-44px {
     padding-left: 44px;
 }
 
@@ -818,7 +824,7 @@
     position: fixed;
 }
 
-.h-13em{
+.h-13em {
     height: 13em !important;
 }
 
@@ -838,7 +844,7 @@
     margin-left: 1em;
 }
 
-.m-l-18px{
+.m-l-18px {
     margin-left: 18px;
 }
 
@@ -878,10 +884,12 @@
 .m-b-1em {
     margin-bottom: 1em;
 }
-.m-b-3em{
+
+.m-b-3em {
     margin-bottom: 3em;
 }
-.m-b-5px{
+
+.m-b-5px {
     margin-bottom: 5px;
 }
 
@@ -896,16 +904,19 @@
 .m-t-3em {
     margin-top: 3em;
 }
+
 .m-t-1em {
     margin-top: 1em;
 }
-.m-t-13px{
+
+.m-t-13px {
     margin-top: 13px;
 }
 
-.m-t-19px{
+.m-t-19px {
     margin-top: 19px;
 }
+
 .m-t-n1em {
     margin-top: -1em;
 }
@@ -914,7 +925,7 @@
     margin-top: 5px;
 }
 
-.m-t-9px{
+.m-t-9px {
     margin-top: 9px;
 }
 
@@ -979,14 +990,15 @@
     background: #bababa;
 }
 
-.bg-hover-skyBlue{
+.bg-hover-skyBlue {
     background: #32afd5;
     color: white;
 }
 
-.bg-hover-skyBlue:hover{
+.bg-hover-skyBlue:hover {
     background: #5bc0de;
 }
+
 .ov-hidden {
     overflow: hidden;
 }
@@ -994,7 +1006,8 @@
 .z-i-9999 {
     z-index: 9999;
 }
-.z-i-99999{
+
+.z-i-99999 {
     z-index: 99999;
 }
 
@@ -1014,7 +1027,7 @@
     align-items: center !important;
 }
 
-.f-right{
+.f-right {
     float: right;
 }
 
@@ -1048,11 +1061,11 @@
     scale: 1.3;
 }
 
-.b-shadow-dark{
+.b-shadow-dark {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#writeMessage{
+#writeMessage {
     background: #4b4c4f;
 }
 
@@ -1072,6 +1085,7 @@
     border-radius: 8px;
     display: none;
 }
+
 #writeMessage:hover::before {
     display: block;
 }
@@ -1083,3 +1097,432 @@
 .table-bordered td, .table-bordered th {
     border: 2px solid black !important;
 }
+.alert-danger{
+    text-align: center;
+}
+.mobile-login{
+    display: none;
+}
+@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {
+    /* iPhone SE */
+
+    .login{
+        display: none !important;
+    }
+    .mobile-login{
+        position: absolute;
+        top: 16em;
+        width: 100%;
+        display: block;
+    }
+    .mobile-login input{
+        width: 100%;
+    }
+
+    .hero-title [data-aos][data-aos][data-aos-delay="600"].aos-animate, body[data-aos-delay="600"] [data-aos].aos-animate {
+        font-size: 2em;
+    }
+
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 61%;
+        bottom: -35px;
+    }
+
+    .mabes-list .thumbnail {
+        width: 6.5em;
+        height: 7rem;
+    }
+    .mabes-list .thumbnail .place-name{
+        font-size: 15px;
+    }
+    .mabes-list .active{
+        margin-top: -1.5rem;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+        font-size: 19px;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 3em;
+        width: 100%;
+        text-align: center;
+        font-size: 25px !important;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 8em;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+    .header .logo img{
+        width: 21%;
+    }
+
+    .alert-danger{
+        font-size: 9px;
+    }
+}
+
+@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
+    /* iPhone 12 Pro */
+
+    .login{
+        display: none !important;
+    }
+    .mobile-login{
+        position: absolute;
+        top: 20em;
+        width: 100%;
+        display: block;
+    }
+    .mobile-login input{
+        width: 100%;
+    }
+
+    .hero-title [data-aos][data-aos][data-aos-delay="600"].aos-animate, body[data-aos-delay="600"] [data-aos].aos-animate {
+        font-size: 2em;
+    }
+
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 64%;
+        bottom: -11px;
+    }
+
+    .mabes-list .thumbnail {
+        width: 6.5em;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 13em;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {
+    /* iPhone XR */
+
+    .login{
+        display: none !important;
+    }
+    .mobile-login{
+        position: absolute;
+        top: 21em;
+        width: 100%;
+        display: block;
+    }
+    .mobile-login input{
+        width: 100%;
+    }
+
+    .hero-title [data-aos][data-aos][data-aos-delay="600"].aos-animate, body[data-aos-delay="600"] [data-aos].aos-animate {
+        font-size: 2em;
+    }
+
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 59%;
+    }
+
+    .mabes-list .thumbnail {
+        width: 7.5em;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 13em;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 415px) and (max-width: 430px) {
+    /* iPhone 14 Pro Max */
+    .login {
+        display: none !important;
+    }
+
+    .mobile-login {
+        position: absolute;
+        top: 21em;
+        width: 100%;
+        display: block;
+    }
+
+    .mobile-login input {
+        width: 100%;
+    }
+
+    .hero-title [data-aos][data-aos][data-aos-delay="600"].aos-animate, body[data-aos-delay="600"] [data-aos].aos-animate {
+        font-size: 2em;
+    }
+
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 62%;
+    }
+
+    .mabes-list .thumbnail {
+        width: 7.5em;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 4.5em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 13em;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {
+    /* iPad Air & iPad Mini */
+
+    .login {
+        display: none !important;
+    }
+
+    .mobile-login {
+        position: absolute;
+        top: 21em;
+        width: 100%;
+        display: block;
+    }
+
+    .mobile-login input {
+        width: 100%;
+    }
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 69%;
+    }
+
+    .mabes-list .thumbnail {
+        width: 13em;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 6em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 3em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        top: 17em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
+    /* iPad Air & iPad Mini */
+
+    .login {
+        display: none !important;
+    }
+
+    .mobile-login {
+        position: absolute;
+        top: 21em;
+        width: 100%;
+        display: block;
+    }
+
+    .mobile-login input {
+        width: 100%;
+    }
+    .header div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner div {
+        display: none;
+    }
+
+    .mabes-list {
+        left: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+    }
+
+    .mabes-list .thumbnail {
+        width: 13em;
+    }
+
+    .hero-title p:nth-child(1) {
+        position: absolute;
+        top: 6em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title p:nth-child(2) {
+        position: absolute;
+        top: 3em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .details {
+        position: absolute;
+        top: 17em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title .Visit {
+        display: none;
+    }
+}
+
+
+

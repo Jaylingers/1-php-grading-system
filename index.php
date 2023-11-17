@@ -309,6 +309,45 @@ if (isset($_SESSION['user_type'])) {
     </form>
 </div>
 
+<div class="mobile-login">
+    <?php if (isset($_GET['error'])) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_GET['error']; ?>
+        </div>
+    <?php } ?>
+    <form action="index.php" method="post" class="d-flex-center t-align-center w-100p b-shadow-none">
+        <div class="b-radius-10px  h-80p w-77p">
+            <div class="d-flex-center h-5em">
+                <input type="username"
+                       id="username"
+                       name="username"
+                       required
+                       placeholder="Username/LRN"
+                       class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
+                       value="<?php if (isset($_GET['username']))
+                           echo($_GET['username']); ?>"
+                >
+            </div>
+            <div class="d-flex-center h-5em">
+                <input placeholder="Password" type="password"
+                       class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
+                       id="password"
+                       name="password"
+                       required
+                       value="<?php if (isset($_GET['password']))
+                           echo($_GET['password']); ?>"
+                >
+            </div>
+
+            <div class="d-flex-center h-5em">
+                <button type="submit"
+                        class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue"
+                        name="login">Login
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
