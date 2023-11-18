@@ -1,4 +1,3 @@
-
 <?php
 global $conn;
 include "db_conn.php";
@@ -48,7 +47,7 @@ if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
     $id = $_SESSION['ids'];
     echo "<script> alert('$userType')</script>";
-    if(strtolower($userType) == 'student'){
+    if (strtolower($userType) == 'student') {
         header("Location: /1-php-grading-system/students_page/student_info?id=" . $id);
     } else if (strtolower($userType) == 'teacher') {
         header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $id);
@@ -57,7 +56,6 @@ if (isset($_SESSION['user_type'])) {
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -129,8 +127,9 @@ if (isset($_SESSION['user_type'])) {
                     <div style=" width: 30em; text-align: right">
                         <button
                                 class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue btn_io1 "
-                                >
-                            <a href="/1-php-grading-system/" style="color: white">Back</a>
+                                onclick="back()"
+                        >
+                          Back
 
                         </button>
                         <button type="submit"
@@ -216,7 +215,7 @@ if (isset($_SESSION['user_type'])) {
 <section id="about" class="about">
     <div class="container">
         <div class="df_at">
-            <img src="NewMabes/img/Learning.jpg" class="img_at" alt="About Picture" />
+            <img src="NewMabes/img/Learning.jpg" class="img_at" alt="About Picture"/>
             <div class="text_at">
                 <p class="first_at">ABOUT US</p>
                 <h1>Innovative Way To Learn</h1>
@@ -286,7 +285,7 @@ if (isset($_SESSION['user_type'])) {
                 If you want to sign up, you must type form in connect section.
             </p>
             <div class="email-div">
-                <input type="text" class="form-control" placeholder="Name" />
+                <input type="text" class="form-control" placeholder="Name"/>
                 <div class="btn_foo"><a href="#">Send Now</a></div>
             </div>
         </div>
@@ -321,6 +320,10 @@ if (isset($_SESSION['user_type'])) {
         }
 
     }
+    function back() {
+        window.location.href = "/1-php-grading-system/";
+    }
+
     loadPage();
 </script>
 </body>
