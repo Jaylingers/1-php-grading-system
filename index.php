@@ -101,7 +101,7 @@ if (isset($_SESSION['user_type'])) {
         <form action="index.php" method="post" class="d-flex-center t-align-center w-100p b-shadow-none">
             <div class="b-radius-10px  h-80p w-77p">
                 <div class="d-flex-center h-5em">
-                    <input type="username" style="width: 36em;
+                    <input type="username" style="width: 36em; border-radius: 2em;
     height: 5em;"
                            id="username"
                            name="username"
@@ -114,7 +114,7 @@ if (isset($_SESSION['user_type'])) {
                 </div>
                 <br>
                 <div class="d-flex-center h-5em">
-                    <input placeholder="Password" type="password" style="width: 36em;
+                    <input placeholder="Password" type="password" style="width: 36em; border-radius: 2em;
     height: 5em;"
                            class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
                            id="password"
