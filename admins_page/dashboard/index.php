@@ -22,7 +22,7 @@ include '../header.php'; ?>
     <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?>">
 
 
-        <div class="m-2em d-flex-align-start ">
+        <div class="m-2em d-flex-align-start " id="grid-b">
             <div id="categories" class="d-flex-center bg-gray-light pad-3em w-100p b-radius-10px">
                 <div id="students" class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center c-hand"
                      onclick="chooseCategory('students')"><img
@@ -70,7 +70,7 @@ include '../header.php'; ?>
             </div>
         </div>
 
-        <div class="m-2em d-flex-align-start">
+        <div class="m-2em d-flex-align-start"  id="grid-b">
             <div class="bg-white w-100p b-radius-10px">
                 <?php
                 $category = isset($_GET['category']) ? $_GET['category'] : '';
@@ -193,7 +193,7 @@ include '../header.php'; ?>
                                         <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
                                              style="position: absolute; margin-left: 10em"> NEW
                                         </div>
-                                        <div style="position: absolute;     margin-top: 20em;">
+                                        <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
                                             <?php if ($category === 'pageVisited') { ?>
                                                 name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
                                                 date visited: <?php echo $rows['date_visited'] ?>

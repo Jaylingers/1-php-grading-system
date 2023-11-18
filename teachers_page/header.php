@@ -79,6 +79,7 @@ if (isset($_POST['darkMode'])) {
     <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
     <head>
         <link rel="stylesheet" href="../../assets/css/style_custom.css">
+        <link rel="stylesheet" href="../../assets/css/teachers_style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -88,7 +89,7 @@ if (isset($_POST['darkMode'])) {
     </head>
     <body class="bg-dark" onload="loadTopArrow()">
     <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999 bg-dark" id="side">
-        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
+        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em" id="side-a">
             <a href="/1-php-grading-system/"> <img
                         src="../../assets/img/mabes.png" alt=""
                         class="w-38px m-3-6px"/></a>
@@ -530,6 +531,7 @@ if (isset($_POST['darkMode'])) {
     <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
     <head>
         <link rel="stylesheet" href="../../assets/css/style_custom.css">
+        <link rel="stylesheet" href="../../assets/css/teachers_style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -539,7 +541,7 @@ if (isset($_POST['darkMode'])) {
     </head>
     <body class="bg-dark" onload="loadTopArrow()">
     <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
-        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
+        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em" id="side-a">
             <a href="/1-php-grading-system/"> <img
                         src="../../assets/img/mabes.png" alt=""
                         class="w-38px m-3-6px"/></a>
@@ -606,7 +608,7 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="d-flex-end w-4em"></div>
             </div>
-            <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
+            <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px " id="tab-masterlist-a">
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "teacher_subject_list" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Masterlist
@@ -666,80 +668,6 @@ if (isset($_POST['darkMode'])) {
                         Subject List
                     </div>
                 </div>
-            </div>
-            <div class="tab-maintenance d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('maintenance')" <?php if ($var === "maintenance" || $var === "school_year" || $var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
-                    Maintenance
-                </div>
-                <div class="d-flex-end w-4em">
-                    <div id="arrowLeftButton_maintenance" class="w-1-5em h-1-5em c-hand "
-                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_maintenance','maintenanceTab')"></div>
-                </div>
-            </div>
-            <div class="tab-maintenance d-none ov-hidden transition-0-5s " id="maintenanceTab" style="height: 0">
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
-                        School Year
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
-                        Grade List
-                    </div>
-                </div>
-            </div>
-            <div class="tab-studentInfo d-none h-4em  d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_info')" <?php if ($var === "student_info") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student Info
-                </div>
-                <div class="d-flex-end w-4em m-t-5px"></div>
-            </div>
-            <div class="tab-studentRecord d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('studentRecord')" <?php if ($var === "studentRecord" || $var === "grade" || $var === "report") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student Record
-                </div>
-                <div class="d-flex-end w-4em">
-                    <div id="arrowLeftButton_studentRecord" class="w-1-5em h-1-5em c-hand "
-                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_studentRecord','studentRecordTab')"></div>
-                </div>
-            </div>
-            <div class="tab-studentRecord d-none ov-hidden transition-0-5s " id="studentRecordTab" style="height: 0">
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('grade')" <?php if ($var === "grade") { ?> style="background: #bababa;"  <?php } ?>>
-                        Grade
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('report')" <?php if ($var === "report") { ?> style="background: #bababa;"  <?php } ?>>
-                        Report
-                    </div>
-                </div>
-            </div>
-            <div class="tab-teacherList d-none h-5em  d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('teacher_list')" <?php if ($var === "teacherList") { ?> style="background: #bababa;"  <?php } ?>>
-                    Teacher List
-                </div>
-                <div class="d-flex-end w-4em"></div>
             </div>
             <div class="tab-trash d-none h-5em  d-flex-center m-t-5px ">
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"

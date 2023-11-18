@@ -71,6 +71,7 @@ if (isset($_SESSION['user_type'])) {
     <title>MABES GRADE INQUIRY</title>
     <link rel="stylesheet" href="mabes-frontpage/style.css"/>
     <link rel="stylesheet" href="assets/css/style_custom.css"/>
+    <link rel="stylesheet" href="assets/css/index_style.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
     <link rel="shortcut icon" href="mabes-frontpage/mabes.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

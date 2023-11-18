@@ -237,7 +237,7 @@ if (isset($_POST['studId'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="custom-grid-item pad-1em">
+                    <div class="custom-grid-item pad-1em" id="grid-a">
                         <div class="b-shadow-dark">
 
 

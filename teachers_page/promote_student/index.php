@@ -120,7 +120,7 @@ if (isset($_POST['addStudents'])) {
             <div class="bg-white w-100p b-radius-10px pad-1em">
 
                 <div class="m-t-19px m-l-13px f-weight-bold d-flex">
-                    <h3>
+                    <h3 id="mobile-a">
                         Promote Students
                     </h3>
                     <div class="r-50px p-absolute t-54px">

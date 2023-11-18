@@ -1,0 +1,354 @@
+@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {
+	#side #side-a {
+		text-align: center;
+		display: block;
+		justify-content: unset;
+		align-items: unset;
+		height: 6.5em;
+	}
+
+	#side #side-a p {
+		border-right: 0;
+	}
+
+	#side #side-a #x-hide-show-side-bar {
+		top: 1px;
+	}
+
+	#sideTab {
+		padding: 7px;
+	}
+
+	#sideTab .tab-teacherInfo {
+		width: 11.5em;
+	}
+
+	#sideTab .tab-teacherInfo div {
+		padding-left: 1em;
+	}
+
+	#sideTab .tab-trash {
+		width: 11.5em;
+		justify-content: flex-start;
+	}
+
+	#sideTab .tab-trash div {
+		padding-left: 1.2em;
+		justify-content: flex-start;
+	}
+
+	.tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+		border-radius: 13px !important;
+	}
+
+	#sideTab #tab-masterlist-a {
+		width: 9.5em;
+		justify-content: flex-start;
+	}
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}
+
+@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
+	#side #side-a {
+		text-align: center;
+		display: block;
+		justify-content: unset;
+		align-items: unset;
+		height: 6.5em;
+	}
+
+	#side #side-a p {
+		border-right: 0;
+	}
+
+	#side #side-a #x-hide-show-side-bar {
+		top: 1px;
+	}
+
+	#sideTab {
+		padding: 7px;
+	}
+
+	#sideTab .tab-teacherInfo {
+		width: 11.5em;
+	}
+
+	#sideTab .tab-teacherInfo div {
+		padding-left: 1em;
+	}
+
+	#sideTab .tab-trash {
+		width: 11.5em;
+		justify-content: flex-start;
+	}
+
+	#sideTab .tab-trash div {
+		padding-left: 1.2em;
+		justify-content: flex-start;
+	}
+
+	.tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+		border-radius: 13px !important;
+	}
+
+	#sideTab #tab-masterlist-a {
+		width: 9.5em;
+		justify-content: flex-start;
+	}
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}
+
+@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {
+	#side #side-a {
+		text-align: center;
+		display: block;
+		justify-content: unset;
+		align-items: unset;
+		height: 6.5em;
+	}
+
+	#side #side-a p {
+		border-right: 0;
+	}
+
+	#side #side-a #x-hide-show-side-bar {
+		top: 1px;
+	}
+
+	#sideTab {
+		padding: 7px;
+	}
+
+	#sideTab .tab-teacherInfo {
+		width: 11.5em;
+	}
+
+	#sideTab .tab-teacherInfo div {
+		padding-left: 1em;
+	}
+
+	#sideTab .tab-trash {
+		width: 11.5em;
+		justify-content: flex-start;
+	}
+
+	#sideTab .tab-trash div {
+		padding-left: 1.2em;
+		justify-content: flex-start;
+	}
+
+	.tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+		border-radius: 13px !important;
+	}
+
+	#sideTab #tab-masterlist-a {
+		width: 9.5em;
+		justify-content: flex-start;
+	}
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}
+
+@media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
+	#side #side-a {
+		text-align: center;
+		display: block;
+		justify-content: unset;
+		align-items: unset;
+		height: 6.5em;
+	}
+
+	#side #side-a p {
+		border-right: 0;
+	}
+
+	#side #side-a #x-hide-show-side-bar {
+		top: 1px;
+	}
+
+	#sideTab {
+		padding: 7px;
+	}
+
+	#sideTab .tab-teacherInfo {
+		width: 11.5em;
+	}
+
+	#sideTab .tab-teacherInfo div {
+		padding-left: 1em;
+	}
+
+	#sideTab .tab-trash {
+		width: 11.5em;
+		justify-content: flex-start;
+	}
+
+	#sideTab .tab-trash div {
+		padding-left: 1.2em;
+		justify-content: flex-start;
+	}
+
+	.tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+		border-radius: 13px !important;
+	}
+
+	#sideTab #tab-masterlist-a {
+		width: 9.5em;
+		justify-content: flex-start;
+	}
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}
+
+@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {
+	#side #side-a {
+		text-align: center;
+		display: block;
+		justify-content: unset;
+		align-items: unset;
+		height: 6.5em;
+	}
+
+	#side #side-a p {
+		border-right: 0;
+	}
+
+	#side #side-a #x-hide-show-side-bar {
+		top: 1px;
+	}
+
+	#sideTab {
+		padding: 7px;
+	}
+
+	#sideTab .tab-teacherInfo {
+		width: 11.5em;
+	}
+
+	#sideTab .tab-teacherInfo div {
+		padding-left: 1em;
+	}
+
+	#sideTab .tab-trash {
+		width: 11.5em;
+		justify-content: flex-start;
+	}
+
+	#sideTab .tab-trash div {
+		padding-left: 1.2em;
+		justify-content: flex-start;
+	}
+
+	.tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+		border-radius: 13px !important;
+	}
+
+	#sideTab #tab-masterlist-a {
+		width: 9.5em;
+		justify-content: flex-start;
+	}
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
+    /* iPad Air & iPad Mini */
+    #side #side-a {
+        text-align: center;
+        display: block;
+        justify-content: unset;
+        align-items: unset;
+        height: 6.5em;
+    }
+
+    #side #side-a p {
+        border-right: 0;
+    }
+
+    #side #side-a #x-hide-show-side-bar {
+        top: 1px;
+    }
+
+    #sideTab {
+        padding: 7px;
+    }
+
+    #sideTab .tab-teacherInfo {
+        width: 11.5em;
+    }
+
+    #sideTab .tab-teacherInfo div {
+        padding-left: 1em;
+    }
+
+    #sideTab .tab-trash {
+        width: 11.5em;
+        justify-content: flex-start;
+    }
+
+    #sideTab .tab-trash div {
+        padding-left: 1.2em;
+        justify-content: flex-start;
+    }
+
+    .tab-teacherInfo div:nth-child(1), .tab-masterlist div, .tab-records div, .tab-trash div {
+        border-radius: 13px !important;
+    }
+
+    #sideTab #tab-masterlist-a {
+        width: 9.5em;
+        justify-content: flex-start;
+    }
+
+	#content > div > div.bg-white{
+		overflow: auto;
+	}
+	#content #grid-a{
+		width: 31em;
+	}
+	#content #mobile-a{
+		margin-top: 2em;
+	}
+}

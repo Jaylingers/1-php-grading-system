@@ -81,6 +81,7 @@ if (isset($_POST['darkMode'])) {
 <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
+    <link rel="stylesheet" href="../../assets/css/admin_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -88,7 +89,7 @@ if (isset($_POST['darkMode'])) {
 </head>
 <body class="bg-dark" onload="loadTopArrow()">
 <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999 bg-dark" id="side">
-    <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
+    <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em" id="side-a">
         <a href="/1-php-grading-system/"> <img
                     src="../../assets/img/mabes.png" alt=""
                     class="w-38px m-3-6px"/></a>
@@ -522,6 +523,7 @@ if (isset($_POST['darkMode'])) {
     <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
     <head>
         <link rel="stylesheet" href="../../assets/css/style_custom.css">
+        <link rel="stylesheet" href="../../assets/css/admin_style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -529,7 +531,7 @@ if (isset($_POST['darkMode'])) {
     </head>
     <body class="bg-dark" onload="loadTopArrow()">
     <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
-        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em">
+        <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em" id="side-a">
             <a href="/1-php-grading-system/"> <img
                         src="../../assets/img/mabes.png" alt=""
                         class="w-38px m-3-6px"/></a>
