@@ -55,6 +55,9 @@
 	#content #mobile-a{
 		margin-top: 2em;
 	}
+	.modal-content{
+		width: 100% !important;
+	}
 }
 
 @media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
@@ -113,6 +116,9 @@
 	}
 	#content #mobile-a{
 		margin-top: 2em;
+	}
+	.modal-content{
+		width: 100% !important;
 	}
 }
 
@@ -173,6 +179,9 @@
 	#content #mobile-a{
 		margin-top: 2em;
 	}
+	.modal-content{
+		width: 100% !important;
+	}
 }
 
 @media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
@@ -231,6 +240,9 @@
 	}
 	#content #mobile-a{
 		margin-top: 2em;
+	}
+	.modal-content{
+		width: 100% !important;
 	}
 }
 
@@ -291,6 +303,9 @@
 	#content #mobile-a{
 		margin-top: 2em;
 	}
+	.modal-content{
+		width: 100% !important;
+	}
 }
 
 @media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
@@ -350,5 +365,8 @@
 	}
 	#content #mobile-a{
 		margin-top: 2em;
+	}
+	.modal-content{
+		width: 100% !important;
 	}
 }

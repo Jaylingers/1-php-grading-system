@@ -418,7 +418,7 @@ if (isset($_POST['darkMode'])) {
     </div>
 
     <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
-        <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
+        <div class="modal-content" style="width: 65%; zoom: 0.8;">
             <div class="modal-header a-center">
             </div>
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
@@ -795,7 +795,7 @@ if (isset($_POST['darkMode'])) {
     </div>
 
     <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
-        <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
+        <div class="modal-content" style="width: 65%; zoom: 0.8;">
             <div class="modal-header a-center">
             </div>
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
