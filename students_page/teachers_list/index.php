@@ -24,8 +24,8 @@ include '../../students_page/header.php'; ?>
 
 
                 <div class="m-2em d-flex-align-start m-2em ">
-                    <div class="w-100p b-radius-10px pad-1em">
-                        <div class="pad-1em b-bottom-gray-3px f-weight-bold">
+                    <div class="w-100p b-radius-10px pad-1em" id="mobile-scroll">
+                        <div class="mobile-width pad-1em b-bottom-gray-3px f-weight-bold">
                             <div id="gradeLabel">
                                 Choose Grade:
                                 <select name="grade" id="grade" onchange="chooseGrade(this.value)"
@@ -41,7 +41,7 @@ include '../../students_page/header.php'; ?>
                             </div>
 
                         </div>
-                        <div class="grid-container">
+                        <div class="grid-container mobile-width">
                             <?php
                             $category = "teacher";
                             $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
@@ -66,7 +66,7 @@ include '../../students_page/header.php'; ?>
                                     $i++;
                                     ?>
                                     <div class="grid-item d-flex-center">
-                                        <div class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center m-b-2em">
+                                        <div class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center m-b-2em" style="position: relative;">
                                             <?php if ($rows['img_path']) { ?>
                                                 <img
                                                         src="<?php echo $rows['img_path'] ?>"

@@ -409,7 +409,7 @@ if (isset($_POST['darkMode'])) {
 </div>
 
 <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
-    <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
+    <div class="modal-content" style="width: 65%; zoom: 0.8;">
         <div id="top-icon"
              class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
              onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
@@ -851,7 +851,7 @@ if (isset($_POST['darkMode'])) {
     </div>
 
     <div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
-        <div class="modal-content" style="width: 65% !important; zoom: 0.8;">
+        <div class="modal-content" style="width: 65%; zoom: 0.8;">
             <div id="top-icon"
                  class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
                  onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰

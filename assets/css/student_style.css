@@ -1,0 +1,88 @@
+@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
+    /* iPad Air & iPad Mini */
+    #mobile-scroll {
+        overflow: auto;
+    }
+
+    .mobile-width {
+        width: 84em !important;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+}
+
+body {
+    background: #14ae5c !important;
+}

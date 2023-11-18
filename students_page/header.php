@@ -31,10 +31,12 @@ if (!isset($_SESSION['user_type'])) {
 
     <?php if ($var === "index") { ?>
     <link rel="stylesheet" href="assets/css/style_custom.css">
+    <link rel="stylesheet" href="assets/css/student_style.css">
     <link rel="stylesheet" href="assets/css/style.css">
         <script src="assets/js/js_header.js" defer></script>
     <?php } else { ?>
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
+    <link rel="stylesheet" href="../../assets/css/student_style.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
         <script src="../../assets/js/js_header.js" defer></script>
     <?php } ?>
