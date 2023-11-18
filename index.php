@@ -127,6 +127,12 @@ if (isset($_SESSION['user_type'])) {
                 <br>
                 <div class="d-flex-center h-5em" style="display: flex; justify-content: center">
                     <div style=" width: 30em; text-align: right">
+                        <button
+                                class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue btn_io1 "
+                                >
+                            <a href="/1-php-grading-system/" style="color: white">Back</a>
+
+                        </button>
                         <button type="submit"
                                 class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue btn_io "
                                 name="login">Login
