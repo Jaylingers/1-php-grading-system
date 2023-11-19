@@ -65,8 +65,8 @@ if (isset($_SESSION['user_type'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MABES GRADE INQUIRY</title>
-    <link rel="stylesheet" href="NewMabes/css/main.css"/>
-    <link rel="stylesheet" href="NewMabes/css/media.css"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="assets/css/media.css"/>
     <link rel="shortcut icon" href="mabes-frontpage/mabes.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link
@@ -215,7 +215,7 @@ if (isset($_SESSION['user_type'])) {
 <section id="about" class="about">
     <div class="container">
         <div class="df_at">
-            <img src="NewMabes/img/Learning.jpg" class="img_at" alt="About Picture"/>
+            <img src="assets/img/Learning.jpg" class="img_at" alt="About Picture"/>
             <div class="text_at">
                 <p class="first_at">ABOUT US</p>
                 <h1>Innovative Way To Learn</h1>
@@ -300,7 +300,7 @@ if (isset($_SESSION['user_type'])) {
 <!-- Js link -->
 </body>
 
-<script src="NewMabes/js/script.js"></script>
+<script src="assets/js/script.js"></script>
 <script>
 
     $(document).ready(function () {
