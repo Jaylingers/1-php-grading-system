@@ -77,73 +77,6 @@ if (isset($_SESSION['user_type'])) {
             referrerpolicy="no-referrer"
     />
 </head>
-<div class="mobile-login" style=" display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    text-align: center;
-    justify-content: center;
-    z-index: 9;
-
-    align-items: center;">
-    <div style="width: 100%;">
-        <div class="logo">
-            <h1><span>MABES</span> GRADE INQUIRY</h1>
-        </div>
-        <?php if (isset($_GET['error'])) { ?>
-            <div class="alert alert-danger" role="alert" style="color: red">
-                <?php echo $_GET['error']; ?>
-            </div>
-        <?php } ?>
-        <form action="index.php" method="post" class="d-flex-center t-align-center w-100p b-shadow-none">
-            <div class="b-radius-10px  h-80p w-77p">
-                <div class="d-flex-center h-5em">
-                    <input type="username" style="width: 36em; border-radius: 2em;
-    height: 5em;"
-                           id="username"
-                           name="username"
-                           required
-                           placeholder="Username/LRN"
-                           class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
-                           value="<?php if (isset($_GET['username']))
-                               echo($_GET['username']); ?>"
-                    >
-                </div>
-                <br>
-                <div class="d-flex-center h-5em">
-                    <input placeholder="Password" type="password" style="width: 36em; border-radius: 2em;
-    height: 5em;"
-                           class="h-3em w-40p t-align-center f-size-1em b-radius-10px"
-                           id="password"
-                           name="password"
-                           required
-                           value="<?php if (isset($_GET['password']))
-                               echo($_GET['password']); ?>"
-                    >
-                </div>
-                <br>
-                <div class="d-flex-center h-5em" style="display: flex; justify-content: center">
-                    <div style=" width: 30em; text-align: right">
-                        <button
-                                class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue btn_io1 "
-                                onclick="back()"
-                        >
-                          Back
-
-                        </button>
-                        <button type="submit"
-                                class="c-hand h-3em w-30p t-align-center f-size-1em b-radius-10px bg-blue btn_io "
-                                name="login">Login
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </form>
-    </div>
-
-</div>
 <body id="body">
 <!-- Top header -->
 <div class="top-header">
@@ -199,6 +132,55 @@ if (isset($_SESSION['user_type'])) {
     </div>
 </nav>
 <!-- End Navbar -->
+<!-- Login form container -->
+<div id="login-container" class="login-container">
+    <div class="login-form">
+        <span class="close-btn" onclick="closeLoginForm()">&times;</span>
+        <img src="assets/img/mabes.png" alt="IMG" class="logo2" />
+        <form action="index.php" method="post" class="login-form">
+            <span class="login-form-title">Student Login</span>
+            <?php if (isset($_GET['error'])) { ?>
+                <div class="alert alert-danger" role="alert" style="color: red">
+                    <?php echo $_GET['error']; ?>
+                </div>
+            <?php } ?>
+            <div class="wrap-input">
+                <input
+                        type="text"
+                        class="input"
+                        name="username"
+                        placeholder="Username/Lrn"
+                        required
+                />
+                <span class="focus-input"></span>
+                <span class="symbol-input">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+            </div>
+            <div class="wrap-input">
+                <input
+                        type="password"
+                        class="input"
+                        name="password"
+                        placeholder="Password"
+                        required
+                />
+                <span class="focus-input"></span>
+                <span class="symbol-input">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+            </div>
+
+            <div class="login-form-btn-container">
+<!--                <button class="login-form-btn">Login</button>-->
+                <button type="submit"
+                        class="login-form-btn"
+                        name="login">Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- Intro section -->
 <section id="intro" class="intro">
     <div class="container">
@@ -305,25 +287,29 @@ if (isset($_SESSION['user_type'])) {
 
     $(document).ready(function () {
         $('.btn_io').click(function () {
-            $('body').css('overflow', 'hidden');
-            $('.mobile-login').css('display', 'flex');
-            $('.mobile-login').show();
+            document.getElementById("login-container").style.display = "flex";
         });
     });
 
     function loadPage() {
         var error = '<?php echo isset($_GET['error']) ? $_GET['error'] : '' ?>';
         if (error != '') {
-            $('body').css('overflow', 'hidden');
-            $('.mobile-login').css('display', 'flex');
-            $('.mobile-login').show();
+            document.getElementById("login-container").style.display = "flex";
         }
 
     }
-    function back() {
-        window.location.href = "/1-php-grading-system/";
+
+    function closeLoginForm() {
+        document.getElementById("login-container").style.display = "none";
     }
 
+    // Close the form if the user clicks outside the form
+    window.onclick = function (event) {
+        var loginContainer = document.getElementById("login-container");
+        if (event.target === loginContainer) {
+            loginContainer.style.display = "none";
+        }
+    };
     loadPage();
 </script>
 </body>

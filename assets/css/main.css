@@ -350,75 +350,180 @@ a {
   border-top: 1px solid #fff;
   color: white;
 }
+.logo1 {
+  width: 100px; /* Adjust the width of your logo */
+  height: auto; /* Maintain aspect ratio */ /* Remove any default inline spacing */ /* Center the logo horizontally */
+}
 /* End footer styling */
+/* Login form styles */
+/* Add this CSS to your existing styles or create a new CSS file */
 
-.mobile-login{
-  background-image: url("../img/mabesrooms2.jpg");
-    background-repeat: no-repeat;
+/* Move your existing styles to your-styles.css or use the following */
+
+.login-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
-@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
+.login-form {
+  background: #fff;
+  padding: 30px;
+  min-height: 30vh;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 8px;
+  position: relative;
+  margin: 0 auto;
+  background: white;
+}
+.wrap-login {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 177px 130px 33px 95px;
+}
+.login-form-title {
+  font-family: "poppins", sans-serif;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 700;
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
+.wrap-input {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+.input {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+  outline: none;
+  border: none;
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 68px;
+}
+.focus-input {
+  display: block;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 0px;
+  color: rgba(87, 184, 70, 0.8);
+}
+.input:focus + .focus-input {
+  animation: anim-shadow 0.5s ease-in-out forwards;
+}
+@-webkit-keyframes anim-shadow {
+  to {
+    box-shadow: 0px 0px 70px 25px;
+    opacity: 0;
   }
 }
-
-@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
+@keyframes anim-shadow {
+  to {
+    box-shadow: 0px 0px 70px 25px;
+    opacity: 0;
   }
 }
-
-@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
-  }
+.symbol-input {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 35px;
+  pointer-events: none;
+  color: #666666;
+  transition: all 0.4s;
 }
-
-@media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
-  }
+.input:focus + .focus-input + .symbol-input {
+  color: #57b846;
+  padding-left: 28px;
 }
-
-@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
-  }
+.login-form-btn-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
 }
-
-@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
-  .mobile-login form{
-    margin: 1em;
-  }
-  .mobile-login form input {
-    width: 100% !important;
-  }
+.login-form-btn {
+  font-family: "poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+  background: #57b846;
+  text-transform: uppercase;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  transition: all 0.4s;
+  border: none;
 }
-.btn_io1{
-  padding: 0.5rem 3rem;
-  background-color: #20291b;
-  display: inline-block;
-  border-radius: 2rem;
+.login-form-btn:hover {
+  background: #333333;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
   cursor: pointer;
-  color: white;
 }
-.btn_io1:hover{
-  background-color: white;
-  color: black !important;
+.logo2 {
+  width: 130px;
+  height: auto;
+  margin-bottom: 20px;
+}
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+button:hover {
+  cursor: pointer;
+}
+
+/* Media query for responsiveness */
+@media only screen and (max-width: 600px) {
+  .login-form {
+    width: 90%;
+  }
 }
