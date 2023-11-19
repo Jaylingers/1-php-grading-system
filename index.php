@@ -136,7 +136,7 @@ if (isset($_SESSION['user_type'])) {
 <div id="login-container" class="login-container">
     <div class="login-form">
         <span class="close-btn" onclick="closeLoginForm()">&times;</span>
-        <img src="assets/img/mabes.png" alt="IMG" class="logo2" />
+        <img src="assets/img/mabes.png" alt="IMG" class="logo2"/>
         <form action="index.php" method="post" class="login-form">
             <span class="login-form-title">Student Login</span>
             <?php if (isset($_GET['error'])) { ?>
@@ -172,7 +172,7 @@ if (isset($_SESSION['user_type'])) {
             </div>
 
             <div class="login-form-btn-container">
-<!--                <button class="login-form-btn">Login</button>-->
+                <!--                <button class="login-form-btn">Login</button>-->
                 <button type="submit"
                         class="login-form-btn"
                         name="login">Login
@@ -312,5 +312,4 @@ if (isset($_SESSION['user_type'])) {
     };
     loadPage();
 </script>
-</body>
 </html>
