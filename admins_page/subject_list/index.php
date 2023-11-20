@@ -238,7 +238,7 @@ if (isset($_POST['update_user'])) {
                         </div>
                     </div>
                     <div class="custom-grid-item pad-1em">
-                        <div class="b-shadow-dark">
+                        <div class="b-shadow-dark mobile-width1">
 
 
                             <div class="pad-1em  f-weight-bold d-flex">

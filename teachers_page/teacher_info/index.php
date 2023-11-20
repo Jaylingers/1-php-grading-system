@@ -66,7 +66,7 @@ if (isset($_POST['saveImage'])) {
                     <div class="d-flex">
                         <div class="w-30p m-l-4em m-t-2em">
                             <img onclick="$('#image').click()" src="../../assets/img/camera.png" alt="teacher image"
-                                 class="c-hand p-absolute bg-hover-gray-dark-v2" style=" height: 3em;
+                                 class="c-hand p-absolute bg-hover-gray-dark-v2 mobile-image1" style=" height: 3em;
                                     width: 4em;
                                     object-fit: contain;
                                     border-radius: 50%;

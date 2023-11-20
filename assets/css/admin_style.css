@@ -73,6 +73,9 @@
     .modal-content {
         width: 100% !important;
     }
+    .mobile-width1 {
+        width:  38em !important;
+    }
 }
 
 @media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
@@ -149,6 +152,9 @@
 
     .modal-content {
         width: 100% !important;
+    }
+    .mobile-width1 {
+        width:  38em !important;
     }
 }
 
@@ -227,6 +233,9 @@
     .modal-content {
         width: 100% !important;
     }
+    .mobile-width1 {
+        width:  38em !important;
+    }
 }
 
 @media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
@@ -303,6 +312,9 @@
 
     .modal-content {
         width: 100% !important;
+    }
+    .mobile-width1 {
+        width:  38em !important;
     }
 }
 
@@ -381,6 +393,9 @@
     .modal-content {
         width: 100% !important;
     }
+    .mobile-width1 {
+        width:  38em !important;
+    }
 }
 
 @media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
@@ -458,5 +473,9 @@
 
     .modal-content {
         width: 100% !important;
+    }
+
+    .mobile-width1 {
+        width:  38em !important;
     }
 }

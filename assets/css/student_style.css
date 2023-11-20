@@ -83,6 +83,19 @@
     }
 }
 
+
+
+
+
+
+#mobile-scroll {
+    overflow: auto;
+}
+
+.mobile-width {
+    width: 84em !important;
+}
+
 body {
     background: #14ae5c !important;
 }
