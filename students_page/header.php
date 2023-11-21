@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_type'])) {
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<div style="height: 3em;background: #9747ff;"></div>
+<div style="height: 3em;background: white;"></div>
 
 <nav class="navbar">
     <div class="brand-title">

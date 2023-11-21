@@ -27,16 +27,6 @@
         padding-left: 1em;
     }
 
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
-    }
-
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
         border-radius: 13px !important;
     }
@@ -105,16 +95,6 @@
 
     #sideTab .tab-teacherInfo div {
         padding-left: 1em;
-    }
-
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
     }
 
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
@@ -187,16 +167,6 @@
         padding-left: 1em;
     }
 
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
-    }
-
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
         border-radius: 13px !important;
     }
@@ -267,15 +237,6 @@
         padding-left: 1em;
     }
 
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
-    }
 
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
         border-radius: 13px !important;
@@ -347,16 +308,6 @@
         padding-left: 1em;
     }
 
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
-    }
-
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
         border-radius: 13px !important;
     }
@@ -396,6 +347,7 @@
     .mobile-width1 {
         width:  38em !important;
     }
+
 }
 
 @media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
@@ -428,16 +380,6 @@
         padding-left: 1em;
     }
 
-    #sideTab .tab-trash {
-        width: 11.5em;
-        justify-content: flex-start;
-    }
-
-    #sideTab .tab-trash div {
-        padding-left: 1.2em;
-        justify-content: flex-start;
-    }
-
     .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
         border-radius: 13px !important;
     }
@@ -478,4 +420,17 @@
     .mobile-width1 {
         width:  38em !important;
     }
+    #side{
+        width: 16em !important;
+    }
+}
+
+.svg-1{
+    fill: white;
+    width: 100px;
+    height: 24px;
+}
+
+.table-1 thead{
+    background-color: gray !important;
 }

@@ -388,3 +388,13 @@
 		margin-left: 7em !important;
 	}
 }
+
+.svg-1{
+	fill: white;
+	width: 100px;
+	height: 24px;
+}
+
+.table-1 thead{
+	background-color: gray !important;
+}
