@@ -82,6 +82,7 @@ if (isset($_SESSION['user_type'])) {
 <div class="top-header">
     <div class="container_thr">
         <div class="df_thr">
+            <img src="assets/img/mabes.png" alt="" class="logo1" />
             <div class="logo">
                 <h1><span>MABES</span> GRADE INQUIRY</h1>
             </div>
