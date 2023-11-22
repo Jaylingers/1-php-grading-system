@@ -60,12 +60,12 @@ if (!isset($_SESSION['user_type'])) {
         <p> Mactan Airbase Elementary School </p>
         <p>Grade Inquiry</p>
     </div>
-    <a href="#" class="toggle-button">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </a>
+<!--    <a href="#" class="toggle-button">-->
+<!--        <span class="bar"></span>-->
+<!--        <span class="bar"></span>-->
+<!--        <span class="bar"></span>-->
+<!--        <span class="bar"></span>-->
+<!--    </a>-->
     <div class="navbar-links">
         <ul>
             <li>
