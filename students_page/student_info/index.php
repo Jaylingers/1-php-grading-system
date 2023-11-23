@@ -1,8 +1,8 @@
 <?php global $conn;
 $var = "student_info";
 include '../../students_page/header.php'; ?>
-<div style="background: #14ae5c;">
-    <div class="d-flex-center w-100p">
+<div style="background: #14ae5c;" class="page-1">
+    <div class="d-flex-center w-100p" >
         <div id="content" class=" w-79-8p h-100p b-r-7px">
             <div class="m-2em b-6px-gray h-43em bg-gray b-1px-black">
 

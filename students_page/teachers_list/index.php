@@ -17,7 +17,7 @@ include '../../students_page/header.php'; ?>
         margin-bottom: 6em;
     }
 </style>
-<div style="background: #14ae5c;">
+<div style="background: #14ae5c;" class="page-1">
     <div class="d-flex-center w-100p">
         <div id="content" class=" w-79-8p h-100p b-r-7px">
             <div class="m-2em bg-white ">

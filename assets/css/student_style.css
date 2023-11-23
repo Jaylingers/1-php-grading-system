@@ -156,6 +156,12 @@ tr:nth-child(even) {
 }
 @media screen and (max-width: 1024px)
 {
+    .page-1{
+        background:unset !important;
+    }
+    .navbar{
+        height: 0 !important;
+    }
     .logo1{
         opacity: 0 !important;
     }
