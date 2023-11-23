@@ -1,435 +1,435 @@
-@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-}
-
-@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-}
-
-@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-}
-
-@media only screen and (min-device-width: 415px) and (max-device-width: 430px) {
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-}
-
-@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-
-}
-
-@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {
-    /* iPad Air & iPad Mini */
-    #side #side-a {
-        text-align: center;
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-        height: 6.5em;
-    }
-
-    #side #side-a p {
-        border-right: 0;
-    }
-
-    #side #side-a #x-hide-show-side-bar {
-        top: 1px;
-    }
-
-    #sideTab {
-        padding: 7px;
-    }
-
-    #sideTab .tab-teacherInfo {
-        width: 11.5em;
-    }
-
-    #sideTab .tab-teacherInfo div {
-        padding-left: 1em;
-    }
-
-    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {
-        border-radius: 13px !important;
-    }
-
-    #sideTab #tab-masterlist-a {
-        width: 9.5em;
-        justify-content: flex-start;
-    }
-
-    #content > div > div.bg-white {
-        overflow: auto;
-    }
-
-    #content #grid-a {
-        width: 31em;
-    }
-
-    #content #mobile-a {
-        margin-top: 2em;
-    }
-
-    #content #grid-b {
-        width: 100em;
-    }
-
-    body {
-        background: #e6e6e6 !important;
-    }
-
-    #mobile-b {
-        width: 15em;
-    }
-
-    .modal-content {
-        width: 100% !important;
-    }
-
-    .mobile-width1 {
-        width: 38em !important;
-    }
-
-    #side {
-        width: 16em !important;
-    }
-}
+/*@media only screen and (min-device-width: 200px) and (max-device-width: 375px) {*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-device-width: 376px) and (max-device-width: 390px) {*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-device-width: 391px) and (max-device-width: 414px) {*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-device-width: 415px) and (max-device-width: 430px) {*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-device-width: 431px) and (max-device-width: 768px) {*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+
+/*}*/
+
+/*@media only screen and (min-device-width: 769px) and (max-device-width: 820px) {*/
+/*    !* iPad Air & iPad Mini *!*/
+/*    #side #side-a {*/
+/*        text-align: center;*/
+/*        display: block;*/
+/*        justify-content: unset;*/
+/*        align-items: unset;*/
+/*        height: 6.5em;*/
+/*    }*/
+
+/*    #side #side-a p {*/
+/*        border-right: 0;*/
+/*    }*/
+
+/*    #side #side-a #x-hide-show-side-bar {*/
+/*        top: 1px;*/
+/*    }*/
+
+/*    #sideTab {*/
+/*        padding: 7px;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo {*/
+/*        width: 11.5em;*/
+/*    }*/
+
+/*    #sideTab .tab-teacherInfo div {*/
+/*        padding-left: 1em;*/
+/*    }*/
+
+/*    .tab-dashboard div:nth-child(1), .tab-addUser div, .tab-records div, .tab-maintenance div, .tab-trash div {*/
+/*        border-radius: 13px !important;*/
+/*    }*/
+
+/*    #sideTab #tab-masterlist-a {*/
+/*        width: 9.5em;*/
+/*        justify-content: flex-start;*/
+/*    }*/
+
+/*    #content > div > div.bg-white {*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*    #content #grid-a {*/
+/*        width: 31em;*/
+/*    }*/
+
+/*    #content #mobile-a {*/
+/*        margin-top: 2em;*/
+/*    }*/
+
+/*    #content #grid-b {*/
+/*        width: 100em;*/
+/*    }*/
+
+/*    body {*/
+/*        background: #e6e6e6 !important;*/
+/*    }*/
+
+/*    #mobile-b {*/
+/*        width: 15em;*/
+/*    }*/
+
+/*    .modal-content {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .mobile-width1 {*/
+/*        width: 38em !important;*/
+/*    }*/
+
+/*    #side {*/
+/*        width: 16em !important;*/
+/*    }*/
+/*}*/
 
 .svg-1 {
     fill: white;
