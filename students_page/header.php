@@ -120,56 +120,6 @@ if (!isset($_SESSION['user_type'])) {
             </ul>
         </div>
 
-        <div>
-
-            <?php if ($rows['img_path'] == '') { ?>
-                <img id="settings" src="../../assets/users_img/noImage.png"
-                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
-  top: 8px;
-    right: 174px;
-    background: #e6e6e6;"
-                     alt="" class="w-32px c-hand">
-            <?php } else { ?>
-                <img id="settings" src="<?= $rows['img_path'] ?>"
-                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;  position: absolute;
-   top: 8px;
-    right: 174px;
-    background: #e6e6e6;"
-                     alt="" class="w-32px c-hand">
-            <?php } ?>
-            <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: absolute;
-    height: 5em;
-    width: 14em;
-    top: 65px;
-    right: 198px;
-    display: none;
-    background: #e6e6e6;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-">
-
-                <style>
-                    .admin-settings {
-                        border-radius: 13px;
-                    }
-
-                    .admin-settings:hover {
-                        background: #808080a8;
-                    }
-                </style>
-                <!--    <form action="index.php" method="post">-->
-                <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
-                    <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
-                        <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
-                            <img class="settings-1" src="../../assets/img/logout2.png" alt=""
-                                 style="width: 2em; height: 2em">
-                            <label for=""
-                                   class="settings-1 c-hand m-t-9px f-weight-bold">Logout1</label>
-                        </div>
-                    </div>
-                </div>
-                <!--    </form>-->
-            </div>
-        </div>
 
     </div>
 
@@ -177,6 +127,56 @@ if (!isset($_SESSION['user_type'])) {
 <!-- End Navbar -->
 
 
+<div>
+
+    <?php if ($rows['img_path'] == '') { ?>
+        <img id="settings" src="../../assets/users_img/noImage.png"
+             style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
+  top: 12em;
+    right: 174px;
+    background: #e6e6e6;"
+             alt="" class="w-32px c-hand">
+    <?php } else { ?>
+        <img id="settings" src="<?= $rows['img_path'] ?>"
+             style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;  position: absolute;
+   top: 12em;
+    right: 174px;
+    background: #e6e6e6;"
+             alt="" class="w-32px c-hand">
+    <?php } ?>
+    <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: absolute;
+    height: 5em;
+    width: 14em;
+    top: 15.44em;
+    right: 198px;
+    display: none;
+    background: #e6e6e6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+">
+
+        <style>
+            .admin-settings {
+                border-radius: 13px;
+            }
+
+            .admin-settings:hover {
+                background: #808080a8;
+            }
+        </style>
+        <!--    <form action="index.php" method="post">-->
+        <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
+            <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                    <img class="settings-1" src="../../assets/img/logout2.png" alt=""
+                         style="width: 2em; height: 2em">
+                    <label for=""
+                           class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
+                </div>
+            </div>
+        </div>
+        <!--    </form>-->
+    </div>
+</div>
 <style>
 
     body {
