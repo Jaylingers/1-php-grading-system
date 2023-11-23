@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_type'])) {
 
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
     <link rel="stylesheet" href="../../assets/css/student_style.css">
-<!--    <link rel="stylesheet" href="../../assets/css/style.css">-->
+    <!--    <link rel="stylesheet" href="../../assets/css/style.css">-->
     <script src="../../assets/js/js_header.js" defer></script>
 
     <link rel="stylesheet" href="../../assets/css/main.css"/>
@@ -55,7 +55,8 @@ if (!isset($_SESSION['user_type'])) {
 <div class="top-header" style="background: white">
     <div class="container_thr">
         <div class="df_thr">
-            <img src="../../assets/img/mabes.png" alt="" class="logo1" />
+            <img src="../../assets/img/mabes.png" alt="" class="logo1"/>
+            <img src="../../assets/img/mabes.png" alt="" class="logo2"/>
             <div class="logo">
                 <h1><span>MABES</span> GRADE INQUIRY</h1>
             </div>
@@ -102,30 +103,74 @@ if (!isset($_SESSION['user_type'])) {
         <div class="content_nv">
             <ul class="nav-links">
                 <li>
-                    <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
+                    <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student
+                        Info</a>
                 </li>
                 <li>
-                    <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Record
+                    <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student
+                        Record
                     </a></li>
                 <li>
-                    <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
+                    <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers
+                        List
                     </a></li>
                 <li class="logout">
                     <a href="#" onclick="logout()">Logout</a>
                 </li>
             </ul>
         </div>
+
         <div>
+
             <?php if ($rows['img_path'] == '') { ?>
                 <img id="settings" src="../../assets/users_img/noImage.png"
-                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
+  top: 8px;
+    right: 174px;
+    background: #e6e6e6;"
                      alt="" class="w-32px c-hand">
             <?php } else { ?>
                 <img id="settings" src="<?= $rows['img_path'] ?>"
-                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;  position: absolute;
+   top: 8px;
+    right: 174px;
+    background: #e6e6e6;"
                      alt="" class="w-32px c-hand">
             <?php } ?>
+            <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: absolute;
+    height: 5em;
+    width: 14em;
+    top: 65px;
+    right: 198px;
+    display: none;
+    background: #e6e6e6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+">
+
+                <style>
+                    .admin-settings {
+                        border-radius: 13px;
+                    }
+
+                    .admin-settings:hover {
+                        background: #808080a8;
+                    }
+                </style>
+                <!--    <form action="index.php" method="post">-->
+                <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
+                    <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
+                        <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                            <img class="settings-1" src="../../assets/img/logout2.png" alt=""
+                                 style="width: 2em; height: 2em">
+                            <label for=""
+                                   class="settings-1 c-hand m-t-9px f-weight-bold">Logout1</label>
+                        </div>
+                    </div>
+                </div>
+                <!--    </form>-->
+            </div>
         </div>
+
     </div>
 
 </nav>
@@ -175,37 +220,7 @@ if (!isset($_SESSION['user_type'])) {
 </footer>
 <script src="../../assets/js/script.js"></script>
 </body>
-<div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: fixed;
-    height: 5em;
-    width: 14em;
-    top: 197px;
-    right: 175px;
-    display: none;
-    background: #e6e6e6;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-">
 
-    <style>
-        .admin-settings {
-            border-radius: 13px;
-        }
-
-        .admin-settings:hover {
-            background: #808080a8;
-        }
-    </style>
-    <!--    <form action="index.php" method="post">-->
-    <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
-        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
-            <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
-                <img class="settings-1" src="../../assets/img/logout2.png" alt="" style="width: 2em; height: 2em">
-                <label for=""
-                       class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
-            </div>
-        </div>
-    </div>
-    <!--    </form>-->
-</div>
 <script>
     function logout() {
         var r = confirm("Are you sure you want to logout?");
@@ -213,6 +228,7 @@ if (!isset($_SESSION['user_type'])) {
             Post('', {logout: 'logout'});
         }
     }
+
     document.body.onclick = function (e) {
         if (e.target.id === 'settings') {
             if ($('#settings-details').hasClass("d-flex")) {
