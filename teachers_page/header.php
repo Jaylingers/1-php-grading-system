@@ -155,7 +155,7 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
-                    &nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; Teacher Info.
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Teacher Info.
                 </div>
                 <div class="d-flex-end w-4em"></div>
             </div>
@@ -619,7 +619,7 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
-                    &nbsp;&nbsp;&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; Teacher Info.
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Teacher Info.
                 </div>
                 <div class="d-flex-end w-4em"></div>
             </div>
