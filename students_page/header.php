@@ -29,71 +29,108 @@ if (!isset($_SESSION['user_type'])) {
 <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
 
-    <?php if ($var === "index") { ?>
-    <link rel="stylesheet" href="assets/css/style_custom.css">
-    <link rel="stylesheet" href="assets/css/student_style.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-        <script src="assets/js/js_header.js" defer></script>
-    <?php } else { ?>
+
     <link rel="stylesheet" href="../../assets/css/style_custom.css">
     <link rel="stylesheet" href="../../assets/css/student_style.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-        <script src="../../assets/js/js_header.js" defer></script>
-    <?php } ?>
+<!--    <link rel="stylesheet" href="../../assets/css/style.css">-->
+    <script src="../../assets/js/js_header.js" defer></script>
+
+    <link rel="stylesheet" href="../../assets/css/main.css"/>
+    <link rel="stylesheet" href="../../assets/css/media.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
-<div style="height: 3em;background: white;"></div>
 
-<nav class="navbar">
-    <div class="brand-title">
-
-            <?php if ($var === "index") { ?>
-            <img
-                    src="assets/img/mabes.png" alt=""/>
-        <?php } else { ?>
-            <img
-                    src="../../assets/img/mabes.png" alt=""/></a>
-        <?php } ?>
-        <p> Mactan Airbase Elementary School </p>
-        <p>Grade Inquiry</p>
+<!-- Top header -->
+<div class="top-header" style="background: white">
+    <div class="container_thr">
+        <div class="df_thr">
+            <img src="../../assets/img/mabes.png" alt="" class="logo1" />
+            <div class="logo">
+                <h1><span>MABES</span> GRADE INQUIRY</h1>
+            </div>
+            <div class="col_thr">
+                <div class="df2_thr">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="text_thr">
+                        <p><b>Our location</b></p>
+                        <p class="smallp_thr">Sangi Rd,Lapu-lapu City, Cebu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col_thr">
+                <div class="df2_thr">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="text_thr">
+                        <p><b>Our email</b></p>
+                        <p class="smallp_thr">mabes@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col_thr">
+                <div class="df2_thr">
+                    <i class="fa-solid fa-phone"></i>
+                    <div class="text_thr">
+                        <p><b>Call Us</b></p>
+                        <p class="smallp_thr">(032) 340 8046</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bars">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
     </div>
-<!--    <a href="#" class="toggle-button">-->
-<!--        <span class="bar"></span>-->
-<!--        <span class="bar"></span>-->
-<!--        <span class="bar"></span>-->
-<!--        <span class="bar"></span>-->
-<!--    </a>-->
-    <div class="navbar-links">
-        <ul>
-            <li>
-                <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
-            </li>
-            <li>
-                <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Record
+</div>
+<!-- End Top header -->
+<!-- Navbar -->
+<nav class="navbar" style="height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+    <div class="container">
+        <div class="content_nv">
+            <ul class="nav-links">
+                <li>
+                    <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_info") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Info</a>
+                </li>
+                <li>
+                    <a href="/1-php-grading-system/students_page/student_record/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "student_record") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Student Record
                     </a></li>
-            <li>
-                <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
+                <li>
+                    <a href="/1-php-grading-system/students_page/teachers_list/?id=<?php echo $_GET['id'] ?>" <?php if ($var === "teachers_list") { ?> style="border-bottom: 3px solid #9747ff"  <?php } ?>>Teachers List
                     </a></li>
-        </ul>
+                <li class="logout">
+                    <a href="#" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <?php if ($rows['img_path'] == '') { ?>
+                <img id="settings" src="../../assets/users_img/noImage.png"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     alt="" class="w-32px c-hand">
+            <?php } else { ?>
+                <img id="settings" src="<?= $rows['img_path'] ?>"
+                     style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
+                     alt="" class="w-32px c-hand">
+            <?php } ?>
+        </div>
     </div>
-    <div>
-<!--        <button class="c-hand" onclick="logout()">LOGOUT-->
-<!--        </button>-->
-        <?php if ($rows['img_path'] == '') { ?>
-            <img id="settings" src="../../assets/users_img/noImage.png"
-                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand">
-        <?php } else { ?>
-            <img id="settings" src="<?= $rows['img_path'] ?>"
-                 style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;"
-                 alt="" class="w-32px c-hand">
-        <?php } ?>
 
-    </div>
 </nav>
+<!-- End Navbar -->
+
 
 <style>
 
@@ -136,12 +173,13 @@ if (!isset($_SESSION['user_type'])) {
         &#169; 2023 MABES|Grade Inquiry | All rights reserved
     </div>
 </footer>
+<script src="../../assets/js/script.js"></script>
 </body>
 <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: fixed;
     height: 5em;
     width: 14em;
-    top: 129px;
-    right: 17px;
+    top: 197px;
+    right: 175px;
     display: none;
     background: #e6e6e6;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
