@@ -153,6 +153,23 @@ tr:nth-child(even) {
     #settings-details{
         display: none !important;
     }
+    .name-1{
+        display: none !important;
+    }
+}
+.logo1{
+    opacity: 0 !important;
+}
+.logo2{
+    opacity: 1 !important;
+    width: 100px !important;
+    height: auto !important;
+    left: 15em;
+    top: 19px;
+}
+.df_thr{
+    justify-content: center !important;
+    gap: 2em !important;
 }
 @media screen and (max-width: 1024px)
 {
@@ -161,17 +178,6 @@ tr:nth-child(even) {
     }
     .navbar{
         height: 0 !important;
-    }
-    .logo1{
-        opacity: 0 !important;
-    }
-    .logo2{
-        opacity: 1 !important;
-        width: 100px !important;
-        height: auto !important;
-        /*position: absolute;*/
-        left: 15em;
-        top: 19px;
     }
     .nav-links{
         box-shadow: 0 12px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19) !important;
@@ -184,13 +190,14 @@ tr:nth-child(even) {
     }
 
     .df_thr{
-        justify-content: center !important;
+      gap: unset !important;
     }
 
     .bars{
         position: absolute !important;
         right: 4em !important;
     }
+
 }
 .logo1{
     opacity: 1;

@@ -126,29 +126,34 @@ if (!isset($_SESSION['user_type'])) {
 </nav>
 <!-- End Navbar -->
 
-
+<div class="name-1"  style="height: 3em;    position: absolute;
+  top: 11em;
+    right: 6em;
+ ">
+   Hello, <?php echo $rows['last_name'] ?>
+</div>
 <div>
 
     <?php if ($rows['img_path'] == '') { ?>
         <img id="settings" src="../../assets/users_img/noImage.png"
              style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
-  top: 12em;
-    right: 174px;
+  top: 10em;
+    right: 2em;
     background: #e6e6e6;"
              alt="" class="w-32px c-hand">
     <?php } else { ?>
         <img id="settings" src="<?= $rows['img_path'] ?>"
              style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;  position: absolute;
-   top: 12em;
-    right: 174px;
+  top: 10em;
+    right: 2em;
     background: #e6e6e6;"
              alt="" class="w-32px c-hand">
     <?php } ?>
     <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: absolute;
     height: 5em;
     width: 14em;
-    top: 15.44em;
-    right: 198px;
+    top: 13.55em;
+    right: 3em;
     display: none;
     background: #e6e6e6;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
