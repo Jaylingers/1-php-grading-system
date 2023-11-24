@@ -64,7 +64,7 @@ include '../../students_page/header.php'; ?>
                                         <td><?= $row['school_year'] ?></td>
                                         <td><?= $row['date_enrolled'] ?></td>
                                         <td>
-                                        <button style="background-color: blue; color: #FFFFFF; cursor: pointer; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px;"
+                                        <button style="background-color: blue; color: #FFFFFF; cursor: pointer; font-weight: bold; padding: 10px 10px; border: none; border-radius: 5px;"
         onclick="viewStudentGrade('<?= $row['grade'] ?>')"
 >
   View Grade
