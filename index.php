@@ -64,7 +64,7 @@ if (isset($_SESSION['user_type'])) {
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MABES GRADE INQUIRY</title>
+    <title>MABES GRADE | INQUIRY</title>
     <link rel="stylesheet" href="assets/css/main.css"/>
     <link rel="stylesheet" href="assets/css/media.css"/>
     <link rel="shortcut icon" href="mabes-frontpage/mabes.png"/>
@@ -203,10 +203,8 @@ if (isset($_SESSION['user_type'])) {
                 <p class="first_at">ABOUT US</p>
                 <h1>Innovative Way To Learn</h1>
                 <p>
-                    There a lot of facilities in our school. You don't only study, but
-                    also open your opportunities in there. You will be glad to study
-                    in there. Our teachers are professional. So you accept the modern,
-                    creative lessons. Our school good at english and sports.
+                    
+Our school boasts a multitude of facilities that go beyond traditional academics, offering a diverse range of opportunities for personal and intellectual growth. It's not just a place to study; it's a hub where you can unlock numerous possibilities. The environment is designed to inspire and encourage, providing modern and creative lessons that our professional teachers deliver with expertise. When you choose to study in our school, you not only gain proficiency in English but also excel in sports, showcasing the well-rounded education we provide. You'll find that our commitment to excellence extends far beyond the classroom, making your educational journey a truly enriching and fulfilling experience.
                 </p>
             </div>
         </div>
@@ -221,11 +219,10 @@ if (isset($_SESSION['user_type'])) {
                 <p class="first_ct">NEED GOOD SCHOOL</p>
                 <h1>ONLINE GRADE INQUIRE</h1>
                 <p>
-                    This website help us to manage . We have a lot interesting
-                    methods. You can see our advantages:
+                This website helps us manage various tasks through a range of interesting methods. Explore our advantages:
                 </p>
-                <p><i class="fa-solid fa-check"></i> No Hasle Go to school</p>
-                <p><i class="fa-solid fa-check"></i> Free Access through Online</p>
+                <p><i class="fa-solid fa-check"></i> Hassle-Free School Access</p>
+                <p><i class="fa-solid fa-check"></i> Free Online Accessibility</p>
             </div>
         </div>
     </div>

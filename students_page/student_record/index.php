@@ -64,9 +64,11 @@ include '../../students_page/header.php'; ?>
                                         <td><?= $row['school_year'] ?></td>
                                         <td><?= $row['date_enrolled'] ?></td>
                                         <td>
-                                            <label for="" class="t-color-blue c-hand f-weight-bold"
-                                                   onclick="viewStudentGrade('<?= $row['grade'] ?>')"
-                                            >View Grade</label>
+                                        <button style="background-color: blue; color: #FFFFFF; cursor: pointer; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px;"
+        onclick="viewStudentGrade('<?= $row['grade'] ?>')"
+>
+  View Grade
+</button>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
