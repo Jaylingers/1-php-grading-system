@@ -251,16 +251,148 @@ if (isset($_POST['update-student-info'])) {
                     <h3>
                         Student List
                     </h3>
-                    <div class="r-50px p-absolute t-54px">
-                        <button
-                                class="btn bg-hover-gray-dark-v1"
-                                onclick="showModal('add-new-student', 'New Students')">
-                            Add New
-                        </button>
-                        <button
-                                class="btn bg-hover-gray-dark-v1"
-                                onclick="deleteStudents('student-list')">Delete Selected
-                        </button>
+                    <div class="r-50px p-absolute t-54px d-flex-center">
+                        <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50"
+                             onclick="showModal('add-new-student', 'New Students')">
+                        &nbsp; &nbsp;
+                        <svg class="c-hand" onclick="deleteStudents('student-list')" height="43" id="svg2"
+                             version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
+                             xmlns="http://www.w3.org/2000/svg"
+                             xmlns:svg="http://www.w3.org/2000/svg">
+                            <defs id="defs4">
+                                <filter id="filter4510" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
+                                             result="flood"/>
+                                    <feComposite id="feComposite4514" in="flood" in2="SourceGraphic" operator="in"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
+                                    <feComposite id="feComposite4520" in="SourceGraphic" in2="offset" operator="over"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter5064" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294" id="feFlood5066"
+                                             result="flood"/>
+                                    <feComposite id="feComposite5068" in="flood" in2="SourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
+                                                    stdDeviation="5.9"/>
+                                    <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
+                                    <feComposite id="feComposite5074" in="offset" in2="SourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter5364" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
+                                             result="flood"/>
+                                    <feComposite id="feComposite5368" in="flood" in2="SourceGraphic" operator="in"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
+                                    <feComposite id="feComposite5374" in="SourceGraphic" in2="offset" operator="over"
+                                                 result="fbSourceGraphic"/>
+                                    <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
+                                                   result="fbSourceGraphicAlpha"
+                                                   values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                    <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
+                                             in="fbSourceGraphic" result="flood"/>
+                                    <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
+                                                    stdDeviation="7.6"/>
+                                    <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
+                                    <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter4400" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
+                                             result="flood"/>
+                                    <feComposite id="feComposite4404" in="flood" in2="SourceGraphic" operator="in"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
+                                    <feComposite id="feComposite4410" in="SourceGraphic" in2="offset" operator="over"
+                                                 result="fbSourceGraphic"/>
+                                    <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
+                                                   result="fbSourceGraphicAlpha"
+                                                   values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                    <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
+                                             in="fbSourceGraphic" result="flood"/>
+                                    <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
+                                    <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter4678" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
+                                             result="flood"/>
+                                    <feComposite id="feComposite4682" in="flood" in2="SourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
+                                    <feComposite id="feComposite4688" in="offset" in2="SourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter5045" style="color-interpolation-filters:sRGB">
+                                    <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
+                                             result="flood"/>
+                                    <feComposite id="feComposite5049" in="flood" in2="SourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
+                                    <feComposite id="feComposite5055" in="offset" in2="SourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter4607" style="color-interpolation-filters:sRGB;">
+                                    <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
+                                             result="flood"/>
+                                    <feComposite id="feComposite4611" in="flood" in2="SourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
+                                                    stdDeviation="5"/>
+                                    <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
+                                    <feComposite id="feComposite4617" in="offset" in2="SourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                                <filter id="filter4507" style="color-interpolation-filters:sRGB;">
+                                    <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
+                                             result="flood"/>
+                                    <feComposite id="feComposite4511" in="flood" in2="SourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
+                                                    stdDeviation="3"/>
+                                    <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
+                                    <feComposite id="feComposite4517" in="offset" in2="SourceGraphic" operator="atop"
+                                                 result="fbSourceGraphic"/>
+                                    <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
+                                                   result="fbSourceGraphicAlpha"
+                                                   values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                    <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
+                                             in="fbSourceGraphic" result="flood"/>
+                                    <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic" operator="out"
+                                                 result="composite1"/>
+                                    <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
+                                                    stdDeviation="3.4"/>
+                                    <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
+                                    <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                 result="composite2"/>
+                                </filter>
+                            </defs>
+                            <g id="layer3" style="display:inline" transform="translate(0,-99.999988)">
+                                <g id="g4283">
+                                    <path d="m 64.41211,130.39258 a 2.5002498,2.5002498 0 0 0 -2.472657,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527343,-2.54492 z m -14.351573,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 L 47.4121,177.81836 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z m -13.876943,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z M 20,99.999988 c -11.0800091,0 -20,8.919992 -20,20.000002 l 0,60 c 0,11.08 8.9199909,20 20,20 l 60,0 c 11.080007,0 20,-8.92 20,-20 l 0,-60 C 100,108.91998 91.080007,99.999988 80,99.999988 l -60,0 z m 23.490234,14.923832 13.019532,0 c 0.873657,0 1.578125,0.70446 1.578125,1.57812 l 0,3.03125 16.99414,0 c 1.028311,0 1.855469,0.82716 1.855469,1.85547 l 0,2.91406 c 0,1.02831 -0.827158,1.85547 -1.855469,1.85547 l -50.164062,0 c -1.02831,0 -1.855469,-0.82716 -1.855469,-1.85547 l 0,-2.91406 c 0,-1.02831 0.827159,-1.85547 1.855469,-1.85547 l 16.99414,0 0,-3.03125 c 0,-0.87366 0.704468,-1.57812 1.578125,-1.57812 z m -17.001953,13.30859 47.023438,0 0,48.88867 c 0,4.40704 -3.548036,7.95508 -7.955078,7.95508 l -31.113282,0 c -4.407042,0 -7.955078,-3.54804 -7.955078,-7.95508 l 0,-48.88867 z"
+                                          id="path4218"
+                                          style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"/>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
                 </div>
                 <br/>
@@ -394,7 +526,8 @@ if (isset($_POST['update-student-info'])) {
                             <th>Grade</th>
                             <th>Section</th>
                             <th>Added By</th>
-                            <th></th>
+                            <th class="t-align-center">View Enrollment</th>
+                            <th class="t-align-center">View Details</th>
                         </tr>
                         </thead>
                         <tbody id="student-list">
@@ -417,14 +550,19 @@ if (isset($_POST['update-student-info'])) {
                                 <td><?= $_GET['Tgrade'] ?></td>
                                 <td><?= $row['section'] ?></td>
                                 <td><?= $row['addedBy'] ?></td>
-                                <td>
+                                <td class="t-align-center">
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewStudentEnrollment('<?= $row['lrn'] ?>')"
-                                    >View Enrollment</label>
-                                    &nbsp;
-                                    <label for="" class="t-color-red c-hand f-weight-bold"
+                                    >
+                                       <svg class="c-hand" width="40" height="40" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x34_98_x2C__student__x2C__notes__x2C__note_x2C__education"><g><path d="M461,93.31v390H61v-200v-190h33.52c-0.03,0.02-0.06,0.04-0.09,0.06h355.24    c0.65,0,1.3-0.02,1.95-0.06H461z" style="fill:#F0F1F1;"/><path d="M71.47,294.81v-190h33.52c-0.03,0.02-0.06,0.04-0.09,0.06h355.24c0.287,0,0.573-0.019,0.86-0.026    V93.31h-9.38c-0.65,0.04-1.3,0.06-1.95,0.06H94.43c0.03-0.02,0.06-0.04,0.09-0.06H61v190v200h10.47V294.81z" style="fill:#DEE0E0;"/><rect height="30" style="fill:#FF7979;" width="40" x="361" y="403.31"/><polygon points="367.75,410.685 401,410.685 401,403.31 361,403.31 361,433.31 367.75,433.31   " style="fill:#D65B5B;"/><rect height="160" style="fill:#FEBE76;" width="40" x="361" y="243.31"/><polygon points="368.125,251.56 401,251.56 401,243.31 361,243.31 361,403.31 368.125,403.31   " style="fill:#E8A664;"/><polygon points="381,183.31 401,243.31 361,243.31   " style="fill:#57606F;"/><polygon points="384.958,195.185 381,183.31 361,243.31 368.917,243.31   " style="fill:#414A56;"/><path d="M471.9,39.58c5.64,5.76,9.1,13.7,9.1,22.46c0,16.41-12.8,30.26-29.38,31.27H94.52    c10.54-6.46,17.42-18.41,17.42-31.73c0-12.9-6.45-24.42-16.59-31.33h354.32C458.42,30.25,466.26,33.82,471.9,39.58z" style="fill:#FFEBBE;"/><g><g><g><path d="M105.574,40.583H452.91c8.75,0,16.59,3.57,22.23,9.33c2.217,2.265,4.091,4.87,5.557,7.726       c-0.948-7.002-4.119-13.282-8.797-18.06c-5.641-5.76-13.48-9.33-22.23-9.33H95.35C99.415,33.02,102.873,36.54,105.574,40.583z" style="fill:#E5D0A8;"/></g><g><path d="M115.18,71.914c0-5.857-1.341-11.423-3.742-16.409c0.319,1.983,0.502,4.009,0.502,6.076       c0,13.32-6.88,25.27-17.42,31.73h14.048C112.742,87.231,115.18,79.819,115.18,71.914z" style="fill:#E5D0A8;"/></g></g></g><path d="M95.35,30.25c10.14,6.91,16.59,18.43,16.59,31.33c0,13.32-6.88,25.27-17.42,31.73H61v190H31v-210    c0-26.26,20.12-46.75,46.38-44.44L95.35,30.25z" style="fill:#F0DCA0;"/><path d="M39,80.643c0-26.26,20.12-46.75,46.38-44.44l17.97,1.38c0.003,0.002,0.007,0.005,0.01,0.008    c-2.295-2.798-4.984-5.278-8.01-7.341l-17.97-1.38C51.12,26.56,31,47.05,31,73.31v210h8V80.643z" style="fill:#DDC792;"/><rect height="20" width="20" x="311" y="133.31"/><rect height="20" width="20" x="271" y="133.31"/><rect height="20" width="20" x="231" y="133.31"/><rect height="20" width="20" x="191" y="133.31"/><path d="M461,488.31H61c-2.761,0-5-2.238-5-5v-390c0-2.761,2.239-5,5-5h400c2.762,0,5,2.239,5,5v390    C466,486.071,463.762,488.31,461,488.31z M66,478.31h390v-380H66V478.31z"/><path d="M449.67,98.37H94.43c-2.761,0-5-2.239-5-5s2.239-5,5-5h355.24c0.548,0,1.095-0.017,1.643-0.051    C465.157,87.476,476,75.933,476,62.04c0-7.175-2.725-13.909-7.672-18.962c-4.943-5.048-11.569-7.828-18.658-7.828H95.35    c-2.761,0-5-2.239-5-5s2.239-5,5-5h354.32c9.8,0,18.963,3.847,25.803,10.832C482.262,43.015,486,52.234,486,62.04    c0,19.169-14.968,35.097-34.076,36.261C451.178,98.347,450.419,98.37,449.67,98.37z"/><path d="M61,288.31H31c-2.761,0-5-2.238-5-5v-210c0-14.581,5.807-28.262,15.932-37.535c9.663-8.851,22.406-13.071,35.886-11.886    l17.915,1.375c0.872,0.067,1.71,0.361,2.433,0.854c11.755,8.011,18.774,21.268,18.774,35.462c0,2.761-2.239,5-5,5s-5-2.239-5-5    c0-10.453-4.968-20.246-13.353-26.451l-16.59-1.274c-10.706-0.943-20.741,2.361-28.312,9.294C40.624,50.534,36,61.527,36,73.31    v205h25c2.761,0,5,2.238,5,5S63.761,288.31,61,288.31z"/><path d="M94.483,98.32c-1.613,0-3.198-0.763-4.158-2.191c-1.54-2.292-0.976-5.369,1.316-6.909    c0.058-0.039,0.207-0.137,0.266-0.173c9.272-5.683,15.033-16.208,15.033-27.467c0-2.761,2.239-5,5-5s5,2.239,5,5    c0,14.704-7.581,28.488-19.785,35.979C96.329,98.073,95.401,98.32,94.483,98.32z"/><path d="M321,198.31H101c-2.761,0-5-2.239-5-5s2.239-5,5-5h220c2.762,0,5,2.239,5,5S323.762,198.31,321,198.31z"/><path d="M321,238.31H101c-2.761,0-5-2.239-5-5s2.239-5,5-5h220c2.762,0,5,2.239,5,5S323.762,238.31,321,238.31z"/><path d="M321,278.31H101c-2.761,0-5-2.238-5-5s2.239-5,5-5h220c2.762,0,5,2.238,5,5S323.762,278.31,321,278.31z"/><path d="M321,318.31H101c-2.761,0-5-2.238-5-5s2.239-5,5-5h220c2.762,0,5,2.238,5,5S323.762,318.31,321,318.31z"/><path d="M321,358.31H101c-2.761,0-5-2.238-5-5s2.239-5,5-5h220c2.762,0,5,2.238,5,5S323.762,358.31,321,358.31z"/><path d="M321,398.31H101c-2.761,0-5-2.238-5-5s2.239-5,5-5h220c2.762,0,5,2.238,5,5S323.762,398.31,321,398.31z"/><path d="M321,438.31h-65.18c-2.761,0-5-2.238-5-5s2.239-5,5-5H321c2.762,0,5,2.238,5,5S323.762,438.31,321,438.31z"/><path d="M401,408.31c-2.762,0-5-2.238-5-5v-160c0-2.761,2.238-5,5-5s5,2.239,5,5v160C406,406.071,403.762,408.31,401,408.31z"/><path d="M361,408.31c-2.762,0-5-2.238-5-5v-160c0-2.761,2.238-5,5-5s5,2.239,5,5v160C366,406.071,363.762,408.31,361,408.31z"/><path d="M401,438.31h-40c-2.762,0-5-2.238-5-5v-30c0-2.762,2.238-5,5-5h40c2.762,0,5,2.238,5,5v30    C406,436.071,403.762,438.31,401,438.31z M366,428.31h30v-20h-30V428.31z"/><path d="M401,248.31h-40c-1.607,0-3.116-0.772-4.057-2.077c-0.939-1.304-1.195-2.98-0.687-4.504l20-60    c0.681-2.042,2.591-3.419,4.743-3.419s4.063,1.377,4.743,3.419l20,60c0.509,1.524,0.253,3.201-0.687,4.504    C404.116,247.538,402.607,248.31,401,248.31z M367.938,238.31h26.125L381,199.122L367.938,238.31z"/><path d="M431,408.31h-30c-2.762,0-5-2.238-5-5s2.238-5,5-5h25v-65c0-2.762,2.238-5,5-5s5,2.238,5,5v70    C436,406.071,433.762,408.31,431,408.31z"/></g></g><g id="Layer_1"/></svg>
+                                    </label>
+                                </td>
+                                <td class="t-align-center">
+                                    <label for="" class="t-color-red c-hand f-weight-bold "
                                            onclick="viewStudentInformation('<?= "[" . $row['lrn'] . "?" . $row['f_name'] . "?" . $row['l_name'] . "?" . $row['m_name'] . "?" . $row['gender'] . "?" . $row['b_date'] . "?" . $row['b_place'] . "?" . $row['c_status'] . "?" . $row['age'] . "?" . $row['nationality'] . "?" . $row['religion'] . "?" . $row['contact_number'] . "?" . $row['email_address'] . "?" . $row['home_address'] . "?" . $row['guardian_name'] . "]" ?>')"
-                                    >View Details</label>
+                                    >
+                                     <svg enable-background="new 0 0 300 300" width="40" height="40" id="Layer_1" version="1.1" viewBox="0 0 300 300"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M151.123,14.8c-74.557,0-134.998,60.44-134.998,135.002c0,74.554,60.44,134.998,134.998,134.998   c74.559,0,135.002-60.443,135.002-134.998C286.125,75.241,225.682,14.8,151.123,14.8z M151.123,265.714   c-64.013,0-115.911-51.901-115.911-115.912c0-64.018,51.898-115.911,115.911-115.911c64.019,0,115.912,51.894,115.912,115.911   C267.035,213.813,215.142,265.714,151.123,265.714z" fill="#D77E47"/><circle cx="151.125" cy="149.802" fill="#D77E47" r="104.431"/><g><path d="M139.156,93.922c3.02-2.791,6.638-4.183,10.829-4.183c4.195,0,7.785,1.392,10.793,4.183    c2.996,2.804,4.496,6.161,4.496,10.091c0,3.931-1.517,7.279-4.54,10.051c-3.021,2.768-6.602,4.151-10.749,4.151    c-4.183,0-7.801-1.379-10.829-4.151c-3.024-2.771-4.536-6.12-4.536-10.051C134.62,100.083,136.132,96.726,139.156,93.922z" fill="#FFFFFF"/><path d="M176.604,209.861h-49.046v-5.663c1.347-0.1,2.663-0.236,3.962-0.389c1.287-0.16,2.402-0.413,3.329-0.778    c1.665-0.613,2.824-1.516,3.505-2.679c0.666-1.163,1.011-2.699,1.011-4.616v-45.172c0-1.809-0.417-3.393-1.239-4.765    c-0.83-1.38-1.869-2.483-3.108-3.305c-0.926-0.618-2.346-1.215-4.227-1.789c-1.885-0.565-3.609-0.922-5.158-1.083v-5.659    l38.029-2.018l1.163,1.159v61.62c0,1.813,0.393,3.345,1.158,4.616c0.782,1.268,1.89,2.206,3.341,2.835    c1.035,0.466,2.183,0.887,3.413,1.239c1.248,0.365,2.535,0.618,3.883,0.778v5.667H176.604L176.604,209.861z" fill="#FFFFFF"/></g></g></svg>
+                                    </label>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -659,7 +797,186 @@ if (isset($_POST['update-student-info'])) {
 
                 <div class="p-absolute btm-1em r-1em">
                     <button class="c-hand btn-primary btn"
-                            name="save" onclick="updateStudentInformation()">Update
+                            name="save" onclick="updateStudentInformation()" style="background-color: #757575 !important; border-color: #757575;">
+                        <svg width="40" height="40" viewBox="0 0 48 48"
+                             xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs>
+                                <style>.cls-1 {
+                                        fill: url(#linear-gradient);
+                                    }
+
+                                    .cls-2 {
+                                        fill: url(#linear-gradient-2);
+                                    }
+
+                                    .cls-3 {
+                                        fill: url(#linear-gradient-3);
+                                    }
+
+                                    .cls-4 {
+                                        fill: #666;
+                                    }
+
+                                    .cls-5 {
+                                        fill: url(#linear-gradient-4);
+                                    }
+
+                                    .cls-6 {
+                                        fill: url(#linear-gradient-5);
+                                    }
+
+                                    .cls-7 {
+                                        fill: url(#linear-gradient-6);
+                                    }
+
+                                    .cls-8 {
+                                        fill: url(#linear-gradient-7);
+                                    }
+
+                                    .cls-9 {
+                                        fill: url(#linear-gradient-8);
+                                    }
+
+                                    .cls-10 {
+                                        fill: url(#linear-gradient-9);
+                                    }
+
+                                    .cls-11 {
+                                        fill: url(#linear-gradient-10);
+                                    }
+
+                                    .cls-12 {
+                                        fill: url(#linear-gradient-11);
+                                    }
+
+                                    .cls-13 {
+                                        fill: url(#linear-gradient-12);
+                                    }
+
+                                    .cls-14 {
+                                        fill: url(#linear-gradient-13);
+                                    }
+
+                                    .cls-15 {
+                                        fill: url(#linear-gradient-14);
+                                    }</style>
+                                <linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient"
+                                                x1="22.98" x2="26.48" y1="23.9" y2="28.27">
+                                    <stop offset="0.04" stop-color="#fbb480"/>
+                                    <stop offset="1" stop-color="#c27c4a"/>
+                                </linearGradient>
+                                <linearGradient id="linear-gradient-2" x1="7.85" x2="11.63"
+                                                xlink:href="#linear-gradient" y1="35.07" y2="39.53"/>
+                                <linearGradient id="linear-gradient-3" x1="7.26" x2="12.14"
+                                                xlink:href="#linear-gradient" y1="33.38" y2="38.26"/>
+                                <linearGradient id="linear-gradient-4" x1="35.06" x2="41.75"
+                                                xlink:href="#linear-gradient" y1="9.61" y2="16.3"/>
+                                <linearGradient id="linear-gradient-5" x1="32.45" x2="41.29"
+                                                xlink:href="#linear-gradient" y1="6.23" y2="17.91"/>
+                                <linearGradient gradientTransform="translate(21.95 -5.88) rotate(44.99)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-6"
+                                                x1="17.07" x2="22.48" y1="22.56" y2="27.98">
+                                    <stop offset="0.01" stop-color="#ffdc2e"/>
+                                    <stop offset="1" stop-color="#f79139"/>
+                                </linearGradient>
+                                <linearGradient gradientTransform="translate(28.21 -8.47) rotate(45)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-7"
+                                                x1="22.57" x2="26.35" y1="28.06" y2="31.84">
+                                    <stop offset="0.01" stop-color="#f46000"/>
+                                    <stop offset="1" stop-color="#de722c"/>
+                                </linearGradient>
+                                <linearGradient gradientTransform="translate(25.08 -7.17) rotate(45)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-8"
+                                                x1="20.21" x2="24.85" y1="25.7" y2="30.35">
+                                    <stop offset="0.01" stop-color="#f99d46"/>
+                                    <stop offset="1" stop-color="#f46000"/>
+                                </linearGradient>
+                                <linearGradient
+                                        gradientTransform="translate(23.66 -19.41) rotate(44.98)"
+                                        gradientUnits="userSpaceOnUse" id="linear-gradient-9" x1="34.09"
+                                        x2="36.35" y1="17.69" y2="19.95">
+                                    <stop offset="0.01" stop-color="#a1a1a1"/>
+                                    <stop offset="1" stop-color="#828282"/>
+                                </linearGradient>
+                                <linearGradient gradientTransform="translate(17.4 -16.81) rotate(44.98)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-10"
+                                                x1="27.79" x2="30.61" y1="11.39" y2="14.22">
+                                    <stop offset="0.01" stop-color="#fafafa"/>
+                                    <stop offset="1" stop-color="#dedede"/>
+                                </linearGradient>
+                                <linearGradient gradientTransform="translate(20.55 -18.12) rotate(45)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-11"
+                                                x1="30.43" x2="34.61" y1="14.03" y2="18.21">
+                                    <stop offset="0.01" stop-color="#d4d4d4"/>
+                                    <stop offset="1" stop-color="#a6a6a6"/>
+                                </linearGradient>
+                                <linearGradient
+                                        gradientTransform="translate(23.67 -19.41) rotate(44.99)"
+                                        gradientUnits="userSpaceOnUse" id="linear-gradient-12" x1="33.9"
+                                        x2="36.13" y1="17.5" y2="19.73">
+                                    <stop offset="0.01" stop-color="#b2b2b2"/>
+                                    <stop offset="1" stop-color="#939393"/>
+                                </linearGradient>
+                                <linearGradient
+                                        gradientTransform="translate(17.41 -16.82) rotate(44.99)"
+                                        gradientUnits="userSpaceOnUse" id="linear-gradient-13"
+                                        x1="28.07" x2="30.21" y1="11.67" y2="13.81">
+                                    <stop offset="0.01" stop-color="#fafafa"/>
+                                    <stop offset="1" stop-color="#efefef"/>
+                                </linearGradient>
+                                <linearGradient gradientTransform="translate(20.55 -18.12) rotate(45)"
+                                                gradientUnits="userSpaceOnUse" id="linear-gradient-14"
+                                                x1="30.39" x2="34.73" y1="14" y2="18.34">
+                                    <stop offset="0.01" stop-color="#e5e5e5"/>
+                                    <stop offset="1" stop-color="#b7b7b7"/>
+                                </linearGradient>
+                            </defs>
+                            <title/>
+                            <g id="icons">
+                                <g data-name="Layer 3" id="Layer_3">
+                                    <path class="cls-1"
+                                          d="M41.43,11.27,36.61,6.46a2.8,2.8,0,0,0-4,0L8,31.06,6.27,38.73l3.06,3.06,7.49-1.94,24.61-24.6A2.83,2.83,0,0,0,41.43,11.27Z"/>
+                                    <polygon class="cls-2"
+                                             points="7.24 39.7 10.56 33.59 14.29 37.32 8.19 40.65 7.24 39.7"/>
+                                    <polygon class="cls-3"
+                                             points="9.33 41.78 16.82 39.85 18.45 38.23 14.29 37.32 8.19 40.65 9.33 41.78"/>
+                                    <path class="cls-4"
+                                          d="M7.33,42.3l2-.51L6.27,38.73s-.21.91-.46,2S6.23,42.58,7.33,42.3Z"/>
+                                    <path class="cls-5"
+                                          d="M41.43,11.27,36.61,6.46a2.8,2.8,0,0,0-4,0L29.92,9.17l2.53,2.53,3.73,3.73L38.71,18l2.72-2.71A2.83,2.83,0,0,0,41.43,11.27Z"/>
+                                    <path class="cls-6"
+                                          d="M41.46,11.87,37.62,8a2.25,2.25,0,0,0-3.17,0l-3.07,3.08,2,2,3,3,2,2L41.46,15A2.24,2.24,0,0,0,41.46,11.87Z"/>
+                                    <rect class="cls-7" height="3.58"
+                                          transform="translate(-11.37 19.67) rotate(-44.99)"
+                                          width="24.8" x="5.67" y="21.77"/>
+                                    <rect class="cls-8" height="3.58"
+                                          transform="translate(-13.96 25.93) rotate(-45)" width="24.8"
+                                          x="11.92" y="28.03"/>
+                                    <rect class="cls-9" height="5.27"
+                                          transform="translate(-12.66 22.8) rotate(-45)" width="24.8"
+                                          x="8.79" y="24.05"/>
+                                    <rect class="cls-10" height="3.58"
+                                          transform="translate(-3.02 30.45) rotate(-44.98)" width="7.63"
+                                          x="31.46" y="17.08"/>
+                                    <rect class="cls-11" height="3.58"
+                                          transform="translate(-0.43 24.2) rotate(-44.98)" width="7.62"
+                                          x="25.2" y="10.83"/>
+                                    <rect class="cls-12" height="5.27"
+                                          transform="translate(-1.72 27.34) rotate(-45)" width="7.62"
+                                          x="28.33" y="13.11"/>
+                                    <rect class="cls-13" height="3.58"
+                                          transform="translate(-3.02 30.46) rotate(-44.99)" width="6.15"
+                                          x="32.19" y="17.08"/>
+                                    <rect class="cls-14" height="3.58"
+                                          transform="translate(-0.43 24.2) rotate(-44.99)" width="6.15"
+                                          x="25.94" y="10.83"/>
+                                    <rect class="cls-15" height="5.27"
+                                          transform="translate(-1.72 27.34) rotate(-45)" width="6.15"
+                                          x="29.06" y="13.11"/>
+                                </g>
+                            </g>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -776,14 +1093,15 @@ if (isset($_POST['update-student-info'])) {
                         </div>
                     </div>
                     <div class="b-top-gray-3px m-1em">
-                        <div class="r-50px d-flex-end gap-1em m-t-1em">
-                            <label class="btn bg-hover-gray-dark-v1 m-b-0"
-                                   onclick="showModal('view-student-info','Student Information', 'dark')">
-                                Back
+                        <div class="r-50px d-flex-end m-t-1em">
+                            <label class=" bg-hover-gray-dark-v1 m-b-0"
+                                   onclick="showModal('view-student-info','Student Information', 'dark')" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <img src="../../assets/img/back.png" alt="" width="60" height="60" class="c-hand">
                             </label>
                             <button type="submit"
                                     class="c-hand btn-success btn"
-                                    name="update-student-info">Submit
+                                    name="update-student-info" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                             </button>
                         </div>
                     </div>
@@ -791,14 +1109,146 @@ if (isset($_POST['update-student-info'])) {
             </div>
             <div id="view-student-enrollment" class="modal-child pad-bottom-2em d-none">
                 <div class="d-flex-end gap-1em m-b-1em">
-                    <button
-                            class="btn bg-hover-gray-dark-v1" onclick="showModal('add-enrollment', 'New Enrollment')">
-                        Add New
-                    </button>
-                    <button
-                            class="btn bg-hover-gray-dark-v1"
-                            onclick="deleteStudents('student-enrollment')">Delete Selected
-                    </button>
+                    <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50"
+                         onclick="showModal('add-enrollment', 'New Enrollment')">
+                    <svg class="c-hand" onclick="deleteStudents('student-enrollment')" height="43" id="svg2"
+                         version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:svg="http://www.w3.org/2000/svg">
+                        <defs id="defs4">
+                            <filter id="filter4510" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
+                                         result="flood"/>
+                                <feComposite id="feComposite4514" in="flood" in2="SourceGraphic" operator="in"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
+                                <feComposite id="feComposite4520" in="SourceGraphic" in2="offset" operator="over"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter5064" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294" id="feFlood5066"
+                                         result="flood"/>
+                                <feComposite id="feComposite5068" in="flood" in2="SourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
+                                                stdDeviation="5.9"/>
+                                <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
+                                <feComposite id="feComposite5074" in="offset" in2="SourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter5364" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
+                                         result="flood"/>
+                                <feComposite id="feComposite5368" in="flood" in2="SourceGraphic" operator="in"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
+                                <feComposite id="feComposite5374" in="SourceGraphic" in2="offset" operator="over"
+                                             result="fbSourceGraphic"/>
+                                <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
+                                               result="fbSourceGraphicAlpha"
+                                               values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
+                                         in="fbSourceGraphic" result="flood"/>
+                                <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
+                                                stdDeviation="7.6"/>
+                                <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
+                                <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter4400" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
+                                         result="flood"/>
+                                <feComposite id="feComposite4404" in="flood" in2="SourceGraphic" operator="in"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
+                                <feComposite id="feComposite4410" in="SourceGraphic" in2="offset" operator="over"
+                                             result="fbSourceGraphic"/>
+                                <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
+                                               result="fbSourceGraphicAlpha"
+                                               values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
+                                         in="fbSourceGraphic" result="flood"/>
+                                <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
+                                <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter4678" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
+                                         result="flood"/>
+                                <feComposite id="feComposite4682" in="flood" in2="SourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
+                                <feComposite id="feComposite4688" in="offset" in2="SourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter5045" style="color-interpolation-filters:sRGB">
+                                <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
+                                         result="flood"/>
+                                <feComposite id="feComposite5049" in="flood" in2="SourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
+                                <feComposite id="feComposite5055" in="offset" in2="SourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter4607" style="color-interpolation-filters:sRGB;">
+                                <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
+                                         result="flood"/>
+                                <feComposite id="feComposite4611" in="flood" in2="SourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
+                                                stdDeviation="5"/>
+                                <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
+                                <feComposite id="feComposite4617" in="offset" in2="SourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                            <filter id="filter4507" style="color-interpolation-filters:sRGB;">
+                                <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
+                                         result="flood"/>
+                                <feComposite id="feComposite4511" in="flood" in2="SourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
+                                                stdDeviation="3"/>
+                                <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
+                                <feComposite id="feComposite4517" in="offset" in2="SourceGraphic" operator="atop"
+                                             result="fbSourceGraphic"/>
+                                <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
+                                               result="fbSourceGraphicAlpha"
+                                               values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
+                                         in="fbSourceGraphic" result="flood"/>
+                                <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic" operator="out"
+                                             result="composite1"/>
+                                <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
+                                                stdDeviation="3.4"/>
+                                <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
+                                <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic" operator="atop"
+                                             result="composite2"/>
+                            </filter>
+                        </defs>
+                        <g id="layer3" style="display:inline" transform="translate(0,-99.999988)">
+                            <g id="g4283">
+                                <path d="m 64.41211,130.39258 a 2.5002498,2.5002498 0 0 0 -2.472657,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527343,-2.54492 z m -14.351573,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 L 47.4121,177.81836 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z m -13.876943,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z M 20,99.999988 c -11.0800091,0 -20,8.919992 -20,20.000002 l 0,60 c 0,11.08 8.9199909,20 20,20 l 60,0 c 11.080007,0 20,-8.92 20,-20 l 0,-60 C 100,108.91998 91.080007,99.999988 80,99.999988 l -60,0 z m 23.490234,14.923832 13.019532,0 c 0.873657,0 1.578125,0.70446 1.578125,1.57812 l 0,3.03125 16.99414,0 c 1.028311,0 1.855469,0.82716 1.855469,1.85547 l 0,2.91406 c 0,1.02831 -0.827158,1.85547 -1.855469,1.85547 l -50.164062,0 c -1.02831,0 -1.855469,-0.82716 -1.855469,-1.85547 l 0,-2.91406 c 0,-1.02831 0.827159,-1.85547 1.855469,-1.85547 l 16.99414,0 0,-3.03125 c 0,-0.87366 0.704468,-1.57812 1.578125,-1.57812 z m -17.001953,13.30859 47.023438,0 0,48.88867 c 0,4.40704 -3.548036,7.95508 -7.955078,7.95508 l -31.113282,0 c -4.407042,0 -7.955078,-3.54804 -7.955078,-7.95508 l 0,-48.88867 z"
+                                      id="path4218"
+                                      style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"/>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
                 <?php
                 if (isset($_GET['lrn'])) {
@@ -848,7 +1298,7 @@ if (isset($_POST['update-student-info'])) {
                                 <th>School Year</th>
                                 <th>Date Enrolled</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th class="t-align-center">View Grade</th>
                             </tr>
                             </thead>
                             <tbody id="student-enrollment">
@@ -868,10 +1318,8 @@ if (isset($_POST['update-student-info'])) {
                                     <td><?= $row['date_enrolled'] ?></td>
                                     <td><?= $row['status'] ?></td>
 
-                                    <td>
-                                        <label for="" class="t-color-red c-hand f-weight-bold"
-                                               onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')">View
-                                            Grade</label>
+                                    <td class="t-align-center">
+                                       <svg  onclick="showGrade('<?= $row['f_name'] ?>','<?= $row['l_name'] ?>','<?= $row['m_name'] ?>','<?= $row['grade'] ?>', '<?= $row['school_year'] ?>')" class="c-hand" width="40" height="40"  id="object" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ffd599;}.cls-2{fill:#6d6daa;}</style></defs><title/><path class="cls-1" d="M16,3.36a18.63,18.63,0,0,0-14,0V30a18.63,18.63,0,0,1,14,0,18.63,18.63,0,0,1,14,0V3.36A18.63,18.63,0,0,0,16,3.36Z"/><path  d="M30,31a1,1,0,0,1-.38-.07,17.63,17.63,0,0,0-13.24,0,1.1,1.1,0,0,1-.76,0,17.63,17.63,0,0,0-13.24,0A1,1,0,0,1,1,30V3.36a1,1,0,0,1,.62-.93A19.72,19.72,0,0,1,16,2.28a19.72,19.72,0,0,1,14.38.15,1,1,0,0,1,.62.93V30a1,1,0,0,1-1,1ZM9,27.64a19.76,19.76,0,0,1,7,1.28,19.78,19.78,0,0,1,13-.35V4.05a17.6,17.6,0,0,0-12.62.24,1.1,1.1,0,0,1-.76,0A17.66,17.66,0,0,0,3,4.05V28.57A19.73,19.73,0,0,1,9,27.64Z"/><path class="cls-2" d="M16,31a1,1,0,0,1-1-1V3.37a1,1,0,0,1,2,0V30A1,1,0,0,1,16,31Z"/></svg>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -889,49 +1337,49 @@ if (isset($_POST['update-student-info'])) {
                             <ul class="pagination">
                                 <?php if ($page > 1): ?>
                                     <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>">Prev</a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page > 3): ?>
                                     <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">1</a>
                                     </li>
                                     <li class="dots">...</li>
                                 <?php endif; ?>
 
                                 <?php if ($page - 2 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page - 1 > 0): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                     </li><?php endif; ?>
 
                                 <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page ?>"><?php echo $page ?></a>
                                 </li>
 
                                 <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                     </li><?php endif; ?>
                                 <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                     <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                            href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                     </li><?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                     <li class="dots">...</li>
                                     <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                     <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
+                                                href="/1-php-grading-system/admins_page/student_list/?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade']  ?>&&Tsection=<?php echo $_GET['Tsection']  ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&lrn=<?php echo $lrns ?>&&page_enrollment=<?php echo $page + 1 ?>">Next</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -1004,14 +1452,15 @@ if (isset($_POST['update-student-info'])) {
                         </div>
                     </div>
                     <div class="b-top-gray-3px p-absolute btm-1em w-98p">
-                        <div class="r-50px d-flex-end gap-1em m-t-1em">
+                        <div class="r-50px d-flex-end m-t-1em">
                             <label class="btn bg-hover-gray-dark-v1 m-b-0"
-                                   onclick="showModal('view-student-enrollment','Student Enrollment')">
-                                Back
+                                   onclick="showModal('view-student-enrollment','Student Enrollment')" style="padding:0; background-color: #ffffff !important; border-color: #ffffff;">
+                                <img src="../../assets/img/back.png" alt="" width="60" height="60" class="c-hand">
                             </label>
                             <button type="submit"
                                     class="c-hand btn-success btn"
-                                    name="add-enrollment">Submit
+                                    name="add-enrollment" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                             </button>
                         </div>
                     </div>
@@ -1197,14 +1646,9 @@ if (isset($_POST['update-student-info'])) {
 
                     </table>
                 </div>
-                <div class="p-absolute btm-1em r-1em action-button">
-                    <label class="btn bg-hover-gray-dark-v1 m-b-0"
-                           onclick="backModal('view-student-enrollment', 'Student Enrollment','white')">
-                        Back
-                    </label>
-                    <button class="c-hand btn-primary btn"
-                            onclick="print('view-student-grade')">Print
-                    </button>
+                <div class="p-absolute btm-1em r-1em action-button d-flex-center">
+                    <img  onclick="backModal('view-student-enrollment', 'Student Enrollment','white')"  src="../../assets/img/back.png" alt="" width="60" height="60" class="c-hand">
+                  &nbsp;&nbsp;&nbsp; <svg onclick="print('view-student-grade')"  width="50" height="50"  data-name="Layer 1" id="Layer_1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#40bdff;}.cls-2{fill:#eb5639;}.cls-3{fill:#d84936;}.cls-4{fill:#effafe;}.cls-5{fill:#2197f7;}.cls-6{fill:#e4ebed;}.cls-7{fill:#263238;}.cls-8{fill:#fd0;}</style></defs><title/><path class="cls-1" d="M236,84.62H25a8,8,0,0,0-8,8v70.77a8,8,0,0,0,8,8H51.87V145.13H39.5a2,2,0,0,1,0-4h177a2,2,0,0,1,0,4H204.13v26.26H236a8,8,0,0,0,8-8V92.62A8,8,0,0,0,236,84.62ZM85.51,102.18a2,2,0,0,1-2,2H68.38a2,2,0,0,1,0-4H83.51A2,2,0,0,1,85.51,102.18Zm-30.26,0a9.57,9.57,0,0,1-9.56,9.56H30.56a9.56,9.56,0,0,1,0-19.13H45.69A9.58,9.58,0,0,1,55.26,102.18Z"/><path class="cls-2" d="M45.69,96.62H30.56a5.56,5.56,0,0,0,0,11.13H45.69a5.56,5.56,0,0,0,0-11.13Z"/><path class="cls-3" d="M45.69,96.62h-3a5.56,5.56,0,0,1,0,11.13h3a5.56,5.56,0,0,0,0-11.13Z"/><path class="cls-4" d="M68.87,231.9H192.13a8,8,0,0,0,8-8V145.13H60.87V223.9A8,8,0,0,0,68.87,231.9Zm1.64-15.13h115a2,2,0,0,1,0,4h-115a2,2,0,0,1,0-4Zm115-11.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Z"/><path class="cls-4" d="M200.13,32.1a8,8,0,0,0-8-8H68.87a8,8,0,0,0-8,8V80.62H200.13Z"/><path class="cls-5" d="M236,84.62h-5a8,8,0,0,1,8,8v70.77a8,8,0,0,1-8,8h5a8,8,0,0,0,8-8V92.62A8,8,0,0,0,236,84.62Z"/><path class="cls-6" d="M195.13,145.13V223.9a8,8,0,0,1-8,8h5a8,8,0,0,0,8-8V145.13Z"/><path class="cls-6" d="M192.13,24.1h-5a8,8,0,0,1,8,8V80.62h5V32.1A8,8,0,0,0,192.13,24.1Z"/><path class="cls-7" d="M236,80.12H204.63v-48a12.51,12.51,0,0,0-12.5-12.5H63.87a12.51,12.51,0,0,0-12.5,12.5v48H20A12.51,12.51,0,0,0,7.5,92.62v70.77A12.51,12.51,0,0,0,20,175.88H51.37v48a12.51,12.51,0,0,0,12.5,12.5H192.13a12.51,12.51,0,0,0,12.5-12.5v-48H236a12.51,12.51,0,0,0,12.5-12.5V92.62A12.51,12.51,0,0,0,236,80.12ZM56.37,32.1a7.51,7.51,0,0,1,7.5-7.5H192.13a7.51,7.51,0,0,1,7.5,7.5v48H56.37ZM199.63,173.38V223.9a7.51,7.51,0,0,1-7.5,7.5H63.87a7.51,7.51,0,0,1-7.5-7.5V145.63H199.63Zm43.87-10a7.51,7.51,0,0,1-7.5,7.5H204.63V145.63H216.5a2.5,2.5,0,0,0,0-5H39.5a2.5,2.5,0,0,0,0,5H51.37v25.26H20a7.51,7.51,0,0,1-7.5-7.5V92.62a7.51,7.51,0,0,1,7.5-7.5H236a7.51,7.51,0,0,1,7.5,7.5Z"/><path class="cls-7" d="M45.69,92.12H30.56a10.06,10.06,0,0,0,0,20.13H45.69a10.06,10.06,0,0,0,0-20.13Zm0,15.13H30.56a5.06,5.06,0,0,1,0-10.13H45.69a5.06,5.06,0,0,1,0,10.13Z"/><path class="cls-7" d="M83.51,99.68H68.38a2.5,2.5,0,0,0,0,5H83.51a2.5,2.5,0,0,0,0-5Z"/><path class="cls-7" d="M70.51,160.76h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,175.88h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,191h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,206.14h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,221.27h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-8" d="M23,196H19v-4a1,1,0,0,0-2,0v4H13a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0v-4h4a1,1,0,0,0,0-2Z"/><path class="cls-8" d="M233,188.25h-4v-4a1,1,0,0,0-2,0v4h-4a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0v-4h4a1,1,0,0,0,0-2Z"/><path class="cls-1" d="M26.32,28h-4V24a1,1,0,0,0-2,0v4h-4a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V30h4a1,1,0,0,0,0-2Z"/><path class="cls-1" d="M220,31.6a6,6,0,1,1,6-6A6,6,0,0,1,220,31.6Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,220,21.6Z"/><path class="cls-1" d="M38.13,241a6,6,0,1,1,6-6A6,6,0,0,1,38.13,241Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,38.13,231Z"/><path class="cls-8" d="M227.72,72.75a6,6,0,1,1,6-6A6,6,0,0,1,227.72,72.75Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,227.72,62.75Z"/><path class="cls-1" d="M228.33,228.5h-2.59l1.83-1.83a1,1,0,0,0-1.41-1.41l-1.83,1.83V224.5a1,1,0,0,0-2,0v2.59l-1.83-1.83a1,1,0,0,0-1.41,1.41l1.83,1.83h-2.59a1,1,0,0,0,0,2h2.59l-1.83,1.83a1,1,0,0,0,1.41,1.41l1.83-1.83v2.59a1,1,0,0,0,2,0v-2.59l1.83,1.83a1,1,0,0,0,1.41-1.41l-1.83-1.83h2.59a1,1,0,0,0,0-2Z"/></svg>
                 </div>
 
             </div>

@@ -305,7 +305,7 @@ if(isset($_POST['gradeId'])){
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
                                                    onclick="editSchoolYear('<?= $row['id'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')">
-                                                <svg width="30" height="30" viewBox="0 0 48 48"
+                                                <svg width="40" height="40" viewBox="0 0 48 48"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      xmlns:xlink="http://www.w3.org/1999/xlink">
                                                     <defs>

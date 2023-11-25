@@ -464,7 +464,7 @@ if (isset($_POST['teacherStudentID'])) {
                                     <label for="" class="t-color-red c-hand f-weight-bold d-flex-center"
                                            onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')"
                                     >
-                                        <svg width="30" height="30" viewBox="0 0 48 48"
+                                        <svg width="40" height="40" viewBox="0 0 48 48"
                                              xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink">
                                             <defs>
@@ -649,8 +649,7 @@ if (isset($_POST['teacherStudentID'])) {
                                     <label for="" class="t-color-red c-hand f-weight-bold"
                                            onclick="viewStudentList('<?= $row['grade'] ?>', '<?= $row['section'] ?>','<?= $row['lrn'] ?>')"
                                     >
-
-                                        <svg width="30" height="30" id="Icons" viewBox="0 0 48 48"
+                                        <svg width="40" height="40" id="Icons" viewBox="0 0 48 48"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <defs>
                                                 <style>.cls-1, .cls-4 {
