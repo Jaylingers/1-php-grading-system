@@ -780,7 +780,7 @@ if (isset($_POST['add-student-grade'])) {
                                 <option value="" disabled selected>Civil Status</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
-                                <option value="Devorced">Devorced</option>
+                                <option value="Divorced">Divorced</option>
                             </select>
                             <div class="w-70p m-l-1em">Religion</div>
                             <input placeholder="Religion" type="text"
@@ -1114,7 +1114,7 @@ if (isset($_POST['add-student-grade'])) {
                                 <option value="" disabled selected>Civil Status</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
-                                <option value="Devorced">Devorced</option>
+                                <option value="Divorced">Divorced</option>
                             </select>
                             <div class="w-70p m-l-1em">Religion</div>
                             <input placeholder="Religion" type="text"
