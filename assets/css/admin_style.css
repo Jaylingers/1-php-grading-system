@@ -453,3 +453,49 @@
 #g4283 path{
     fill: red !important
 }
+
+#modal-delete, #modal-logout{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+#modal-delete .square, #modal-logout .square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+#modal-delete .square .modal-content, #modal-logout .square .modal-content{
+    width: 40em;
+    height: 26em;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 9em;
+}
+
+#modal-delete .square .modal-content1, #modal-logout .square .modal-content1{
+    width: 93%;
+    height: 93%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+.modal-content1{
+    display: grid;
+}
+
