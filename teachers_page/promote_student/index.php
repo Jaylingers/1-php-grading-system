@@ -134,25 +134,29 @@ if (isset($_POST['addStudents'])) {
                         if($row['grade'] !== "1") {?>
 
                         <button
-                                class="btn bg-hover-gray-dark-v1"
+                                class="btn bg-hover-gray-dark-v1 d-inline-flex d-flex-center"
                                 onclick="viewPromote('add promoted students')">
-                            Add Promoted Students(Grade <?= $row['grade'] ?>)
+                            <svg fill="none" width="35" height="35" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 28H24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 37H24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 19H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 10H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M30 33H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M35 28L35 38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                            &nbsp;  Add Promoted Students(Grade <?= $row['grade'] ?>)
                         </button>
                         <?php } ?>
                         <button
-                                class="btn bg-hover-gray-dark-v1"
+                                class="btn bg-hover-gray-dark-v1 d-inline-flex d-flex-center"
                                 onclick="viewPromote('')">
-                            View Promote
+                           <svg fill="none" width="35" height="35"  viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect fill="white" fill-opacity="0.01" height="48" width="48"/><path d="M5 10L8 13L14 7" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 24L8 27L14 21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 38L8 41L14 35" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 24H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 38H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 10H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                           &nbsp; View Promote
                         </button>
 
                     </div>
                 </div>
                 <br/>
 
-                <div class="f-right m-t-19px m-r-13px">
+                <div class="f-right m-t-19px m-r-13px ">
                     <button type="submit"
-                            class="c-hand bg-hover-skyBlue btn"
-                            onclick="promoteStudent()">Promote
+                            class="c-hand bg-hover-skyBlue btn d-inline-flex d-flex-center"
+                            onclick="promoteStudent()">
+                      <svg fill="none" width="30" height="30"   viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z" fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                        &nbsp;  Promote
                     </button>
                 </div>
                 <br/> <br/><br/>
@@ -466,7 +470,145 @@ if (isset($_POST['addStudents'])) {
                         <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
-                                    onclick="removePromotedStudents()">Remove
+                                    onclick="removePromotedStudents()" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <svg class="c-hand" onclick="deleteTeachers('teachers-list')" height="43" id="svg2"
+                                     version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:svg="http://www.w3.org/2000/svg">
+                                    <defs id="defs4">
+                                        <filter id="filter4510" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic" operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
+                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset" operator="over"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5064" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294" id="feFlood5066"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
+                                                            stdDeviation="5.9"/>
+                                            <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
+                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5364" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic" operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
+                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset" operator="over"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
+                                                            stdDeviation="7.6"/>
+                                            <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
+                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4400" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic" operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
+                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset" operator="over"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
+                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4678" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
+                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5045" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
+                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4607" style="color-interpolation-filters:sRGB;">
+                                            <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
+                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4507" style="color-interpolation-filters:sRGB;">
+                                            <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
+                                                            stdDeviation="3"/>
+                                            <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
+                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic" operator="atop"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic" operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
+                                                            stdDeviation="3.4"/>
+                                            <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
+                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic" operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                    </defs>
+                                    <g id="layer3" style="display:inline" transform="translate(0,-99.999988)">
+                                        <g id="g4283">
+                                            <path d="m 64.41211,130.39258 a 2.5002498,2.5002498 0 0 0 -2.472657,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527343,-2.54492 z m -14.351573,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 L 47.4121,177.81836 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z m -13.876943,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z M 20,99.999988 c -11.0800091,0 -20,8.919992 -20,20.000002 l 0,60 c 0,11.08 8.9199909,20 20,20 l 60,0 c 11.080007,0 20,-8.92 20,-20 l 0,-60 C 100,108.91998 91.080007,99.999988 80,99.999988 l -60,0 z m 23.490234,14.923832 13.019532,0 c 0.873657,0 1.578125,0.70446 1.578125,1.57812 l 0,3.03125 16.99414,0 c 1.028311,0 1.855469,0.82716 1.855469,1.85547 l 0,2.91406 c 0,1.02831 -0.827158,1.85547 -1.855469,1.85547 l -50.164062,0 c -1.02831,0 -1.855469,-0.82716 -1.855469,-1.85547 l 0,-2.91406 c 0,-1.02831 0.827159,-1.85547 1.855469,-1.85547 l 16.99414,0 0,-3.03125 c 0,-0.87366 0.704468,-1.57812 1.578125,-1.57812 z m -17.001953,13.30859 47.023438,0 0,48.88867 c 0,4.40704 -3.548036,7.95508 -7.955078,7.95508 l -31.113282,0 c -4.407042,0 -7.955078,-3.54804 -7.955078,-7.95508 l 0,-48.88867 z"
+                                                  id="path4218"
+                                                  style="fill:red !important; color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"/>
+                                        </g>
+                                    </g>
+                                </svg>
                             </button>
                         </div>
                         <br/> <br/>
@@ -641,7 +783,8 @@ if (isset($_POST['addStudents'])) {
                         <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
-                                    onclick="addPromotedStudents()">Add
+                                    onclick="addPromotedStudents()" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                             </button>
                         </div>
                         <br/> <br/>

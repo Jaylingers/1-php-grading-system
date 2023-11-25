@@ -67,9 +67,10 @@ if (isset($_POST['removeStudents'])) {
                     <div class="r-50px p-absolute t-54px">
 
                         <button
-                                class="btn bg-hover-gray-dark-v1"
+                                class="btn bg-hover-gray-dark-v1 d-flex-center d-inline-flex"
                                 onclick="showModal('view-promoted-students', 'Promoted Students Candidates')">
-                            View Promote
+                            <svg fill="none" width="35" height="35"  viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect fill="white" fill-opacity="0.01" height="48" width="48"/><path d="M5 10L8 13L14 7" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 24L8 27L14 21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 38L8 41L14 35" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 24H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 38H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 10H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                            &nbsp; View Promote
                         </button>
 
                     </div>
