@@ -93,9 +93,8 @@ if (isset($_POST['add-new-teacher'])) {
     if ($result) {
         echo '<script>';
         echo '
-        alert("Successfully Added");
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                window.location.reload();
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_success=' . $lrn . '");
+              window.location.reload();
             ';
         echo '</script>';
     }
@@ -116,8 +115,7 @@ if (isset($_POST['edit-teacher'])) {
     if ($resultUpdateTeacher) {
         echo '<script>';
         echo '
-        alert("Successfully Updated");
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_success=' . $lrn . '");
                 window.location.reload();
             ';
         echo '</script>';
@@ -241,7 +239,7 @@ if (isset($_POST['teacherStudentID'])) {
                         <svg class="c-hand" onclick="deleteTeachers('teachers-list')" height="43" id="svg2"
                              version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
                              xmlns="http://www.w3.org/2000/svg"
-                             xmlns:svg="http://www.w3.org/2000/svg">
+                        >
                             <defs id="defs4">
                                 <filter id="filter4510" style="color-interpolation-filters:sRGB">
                                     <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
@@ -960,7 +958,8 @@ if (isset($_POST['teacherStudentID'])) {
                     <div class="d-flex-end">
                         <button type="submit"
                                 class="c-hand btn-success btn"
-                                name="add-new-teacher"  style="background-color: #ffffff !important; border-color: #ffffff;">
+                                name="add-new-teacher"
+                                style="background-color: #ffffff !important; border-color: #ffffff;">
                             <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                         </button>
 
@@ -1059,7 +1058,8 @@ if (isset($_POST['teacherStudentID'])) {
                     <div class="d-flex-end">
                         <button type="submit"
                                 class="c-hand btn-success btn"
-                                name="edit-teacher" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                name="edit-teacher"
+                                style="background-color: #ffffff !important; border-color: #ffffff;">
                             <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                         </button>
                     </div>
@@ -1673,7 +1673,37 @@ if (isset($_POST['teacherStudentID'])) {
         }
     }
 
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
     function deleteTeachers(id) {
+        var teacherCount = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            teacherCount++;
+        });
+        if (teacherCount > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
+        } else {
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
         var teacherID = [];
         var teacherCount = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
@@ -1681,50 +1711,11 @@ if (isset($_POST['teacherStudentID'])) {
             teacherCount++;
         });
         if (teacherCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                var status = '';
-                teacherID.forEach(function (teachSubjID) {
-                    if (id === 'teacher-subject') {
-                        $.post('', {teacherSubjectID: teachSubjID})
-                        status = 'teacher-subject';
-                    } else if (id === 'teacher-students') {
-                        teachSubjID = teachSubjID.split(',');
-                        $.post('', {teacherStudentID: teachSubjID})
-                        status = 'teacher-student';
-                    } else {
-                        $.post('', {lrn: teachSubjID})
-                    }
-
-                });
-                if (status === 'teacher-subject') {
-                    <?php
-                    if (isset($_GET['lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&lrn=<?php echo $_GET['lrn']?>&&name=<?php echo $_GET['name']?>');
-                    <?php } ?>
-                } else if (status === 'teacher-student') {
-                    <?php
-                    if (isset($_GET['teachers_lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&teachers_lrn=<?php echo $_GET['teachers_lrn']?>&&name=<?php echo $_GET['name']?>');
-                    <?php } ?>
-                } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                }
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
-        } else {
-            if (id === 'teacher-subject') {
-                alert('Please select a subject!');
-            } else if (id === 'teacher-students') {
-                alert('Please select a student!');
-            } else {
-                alert('Please select a teacher!');
-            }
-
+            teacherID.forEach(function (teachSubjID) {
+                    $.post('', {lrn: teachSubjID})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+            window.location.reload();
         }
     }
 
@@ -1947,6 +1938,11 @@ if (isset($_POST['teacherStudentID'])) {
     }
 
     function loadPage() {
+        var added_success = '<?php echo isset($_GET['added_success']) ? $_GET['added_success'] : '' ?>';
+        if (added_success !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
+        }
+
         var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
         if (searchName !== '') {
             $('#search_name').val(searchName);

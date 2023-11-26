@@ -89,13 +89,13 @@ if (isset($_POST['darkMode'])) {
 </head>
 <body class="bg-dark" onload="loadTopArrow()">
 
-<div id="modal-delete">
+<div id="modal-delete" class="modal2" >
     <div class="square">
         <div class="modal-content">
             <div id="modal-delete" class="modal-content1">
                 <div class="modal-logo  d-flex-center">
-                    <svg class="c-hand" height="43" id="svg2"
-                         version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
+                    <svg class="c-hand" id="svg2"
+                         version="1.1" viewBox="0 0 99.999995 99.999995" width="60" height="60"
                          xmlns="http://www.w3.org/2000/svg"
                          xmlns:svg="http://www.w3.org/2000/svg">
                         <defs id="defs4">
@@ -243,10 +243,10 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="modal-msg-choice d-flex-center">
                     <div class="modal-msg-choice-yes btn">
-                        <button class="modal-msg-choice-yes-btn btn btn-warning" >Cancel</button>
+                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel</button>
                     </div>
                     <div class="modal-msg-choice-no">
-                        <button class="btn-primary btn" >Ok</button>
+                        <button class="btn-primary btn" id="modal-delete-ok">Ok</button>
                     </div>
                 </div>
             </div>
@@ -254,12 +254,12 @@ if (isset($_POST['darkMode'])) {
     </div>
 </div>
 
-<div id="modal-logout">
+<div id="modal-logout" class="modal2">
     <div class="square">
         <div class="modal-content">
             <div class="modal-content1">
                 <div class="modal-logo  d-flex-center">
-                    <img src="../../assets/img/logout.png" width="40" height="40" alt="">
+                    <img src="../../assets/img/logout.png" width="60" height="60" alt="">
                 </div>
                 <div class="modal-short-msg d-flex-center">
                     <h1> Are you sure? </h1>
@@ -271,10 +271,60 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="modal-msg-choice d-flex-center">
                     <div class="modal-msg-choice-yes btn">
-                        <button class="modal-msg-choice-yes-btn btn btn-warning" onclick="logout('cancel')">Cancel</button>
+                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-cancel">Cancel</button>
                     </div>
                     <div class="modal-msg-choice-no">
-                        <button class="btn-primary btn" onclick="logout('ok')">Ok</button>
+                        <button class="btn-primary btn" id="modal-ok">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-checkbox" class="modal2">
+    <div class="square">
+        <div class="modal-content">
+            <div class="modal-content1">
+                <div class="modal-logo  d-flex-center">
+                    <img src="../../assets/img/warning.png" width="60" height="60" alt="">
+                </div>
+                <div class="modal-short-msg d-flex-center">
+                    <h1> Warning!</h1>
+                </div>
+                <div class="modal-long-msg  d-flex-center">
+                    <h7>
+                        Please select atleast one checkbox to delete.
+                    </h7>
+                </div>
+                <div class="modal-msg-choice d-flex-center">
+                    <div class="modal-msg-choice-yes btn">
+                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-addedSuccessfully" class="modal2">
+    <div class="square">
+        <div class="modal-content">
+            <div class="modal-content1">
+                <div class="modal-logo  d-flex-center">
+                    <img src="../../assets/img/added.png" width="60" height="60" alt="">
+                </div>
+                <div class="modal-short-msg d-flex-center">
+                    <h1> Welcome!</h1>
+                </div>
+                <div class="modal-long-msg  d-flex-center">
+                    <h7>
+                        Successfully added/updated!
+                    </h7>
+                </div>
+                <div class="modal-msg-choice d-flex-center">
+                    <div class="modal-msg-choice-yes btn">
+                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-success">Ok</button>
                     </div>
                 </div>
             </div>
@@ -568,7 +618,7 @@ if (isset($_POST['darkMode'])) {
             </div>
 
         </div>
-        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout('view-modal')">
+        <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
             <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
                 <img class="settings-1" src="../../assets/img/logout.png" alt="" style="width: 2em; height: 2em"> <label for=""
                                                                                                                          class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
@@ -1387,19 +1437,17 @@ if (isset($_POST['darkMode'])) {
         $('#editProfile #editForm').removeClass('d-none')
     }
 
-    function logout(status) {
-        if(status === "view-modal") {
-            $('#modal-logout').attr('style', 'display: block !important;')
-        } else if(status === "cancel") {
-            $('#modal-logout').attr('style', 'display: none !important;')
-        } else if(status === "ok") {
-            Post('', {logout: 'logout'});
-        }
-        // var r = confirm("Are you sure you want to logout?");
-        // if (r === true) {
-        //     Post('', {logout: 'logout'});
-        // }
+    function logout() {
+        $('#modal-logout').attr('style', 'display: block !important;')
     }
+
+    $(document).on('click', '#modal-cancel', function(e){
+        $('#modal-logout').attr('style', 'display: none !important;')
+    });
+
+    $(document).on('click', '#modal-ok', function(e){
+        Post('', {logout: 'logout'});
+    });
 
     $(document).ready(function () {
         loadStudArrowLeft();
