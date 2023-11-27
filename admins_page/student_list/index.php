@@ -6,8 +6,8 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if (isset($_POST['id'])) {
-    $lrn = $_POST['id'];
+if (isset($_POST['deleteStId'])) {
+    $lrn = $_POST['deleteStId'];
 
     $id = $_GET['id'];
     $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
@@ -80,20 +80,11 @@ if (isset($_POST['id'])) {
 
     $sqlPromotedStudentsHistory = "delete from promoted_info where student_lrn = '$lrn'";
     $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
-
-    if ($resultInsertTrash) {
-        echo '<script>';
-        echo '   
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                window.location.reload();
-            ';
-        echo '</script>';
-    }
 }
 
-if (isset($_POST['studentEnrollmentId'])) {
-    $id = $_POST['studentEnrollmentId'];
-    $sql = "delete from students_enrollment_info where id = '$id'";
+if (isset($_POST['deleteEnId'])) {
+    $deleteEnId = $_POST['deleteEnId'];
+    $sql = "delete from students_enrollment_info where id = '$deleteEnId'";
     $result = mysqli_query($conn, $sql);
 }
 
@@ -102,7 +93,6 @@ if (isset($_POST['add-enrollment'])) {
     $gradeLevel = $_POST['add-enrollment-grade'];
     $section = $_POST['add-enrollment-section'];
     $schoolYear = $_POST['add-enrollment-school-year'];
-//    $schoolYear = date("Y-m-d", strtotime($schoolYear));
     $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
     $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
     $status = $_POST['add-enrollment-status'];
@@ -114,7 +104,7 @@ if (isset($_POST['add-enrollment'])) {
         echo '<script>';
         echo '   
               alert("Grade Level already exist");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $_GET['lrn'] . '");
             window.location.reload();
             ';
         echo '</script>';
@@ -127,8 +117,7 @@ if (isset($_POST['add-enrollment'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&lrn=' . $lrn . '&&added_successfully=' . $lrn . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -177,8 +166,8 @@ if (isset($_POST['add-new-student'])) {
     if ($resultUserInfo) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
-              window.location.href = "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '";
+             history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&added_successfully=' . $id . '");
+              window.location.reload();
             ';
         echo '</script>';
     } else {
@@ -211,8 +200,8 @@ if (isset($_POST['update-student-info'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("updated successfully");
-              window.location.href = "?id=' . $rows['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '";
+           history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&Tgrade=' . $_GET['Tgrade'] . '&&Tsection=' . $_GET['Tsection'] . '&&Tlrn=' . $_GET['Tlrn'] . '&&added_successfully=' . $id . '");
+           window.location.reload();
             ';
         echo '</script>';
     }
@@ -255,7 +244,7 @@ if (isset($_POST['update-student-info'])) {
                         <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50"
                              onclick="showModal('add-new-student', 'New Students')">
                         &nbsp; &nbsp;
-                        <svg class="c-hand" onclick="deleteStudents('student-list')" height="43" id="svg2"
+                        <svg class="c-hand" onclick="deleteId('student-list')" height="43" id="svg2"
                              version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
                              xmlns="http://www.w3.org/2000/svg"
                              xmlns:svg="http://www.w3.org/2000/svg">
@@ -1111,7 +1100,7 @@ if (isset($_POST['update-student-info'])) {
                 <div class="d-flex-end gap-1em m-b-1em">
                     <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50"
                          onclick="showModal('add-enrollment', 'New Enrollment')">
-                    <svg class="c-hand" onclick="deleteStudents('student-enrollment')" height="43" id="svg2"
+                    <svg class="c-hand" onclick="deleteId('student-enrollment')" height="43" id="svg2"
                          version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
                          xmlns="http://www.w3.org/2000/svg"
                          xmlns:svg="http://www.w3.org/2000/svg">
@@ -1762,6 +1751,67 @@ if (isset($_POST['update-student-info'])) {
         }
     }
 
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        var lrn = '<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>';
+        if (lrn !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&Tgrade=<?php echo $_GET['Tgrade']?>&&Tsection=<?php echo $_GET['Tsection']?>&&Tlrn=<?php echo $_GET['Tlrn']?>&&lrn=<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>');
+        } else{
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&Tgrade=<?php echo $_GET['Tgrade']?>&&Tsection=<?php echo $_GET['Tsection']?>&&Tlrn=<?php echo $_GET['Tlrn']?>');
+        }
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            count++;
+        });
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
+        } else {
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            var deleteEnId = false;
+            idArray.forEach(function (data) {
+                if (id === 'student-enrollment') {
+                    $.post('', {deleteEnId: data})
+                    deleteEnId = true;
+                } else {
+                    $.post('', {deleteStId: data})
+                }
+            });
+            if (deleteEnId) {
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>&&Tgrade=<?php echo $_GET['Tgrade']?>&&Tsection=<?php echo $_GET['Tsection']?>&&Tlrn=<?php echo $_GET['Tlrn']?>&&lrn=<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>');
+            } else {
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>&&Tgrade=<?php echo $_GET['Tgrade']?>&&Tsection=<?php echo $_GET['Tsection']?>&&Tlrn=<?php echo $_GET['Tlrn']?>');
+            }
+            window.location.reload();
+        }
+    }
+
     function searchName() {
         var search = $('#search_name').val();
         if (search !== '') {
@@ -1772,47 +1822,7 @@ if (isset($_POST['update-student-info'])) {
     }
 
 
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
-        });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                var isStudentEnrollment = false;
-                studentID.forEach(function (studId) {
 
-                    if (id === 'student-enrollment') {
-                        $.post('', {studentEnrollmentId: studId})
-                        isStudentEnrollment = true;
-                    } else {
-                        $.post('', {id: studId})
-                    }
-                });
-                if (isStudentEnrollment) {
-                    <?php
-                    if (isset($_GET['lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
-                    <?php } ?>
-                } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                }
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
-        } else {
-            if (id === 'student-enrollment') {
-                alert('Please select a enrollment!');
-            } else {
-                alert('Please select a student!');
-            }
-        }
-    }
 
     function viewStudentInformation(data) {
         data = data.replaceAll("[", "['").replaceAll("]", "']").replaceAll("?", "','");
@@ -1928,6 +1938,11 @@ if (isset($_POST['update-student-info'])) {
         if (lrnexist !== '') {
             $('#add-new-student #lrn').val(lrnexist);
             showModal('add-new-student', 'Add New Student', '');
+        }
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
     }
 

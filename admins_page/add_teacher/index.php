@@ -93,7 +93,7 @@ if (isset($_POST['add-new-teacher'])) {
     if ($result) {
         echo '<script>';
         echo '
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_success=' . $lrn . '");
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $lrn . '");
               window.location.reload();
             ';
         echo '</script>';
@@ -115,7 +115,7 @@ if (isset($_POST['edit-teacher'])) {
     if ($resultUpdateTeacher) {
         echo '<script>';
         echo '
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_success=' . $lrn . '");
+              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $lrn . '");
                 window.location.reload();
             ';
         echo '</script>';
@@ -1691,11 +1691,11 @@ if (isset($_POST['teacherStudentID'])) {
     });
 
     function deleteTeachers(id) {
-        var teacherCount = 0;
+        var count = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            teacherCount++;
+            count++;
         });
-        if (teacherCount > 0) {
+        if (count > 0) {
             $('#modal-delete').attr('style', 'display: block;')
             $('#modal-delete').val(id);
         } else {
@@ -1704,14 +1704,14 @@ if (isset($_POST['teacherStudentID'])) {
     }
 
     function deleteAction(id) {
-        var teacherID = [];
-        var teacherCount = 0;
+        var idArray = [];
+        var count = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            teacherID.push($(this).attr('id'));
-            teacherCount++;
+            idArray.push($(this).attr('id'));
+            count++;
         });
-        if (teacherCount > 0) {
-            teacherID.forEach(function (teachSubjID) {
+        if (count > 0) {
+            idArray.forEach(function (teachSubjID) {
                     $.post('', {lrn: teachSubjID})
             });
             history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
@@ -1938,8 +1938,8 @@ if (isset($_POST['teacherStudentID'])) {
     }
 
     function loadPage() {
-        var added_success = '<?php echo isset($_GET['added_success']) ? $_GET['added_success'] : '' ?>';
-        if (added_success !== '') {
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
             $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
 

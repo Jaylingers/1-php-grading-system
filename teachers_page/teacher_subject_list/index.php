@@ -42,8 +42,7 @@ if(isset($_POST['add_subject'])) {
     if ($resultTeachersSubjectInfo) {
         echo '<script>';
         echo '
-              alert("added successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . 'added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -64,46 +63,17 @@ if(isset($_POST['update-subject'])) {
     if ($resultUpdateTeachersSubjectInfo) {
         echo '<script>';
         echo '
-              alert("updated successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . 'added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
     }
 }
-if (isset($_POST['update_user'])) {
-    $id = $_POST['id'];
-    $lastname = $_POST['lastname'];
-    $firstname = $_POST['firstname'];
-    $grade = $_POST['grade'];
-    $subject = $_POST['subject'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $user_type = $_POST['user_type'];
 
-    $sql = "update users_info set last_name='$lastname',first_name='$firstname',grade='$grade',subject='$subject',username='$username',password='$password',user_type='$user_type' where id='$id'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-              alert("updated successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                    window.location.reload();
-            ';
-        echo '</script>';
-    }
-}
 if(isset($_POST['deleteId'])) {
     $deleteId = $_POST['deleteId'];
     $sqlDeleteTeachersSubjectInfo = "delete from teachers_subject_info where id='$deleteId'";
     $resultDeleteTeachersSubjectInfo = mysqli_query($conn, $sqlDeleteTeachersSubjectInfo);
-    if ($resultDeleteTeachersSubjectInfo) {
-        echo '<script>';
-        echo '
-              alert("deleted successfully");
-            ';
-        echo '</script>';
-    }
 }
 ?>
 
@@ -148,7 +118,7 @@ if(isset($_POST['deleteId'])) {
                             <div class="w-69p d-flex-end">
                                 <input placeholder="search name" id="search_name" type="text" class="m-1em"
                                        onchange="searchSubject()"/>
-                                <svg class="c-hand" onclick="deleteSubjects('subject-list')"  width="50" height="43" id="svg2"
+                                <svg class="c-hand" onclick="deleteId('subject-list')"  width="50" height="43" id="svg2"
                                      version="1.1" viewBox="0 0 99.999995 99.999995"
                                      xmlns="http://www.w3.org/2000/svg"
                                      xmlns:svg="http://www.w3.org/2000/svg">
@@ -771,6 +741,70 @@ if(isset($_POST['deleteId'])) {
         }
     }
 
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            count++;
+        });
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
+        } else {
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (id) {
+                $.post('', {deleteId: id})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+            window.location.reload();
+        }
+    }
+
+    function deleteSubjects(id){
+        var checked = [];
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            checked.push($(this).attr('id'));
+        });
+        if (checked.length > 0) {
+            var r = confirm("Are you sure you want to delete ?");
+            if (r === true) {
+                checked.forEach(function (deleteId) {
+                    $.post('', {deleteId: deleteId})
+                });
+                window.location.reload();
+            }
+        } else {
+            alert('Please select atleast one checkbox to delete');
+        }
+    }
+
     function cancel() {
         $('#room').val('');
         $('#grade').val('');
@@ -800,28 +834,15 @@ if(isset($_POST['deleteId'])) {
         }
     }
 
-    function deleteSubjects(id){
-        var checked = [];
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            checked.push($(this).attr('id'));
-        });
-        if (checked.length > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                checked.forEach(function (deleteId) {
-                    $.post('', {deleteId: deleteId})
-                });
-                window.location.reload();
-            }
-        } else {
-            alert('Please select atleast one checkbox to delete');
-        }
-    }
-
     function loadPage() {
         var searchSubject = '<?php echo isset($_GET['searchSubject']) ? $_GET['searchSubject'] : '' ?>';
         if (searchSubject !== '') {
             $('#search_name').val(searchSubject);
+        }
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
     }
 

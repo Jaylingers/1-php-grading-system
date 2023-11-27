@@ -6,7 +6,7 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if(isset($_POST['add_subject'])) {
+if (isset($_POST['add_subject'])) {
     $subject_name = $_POST['subject_name'];
     $applicable_for = $_POST['applicable_for'];
     $description = $_POST['description'];
@@ -16,15 +16,14 @@ if(isset($_POST['add_subject'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("added successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
     }
 }
 
-if(isset($_POST['update_subject'])) {
+if (isset($_POST['update_subject'])) {
     $id = $_POST['id'];
     $subject_name = $_POST['subject_name'];
     $applicable_for = $_POST['applicable_for'];
@@ -35,40 +34,31 @@ if(isset($_POST['update_subject'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("updated successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
     }
 }
-if (isset($_POST['update_user'])) {
-    $id = $_POST['id'];
-    $lastname = $_POST['lastname'];
-    $firstname = $_POST['firstname'];
-    $grade = $_POST['grade'];
-    $subject = $_POST['subject'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $user_type = $_POST['user_type'];
 
-    $sql = "update users_info set last_name='$lastname',first_name='$firstname',grade='$grade',subject='$subject',username='$username',password='$password',user_type='$user_type' where id='$id'";
+if (isset($_POST['deleteId'])) {
+    $deleteId = $_POST['deleteId'];
+    $sql = "delete from subject_list_info where id='$deleteId'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
         echo '   
-              alert("updated successfully");
                 history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
                     window.location.reload();
             ';
         echo '</script>';
     }
 }
-
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?>">
+    <div id="content"
+         class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : '' ?>">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {
@@ -105,9 +95,170 @@ if (isset($_POST['update_user'])) {
                                 List of Subjects
                             </h3>
 
-                            <div class="w-69p d-flex-end">
-                                <input placeholder="search name" id="search_name" type="text" class="m-1em"
+                            <div class="w-74p d-flex-end">
+                                <input placeholder="search subject" id="search_name" type="text" class="m-1em"
                                        onchange="searchSubject()"/>
+                                <svg class="c-hand" onclick="deleteId('student-list')" height="43" id="svg2"
+                                     version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:svg="http://www.w3.org/2000/svg">
+                                    <defs id="defs4">
+                                        <filter id="filter4510" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic"
+                                                         operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
+                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset"
+                                                         operator="over"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5064" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294"
+                                                     id="feFlood5066"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
+                                                            stdDeviation="5.9"/>
+                                            <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
+                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5364" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic"
+                                                         operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
+                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset"
+                                                         operator="over"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
+                                                            stdDeviation="7.6"/>
+                                            <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
+                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4400" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic"
+                                                         operator="in"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
+                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset"
+                                                         operator="over"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
+                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4678" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
+                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter5045" style="color-interpolation-filters:sRGB">
+                                            <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
+                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4607" style="color-interpolation-filters:sRGB;">
+                                            <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
+                                                            stdDeviation="5"/>
+                                            <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
+                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                        <filter id="filter4507" style="color-interpolation-filters:sRGB;">
+                                            <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
+                                                     result="flood"/>
+                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
+                                                            stdDeviation="3"/>
+                                            <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
+                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
+                                                         result="fbSourceGraphic"/>
+                                            <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
+                                                           result="fbSourceGraphicAlpha"
+                                                           values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+                                            <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
+                                                     in="fbSourceGraphic" result="flood"/>
+                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
+                                                         result="composite1"/>
+                                            <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
+                                                            stdDeviation="3.4"/>
+                                            <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
+                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
+                                                         result="composite2"/>
+                                        </filter>
+                                    </defs>
+                                    <g id="layer3" style="display:inline" transform="translate(0,-99.999988)">
+                                        <g id="g4283">
+                                            <path d="m 64.41211,130.39258 a 2.5002498,2.5002498 0 0 0 -2.472657,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527343,-2.54492 z m -14.351573,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 L 47.4121,177.81836 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z m -13.876943,0 a 2.5002498,2.5002498 0 0 0 -2.472656,2.52539 l -0.175781,44.90039 a 2.5002498,2.5002498 0 1 0 5,0.0195 l 0.175781,-44.90039 a 2.5002498,2.5002498 0 0 0 -2.527344,-2.54492 z M 20,99.999988 c -11.0800091,0 -20,8.919992 -20,20.000002 l 0,60 c 0,11.08 8.9199909,20 20,20 l 60,0 c 11.080007,0 20,-8.92 20,-20 l 0,-60 C 100,108.91998 91.080007,99.999988 80,99.999988 l -60,0 z m 23.490234,14.923832 13.019532,0 c 0.873657,0 1.578125,0.70446 1.578125,1.57812 l 0,3.03125 16.99414,0 c 1.028311,0 1.855469,0.82716 1.855469,1.85547 l 0,2.91406 c 0,1.02831 -0.827158,1.85547 -1.855469,1.85547 l -50.164062,0 c -1.02831,0 -1.855469,-0.82716 -1.855469,-1.85547 l 0,-2.91406 c 0,-1.02831 0.827159,-1.85547 1.855469,-1.85547 l 16.99414,0 0,-3.03125 c 0,-0.87366 0.704468,-1.57812 1.578125,-1.57812 z m -17.001953,13.30859 47.023438,0 0,48.88867 c 0,4.40704 -3.548036,7.95508 -7.955078,7.95508 l -31.113282,0 c -4.407042,0 -7.955078,-3.54804 -7.955078,-7.95508 l 0,-48.88867 z"
+                                                  id="path4218"
+                                                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"/>
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
 
                         </div>
@@ -469,16 +620,45 @@ if (isset($_POST['update_user'])) {
                                         </select>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Description:</div>
                                         <textarea placeholder="Description" id="description" name="description" rows="4"
-                                                  cols="50" class=" f-size-1em b-radius-10px m-1em m-t-5px d-inline-table" required="true"> </textarea>
+                                                  cols="50"
+                                                  class=" f-size-1em b-radius-10px m-1em m-t-5px d-inline-table"
+                                                  required="true"> </textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
-                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1"
+                                         id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <style>.cls-1 {
+                                                    fill: #ccbeb0;
+                                                }
+
+                                                .cls-2 {
+                                                    fill: #525354;
+                                                }
+
+                                                .cls-3 {
+                                                    fill: #d77165;
+                                                }</style>
+                                        </defs>
+                                        <title/>
+                                        <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/>
+                                    </svg>
 
                                     <button type="submit"
                                             class="c-hand btn-success btn"
-                                            name="add_subject" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                        <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
+                                            name="add_subject"
+                                            style="background-color: #ffffff !important; border-color: #ffffff;">
+                                        <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50"
+                                             height="50">
                                     </button>
                                 </div>
                             </form>
@@ -531,18 +711,53 @@ if (isset($_POST['update_user'])) {
                                                 <option value="12">Grade 12</option>
                                             </select>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Description:</div>
-                                            <textarea placeholder="Description" id="description" name="description" rows="4"
-                                                      cols="50" class=" f-size-1em b-radius-10px m-1em m-t-5px d-inline-table" required="true"> </textarea>
+                                            <textarea placeholder="Description" id="description" name="description"
+                                                      rows="4"
+                                                      cols="50"
+                                                      class=" f-size-1em b-radius-10px m-1em m-t-5px d-inline-table"
+                                                      required="true"> </textarea>
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em">
 
-                                        <svg onclick="closeModal()" class="c-hand" width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                        <svg onclick="closeModal()" class="c-hand" width="50" height="50"
+                                             data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <style>.cls-1 {
+                                                        fill: #ccbeb0;
+                                                    }
+
+                                                    .cls-2 {
+                                                        fill: #525354;
+                                                    }
+
+                                                    .cls-3 {
+                                                        fill: #d77165;
+                                                    }</style>
+                                            </defs>
+                                            <title/>
+                                            <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(69.29 170.7) rotate(-135)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(-28.99 70) rotate(-45)" width="24" x="58"
+                                                  y="21"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(70 168.99) rotate(-135)" width="24" x="58"
+                                                  y="21"/>
+                                        </svg>
 
                                         <button type="submit"
                                                 class="c-hand btn-success btn"
-                                                name="update_subject" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
+                                                name="update_subject"
+                                                style="background-color: #ffffff !important; border-color: #ffffff;">
+                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50"
+                                                 height="50">
                                         </button>
                                     </div>
                                 </form>
@@ -563,6 +778,62 @@ if (isset($_POST['update_user'])) {
         $('.add #applicable_for').val('');
         $('.add #description').val('');
     }
+
+    function checkCBStudents(id, cb) {
+        if ($('#' + cb).is(':checked')) {
+            $('#' + id + ' input[type="checkbox"]').prop('checked', true);
+
+        } else {
+            $('#' + id + ' input[type="checkbox"]').prop('checked', false);
+        }
+    }
+
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            count++;
+        });
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
+        } else {
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (id) {
+                $.post('', {deleteId: id})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+            window.location.reload();
+        }
+    }
+
 
     function editUser(id, name, applicable_for, description) {
         $('#update-subject #id').val(id);
@@ -585,6 +856,11 @@ if (isset($_POST['update_user'])) {
         var searchSubject = '<?php echo isset($_GET['searchSubject']) ? $_GET['searchSubject'] : '' ?>';
         if (searchSubject !== '') {
             $('#search_name').val(searchSubject);
+        }
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
     }
 

@@ -14,23 +14,12 @@ if (isset($_POST['add_grade'])) {
     } else {
         $current = 'No';
     }
-    if($grade == '' || $section == ''){
-        echo '<script>';
-        echo '   
-              alert("Please fill up all fields");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                    window.location.reload();
-            ';
-        echo '</script>';
-        return;
-    }
     $sql = "insert into grade_info (grade,section) values ('$grade','$section')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
         echo '   
-              alert("added successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $grade . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -51,16 +40,15 @@ if (isset($_POST['update_grade'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("updated successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
     }
 }
 
-if(isset($_POST['gradeId'])){
-    $id = $_POST['gradeId'];
+if(isset($_POST['deleteId'])){
+    $id = $_POST['deleteId'];
     $sql = "delete from grade_info where id = '$id'";
     $result = mysqli_query($conn, $sql);
 }
@@ -108,7 +96,7 @@ if(isset($_POST['gradeId'])){
                                     </h3>
                                 </div>
                                 <div class="custom-grid-item d-flex-end">
-                                    <svg class="c-hand" onclick="deleteStudents('grade-list')" height="43" id="svg2"
+                                    <svg class="c-hand" onclick="deleteId('grade-list')" height="43" id="svg2"
                                          version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
                                          xmlns="http://www.w3.org/2000/svg"
                                          xmlns:svg="http://www.w3.org/2000/svg">
@@ -671,31 +659,49 @@ if(isset($_POST['gradeId'])){
         }
     }
 
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            count++;
         });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete this records? This action will remove all data with all related tables.");
-            if (r === true) {
-                studentID.forEach(function (gradeId) {
-                    $.post('', {gradeId: gradeId})
-                });
-
-                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
         } else {
-            if (id === 'student-enrollment') {
-                alert('Please select a enrollment!');
-            } else {
-                alert('Please select a student!');
-            }
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (id) {
+                $.post('', {deleteId: id})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+            window.location.reload();
         }
     }
 
@@ -703,6 +709,11 @@ if(isset($_POST['gradeId'])){
         var searchSubject = '<?php echo isset($_GET['searchSubject']) ? $_GET['searchSubject'] : '' ?>';
         if (searchSubject !== '') {
             $('#search_name').val(searchSubject);
+        }
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
     }
 
