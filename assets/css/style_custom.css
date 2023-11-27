@@ -338,6 +338,10 @@
     text-align: center;
 }
 
+.t-align-right{
+    text-align: right;
+}
+
 .h-48em {
     height: 48em;
 }
