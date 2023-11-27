@@ -6,119 +6,8 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $sql = "delete from students_info where lrn = '$id'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                window.location.reload();
-            ';
-        echo '</script>';
-    }
-}
-
-if (isset($_POST['studentEnrollmentId'])) {
-    $id = $_POST['studentEnrollmentId'];
-    $sql = "delete from students_enrollment_info where id = '$id'";
-    $result = mysqli_query($conn, $sql);
-}
-
-if (isset($_POST['add-enrollment'])) {
-    $lrn = $_POST['add-enrollment-lrn'];
-    $gradeLevel = $_POST['add-enrollment-grade'];
-    $schoolYear = $_POST['add-enrollment-school-year'];
-    $schoolYear = date("Y-m-d", strtotime($schoolYear));
-    $dateEnrolled = $_POST['add-enrollment-date-enrolled'];
-    $dateEnrolled = date("Y-m-d", strtotime($dateEnrolled));
-    $status = $_POST['add-enrollment-status'];
-    $sql = "insert into students_enrollment_info (students_info_lrn,grade,school_year,date_enrolled,status) VALUES ('$lrn','$gradeLevel','$schoolYear','$dateEnrolled','$status')";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-              alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&lrn=' . $lrn . '");
-                    window.location.reload();
-            ';
-        echo '</script>';
-    }
-}
-
-if (isset($_POST['add-new-student'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $middleName = $_POST['middleName'];
-    $gender = $_POST['gender'];
-    $birthDate = $_POST['birthDate'];
-    $birthDate = date("Y-m-d", strtotime($birthDate));
-    $birthPlace = $_POST['birthPlace'];
-    $civilStatus = $_POST['civilStatus'];
-    $age = $_POST['age'];
-    $nationality = $_POST['nationality'];
-    $religion = $_POST['religion'];
-    $contactNumber = $_POST['contactNumber'];
-    $emailAddress = $_POST['emailAddress'];
-    $homeAddress = $_POST['homeAddress'];
-    $guardianName = $_POST['guardianName'];
-    $lrn = $_POST['lrn'];
-    $id = $_GET['id'];
-
-    $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id')";
-    $result = mysqli_query($conn, $sql);
-
-    $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','student','$lrn')";
-    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
-
-    if ($resultUserInfo) {
-        echo '<script>';
-        echo '   
-              alert("saved successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
-            ';
-        echo '</script>';
-    } else {
-        echo '<script>';
-        echo 'console.log("failed")';
-        echo '</script>';
-    }
-
-}
-
-if (isset($_POST['update-student-info'])) {
-    $firstName = $_POST['up-firstName'];
-    $lastName = $_POST['up-lastName'];
-    $middleName = $_POST['up-middleName'];
-    $gender = $_POST['up-gender'];
-    $birthDate = $_POST['up-birthDate'];
-    $birthDate = date("Y-m-d", strtotime($birthDate));
-    $birthPlace = $_POST['up-birthPlace'];
-    $civilStatus = $_POST['up-civilStatus'];
-    $age = $_POST['up-age'];
-    $nationality = $_POST['up-nationality'];
-    $religion = $_POST['up-religion'];
-    $contactNumber = $_POST['up-contactNumber'];
-    $emailAddress = $_POST['up-emailAddress'];
-    $homeAddress = $_POST['up-homeAddress'];
-    $guardianName = $_POST['up-guardianName'];
-    $lrn = $_POST['up-lrn'];
-    $sql = "update students_info set f_name = '$firstName', l_name = '$lastName', m_name = '$middleName', gender = '$gender', b_date='$birthDate', b_place = '$birthPlace', c_status = '$civilStatus'
-                     , age = '$age', nationality = '$nationality', religion = '$religion', contact_number = '$contactNumber', email_address = '$emailAddress', home_address = '$homeAddress', guardian_name='$guardianName' where lrn = '$lrn'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-              alert("updated successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
-            ';
-        echo '</script>';
-    }
-}
-
-if (isset($_POST['studId'])) {
-    $id = $_POST['studId'];
+if (isset($_POST['recoverId'])) {
+    $id = $_POST['recoverId'];
     $sql = "select * from trash_info where id = '$id'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -131,12 +20,6 @@ if (isset($_POST['studId'])) {
         echo '<script> console.log("Student Info"); </script>';
 
         $studentInfo = explode("<br/>", $studentInfo);
-//        foreach ($studentInfo as $key => $value) {
-//            if ($value !== " ") {
-//                $val = str_replace(" ", "", $value);
-//                echo '<script> console.log("' . $val . '"); </script>';
-//            }
-//        }
         $sLrn = trim(str_replace("lrn: ", "", $studentInfo[1]));
         $sFname = trim(str_replace("f_name: ", "", $studentInfo[2]));
         $sLname = trim(str_replace("l_name: ", "", $studentInfo[3]));
@@ -162,12 +45,6 @@ if (isset($_POST['studId'])) {
         if ($studentEnrollmentInfo !== " ") {
             echo '<script> console.log("Student Enrollment Info"); </script>';
             $studentEnrollmentInfo = explode("<br/>", $studentEnrollmentInfo);
-//            foreach ($studentEnrollmentInfo as $key => $value) {
-//                if ($value !== " ") {
-//                    $val = str_replace(" ", "", $value);
-//                    echo '<script> console.log("' . $val . '"); </script>';
-//                }
-//            }
             $studentEnrollmentLrn = trim(str_replace("students_info_lrn: ", "", $studentEnrollmentInfo[1]));
             $studentEnrollmentGrade = trim(str_replace("grade: ", "", $studentEnrollmentInfo[2]));
             $studentEnrollmentSection = trim(str_replace("section: ", "", $studentEnrollmentInfo[3]));
@@ -190,14 +67,6 @@ if (isset($_POST['studId'])) {
             foreach ($studentGradeInfo as $key => $value) {
                 if ($value !== " ") {
                     $value = explode("<br/>", $value);
-//                    foreach ($value as $key => $val) {
-//                        if ($val !== " ") {
-//                            $val = str_replace(" ", "", $val);
-//                            echo '<script> console.log("' . $val . '"); </script>';
-//                        }
-//
-//                    }
-
                     $sLrn = trim(str_replace("student_lrn: ", "", $value[1]));
                     $sTeacherLrn = trim(str_replace("teacher_lrn: ", "", $value[2]));
                     $sSubject = trim(str_replace("subject: ", "", $value[3]));
@@ -224,13 +93,6 @@ if (isset($_POST['studId'])) {
             foreach ($studentGradeAttendanceInfo as $key => $value) {
                 if ($value !== " ") {
                     $value = explode("<br/>", $value);
-//                    foreach ($value as $key => $val) {
-//                        if ($val !== " ") {
-//                            $val = str_replace(" ", "", $val);
-//                            echo '<script> console.log("' . $val . '"); </script>';
-//                        }
-//                    }
-
                     $sGrade = trim(str_replace("grade: ", "", $value[1]));
                     $sLrn = trim(str_replace("student_lrn: ", "", $value[2]));
                     $sTeacherLrn = trim(str_replace("teacher_lrn: ", "", $value[3]));
@@ -308,18 +170,10 @@ if (isset($_POST['studId'])) {
     echo '</script>';
 }
 
-if(isset($_POST['deleteTrash'])) {
-    $id = $_POST['deleteTrash'];
+if(isset($_POST['deleteId'])) {
+    $id = $_POST['deleteId'];
     $sql = "delete from trash_info where id = '$id'";
     $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo '<script>';
-        echo '   
-              history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");
-                window.location.reload();
-            ';
-        echo '</script>';
-    }
 }
 ?>
 
@@ -355,7 +209,7 @@ if(isset($_POST['deleteTrash'])) {
                         Trash Lists
                     </h3>
                     <div class="r-50px p-absolute t-54px">
-                        <svg class="c-hand" onclick="deleteStudents('student-list')"  width="50" height="43" id="svg2"
+                        <svg class="c-hand" onclick="deleteId('student-list')"  width="50" height="43" id="svg2"
                              version="1.1" viewBox="0 0 99.999995 99.999995"
                              xmlns="http://www.w3.org/2000/svg"
                              xmlns:svg="http://www.w3.org/2000/svg">
@@ -670,47 +524,53 @@ if(isset($_POST['deleteTrash'])) {
         }
     }
 
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
+
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            count++;
         });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                var isStudentEnrollment = false;
-                studentID.forEach(function (studId) {
-
-                    if (id === 'student-enrollment') {
-                        $.post('', {studentEnrollmentId: studId})
-                        isStudentEnrollment = true;
-                    } else {
-                        $.post('', {deleteTrash: studId})
-                    }
-                });
-                if (isStudentEnrollment) {
-                    <?php
-                    if (isset($_GET['lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
-                    <?php } ?>
-                } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                }
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
         } else {
-            if (id === 'student-enrollment') {
-                alert('Please select a enrollment!');
-            } else {
-                alert('Please select a student!');
-            }
+            $('#modal-checkbox').attr('style', 'display: block;')
         }
     }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (id) {
+                $.post('', {deleteId: id})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
+            window.location.reload();
+        }
+    }
+
 
     function viewStudentInformation(data) {
         $("#view-student-info div").html(data);
@@ -806,14 +666,24 @@ if(isset($_POST['deleteTrash'])) {
         }
     }
 
-    function recoverStudentInformation(studId) {
-        var r = confirm("Are you sure you want to recover ?");
-        if (r === true) {
-            Post('', {studId: studId})
-            alert('Successfully recovered!')
-        }
+    $(document).on('click', '#modal-recover-cancel', function (e) {
+        $('#modal-recover').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-recover-ok', function (e) {
+        recoverAction($('#modal-recover').val());
+        $('#modal-recover').attr('style', 'display: none !important;')
+    });
+
+    function recoverStudentInformation(id) {
+        $('#modal-recover').attr('style', 'display: block;')
+        $('#modal-recover').val(id);
     }
 
+    function recoverAction(id) {
+        Post('', {recoverId: id})
+    }
     function loadPage() {
         var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
         if (searchName !== '') {

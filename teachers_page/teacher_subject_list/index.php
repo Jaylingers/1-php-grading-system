@@ -42,7 +42,7 @@ if(isset($_POST['add_subject'])) {
     if ($resultTeachersSubjectInfo) {
         echo '<script>';
         echo '
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . 'added_successfully=' . $id . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $id . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -63,8 +63,8 @@ if(isset($_POST['update-subject'])) {
     if ($resultUpdateTeachersSubjectInfo) {
         echo '<script>';
         echo '
-                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . 'added_successfully=' . $id . '");
-                    window.location.reload();
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $id . '");
+                window.location.reload();
             ';
         echo '</script>';
     }
@@ -269,7 +269,8 @@ if(isset($_POST['deleteId'])) {
                         $rowUser = mysqli_fetch_assoc($resultUser);
                         $userLrn = $rowUser['user_lrn'];
 
-                        $sql = "select * from teachers_subject_info tsi
+                        $sql = "select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
+                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day  from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -278,7 +279,8 @@ if(isset($_POST['deleteId'])) {
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from teachers_subject_info tsi
+                        $total_pages = $mysqli->query("select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
+                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -286,7 +288,8 @@ if(isset($_POST['deleteId'])) {
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from teachers_subject_info tsi
+                        if ($stmt = $mysqli->prepare("select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
+                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day  from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
@@ -779,29 +782,11 @@ if(isset($_POST['deleteId'])) {
             count++;
         });
         if (count > 0) {
-            idArray.forEach(function (id) {
-                $.post('', {deleteId: id})
+            idArray.forEach(function (data) {
+                $.post('', {deleteId: data})
             });
             history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
             window.location.reload();
-        }
-    }
-
-    function deleteSubjects(id){
-        var checked = [];
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            checked.push($(this).attr('id'));
-        });
-        if (checked.length > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                checked.forEach(function (deleteId) {
-                    $.post('', {deleteId: deleteId})
-                });
-                window.location.reload();
-            }
-        } else {
-            alert('Please select atleast one checkbox to delete');
         }
     }
 

@@ -1789,12 +1789,19 @@ if (isset($_POST['darkMode'])) {
         }
     }
 
+
     function logout() {
-        var r = confirm("Are you sure you want to logout?");
-        if (r === true) {
-            Post('', {logout: 'logout'});
-        }
+        $('#modal-logout').attr('style', 'display: block !important;')
     }
+
+    $(document).on('click', '#modal-cancel', function(e){
+        $('#modal-logout').attr('style', 'display: none !important;')
+    });
+
+    $(document).on('click', '#modal-ok', function(e){
+        Post('', {logout: 'logout'});
+    });
+
 
     $(document).ready(function () {
         loadStudArrowLeft();

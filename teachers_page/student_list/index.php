@@ -6,8 +6,8 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if (isset($_POST['id'])) {
-    $lrn = $_POST['id'];
+if (isset($_POST['deleteStId'])) {
+    $lrn = $_POST['deleteStId'];
 
     $id = $_GET['id'];
     $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name',user_lrn from users_info where id = '$id'";
@@ -92,8 +92,8 @@ if (isset($_POST['id'])) {
     }
 }
 
-if (isset($_POST['studentEnrollmentId'])) {
-    $id = $_POST['studentEnrollmentId'];
+if (isset($_POST['deleteEnId'])) {
+    $id = $_POST['deleteEnId'];
     $sql = "delete from students_enrollment_info where id = '$id'";
     $result = mysqli_query($conn, $sql);
 }
@@ -127,8 +127,7 @@ if (isset($_POST['add-enrollment'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
-                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&lrn=' . $lrn . '");
+                history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&lrn=' . $lrn . '"&&added_successfully=' . $lrn . '");
                     window.location.reload();
             ';
         echo '</script>';
@@ -181,8 +180,8 @@ if (isset($_POST['add-new-student'])) {
     if ($resultUserInfo) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
-              window.location.href = "?id=' . $_GET['id'] . '&datasavedsuccessfully";
+                 history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] .'&&added_successfully=' . $id . '");
+              window.location.reload();
             ';
         echo '</script>';
     } else {
@@ -215,8 +214,8 @@ if (isset($_POST['update-student-info'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("updated successfully");
-              window.location.href = "?id=' . $rows['id'] . '&datasavedsuccessfully";
+                 history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&added_successfully=' . $id . '");
+           window.location.reload();
             ';
         echo '</script>';
     }
@@ -360,7 +359,7 @@ if (isset($_POST['add-student-grade'])) {
                     <div class="r-50px p-absolute t-54px d-flex-center">
                         <img onclick="showModal('add-new-student', 'New Students')" src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
 &nbsp;&nbsp;&nbsp;
-                        <svg class="c-hand" onclick="deleteStudents('student-list')"  width="50" height="43" id="svg2"
+                        <svg class="c-hand" onclick="deleteId('student-list')"  width="50" height="43" id="svg2"
                              version="1.1" viewBox="0 0 99.999995 99.999995"
                              xmlns="http://www.w3.org/2000/svg"
                              xmlns:svg="http://www.w3.org/2000/svg">
@@ -1215,7 +1214,7 @@ if (isset($_POST['add-student-grade'])) {
                 <div class="d-flex-end m-b-1em">
                     <img onclick="showModal('add-enrollment', 'New Enrollment')" src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                     &nbsp;&nbsp;&nbsp;
-                    <svg class="c-hand"   onclick="deleteStudents('student-enrollment')"  width="50" height="43" id="svg2"
+                    <svg class="c-hand"   onclick="deleteId('student-enrollment')"  width="50" height="43" id="svg2"
                          version="1.1" viewBox="0 0 99.999995 99.999995"
                          xmlns="http://www.w3.org/2000/svg"
                          xmlns:svg="http://www.w3.org/2000/svg">
@@ -2364,55 +2363,75 @@ if (isset($_POST['add-student-grade'])) {
         }
     }
 
+
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        var lrn = '<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>';
+        if (lrn !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>');
+        } else{
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>');
+        }
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-delete-ok', function (e) {
+        deleteAction($('#modal-delete').val());
+        $('#modal-delete').attr('style', 'display: none !important;')
+    });
+
+    function deleteId(id) {
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            count++;
+        });
+        if (count > 0) {
+            $('#modal-delete').attr('style', 'display: block;')
+            $('#modal-delete').val(id);
+        } else {
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function deleteAction(id) {
+        var idArray = [];
+        var count = 0;
+        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            var deleteEnId = false;
+            idArray.forEach(function (data) {
+                if (id === 'student-enrollment') {
+                    $.post('', {deleteEnId: data})
+                    deleteEnId = true;
+                } else {
+                    $.post('', {deleteStId: data})
+                }
+            });
+            if (deleteEnId) {
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>&&lrn=<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>');
+            } else {
+                history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>');
+            }
+            window.location.reload();
+        }
+    }
+
+
     function searchName() {
         var search = $('#search_name').val();
         if (search !== '') {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
-        }
-    }
-
-
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
-        });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                var isStudentEnrollment = false;
-                studentID.forEach(function (studId) {
-
-                    if (id === 'student-enrollment') {
-                        $.post('', {studentEnrollmentId: studId})
-                        isStudentEnrollment = true;
-                    } else {
-                        $.post('', {id: studId})
-                    }
-                });
-                if (isStudentEnrollment) {
-                    <?php
-                    if (isset($_GET['lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
-                    <?php } ?>
-                } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                }
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
-        } else {
-            if (id === 'student-enrollment') {
-                alert('Please select a enrollment!');
-            } else {
-                alert('Please select a student!');
-            }
         }
     }
 
@@ -2575,6 +2594,12 @@ if (isset($_POST['add-student-grade'])) {
         if (searchGrade !== '') {
             $('#add-enrollment #add-enrollment-grade').val(searchGrade);
             showModal('add-enrollment', 'New Enrollment', '');
+        }
+
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
     }
 
