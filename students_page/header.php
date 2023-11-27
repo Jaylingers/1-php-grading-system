@@ -25,7 +25,7 @@ if (!isset($_SESSION['user_type'])) {
 
 <!DOCTYPE html>
 <html>
-<title>MABES GRADING INQUIRY123</title>
+<title>MABES GRADE | INQUIRY</title>
 <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
 <head>
 
