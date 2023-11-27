@@ -162,21 +162,21 @@ include '../header.php'; ?>
                                                             width: 17em !important;"/>
                                     <?php } ?>
                                     <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
-                                         style="position: absolute; margin-left: 10em"> NEW
+                                         style="position: absolute; margin-left: 10em">
+                                        <?php
+                                        $date_added = date('Y-m-d', strtotime($rows['date_added']));
+                                        $current_date = date('Y-m-d');
+
+                                        echo ($date_added === $current_date) ? 'New' : '';
+                                        ?>
                                     </div>
                                     <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
-                                        <?php if ($category === 'pageVisited') { ?>
-                                            name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                            date visited: <?php echo $rows['date_visited'] ?>
-                                        <?php } else if ($category === 'teacher') { ?>
+
                                             <br>
                                             name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
                                             grade: <?php echo $rows['grade'] ?> <br>
                                             subject: <?php echo $rows['subject'] ?>
-                                        <?php } else { ?>
-                                            name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                            grade: <?php echo $rows['grade'] ?>
-                                        <?php } ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -185,69 +185,14 @@ include '../header.php'; ?>
                         <?php $stmt->close();
                     } ?>
                 </div>
-                <div class="w-100p t-align-right">
-                    <div class="m-2em d-flex-end m-t-n1em">
-                        <div class="d-flex-center">
-                            <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                                <ul class="pagination">
-                                    <?php if ($page > 1): ?>
-                                        <li class="prev"><a
-                                                    href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
-                                        </li>
-                                    <?php endif; ?>
 
-                                    <?php if ($page > 3): ?>
-                                        <li class="start"><a
-                                                    href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
-                                        </li>
-                                        <li class="dots">...</li>
-                                    <?php endif; ?>
 
-                                    <?php if ($page - 2 > 0): ?>
-                                        <li class="page"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                        </li><?php endif; ?>
-                                    <?php if ($page - 1 > 0): ?>
-                                        <li class="page"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                        </li><?php endif; ?>
-
-                                    <li class="currentpage"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
-                                    </li>
-
-                                    <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                        <li class="page"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                        </li><?php endif; ?>
-                                    <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                        <li class="page"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                        </li><?php endif; ?>
-
-                                    <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                                        <li class="dots">...</li>
-                                        <li class="end"><a
-                                                    href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                                        </li>
-                                    <?php endif; ?>
-
-                                    <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                                        <li class="next"><a
-                                                    href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
 
 
                 <?php } else if ($category === 'students') {
                 $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
                 // Build the SQL query
-                $sql = "select si.f_name as first_name, si.l_name as last_name, ui.img_path, sei.grade from students_info si
+                $sql = "select si.f_name as first_name, si.l_name as last_name, ui.img_path, sei.grade,si.date_added from students_info si
                                          left join students_enrollment_info sei on sei.students_info_lrn = si.lrn
                                         left join users_info ui on ui.user_lrn = si.lrn ";
                 // Check if userType is empty
@@ -292,21 +237,18 @@ include '../header.php'; ?>
                                                             width: 17em !important;"/>
                                 <?php } ?>
                                 <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
-                                     style="position: absolute; margin-left: 10em"> NEW
+                                     style="position: absolute; margin-left: 10em">
+                                    <?php
+                                    $date_added = date('Y-m-d', strtotime($rows['date_added']));
+                                    $current_date = date('Y-m-d');
+
+                                    echo ($date_added === $current_date) ? 'New' : '';
+                                    ?>
                                 </div>
                                 <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
-                                    <?php if ($category === 'pageVisited') { ?>
-                                        name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                        date visited: <?php echo $rows['date_visited'] ?>
-                                    <?php } else if ($category === 'teacher') { ?>
-                                        <br>
-                                        name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                        grade: <?php echo $rows['grade'] ?> <br>
-                                        subject: <?php echo $rows['subject'] ?>
-                                    <?php } else { ?>
+
                                         name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
                                         grade: <?php echo $rows['grade'] ?>
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -315,63 +257,9 @@ include '../header.php'; ?>
                     <?php $stmt->close();
                 } ?>
             </div>
-            <div class="w-100p t-align-right">
-                <div class="m-2em d-flex-end m-t-n1em">
-                    <div class="d-flex-center">
-                        <?php if (ceil($total_pages / $num_results_on_page) > 0): ?>
-                            <ul class="pagination">
-                                <?php if ($page > 1): ?>
-                                    <li class="prev"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
-                                    </li>
-                                <?php endif; ?>
 
-                                <?php if ($page > 3): ?>
-                                    <li class="start"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
-                                    </li>
-                                    <li class="dots">...</li>
-                                <?php endif; ?>
 
-                                <?php if ($page - 2 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page - 1 > 0): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
-                                    </li><?php endif; ?>
 
-                                <li class="currentpage"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
-                                </li>
-
-                                <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
-                                    </li><?php endif; ?>
-                                <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
-                                    <li class="page"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
-                                    </li><?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
-                                    <li class="dots">...</li>
-                                    <li class="end"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
-                                    <li class="next"><a
-                                                href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
 
 
             <?php } else if ($category === 'pageVisited') {
@@ -424,21 +312,18 @@ include '../header.php'; ?>
                                                             width: 17em !important;"/>
                             <?php } ?>
                             <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
-                                 style="position: absolute; margin-left: 10em"> NEW
+                                 style="position: absolute; margin-left: 10em">
+                                <?php
+                                $date_added = date('Y-m-d', strtotime($rows['date_visited']));
+                                $current_date = date('Y-m-d');
+
+                                echo ($date_added === $current_date) ? 'New' : '';
+                                ?>
+
                             </div>
                             <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
-                                <?php if ($category === 'pageVisited') { ?>
                                     name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
                                     date visited: <?php echo $rows['date_visited'] ?>
-                                <?php } else if ($category === 'teacher') { ?>
-                                    <br>
-                                    name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                    grade: <?php echo $rows['grade'] ?> <br>
-                                    subject: <?php echo $rows['subject'] ?>
-                                <?php } else { ?>
-                                    name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                    grade: <?php echo $rows['grade'] ?>
-                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -449,6 +334,8 @@ include '../header.php'; ?>
             }
             ?>
         </div>
+
+        <?php }?>
         <div class="w-100p t-align-right">
             <div class="m-2em d-flex-end m-t-n1em">
                 <div class="d-flex-center">
@@ -456,49 +343,49 @@ include '../header.php'; ?>
                         <ul class="pagination">
                             <?php if ($page > 1): ?>
                                 <li class="prev"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
+                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>">Prev</a>
                                 </li>
                             <?php endif; ?>
 
                             <?php if ($page > 3): ?>
                                 <li class="start"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
+                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">1</a>
                                 </li>
                                 <li class="dots">...</li>
                             <?php endif; ?>
 
                             <?php if ($page - 2 > 0): ?>
                                 <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
+                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a>
                                 </li><?php endif; ?>
                             <?php if ($page - 1 > 0): ?>
                                 <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
+                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a>
                                 </li><?php endif; ?>
 
                             <li class="currentpage"><a
-                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
+                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page ?>"><?php echo $page ?></a>
                             </li>
 
                             <?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                 <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
+                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a>
                                 </li><?php endif; ?>
                             <?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1): ?>
                                 <li class="page"><a
-                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
+                                        href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a>
                                 </li><?php endif; ?>
 
                             <?php if ($page < ceil($total_pages / $num_results_on_page) - 2): ?>
                                 <li class="dots">...</li>
                                 <li class="end"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
+                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a>
                                 </li>
                             <?php endif; ?>
 
                             <?php if ($page < ceil($total_pages / $num_results_on_page)): ?>
                                 <li class="next"><a
-                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
+                                            href="/1-php-grading-system/admins_page/dashboard/?id=<?php echo $_GET['id'] ?>&&category=<?php echo $_GET['category'] ?><?php if (isset($_GET['grade'])): ?>&&grade=<?php echo $_GET['grade'] ?><?php endif; ?><?php if (isset($_GET['user'])): ?>&&user=<?php echo $_GET['user'] ?><?php endif; ?>&&page=<?php echo $page + 1 ?>">Next</a>
                                 </li>
                             <?php endif; ?>
                         </ul>
@@ -506,7 +393,7 @@ include '../header.php'; ?>
                 </div>
             </div>
         </div>
-        <?php }
+        <?php
         } else {
             ?>
             <div class="t-align-center "><br>

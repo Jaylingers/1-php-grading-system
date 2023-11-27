@@ -84,7 +84,7 @@ if (isset($_POST['add-new-teacher'])) {
     }
 
 
-    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress','$grade','$section')";
+    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section,date_added) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress','$grade','$section',now())";
     $result = mysqli_query($conn, $sql);
 
     $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','teacher','$lrn')";
