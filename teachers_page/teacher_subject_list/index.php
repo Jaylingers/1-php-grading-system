@@ -6,9 +6,9 @@ include '../header.php'; ?>
 global $conn;
 include "../../db_conn.php";
 
-if(isset($_POST['add_subject'])) {
+if (isset($_POST['add_subject'])) {
 
-  $subject = $_POST['subject'];
+    $subject = $_POST['subject'];
     $room = $_POST['room'];
     $grade = $_POST['grade'];
     $time_in = $_POST['time_in'];
@@ -36,7 +36,6 @@ if(isset($_POST['add_subject'])) {
     }
 
 
-
     $sqlTeachersSubjectInfo = "insert into teachers_subject_info (subject, room, schedule_time_in, schedule_time_out, schedule_day, teachers_lrn) values ('$subject', '$room', '$time_in', '$time_out', '$schedule_day', '$userLrn')";
     $resultTeachersSubjectInfo = mysqli_query($conn, $sqlTeachersSubjectInfo);
     if ($resultTeachersSubjectInfo) {
@@ -49,7 +48,7 @@ if(isset($_POST['add_subject'])) {
     }
 }
 
-if(isset($_POST['update-subject'])) {
+if (isset($_POST['update-subject'])) {
     $id = $_POST['id'];
     $subject = $_POST['subject'];
     $room = $_POST['room'];
@@ -70,7 +69,7 @@ if(isset($_POST['update-subject'])) {
     }
 }
 
-if(isset($_POST['deleteId'])) {
+if (isset($_POST['deleteId'])) {
     $deleteId = $_POST['deleteId'];
     $sqlDeleteTeachersSubjectInfo = "delete from teachers_subject_info where id='$deleteId'";
     $resultDeleteTeachersSubjectInfo = mysqli_query($conn, $sqlDeleteTeachersSubjectInfo);
@@ -78,7 +77,8 @@ if(isset($_POST['deleteId'])) {
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?>">
+    <div id="content"
+         class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : '' ?>">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {
@@ -118,7 +118,7 @@ if(isset($_POST['deleteId'])) {
                             <div class="w-69p d-flex-end">
                                 <input placeholder="search name" id="search_name" type="text" class="m-1em"
                                        onchange="searchSubject()"/>
-                                <svg class="c-hand" onclick="deleteId('subject-list')"  width="50" height="43" id="svg2"
+                                <svg class="c-hand" onclick="deleteId('subject-list')" width="50" height="43" id="svg2"
                                      version="1.1" viewBox="0 0 99.999995 99.999995"
                                      xmlns="http://www.w3.org/2000/svg"
                                      xmlns:svg="http://www.w3.org/2000/svg">
@@ -126,125 +126,148 @@ if(isset($_POST['deleteId'])) {
                                         <filter id="filter4510" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
-                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5064" style="color-interpolation-filters:sRGB">
-                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294" id="feFlood5066"
+                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294"
+                                                     id="feFlood5066"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
                                                             stdDeviation="5.9"/>
                                             <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
-                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5364" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
-                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
                                                             stdDeviation="7.6"/>
                                             <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
-                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4400" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
-                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
-                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4678" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
-                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5045" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
-                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4607" style="color-interpolation-filters:sRGB;">
                                             <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
-                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4507" style="color-interpolation-filters:sRGB;">
                                             <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
                                                             stdDeviation="3"/>
                                             <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
-                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
                                                             stdDeviation="3.4"/>
                                             <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
-                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                     </defs>
@@ -404,59 +427,71 @@ if(isset($_POST['deleteId'])) {
                                                             .cls-15 {
                                                                 fill: url(#linear-gradient-14);
                                                             }</style>
-                                                        <linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient"
+                                                        <linearGradient gradientUnits="userSpaceOnUse"
+                                                                        id="linear-gradient"
                                                                         x1="22.98" x2="26.48" y1="23.9" y2="28.27">
                                                             <stop offset="0.04" stop-color="#fbb480"/>
                                                             <stop offset="1" stop-color="#c27c4a"/>
                                                         </linearGradient>
                                                         <linearGradient id="linear-gradient-2" x1="7.85" x2="11.63"
-                                                                        xlink:href="#linear-gradient" y1="35.07" y2="39.53"/>
+                                                                        xlink:href="#linear-gradient" y1="35.07"
+                                                                        y2="39.53"/>
                                                         <linearGradient id="linear-gradient-3" x1="7.26" x2="12.14"
-                                                                        xlink:href="#linear-gradient" y1="33.38" y2="38.26"/>
+                                                                        xlink:href="#linear-gradient" y1="33.38"
+                                                                        y2="38.26"/>
                                                         <linearGradient id="linear-gradient-4" x1="35.06" x2="41.75"
-                                                                        xlink:href="#linear-gradient" y1="9.61" y2="16.3"/>
+                                                                        xlink:href="#linear-gradient" y1="9.61"
+                                                                        y2="16.3"/>
                                                         <linearGradient id="linear-gradient-5" x1="32.45" x2="41.29"
-                                                                        xlink:href="#linear-gradient" y1="6.23" y2="17.91"/>
-                                                        <linearGradient gradientTransform="translate(21.95 -5.88) rotate(44.99)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-6"
-                                                                        x1="17.07" x2="22.48" y1="22.56" y2="27.98">
+                                                                        xlink:href="#linear-gradient" y1="6.23"
+                                                                        y2="17.91"/>
+                                                        <linearGradient
+                                                                gradientTransform="translate(21.95 -5.88) rotate(44.99)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-6"
+                                                                x1="17.07" x2="22.48" y1="22.56" y2="27.98">
                                                             <stop offset="0.01" stop-color="#ffdc2e"/>
                                                             <stop offset="1" stop-color="#f79139"/>
                                                         </linearGradient>
-                                                        <linearGradient gradientTransform="translate(28.21 -8.47) rotate(45)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-7"
-                                                                        x1="22.57" x2="26.35" y1="28.06" y2="31.84">
+                                                        <linearGradient
+                                                                gradientTransform="translate(28.21 -8.47) rotate(45)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-7"
+                                                                x1="22.57" x2="26.35" y1="28.06" y2="31.84">
                                                             <stop offset="0.01" stop-color="#f46000"/>
                                                             <stop offset="1" stop-color="#de722c"/>
                                                         </linearGradient>
-                                                        <linearGradient gradientTransform="translate(25.08 -7.17) rotate(45)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-8"
-                                                                        x1="20.21" x2="24.85" y1="25.7" y2="30.35">
+                                                        <linearGradient
+                                                                gradientTransform="translate(25.08 -7.17) rotate(45)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-8"
+                                                                x1="20.21" x2="24.85" y1="25.7" y2="30.35">
                                                             <stop offset="0.01" stop-color="#f99d46"/>
                                                             <stop offset="1" stop-color="#f46000"/>
                                                         </linearGradient>
                                                         <linearGradient
                                                                 gradientTransform="translate(23.66 -19.41) rotate(44.98)"
-                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-9" x1="34.09"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-9"
+                                                                x1="34.09"
                                                                 x2="36.35" y1="17.69" y2="19.95">
                                                             <stop offset="0.01" stop-color="#a1a1a1"/>
                                                             <stop offset="1" stop-color="#828282"/>
                                                         </linearGradient>
-                                                        <linearGradient gradientTransform="translate(17.4 -16.81) rotate(44.98)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-10"
-                                                                        x1="27.79" x2="30.61" y1="11.39" y2="14.22">
+                                                        <linearGradient
+                                                                gradientTransform="translate(17.4 -16.81) rotate(44.98)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-10"
+                                                                x1="27.79" x2="30.61" y1="11.39" y2="14.22">
                                                             <stop offset="0.01" stop-color="#fafafa"/>
                                                             <stop offset="1" stop-color="#dedede"/>
                                                         </linearGradient>
-                                                        <linearGradient gradientTransform="translate(20.55 -18.12) rotate(45)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-11"
-                                                                        x1="30.43" x2="34.61" y1="14.03" y2="18.21">
+                                                        <linearGradient
+                                                                gradientTransform="translate(20.55 -18.12) rotate(45)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-11"
+                                                                x1="30.43" x2="34.61" y1="14.03" y2="18.21">
                                                             <stop offset="0.01" stop-color="#d4d4d4"/>
                                                             <stop offset="1" stop-color="#a6a6a6"/>
                                                         </linearGradient>
                                                         <linearGradient
                                                                 gradientTransform="translate(23.67 -19.41) rotate(44.99)"
-                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-12" x1="33.9"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-12"
+                                                                x1="33.9"
                                                                 x2="36.13" y1="17.5" y2="19.73">
                                                             <stop offset="0.01" stop-color="#b2b2b2"/>
                                                             <stop offset="1" stop-color="#939393"/>
@@ -468,9 +503,10 @@ if(isset($_POST['deleteId'])) {
                                                             <stop offset="0.01" stop-color="#fafafa"/>
                                                             <stop offset="1" stop-color="#efefef"/>
                                                         </linearGradient>
-                                                        <linearGradient gradientTransform="translate(20.55 -18.12) rotate(45)"
-                                                                        gradientUnits="userSpaceOnUse" id="linear-gradient-14"
-                                                                        x1="30.39" x2="34.73" y1="14" y2="18.34">
+                                                        <linearGradient
+                                                                gradientTransform="translate(20.55 -18.12) rotate(45)"
+                                                                gradientUnits="userSpaceOnUse" id="linear-gradient-14"
+                                                                x1="30.39" x2="34.73" y1="14" y2="18.34">
                                                             <stop offset="0.01" stop-color="#e5e5e5"/>
                                                             <stop offset="1" stop-color="#b7b7b7"/>
                                                         </linearGradient>
@@ -494,28 +530,36 @@ if(isset($_POST['deleteId'])) {
                                                                   transform="translate(-11.37 19.67) rotate(-44.99)"
                                                                   width="24.8" x="5.67" y="21.77"/>
                                                             <rect class="cls-8" height="3.58"
-                                                                  transform="translate(-13.96 25.93) rotate(-45)" width="24.8"
+                                                                  transform="translate(-13.96 25.93) rotate(-45)"
+                                                                  width="24.8"
                                                                   x="11.92" y="28.03"/>
                                                             <rect class="cls-9" height="5.27"
-                                                                  transform="translate(-12.66 22.8) rotate(-45)" width="24.8"
+                                                                  transform="translate(-12.66 22.8) rotate(-45)"
+                                                                  width="24.8"
                                                                   x="8.79" y="24.05"/>
                                                             <rect class="cls-10" height="3.58"
-                                                                  transform="translate(-3.02 30.45) rotate(-44.98)" width="7.63"
+                                                                  transform="translate(-3.02 30.45) rotate(-44.98)"
+                                                                  width="7.63"
                                                                   x="31.46" y="17.08"/>
                                                             <rect class="cls-11" height="3.58"
-                                                                  transform="translate(-0.43 24.2) rotate(-44.98)" width="7.62"
+                                                                  transform="translate(-0.43 24.2) rotate(-44.98)"
+                                                                  width="7.62"
                                                                   x="25.2" y="10.83"/>
                                                             <rect class="cls-12" height="5.27"
-                                                                  transform="translate(-1.72 27.34) rotate(-45)" width="7.62"
+                                                                  transform="translate(-1.72 27.34) rotate(-45)"
+                                                                  width="7.62"
                                                                   x="28.33" y="13.11"/>
                                                             <rect class="cls-13" height="3.58"
-                                                                  transform="translate(-3.02 30.46) rotate(-44.99)" width="6.15"
+                                                                  transform="translate(-3.02 30.46) rotate(-44.99)"
+                                                                  width="6.15"
                                                                   x="32.19" y="17.08"/>
                                                             <rect class="cls-14" height="3.58"
-                                                                  transform="translate(-0.43 24.2) rotate(-44.99)" width="6.15"
+                                                                  transform="translate(-0.43 24.2) rotate(-44.99)"
+                                                                  width="6.15"
                                                                   x="25.94" y="10.83"/>
                                                             <rect class="cls-15" height="5.27"
-                                                                  transform="translate(-1.72 27.34) rotate(-45)" width="6.15"
+                                                                  transform="translate(-1.72 27.34) rotate(-45)"
+                                                                  width="6.15"
                                                                   x="29.06" y="13.11"/>
                                                         </g>
                                                     </g>
@@ -589,7 +633,7 @@ if(isset($_POST['deleteId'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="custom-grid-item pad-1em"  id="grid-a">
+                    <div class="custom-grid-item pad-1em" id="grid-a">
                         <div class="b-shadow-dark">
 
 
@@ -603,11 +647,18 @@ if(isset($_POST['deleteId'])) {
                                 <div class="custom-grid-container" tabindex="1">
                                     <div class="custom-grid-item ">
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject Name:</div>
-                                        <select required="true"  name="subject" id="subject"
+                                        <select required="true" name="subject" id="subject"
                                                 class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
-                                            <option value="" disabled selected> </option>
+                                            <option value="" disabled selected></option>
                                             <?php
-                                            $sqlSubject = "select * from subject_list_info";
+                                            $id = $_GET['id'];
+                                            $sqlUser = "select * from users_info ui 
+                                                        left join teachers_info ti on ti.lrn=ui.user_lrn where ui.id='$id'";
+                                            $resultUser = mysqli_query($conn, $sqlUser);
+                                            $rowUser = mysqli_fetch_assoc($resultUser);
+                                            $grade = $rowUser['grade'];
+
+                                            $sqlSubject = "select name from subject_list_info where applicable_for in ('$grade','All')";
                                             $resultSubject = mysqli_query($conn, $sqlSubject);
                                             while ($rowSubject = mysqli_fetch_assoc($resultSubject)) {
                                                 ?>
@@ -615,7 +666,8 @@ if(isset($_POST['deleteId'])) {
                                             <?php } ?>
                                         </select>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Room:</div>
-                                        <input required="true" type="text" id="room" name="room" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                        <input required="true" type="text" id="room" name="room"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                         <br>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Grade:</div>
                                         <?php
@@ -627,27 +679,60 @@ if(isset($_POST['deleteId'])) {
 
                                         $sqlTeacher = "select * from teachers_info where lrn='$userLrn'";
                                         $resultTeacher = mysqli_query($conn, $sqlTeacher);
-                                        while ($rowGrade= mysqli_fetch_assoc($resultTeacher)) {
+                                        while ($rowGrade = mysqli_fetch_assoc($resultTeacher)) {
                                             ?>
-                                            <input required="true"  type="text" id="grade" name="grade" value="<?= $rowGrade['grade'] ?>" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px" readonly="true"/>
+                                            <input required="true" type="text" id="grade" name="grade"
+                                                   value="<?= $rowGrade['grade'] ?>"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                   readonly="true"/>
                                         <?php } ?>
                                         <br>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_in:</div>
-                                        <input required="true"  type="time" id="time_in" name="time_in" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                        <input required="true" type="time" id="time_in" name="time_in"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                         <br>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_out:</div>
-                                        <input required="true"  type="time" id="time_out" name="time_out" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                        <input required="true" type="time" id="time_out" name="time_out"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                         <br>
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_day:</div>
-                                        <input required="true"  type="text" id="schedule_day" name="schedule_day" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                        <input required="true" type="text" id="schedule_day" name="schedule_day"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
-                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1"
+                                         id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <style>.cls-1 {
+                                                    fill: #ccbeb0;
+                                                }
+
+                                                .cls-2 {
+                                                    fill: #525354;
+                                                }
+
+                                                .cls-3 {
+                                                    fill: #d77165;
+                                                }</style>
+                                        </defs>
+                                        <title/>
+                                        <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/>
+                                    </svg>
                                     <button type="submit"
                                             class="c-hand btn-success btn"
-                                            name="add_subject" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                        <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
+                                            name="add_subject"
+                                            style="background-color: #ffffff !important; border-color: #ffffff;">
+                                        <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50"
+                                             height="50">
                                     </button>
                                 </div>
                             </form>
@@ -670,14 +755,23 @@ if(isset($_POST['deleteId'])) {
                                 <form method="post">
                                     <div class="custom-grid-container" tabindex="1">
                                         <div class="custom-grid-item ">
-                                            <input type="hidden" id="id" name="id" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px" readonly="true"/>
+                                            <input type="hidden" id="id" name="id"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                   readonly="true"/>
                                             <br>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Subject Name:</div>
                                             <select name="subject" id="subject"
                                                     class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
-                                                <option value="" disabled selected> </option>
+                                                <option value="" disabled selected></option>
                                                 <?php
-                                                $sqlSubject = "select * from subject_list_info";
+                                                $id = $_GET['id'];
+                                                $sqlUser = "select * from users_info ui 
+                                                        left join teachers_info ti on ti.lrn=ui.user_lrn where ui.id='$id'";
+                                                $resultUser = mysqli_query($conn, $sqlUser);
+                                                $rowUser = mysqli_fetch_assoc($resultUser);
+                                                $grade = $rowUser['grade'];
+
+                                                $sqlSubject = "select name from subject_list_info where applicable_for in ('$grade','All')";
                                                 $resultSubject = mysqli_query($conn, $sqlSubject);
                                                 while ($rowSubject = mysqli_fetch_assoc($resultSubject)) {
                                                     ?>
@@ -685,7 +779,8 @@ if(isset($_POST['deleteId'])) {
                                                 <?php } ?>
                                             </select>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Room:</div>
-                                            <input type="text" id="room" name="room" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                            <input type="text" id="room" name="room"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                             <br>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Grade:</div>
                                             <?php
@@ -697,28 +792,67 @@ if(isset($_POST['deleteId'])) {
 
                                             $sqlTeacher = "select * from teachers_info where lrn='$userLrn'";
                                             $resultTeacher = mysqli_query($conn, $sqlTeacher);
-                                            while ($rowGrade= mysqli_fetch_assoc($resultTeacher)) {
+                                            while ($rowGrade = mysqli_fetch_assoc($resultTeacher)) {
                                                 ?>
-                                                <input type="text" id="grade" name="grade" value="<?= $rowGrade['grade'] ?>" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px" readonly="true"/>
+                                                <input type="text" id="grade" name="grade"
+                                                       value="<?= $rowGrade['grade'] ?>"
+                                                       class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                       readonly="true"/>
                                             <?php } ?>
                                             <br>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_in:</div>
-                                            <input type="time" id="time_in" name="time_in" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                            <input type="time" id="time_in" name="time_in"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                             <br>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_out:</div>
-                                            <input type="time" id="time_out" name="time_out" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_out:
+                                            </div>
+                                            <input type="time" id="time_out" name="time_out"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                             <br>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_day:</div>
-                                            <input type="text" id="schedule_day" name="schedule_day" class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
+                                            <input type="text" id="schedule_day" name="schedule_day"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em d-flex-center">
-                                        <svg class="c-hand"  onclick="closeModal()"  width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                        <svg class="c-hand" onclick="closeModal()" width="50" height="50"
+                                             data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <style>.cls-1 {
+                                                        fill: #ccbeb0;
+                                                    }
+
+                                                    .cls-2 {
+                                                        fill: #525354;
+                                                    }
+
+                                                    .cls-3 {
+                                                        fill: #d77165;
+                                                    }</style>
+                                            </defs>
+                                            <title/>
+                                            <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(69.29 170.7) rotate(-135)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(-28.99 70) rotate(-45)" width="24" x="58"
+                                                  y="21"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(70 168.99) rotate(-135)" width="24" x="58"
+                                                  y="21"/>
+                                        </svg>
 
                                         <button type="submit"
                                                 class="c-hand btn-success btn"
-                                                name="update-subject" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
+                                                name="update-subject"
+                                                style="background-color: #ffffff !important; border-color: #ffffff;">
+                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50"
+                                                 height="50">
                                         </button>
                                     </div>
                                 </form>
@@ -799,7 +933,7 @@ if(isset($_POST['deleteId'])) {
         $('#schedule_day').val('');
     }
 
-    function editUser(id,subject,room,grade,time_in,time_out,schedule_day) {
+    function editUser(id, subject, room, grade, time_in, time_out, schedule_day) {
         $('#update-subject #id').val(id);
         $('#update-subject #subject').val(subject);
         $('#update-subject #room').val(room);

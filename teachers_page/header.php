@@ -90,7 +90,7 @@ if (isset($_POST['darkMode'])) {
     <body class="bg-dark" onload="loadTopArrow()">
 
 
-    <div id="modal-delete" class="modal2" >
+    <div id="modal-delete" class="modal2">
         <div class="square">
             <div class="modal-content">
                 <div id="modal-delete" class="modal-content1">
@@ -244,7 +244,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-delete-ok">Ok</button>
@@ -298,7 +299,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -403,7 +405,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-recover-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-recover-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-recover-ok">Ok</button>
@@ -413,12 +416,25 @@ if (isset($_POST['darkMode'])) {
             </div>
         </div>
     </div>
-    <div id="modal-promote" class="modal2" >
+    <div id="modal-promote" class="modal2">
         <div class="square">
             <div class="modal-content">
                 <div id="modal-delete" class="modal-content1">
                     <div class="modal-logo  d-flex-center">
-                        <svg fill="none" width="30" height="30"   viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z" fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                        <svg fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
+                                  fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                        </svg>
                     </div>
                     <div class="modal-short-msg d-flex-center">
                         <h1> Are you sure? </h1>
@@ -430,7 +446,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-promote-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-promote-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-promote-ok">Ok</button>
@@ -440,12 +457,25 @@ if (isset($_POST['darkMode'])) {
             </div>
         </div>
     </div>
-    <div id="modal-remove-promote-students" class="modal2" >
+    <div id="modal-remove-promote-students" class="modal2">
         <div class="square">
             <div class="modal-content">
                 <div id="modal-delete" class="modal-content1">
                     <div class="modal-logo  d-flex-center">
-                        <svg fill="none" width="30" height="30"   viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z" fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
+                        <svg fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
+                                  fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                        </svg>
                     </div>
                     <div class="modal-short-msg d-flex-center">
                         <h1> Are you sure? </h1>
@@ -457,7 +487,9 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-remove-promote-students-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning"
+                                    id="modal-remove-promote-students-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-remove-promote-students-ok">Ok</button>
@@ -484,14 +516,15 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="modal-add" class="modal2" >
+    <div id="modal-add" class="modal2">
         <div class="square">
             <div class="modal-content">
                 <div id="modal-delete" class="modal-content1">
@@ -508,7 +541,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-add-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-add-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-add-ok">Ok</button>
@@ -535,55 +569,13 @@ if (isset($_POST['darkMode'])) {
 
         <div id="sideTab" class="pad-1em t-color-white f-weight-bold">
             <div class="m-t-3em"></div>
-            <div class="tab-dashboard d-none h-4em d-flex-center ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('dashboard')" <?php if ($var === "dashboard") { ?> style="background: #bababa;"  <?php } ?> >
-                    Dashboard <?= $var1 ?>
-                </div>
-                <div class="d-flex-end w-4em "></div>
-            </div>
-            <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
-                    Add User
-                </div>
-                <div class="d-flex-end w-4em">
-                    <div id="arrowLeftButton" class="w-1-5em h-1-5em c-hand "
-                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft','userTab')"></div>
-                </div>
-            </div>
-            <div class="tab-addUser d-none ov-hidden transition-0-5s " id="userTab" style="height: 0">
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
-                        Teacher
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
-                        Student
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
-                        Admin
-                    </div>
-                </div>
-            </div>
             <div class="tab-teacherInfo d-none h-5em  d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-               <svg class="bi bi-info-circle svg-1" fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                    <svg class="bi bi-info-circle svg-1" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
@@ -593,7 +585,20 @@ if (isset($_POST['darkMode'])) {
             </div>
             <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-                 <svg class="svg-1" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6C13 7.65685 11.6569 9 10 9C8.34315 9 7 7.65685 7 6C7 4.34315 8.34315 3 10 3C11.6569 3 13 4.34315 13 6Z" fill="white"/><path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z" fill="white"/><path d="M14 15C14 12.7909 12.2091 11 10 11C7.79086 11 6 12.7909 6 15V18H14V15Z" fill="white"/><path d="M6 8C6 9.10457 5.10457 10 4 10C2.89543 10 2 9.10457 2 8C2 6.89543 2.89543 6 4 6C5.10457 6 6 6.89543 6 8Z" fill="white"/><path d="M16 18V15C16 13.9459 15.7282 12.9552 15.2507 12.0943C15.4902 12.0327 15.7413 12 16 12C17.6569 12 19 13.3431 19 15V18H16Z" fill="white"/><path d="M4.74926 12.0943C4.27185 12.9552 4 13.9459 4 15V18H1V15C1 13.3431 2.34315 12 4 12C4.25871 12 4.50977 12.0327 4.74926 12.0943Z" fill="white"/></svg>
+                    <svg class="svg-1" fill="none" height="20" viewBox="0 0 20 20" width="20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 6C13 7.65685 11.6569 9 10 9C8.34315 9 7 7.65685 7 6C7 4.34315 8.34315 3 10 3C11.6569 3 13 4.34315 13 6Z"
+                              fill="white"/>
+                        <path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z"
+                              fill="white"/>
+                        <path d="M14 15C14 12.7909 12.2091 11 10 11C7.79086 11 6 12.7909 6 15V18H14V15Z" fill="white"/>
+                        <path d="M6 8C6 9.10457 5.10457 10 4 10C2.89543 10 2 9.10457 2 8C2 6.89543 2.89543 6 4 6C5.10457 6 6 6.89543 6 8Z"
+                              fill="white"/>
+                        <path d="M16 18V15C16 13.9459 15.7282 12.9552 15.2507 12.0943C15.4902 12.0327 15.7413 12 16 12C17.6569 12 19 13.3431 19 15V18H16Z"
+                              fill="white"/>
+                        <path d="M4.74926 12.0943C4.27185 12.9552 4 13.9459 4 15V18H1V15C1 13.3431 2.34315 12 4 12C4.25871 12 4.50977 12.0327 4.74926 12.0943Z"
+                              fill="white"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "teacher_subject_list" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
@@ -626,10 +631,12 @@ if (isset($_POST['darkMode'])) {
             </div>
             <div class="tab-records d-none h-4em d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-              <svg class="svg-1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/></svg>
+                    <svg class="svg-1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
+                     onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student") { ?> style="background: #bababa;"  <?php } ?>>
                     Records
                 </div>
                 <div class="d-flex-end w-4em">
@@ -647,94 +654,20 @@ if (isset($_POST['darkMode'])) {
                         Promote Student
                     </div>
                 </div>
-
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('subject_list')" <?php if ($var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
-                        Subject List
-                    </div>
-                </div>
-            </div>
-            <div class="tab-maintenance d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('maintenance')" <?php if ($var === "maintenance" || $var === "school_year" || $var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
-                    Maintenance
-                </div>
-                <div class="d-flex-end w-4em">
-                    <div id="arrowLeftButton_maintenance" class="w-1-5em h-1-5em c-hand "
-                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_maintenance','maintenanceTab')"></div>
-                </div>
-            </div>
-            <div class="tab-maintenance d-none ov-hidden transition-0-5s " id="maintenanceTab" style="height: 0">
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
-                        School Year
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
-                        Grade List
-                    </div>
-                </div>
-            </div>
-            <div class="tab-studentInfo d-none h-4em  d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('student_info')" <?php if ($var === "student_info") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student Info
-                </div>
-                <div class="d-flex-end w-4em m-t-5px"></div>
-            </div>
-            <div class="tab-studentRecord d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('studentRecord')" <?php if ($var === "studentRecord" || $var === "grade" || $var === "report") { ?> style="background: #bababa;"  <?php } ?>>
-                    Student Record
-                </div>
-                <div class="d-flex-end w-4em">
-                    <div id="arrowLeftButton_studentRecord" class="w-1-5em h-1-5em c-hand "
-                         onclick="saveKeyOnLocalStorage(this,'studArrowLeft_studentRecord','studentRecordTab')"></div>
-                </div>
-            </div>
-            <div class="tab-studentRecord d-none ov-hidden transition-0-5s " id="studentRecordTab" style="height: 0">
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('grade')" <?php if ($var === "grade") { ?> style="background: #bababa;"  <?php } ?>>
-                        Grade
-                    </div>
-                </div>
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('report')" <?php if ($var === "report") { ?> style="background: #bababa;"  <?php } ?>>
-                        Report
-                    </div>
-                </div>
-            </div>
-            <div class="tab-teacherList d-none h-5em  d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
-                     onclick="selectTab('teacher_list')" <?php if ($var === "teacherList") { ?> style="background: #bababa;"  <?php } ?>>
-                    Teacher List
-                </div>
-                <div class="d-flex-end w-4em"></div>
             </div>
             <div class="tab-trash d-none h-5em  d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-                   <svg class="svg-1" width="100" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="1" id="_1"><path d="M356.65,450H171.47a41,41,0,0,1-40.9-40.9V120.66a15,15,0,0,1,15-15h237a15,15,0,0,1,15,15V409.1A41,41,0,0,1,356.65,450ZM160.57,135.66V409.1a10.91,10.91,0,0,0,10.9,10.9H356.65a10.91,10.91,0,0,0,10.91-10.9V135.66Z"/><path d="M327.06,135.66h-126a15,15,0,0,1-15-15V93.4A44.79,44.79,0,0,1,230.8,48.67h66.52A44.79,44.79,0,0,1,342.06,93.4v27.26A15,15,0,0,1,327.06,135.66Zm-111-30h96V93.4a14.75,14.75,0,0,0-14.74-14.73H230.8A14.75,14.75,0,0,0,216.07,93.4Z"/><path d="M264.06,392.58a15,15,0,0,1-15-15V178.09a15,15,0,1,1,30,0V377.58A15,15,0,0,1,264.06,392.58Z"/><path d="M209.9,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,209.9,392.58Z"/><path d="M318.23,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,318.23,392.58Z"/><path d="M405.81,135.66H122.32a15,15,0,0,1,0-30H405.81a15,15,0,0,1,0,30Z"/></g></svg>
+                    <svg class="svg-1" width="100" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <title/>
+                        <g data-name="1" id="_1">
+                            <path d="M356.65,450H171.47a41,41,0,0,1-40.9-40.9V120.66a15,15,0,0,1,15-15h237a15,15,0,0,1,15,15V409.1A41,41,0,0,1,356.65,450ZM160.57,135.66V409.1a10.91,10.91,0,0,0,10.9,10.9H356.65a10.91,10.91,0,0,0,10.91-10.9V135.66Z"/>
+                            <path d="M327.06,135.66h-126a15,15,0,0,1-15-15V93.4A44.79,44.79,0,0,1,230.8,48.67h66.52A44.79,44.79,0,0,1,342.06,93.4v27.26A15,15,0,0,1,327.06,135.66Zm-111-30h96V93.4a14.75,14.75,0,0,0-14.74-14.73H230.8A14.75,14.75,0,0,0,216.07,93.4Z"/>
+                            <path d="M264.06,392.58a15,15,0,0,1-15-15V178.09a15,15,0,1,1,30,0V377.58A15,15,0,0,1,264.06,392.58Z"/>
+                            <path d="M209.9,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,209.9,392.58Z"/>
+                            <path d="M318.23,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,318.23,392.58Z"/>
+                            <path d="M405.81,135.66H122.32a15,15,0,0,1,0-30H405.81a15,15,0,0,1,0,30Z"/>
+                        </g>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
@@ -986,7 +919,7 @@ if (isset($_POST['darkMode'])) {
     <body class="bg-dark" onload="loadTopArrow()">
 
 
-    <div id="modal-delete" class="modal2" >
+    <div id="modal-delete" class="modal2">
         <div class="square">
             <div class="modal-content">
                 <div id="modal-delete" class="modal-content1">
@@ -1140,7 +1073,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-delete-ok">Ok</button>
@@ -1194,7 +1128,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Ok
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1299,7 +1234,8 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-msg-choice d-flex-center">
                         <div class="modal-msg-choice-yes btn">
-                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-recover-cancel">Cancel</button>
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-recover-cancel">Cancel
+                            </button>
                         </div>
                         <div class="modal-msg-choice-no">
                             <button class="btn-primary btn" id="modal-recover-ok">Ok</button>
@@ -1374,7 +1310,11 @@ if (isset($_POST['darkMode'])) {
             </div>
             <div class="tab-teacherInfo d-none h-5em  d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-              <svg class="bi bi-info-circle svg-1" fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                    <svg class="bi bi-info-circle svg-1" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
@@ -1384,7 +1324,20 @@ if (isset($_POST['darkMode'])) {
             </div>
             <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px " id="tab-masterlist-a">
                 <div class="p-absolute" style="margin-right: 11em;">
-                 <svg class="svg-1" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6C13 7.65685 11.6569 9 10 9C8.34315 9 7 7.65685 7 6C7 4.34315 8.34315 3 10 3C11.6569 3 13 4.34315 13 6Z" fill="white"/><path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z" fill="white"/><path d="M14 15C14 12.7909 12.2091 11 10 11C7.79086 11 6 12.7909 6 15V18H14V15Z" fill="white"/><path d="M6 8C6 9.10457 5.10457 10 4 10C2.89543 10 2 9.10457 2 8C2 6.89543 2.89543 6 4 6C5.10457 6 6 6.89543 6 8Z" fill="white"/><path d="M16 18V15C16 13.9459 15.7282 12.9552 15.2507 12.0943C15.4902 12.0327 15.7413 12 16 12C17.6569 12 19 13.3431 19 15V18H16Z" fill="white"/><path d="M4.74926 12.0943C4.27185 12.9552 4 13.9459 4 15V18H1V15C1 13.3431 2.34315 12 4 12C4.25871 12 4.50977 12.0327 4.74926 12.0943Z" fill="white"/></svg>
+                    <svg class="svg-1" fill="none" height="20" viewBox="0 0 20 20" width="20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 6C13 7.65685 11.6569 9 10 9C8.34315 9 7 7.65685 7 6C7 4.34315 8.34315 3 10 3C11.6569 3 13 4.34315 13 6Z"
+                              fill="white"/>
+                        <path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z"
+                              fill="white"/>
+                        <path d="M14 15C14 12.7909 12.2091 11 10 11C7.79086 11 6 12.7909 6 15V18H14V15Z" fill="white"/>
+                        <path d="M6 8C6 9.10457 5.10457 10 4 10C2.89543 10 2 9.10457 2 8C2 6.89543 2.89543 6 4 6C5.10457 6 6 6.89543 6 8Z"
+                              fill="white"/>
+                        <path d="M16 18V15C16 13.9459 15.7282 12.9552 15.2507 12.0943C15.4902 12.0327 15.7413 12 16 12C17.6569 12 19 13.3431 19 15V18H16Z"
+                              fill="white"/>
+                        <path d="M4.74926 12.0943C4.27185 12.9552 4 13.9459 4 15V18H1V15C1 13.3431 2.34315 12 4 12C4.25871 12 4.50977 12.0327 4.74926 12.0943Z"
+                              fill="white"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "teacher_subject_list" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
@@ -1417,7 +1370,9 @@ if (isset($_POST['darkMode'])) {
             </div>
             <div class="tab-records d-none h-4em d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-                  <svg class="svg-1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/></svg>
+                    <svg class="svg-1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
@@ -1438,20 +1393,20 @@ if (isset($_POST['darkMode'])) {
                         Promote Student
                     </div>
                 </div>
-
-                <div class=" h-4em d-flex-end m-t-5px">
-                    <div class="d-flex-center w-4em"><img
-                                src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
-                                alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
-                         onclick="selectTab('subject_list')" <?php if ($var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
-                        Subject List
-                    </div>
-                </div>
             </div>
             <div class="tab-trash d-none h-5em  d-flex-center m-t-5px ">
                 <div class="p-absolute" style="margin-right: 11em;">
-                  <svg class="svg-1" width="100" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="1" id="_1"><path d="M356.65,450H171.47a41,41,0,0,1-40.9-40.9V120.66a15,15,0,0,1,15-15h237a15,15,0,0,1,15,15V409.1A41,41,0,0,1,356.65,450ZM160.57,135.66V409.1a10.91,10.91,0,0,0,10.9,10.9H356.65a10.91,10.91,0,0,0,10.91-10.9V135.66Z"/><path d="M327.06,135.66h-126a15,15,0,0,1-15-15V93.4A44.79,44.79,0,0,1,230.8,48.67h66.52A44.79,44.79,0,0,1,342.06,93.4v27.26A15,15,0,0,1,327.06,135.66Zm-111-30h96V93.4a14.75,14.75,0,0,0-14.74-14.73H230.8A14.75,14.75,0,0,0,216.07,93.4Z"/><path d="M264.06,392.58a15,15,0,0,1-15-15V178.09a15,15,0,1,1,30,0V377.58A15,15,0,0,1,264.06,392.58Z"/><path d="M209.9,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,209.9,392.58Z"/><path d="M318.23,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,318.23,392.58Z"/><path d="M405.81,135.66H122.32a15,15,0,0,1,0-30H405.81a15,15,0,0,1,0,30Z"/></g></svg>
+                    <svg class="svg-1" width="100" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <title/>
+                        <g data-name="1" id="_1">
+                            <path d="M356.65,450H171.47a41,41,0,0,1-40.9-40.9V120.66a15,15,0,0,1,15-15h237a15,15,0,0,1,15,15V409.1A41,41,0,0,1,356.65,450ZM160.57,135.66V409.1a10.91,10.91,0,0,0,10.9,10.9H356.65a10.91,10.91,0,0,0,10.91-10.9V135.66Z"/>
+                            <path d="M327.06,135.66h-126a15,15,0,0,1-15-15V93.4A44.79,44.79,0,0,1,230.8,48.67h66.52A44.79,44.79,0,0,1,342.06,93.4v27.26A15,15,0,0,1,327.06,135.66Zm-111-30h96V93.4a14.75,14.75,0,0,0-14.74-14.73H230.8A14.75,14.75,0,0,0,216.07,93.4Z"/>
+                            <path d="M264.06,392.58a15,15,0,0,1-15-15V178.09a15,15,0,1,1,30,0V377.58A15,15,0,0,1,264.06,392.58Z"/>
+                            <path d="M209.9,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,209.9,392.58Z"/>
+                            <path d="M318.23,392.58a15,15,0,0,1-15-15V178.09a15,15,0,0,1,30,0V377.58A15,15,0,0,1,318.23,392.58Z"/>
+                            <path d="M405.81,135.66H122.32a15,15,0,0,1,0-30H405.81a15,15,0,0,1,0,30Z"/>
+                        </g>
+                    </svg>
                 </div>
                 <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
                      onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
@@ -1735,8 +1690,9 @@ if (isset($_POST['darkMode'])) {
 
         if (tabName === 'userTab' || tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab') {
             $('#' + tabName).toggleClass(
-                tabName === 'recordsTab' || tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
+                tabName === 'maintenanceTab' || tabName === 'masterlistTab' || tabName === 'studentRecordTab' ? 'h-8-5em'
                     : tabName === 'userTab' ? 'h-13em'
+                    : tabName === 'recordsTab' ? 'h-4-3em'
                         : 'none')
             if (localStorage.getItem(keyName) === '1') {
                 $(e).removeClass('bg-img-2')
@@ -1767,10 +1723,10 @@ if (isset($_POST['darkMode'])) {
 
         if (get_rec === '1') {
             $('#arrowLeftButton_records').addClass('bg-img-2')
-            $('#recordsTab').addClass('h-8-5em')
+            $('#recordsTab').addClass('h-4-3em')
         } else {
             $('#arrowLeftButton_records').addClass('bg-img-1')
-            $('#recordsTab').removeClass('h-8-5em')
+            $('#recordsTab').removeClass('h-4-3em')
         }
 
         let get_main = localStorage.getItem('studArrowLeft_maintenance');
@@ -1899,11 +1855,11 @@ if (isset($_POST['darkMode'])) {
         $('#modal-logout').attr('style', 'display: block !important;')
     }
 
-    $(document).on('click', '#modal-cancel', function(e){
+    $(document).on('click', '#modal-cancel', function (e) {
         $('#modal-logout').attr('style', 'display: none !important;')
     });
 
-    $(document).on('click', '#modal-ok', function(e){
+    $(document).on('click', '#modal-ok', function (e) {
         Post('', {logout: 'logout'});
     });
 
