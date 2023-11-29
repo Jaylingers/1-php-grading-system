@@ -31,7 +31,7 @@ if (isset($_POST['promoteStudent'])) {
     $sqlInsertPromoteStudentsHistory = "INSERT INTO promoted_info (student_lrn, teacher_lrn, grade, section, date) VALUES ('$lrn', '$teacher_lrn', '$grade_plus', '$section',now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromoteStudentsHistory);
 
-    $sqlInsertPromotedInfo= "INSERT INTO promoted_students_history (student_lrn, teacher_lrn, grade, section, date) VALUES ('$lrn', '$teacher_lrn', '$grade', '$section',now())";
+    $sqlInsertPromotedInfo = "INSERT INTO promoted_students_history (student_lrn, teacher_lrn, grade, section, date) VALUES ('$lrn', '$teacher_lrn', '$grade', '$section',now())";
     $resultInsertPromoteStudentsHistory = mysqli_query($conn, $sqlInsertPromotedInfo);
 
 }
@@ -131,20 +131,49 @@ if (isset($_POST['addStudents'])) {
                                                 where ui.id = '$id'";
                         $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
                         $row = mysqli_fetch_assoc($resultSelectUser);
-                        if($row['grade'] !== "1") {?>
+                        if ($row['grade'] !== "1") { ?>
 
-                        <button
-                                class="btn bg-hover-gray-dark-v1 d-inline-flex d-flex-center"
-                                onclick="viewPromote('add promoted students')">
-                            <svg fill="none" width="35" height="35" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 28H24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 37H24" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 19H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M8 10H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M30 33H40" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M35 28L35 38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
-                            &nbsp;  Add Promoted Students(Grade <?= $row['grade'] ?>)
-                        </button>
+                            <button
+                                    class="btn bg-hover-gray-dark-v1 d-inline-flex d-flex-center"
+                                    onclick="viewPromote('add promoted students')">
+                                <svg fill="none" width="35" height="35" viewBox="0 0 48 48"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 28H24" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                    <path d="M8 37H24" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                    <path d="M8 19H40" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                    <path d="M8 10H40" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                    <path d="M30 33H40" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                    <path d="M35 28L35 38" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="4"/>
+                                </svg>
+                                &nbsp; Add Promoted Students(Grade <?= $row['grade'] ?>)
+                            </button>
                         <?php } ?>
                         <button
                                 class="btn bg-hover-gray-dark-v1 d-inline-flex d-flex-center"
                                 onclick="viewPromote('')">
-                           <svg fill="none" width="35" height="35"  viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect fill="white" fill-opacity="0.01" height="48" width="48"/><path d="M5 10L8 13L14 7" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 24L8 27L14 21" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M5 38L8 41L14 35" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 24H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 38H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M21 10H43" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
-                           &nbsp; View Promote
+                            <svg fill="none" width="35" height="35" viewBox="0 0 48 48"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect fill="white" fill-opacity="0.01" height="48" width="48"/>
+                                <path d="M5 10L8 13L14 7" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                                <path d="M5 24L8 27L14 21" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                                <path d="M5 38L8 41L14 35" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                                <path d="M21 24H43" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                                <path d="M21 38H43" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                                <path d="M21 10H43" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="4"/>
+                            </svg>
+                            &nbsp; View Promote
                         </button>
 
                     </div>
@@ -154,9 +183,22 @@ if (isset($_POST['addStudents'])) {
                 <div class="f-right m-t-19px m-r-13px ">
                     <button type="submit"
                             class="c-hand bg-hover-skyBlue btn d-inline-flex d-flex-center"
-                            onclick="promoteStudent()">
-                      <svg fill="none" width="30" height="30"   viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z" fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z" stroke="black" stroke-linejoin="round" stroke-width="4"/><path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>
-                        &nbsp;  Promote
+                            onclick="promote()">
+                        <svg fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
+                                  fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                        </svg>
+                        &nbsp; Promote
                     </button>
                 </div>
                 <br/> <br/><br/>
@@ -470,8 +512,9 @@ if (isset($_POST['addStudents'])) {
                         <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
-                                    onclick="removePromotedStudents()" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                <svg class="c-hand" onclick="deleteTeachers('teachers-list')" height="43" id="svg2"
+                                    onclick="removePromotedStudents()"
+                                    style="background-color: #ffffff !important; border-color: #ffffff;">
+                                <svg class="c-hand" height="43" id="svg2"
                                      version="1.1" viewBox="0 0 99.999995 99.999995" width="50"
                                      xmlns="http://www.w3.org/2000/svg"
                                      xmlns:svg="http://www.w3.org/2000/svg">
@@ -479,125 +522,148 @@ if (isset($_POST['addStudents'])) {
                                         <filter id="filter4510" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4512"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite4514" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4516" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="4.7" id="feOffset4518" result="offset"/>
-                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite4520" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5064" style="color-interpolation-filters:sRGB">
-                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294" id="feFlood5066"
+                                            <feFlood flood-color="rgb(206,242,245)" flood-opacity="0.835294"
+                                                     id="feFlood5066"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite5068" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5070" in="composite1" result="blur"
                                                             stdDeviation="5.9"/>
                                             <feOffset dx="0" dy="-8.1" id="feOffset5072" result="offset"/>
-                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5074" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5364" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.835294" id="feFlood5366"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite5368" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5370" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="4.2" id="feOffset5372" result="offset"/>
-                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite5374" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix5592" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(254,255,189)" flood-opacity="1" id="feFlood5594"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite5596" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5598" in="composite1" result="blur"
                                                             stdDeviation="7.6"/>
                                             <feOffset dx="0" dy="-8.1" id="feOffset5600" result="offset"/>
-                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5602" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4400" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.470588" id="feFlood4402"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic" operator="in"
+                                            <feComposite id="feComposite4404" in="flood" in2="SourceGraphic"
+                                                         operator="in"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4406" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="5" id="feOffset4408" result="offset"/>
-                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset" operator="over"
+                                            <feComposite id="feComposite4410" in="SourceGraphic" in2="offset"
+                                                         operator="over"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix4640" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4642"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite4644" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4646" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-5" id="feOffset4648" result="offset"/>
-                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4650" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4678" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(255,253,180)" flood-opacity="1" id="feFlood4680"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4682" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4684" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-7" id="feOffset4686" result="offset"/>
-                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4688" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter5045" style="color-interpolation-filters:sRGB">
                                             <feFlood flood-color="rgb(255,250,175)" flood-opacity="1" id="feFlood5047"
                                                      result="flood"/>
-                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite5049" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur5051" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-6" id="feOffset5053" result="offset"/>
-                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite5055" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4607" style="color-interpolation-filters:sRGB;">
                                             <feFlood flood-color="rgb(255,247,180)" flood-opacity="1" id="feFlood4609"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4611" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4613" in="composite1" result="blur"
                                                             stdDeviation="5"/>
                                             <feOffset dx="0" dy="-6" id="feOffset4615" result="offset"/>
-                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4617" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                         <filter id="filter4507" style="color-interpolation-filters:sRGB;">
                                             <feFlood flood-color="rgb(255,249,199)" flood-opacity="1" id="feFlood4509"
                                                      result="flood"/>
-                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic" operator="out"
+                                            <feComposite id="feComposite4511" in="flood" in2="SourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4513" in="composite1" result="blur"
                                                             stdDeviation="3"/>
                                             <feOffset dx="0" dy="-2.60417" id="feOffset4515" result="offset"/>
-                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4517" in="offset" in2="SourceGraphic"
+                                                         operator="atop"
                                                          result="fbSourceGraphic"/>
                                             <feColorMatrix id="feColorMatrix4687" in="fbSourceGraphic"
                                                            result="fbSourceGraphicAlpha"
                                                            values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
                                             <feFlood flood-color="rgb(255,244,153)" flood-opacity="1" id="feFlood4689"
                                                      in="fbSourceGraphic" result="flood"/>
-                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic" operator="out"
+                                            <feComposite id="feComposite4691" in="flood" in2="fbSourceGraphic"
+                                                         operator="out"
                                                          result="composite1"/>
                                             <feGaussianBlur id="feGaussianBlur4693" in="composite1" result="blur"
                                                             stdDeviation="3.4"/>
                                             <feOffset dx="0" dy="-3.9" id="feOffset4695" result="offset"/>
-                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic" operator="atop"
+                                            <feComposite id="feComposite4697" in="offset" in2="fbSourceGraphic"
+                                                         operator="atop"
                                                          result="composite2"/>
                                         </filter>
                                     </defs>
@@ -705,7 +771,7 @@ if (isset($_POST['addStudents'])) {
                                     <td><?= $row['section'] ?></td>
                                     <td><?= $row['date_enrolled'] ?></td>
                                     <td><?= $row['date_promoted'] ?></td>
-                                    <td>Promoted to Grade  <?= $row['g_level']+1 ?></td>
+                                    <td>Promoted to Grade <?= $row['g_level'] + 1 ?></td>
                                 </tr>
                             <?php endwhile; ?>
                             </tbody>
@@ -783,7 +849,8 @@ if (isset($_POST['addStudents'])) {
                         <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
-                                    onclick="addPromotedStudents()" style="background-color: #ffffff !important; border-color: #ffffff;">
+                                    onclick="addPromotedStudents()"
+                                    style="background-color: #ffffff !important; border-color: #ffffff;">
                                 <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
                             </button>
                         </div>
@@ -959,48 +1026,6 @@ if (isset($_POST['addStudents'])) {
         }
     }
 
-    function deleteStudents(id) {
-        var studentID = [];
-        var studentCount = 0;
-        $('#' + id + ' input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
-        });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to delete ?");
-            if (r === true) {
-                var isStudentEnrollment = false;
-                studentID.forEach(function (studId) {
-
-                    if (id === 'student-enrollment') {
-                        $.post('', {studentEnrollmentId: studId})
-                        isStudentEnrollment = true;
-                    } else {
-                        $.post('', {id: studId})
-                    }
-                });
-                if (isStudentEnrollment) {
-                    <?php
-                    if (isset($_GET['lrn'])) {
-                    ?>
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>' + '&&lrn=<?php echo $_GET['lrn']?>');
-                    <?php } ?>
-                } else {
-                    history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>');
-                }
-                alert('Successfully deleted!')
-                window.location.reload();
-
-            }
-        } else {
-            if (id === 'student-enrollment') {
-                alert('Please select a enrollment!');
-            } else {
-                alert('Please select a student!');
-            }
-        }
-    }
-
     function viewStudentInformation(data) {
         data = data.replaceAll("[", "['").replaceAll("]", "']").replaceAll("?", "','");
         data = eval(data);
@@ -1139,81 +1164,144 @@ if (isset($_POST['addStudents'])) {
 
     }
 
+    $(document).on('click', '#modal-delete-cancel', function (e) {
+        $('#modal-delete').attr('style', 'display: none !important;')
+        $('#modal-checkbox').attr('style', 'display: none !important;')
+        $('#modal-promote').attr('style', 'display: none;')
+        $('#modal-failed-students').attr('style', 'display: none;')
+    });
 
-    function promoteStudent() {
-        var studentID = [];
-        var studentCount = 0;
+    $(document).on('click', '#modal-promote-cancel', function (e) {
+        $('#modal-promote').attr('style', 'display: none;')
+    });
+
+    $(document).on('click', '#modal-success', function (e) {
+        var lrn = '<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>';
+        if (lrn !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>&&lrn=<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>');
+        } else {
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $rows['id']?>');
+        }
+        window.location.reload();
+    });
+
+    $(document).on('click', '#modal-promote-ok', function (e) {
+        promoteAction();
+        $('#modal-promote').attr('style', 'display: none !important;')
+    });
+
+    function promote() {
+        var idArray = [];
+        var count = 0;
         var isFailed = false;
         $('#student-list input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            idArray.push($(this).attr('id'));
+            count++;
         });
-        if (studentCount > 0) {
-            studentID.forEach(function (studId) {
+        if (count > 0) {
+            idArray.forEach(function (studId) {
                 if (!studId.includes('Passed')) {
                     isFailed = true;
                 }
             });
             if (isFailed) {
-                alert('Failed student cannot be promoted!')
+                $('#modal-failed-students').attr('style', 'display: block;')
             } else {
-                var r = confirm("Are you sure you want to promote ?");
-                if (r === true) {
-                    console.log(studentID)
-                    studentID.forEach(function (studId) {
-                        $.post('', {promoteStudent: studId})
-                    });
-                    alert('Successfully promoted!')
-                    window.location.reload();
-                }
+                $('#modal-promote').attr('style', 'display: block;')
             }
-
         } else {
-            alert('Please select a student!');
+            $('#modal-checkbox').attr('style', 'display: block;')
         }
-
-
     }
+
+    function promoteAction() {
+        var idArray = [];
+        var count = 0;
+        $('#student-list input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (data) {
+                $.post('', {promoteStudent: data})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>');
+            window.location.reload();
+        }
+    }
+
+    $(document).on('click', '#modal-remove-promote-students-cancel', function (e) {
+        $('#modal-remove-promote-students').attr('style', 'display: none;')
+    });
+
+    $(document).on('click', '#modal-remove-promote-students-ok', function (e) {
+        removePromotedStudentsAction();
+        $('#modal-remove-promote-students').attr('style', 'display: none;')
+    });
 
     function removePromotedStudents() {
-        var studentID = [];
-        var studentCount = 0;
+        var count = 0;
         $('#promoted-students input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            count++;
         });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to remove ?");
-            if (r === true) {
-                studentID.forEach(function (studId) {
-                    $.post('', {removeStudents: studId})
-                });
-                alert('Successfully removed!')
-                window.location.reload();
-            }
+        if (count > 0) {
+                $('#modal-remove-promote-students').attr('style', 'display: block;')
         } else {
-            alert('Please select a student!');
+            $('#modal-checkbox').attr('style', 'display: block;')
         }
     }
 
-    function addPromotedStudents() {
-        var studentID = [];
-        var studentCount = 0;
+    function removePromotedStudentsAction() {
+        var idArray = [];
+        var count = 0;
         $('#promoted-students input[type="checkbox"]:checked').each(function () {
-            studentID.push($(this).attr('id'));
-            studentCount++;
+            idArray.push($(this).attr('id'));
+            count++;
         });
-        if (studentCount > 0) {
-            var r = confirm("Are you sure you want to remove ?");
-            if (r === true) {
-                studentID.forEach(function (studId) {
-                    $.post('', {addStudents: studId})
-                });
-                alert('Successfully removed!')
-                window.location.reload();
-            }
+        if (count > 0) {
+            idArray.forEach(function (data) {
+                $.post('', {removeStudents: data})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>');
+            window.location.reload();
+        }
+    }
+
+    $(document).on('click', '#modal-add-cancel', function (e) {
+        $('#modal-add').attr('style', 'display: none;')
+    });
+
+    $(document).on('click', '#modal-add-ok', function (e) {
+        $('#modal-add').attr('style', 'display: none;')
+        addPromotedStudentsAction();
+    });
+
+    function addPromotedStudents() {
+        var count = 0;
+        $('#promoted-students input[type="checkbox"]:checked').each(function () {
+            count++;
+        });
+        if (count > 0) {
+            $('#modal-add').attr('style', 'display: block;')
         } else {
-            alert('Please select a student!');
+            $('#modal-checkbox').attr('style', 'display: block;')
+        }
+    }
+
+    function addPromotedStudentsAction() {
+        var idArray = [];
+        var count = 0;
+        $('#promoted-students input[type="checkbox"]:checked').each(function () {
+            idArray.push($(this).attr('id'));
+            count++;
+        });
+        if (count > 0) {
+            idArray.forEach(function (data) {
+                $.post('', {addStudents: data})
+            });
+            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>');
+            window.location.reload();
         }
     }
 
@@ -1235,6 +1323,11 @@ if (isset($_POST['addStudents'])) {
         }
         if (addPromoted) {
             showModal('add-promoted-students', 'Add Promoted Students')
+        }
+
+        var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
+        if (added_successfully !== '') {
+            $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
 
     }
