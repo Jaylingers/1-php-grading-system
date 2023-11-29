@@ -12,7 +12,10 @@ if (isset($_POST['add_user'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "insert into users_info (last_name,first_name,username,password,user_type) VALUES ('$lastname','$firstname','$username','$password','admin')";
+    // Hash the admin password
+    $hashed_admin_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "insert into users_info (last_name,first_name,username,password,user_type) VALUES ('$lastname','$firstname','$username','$hashed_admin_password','admin')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';

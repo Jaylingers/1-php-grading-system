@@ -13,32 +13,38 @@ if (isset($_POST['login'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
 
-    $sql = "select * from users_info where username='$username' and password='$password'";
+    $sql = "SELECT * FROM users_info WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
-    $user_data = 'username=' . $username . '&password=' . $password;
+    $pass = password_verify($password, $row['password']);
 
-    if ($row['username'] === $username && $row['password'] === $password) {
+    echo "<script> console.log('$pass')</script>";
+    echo "<script> console.log('$username')</script>";
+    echo "<script> console.log('$password')</script>";
 
-        session_start();
-        $_SESSION['user_type'] = $row['user_type'];
-        $_SESSION['ids'] = $row['id'];
-        $user_type = $row['user_type'];
-        $id = $row['id'];
+    if ($row) {
+        $isPasswordCorrect = password_verify($password, $row['password']);
+        if ($isPasswordCorrect) {
+            session_start();
+            $_SESSION['user_type'] = $row['user_type'];
+            $_SESSION['ids'] = $row['id'];
+            $user_type = $row['user_type'];
+            $id = $row['id'];
 
-        $sqlInsertPageVisited = "insert into page_visited_info (user_id, date_visited) values ('$id', now())";
-        mysqli_query($conn, $sqlInsertPageVisited);
+            $sqlInsertPageVisited = "insert into page_visited_info (user_id, date_visited) values ('$id', now())";
+            mysqli_query($conn, $sqlInsertPageVisited);
 
-        if (strtolower($user_type) == 'student') {
-            header("Location: /1-php-grading-system/students_page/student_info?id=" . $row['id']);
-        } else if (strtolower($user_type) == 'teacher') {
-            header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
+            if (strtolower($user_type) == 'student') {
+                header("Location: /1-php-grading-system/students_page/student_info?id=" . $row['id']);
+            } else if (strtolower($user_type) == 'teacher') {
+                header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
+            } else {
+                header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
+            }
         } else {
-            header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
+//        header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
         }
-    } else {
-        header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
     }
 }
 
@@ -82,7 +88,7 @@ if (isset($_SESSION['user_type'])) {
 <div class="top-header">
     <div class="container_thr">
         <div class="df_thr">
-            <img src="assets/img/mabes.png" alt="" class="logo1" />
+            <img src="assets/img/mabes.png" alt="" class="logo1"/>
             <div class="logo">
                 <h1><span>MABES</span> GRADE INQUIRY</h1>
             </div>
@@ -203,8 +209,15 @@ if (isset($_SESSION['user_type'])) {
                 <p class="first_at">ABOUT US</p>
                 <h1>Innovative Way To Learn</h1>
                 <p>
-                    
-Our school boasts a multitude of facilities that go beyond traditional academics, offering a diverse range of opportunities for personal and intellectual growth. It's not just a place to study; it's a hub where you can unlock numerous possibilities. The environment is designed to inspire and encourage, providing modern and creative lessons that our professional teachers deliver with expertise. When you choose to study in our school, you not only gain proficiency in English but also excel in sports, showcasing the well-rounded education we provide. You'll find that our commitment to excellence extends far beyond the classroom, making your educational journey a truly enriching and fulfilling experience.
+
+                    Our school boasts a multitude of facilities that go beyond traditional academics, offering a diverse
+                    range of opportunities for personal and intellectual growth. It's not just a place to study; it's a
+                    hub where you can unlock numerous possibilities. The environment is designed to inspire and
+                    encourage, providing modern and creative lessons that our professional teachers deliver with
+                    expertise. When you choose to study in our school, you not only gain proficiency in English but also
+                    excel in sports, showcasing the well-rounded education we provide. You'll find that our commitment
+                    to excellence extends far beyond the classroom, making your educational journey a truly enriching
+                    and fulfilling experience.
                 </p>
             </div>
         </div>
@@ -219,7 +232,8 @@ Our school boasts a multitude of facilities that go beyond traditional academics
                 <p class="first_ct">NEED GOOD SCHOOL</p>
                 <h1>ONLINE GRADE INQUIRE</h1>
                 <p>
-                This website helps us manage various tasks through a range of interesting methods. Explore our advantages:
+                    This website helps us manage various tasks through a range of interesting methods. Explore our
+                    advantages:
                 </p>
                 <p><i class="fa-solid fa-check"></i> Hassle-Free School Access</p>
                 <p><i class="fa-solid fa-check"></i> Free Online Accessibility</p>
