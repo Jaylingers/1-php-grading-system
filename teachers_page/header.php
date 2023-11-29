@@ -75,7 +75,7 @@ if (isset($_POST['darkMode'])) {
 <?php if ($rows['dark_mode'] === '1') { ?>
     <!DOCTYPE html>
     <html>
-    <title>MABES GRADE INQUIRY</title>
+    <title>MABES GRADE | INQUIRY</title>
     <link rel="shortcut icon" href="../../assets/img/mabes.png"/>
     <head>
         <link rel="stylesheet" href="../../assets/css/style_custom.css">
