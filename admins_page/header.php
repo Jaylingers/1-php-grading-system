@@ -291,7 +291,7 @@ if (isset($_POST['darkMode'])) {
                 </div>
                 <div class="modal-long-msg  d-flex-center">
                     <h7>
-                        Please select atleast one checkbox to delete.
+                        Before taking any action, please make sure to choose at least one checkbox.
                     </h7>
                 </div>
                 <div class="modal-msg-choice d-flex-center">
@@ -1074,7 +1074,7 @@ if (isset($_POST['darkMode'])) {
                     </div>
                     <div class="modal-long-msg  d-flex-center">
                         <h7>
-                            Please select atleast one checkbox to delete.
+                            Before taking any action, please make sure to choose at least one checkbox.
                         </h7>
                     </div>
                     <div class="modal-msg-choice d-flex-center">
@@ -1094,7 +1094,7 @@ if (isset($_POST['darkMode'])) {
                         <img src="../../assets/img/added.png" width="60" height="60" alt="">
                     </div>
                     <div class="modal-short-msg d-flex-center">
-                        <h1> Welcome!</h1>
+                        <h1> Success!</h1>
                     </div>
                     <div class="modal-long-msg  d-flex-center">
                         <h7>
