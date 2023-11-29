@@ -64,7 +64,7 @@ if (isset($_POST['removeStudents'])) {
                     <h3>
                         Promote Students
                     </h3>
-                    <div class="r-50px p-absolute t-54px">
+                    <div class="r-50px p-absolute t-54px d-none">
 
                         <button
                                 class="btn bg-hover-gray-dark-v1 d-flex-center d-inline-flex"

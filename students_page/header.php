@@ -134,6 +134,34 @@ if (!isset($_SESSION['user_type'])) {
 </div>
 <div>
 
+    <div id="modal-logout" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <img src="../../assets/img/logout.png" width="60" height="60" alt="">
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Are you sure? </h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                            Do you really want to logout? This process cannot be undone.
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-yes btn">
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-cancel">Cancel</button>
+                        </div>
+                        <div class="modal-msg-choice-no">
+                            <button class="btn-primary btn" id="modal-ok">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php if ($rows['img_path'] == '') { ?>
         <img id="settings" src="../../assets/users_img/noImage.png"
              style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
@@ -227,12 +255,19 @@ if (!isset($_SESSION['user_type'])) {
 </body>
 
 <script>
+
     function logout() {
-        var r = confirm("Are you sure you want to logout?");
-        if (r === true) {
-            Post('', {logout: 'logout'});
-        }
+        $('#modal-logout').attr('style', 'display: block !important;')
     }
+
+    $(document).on('click', '#modal-cancel', function(e){
+        $('#modal-logout').attr('style', 'display: none !important;')
+    });
+
+    $(document).on('click', '#modal-ok', function(e){
+        Post('', {logout: 'logout'});
+    });
+
 
     document.body.onclick = function (e) {
         if (e.target.id === 'settings') {
