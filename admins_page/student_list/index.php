@@ -160,7 +160,10 @@ if (isset($_POST['add-new-student'])) {
     $sql = "insert into students_info (f_name,l_name,m_name,gender,b_place,c_status,age,b_date,nationality,religion,contact_number,email_address,home_address,lrn,guardian_name, addedBy,teacher_lrn,date_added) VALUES ('$firstName', '$lastName', '$middleName', '$gender', '$birthPlace', '$civilStatus', '$age', '$birthDate' , '$nationality', '$religion', '$contactNumber', '$emailAddress', '$homeAddress', '$lrn', '$guardianName', '$id', '$Tlrn', now())";
     $result = mysqli_query($conn, $sql);
 
-    $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$lastName','student','$lrn')";
+    // Hash the admin password
+    $hashed_admin_password = password_hash($lastName, PASSWORD_DEFAULT);
+
+    $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$lastName','$firstName','$lrn','$hashed_admin_password','student','$lrn')";
     $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
 
     if ($resultUserInfo) {

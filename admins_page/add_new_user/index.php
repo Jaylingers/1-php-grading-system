@@ -34,7 +34,10 @@ if (isset($_POST['update_user'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "update users_info set last_name='$lastname',first_name='$firstname',username='$username',password='$password' where id='$id'";
+    // Hash the admin password
+    $hashed_admin_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "update users_info set last_name='$lastname',first_name='$firstname',username='$username',password='$hashed_admin_password' where id='$id'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
@@ -322,7 +325,7 @@ if (isset($_POST['deleteId'])) {
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
                                         <td><?= $row['username'] ?></td>
-                                        <td><?= $row['password'] ?></td>
+                                        <td><?= strlen($row['password']) > 10 ? substr($row['password'], 0, 10) . '...' : $row['password'] ?></td>
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"

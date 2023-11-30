@@ -71,6 +71,43 @@ if (isset($_POST['darkMode'])) {
     }
 }
 
+
+if (isset($_POST['saveImage'])) {
+    $file = $_FILES['image'];
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+    $fileType = $file['type'];
+    $id = $_GET['id'];
+
+    if ($fileError === UPLOAD_ERR_OK) {
+        if (strpos($fileType, 'image') !== false) {
+            $newFileName = uniqid('', true) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+            move_uploaded_file($fileTmpName, '../../assets/users_img/' . "$id" . '.png');
+
+            $sql = "UPDATE users_info SET img_path = '../../assets/users_img/$id.png' WHERE id = '$id'";
+            $result = mysqli_query($conn, $sql);
+
+            $sqlUser = "SELECT * FROM users_info WHERE id='$id'";
+            $resultUser = mysqli_query($conn, $sqlUser);
+            $rowUser = mysqli_fetch_assoc($resultUser);
+            $type = $rowUser['user_type'];
+            $lastname = $rowUser['last_name'];
+
+            if ($result) {
+                echo '<script>';
+                echo '
+                     history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&imgSaved=true&&type=' . $type . '&&lastname=' . $lastname . '");
+                     window.location.reload();';
+                echo '</script>';
+            }
+
+        }
+    }
+}
+
+
 ?>
 <?php if ($rows['dark_mode'] === '1') { ?>
     <!DOCTYPE html>
@@ -801,16 +838,39 @@ if (isset($_POST['darkMode'])) {
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
                 <div id="show-profile-info" class="modal-child d-none h-100p">
                     <div class="custom-grid-container h-100p" tabindex="2">
-                        <div class="custom-grid-item h-100p d-flex-center">
+                        <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
                             <img class="pad-1em b-shadow-dark"
-                                 src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>"
+                                 src="<?= $rows['img_path'] ?>"
                                  alt="" style="width: 86%;
     height: 35em; border-radius: 50%;">
+                            <div style="
+                               width: 17em;
+                                height: 21em;
+                                display: flex;
+                                align-items: flex-end;
+                                justify-content: flex-end;
+                                position: fixed;">
+                                <div>
+                                    <img onclick="$('#image').click()" src="../../assets/img/camera.png"
+                                         alt="teacher image"
+                                         class="c-hand p-absolute bg-hover-gray-dark-v2 mobile-image1" style=" height: 3em;
+                                    width: 4em;
+                                    object-fit: contain;
+                                    border-radius: 50%;
+                                    padding: 5px;">
+                                </div>
+                                <form method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="lrn" name="lrn" value="<?= $rows['lrn'] ?>"> <br>
+                                    <input type="file" name="image" id="image" class="d-none"> <br> <br>
+                                    <button id="saveButton-teachers" type="submit"
+                                            class="c-hand btn-success btn d-none"
+                                            name="saveImage">Save
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
                              style="background: #d6d6d6; height: 41em;">
-
-
                             <div id="display">
                                 LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
                                 First Name: <label for=""> <?= $rows['first_name'] ?> </label>
@@ -1539,16 +1599,39 @@ if (isset($_POST['darkMode'])) {
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
                 <div id="show-profile-info" class="modal-child d-none h-100p">
                     <div class="custom-grid-container h-100p" tabindex="2">
-                        <div class="custom-grid-item h-100p d-flex-center">
+                        <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
                             <img class="pad-1em b-shadow-dark"
-                                 src="<?= $rows['img_path'] === ' ' ? $rows['img_path'] : '../../assets/users_img/noImage.png' ?>"
+                                 src="<?= $rows['img_path'] ?>"
                                  alt="" style="width: 86%;
     height: 35em; border-radius: 50%;">
+                            <div style="
+                               width: 17em;
+                                height: 21em;
+                                display: flex;
+                                align-items: flex-end;
+                                justify-content: flex-end;
+                                position: fixed;">
+                                <div>
+                                    <img onclick="$('#image').click()" src="../../assets/img/camera.png"
+                                         alt="teacher image"
+                                         class="c-hand p-absolute bg-hover-gray-dark-v2 mobile-image1" style=" height: 3em;
+                                    width: 4em;
+                                    object-fit: contain;
+                                    border-radius: 50%;
+                                    padding: 5px;">
+                                </div>
+                                <form method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="lrn" name="lrn" value="<?= $rows['lrn'] ?>"> <br>
+                                    <input type="file" name="image" id="image" class="d-none"> <br> <br>
+                                    <button id="saveButton-teachers" type="submit"
+                                            class="c-hand btn-success btn d-none"
+                                            name="saveImage">Save
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
                              style="background: #d6d6d6; height: 41em;">
-
-
                             <div id="display">
                                 LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
                                 First Name: <label for=""> <?= $rows['first_name'] ?> </label>
@@ -1898,6 +1981,43 @@ if (isset($_POST['darkMode'])) {
             }
             $('body').removeClass('bg-dark')
         }
+
+        var added_successfully = '<?php echo isset($_GET['imgSaved']) ? $_GET['imgSaved'] : '' ?>';
+        if (added_successfully !== '') {
+            showModalInfo('<?php  echo isset($_GET['type']) ? $_GET['type'] : ''  ?>', '<?php echo isset($_GET['lastname']) ? $_GET['lastname'] : ''  ?>', 'profile')
+        }
+    }
+
+    function showModalAdminSettings(id, title, theme, size) {
+        $('#myModalAdminSettings .modal-header').empty();
+        $('#myModalAdminSettings .modal-header').append('<h2>' + title + '</h2>');
+        $('.modal-header').append('<span class="close" onclick="closeModal()">&times;</span>');
+        if (theme === 'dark') {
+            $('#myModalAdminSettings .modal-content').css('background-color', '#757575');
+            $('#myModalAdminSettings .modal-content').css('color', 'white');
+            $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid black');
+            $('#myModalAdminSettings .modal-body').addClass('d-flex-center');
+        } else if (theme === 'gray') {
+            $('#myModalAdminSettings .modal-content').css('background-color', '#c3c3c3');
+            $('#myModalAdminSettings .modal-content').css('color', 'white');
+            $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid black');
+        } else {
+            $('#myModalAdminSettings .modal-content').css('background-color', '#fff');
+            $('#myModalAdminSettings .modal-header').css('border-bottom', '3px solid #80808038');
+            $('#myModalAdminSettings .modal-content').css('color', 'black');
+            $('#myModalAdminSettings .modal-body').removeClass('d-flex-center');
+        }
+
+        $('#myModalAdminSettings').css('display', 'block');
+        $('body').css('overflow', 'hidden');
+        $('#myModalAdminSettings .modal-body .modal-child').addClass('d-none');
+        $('#' + id).removeClass('d-none');
+        localStorage.getItem('topArrow') === '1' ? $('.top-icon').css('display', 'none') : $('.top-icon').css('display', '');
+
+        if (size === 'small') {
+            $('#myModalAdminSettings .modal-content').css('width', '50%');
+            $('#myModalAdminSettings .modal-body').css('height', '37em');
+        }
     }
 
     loadPage();
@@ -1923,6 +2043,23 @@ if (isset($_POST['darkMode'])) {
     function updateSecond(event) {
         document.querySelector("#top").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
     }
+
+    const input = document.getElementById('image');
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+    input.addEventListener('change', () => {
+        const file = input.files[0];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Please select a valid image file.');
+            input.value = '';
+        } else {
+            console.log(file)
+            $('#view-image').attr('src', URL.createObjectURL(file));
+            setTimeout(() => {
+                $('#saveButton-teachers').click();
+            }, 2000)
+        }
+    });
 
 
 </script>

@@ -882,6 +882,22 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="lrn-add"
                                    name="lrn-add"
                                    value="<?php echo $lrn ?>">
+                            <div class="w-70p m-l-1em">Grade</div>
+                            <select name="grade" id="grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                    onchange="selectGrade('add')">
+                                <option value="0" selected></option>
+                                <?php
+                                $sql = "select * from grade_info group by grade";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['grade'] ?>">
+                                        Grade <?php echo $row['grade'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                             <div class="w-70p m-l-1em">First Name</div>
                             <input placeholder="First Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -922,22 +938,7 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="emailAddress"
                                    name="emailAddress"
                                    required>
-                            <div class="w-70p m-l-1em">Grade</div>
-                            <select name="grade" id="grade"
-                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                    onchange="selectGrade('add')">
-                                <option value="0" selected></option>
-                                <?php
-                                $sql = "select * from grade_info group by grade";
-                                $result = mysqli_query($conn, $sql);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    <option value="<?php echo $row['grade'] ?>">
-                                        Grade <?php echo $row['grade'] ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
+
                             <div class="w-70p m-l-1em">Section</div>
                             <select name="section" id="section"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">
@@ -979,6 +980,22 @@ if (isset($_POST['teacherStudentID'])) {
                                    name="lrnUpdate"
                                    readonly="true"
                             >
+                            <div class="w-70p m-l-1em">Grade</div>
+                            <select name="grade" id="grade"
+                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                    onchange="selectGrade('edit')">
+                                <option value="0" selected></option>
+                                <?php
+                                $sql = "select * from grade_info group by grade";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['grade'] ?>">
+                                        <?php echo $row['grade'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                             <div class="w-70p m-l-1em">First Name</div>
                             <input placeholder="First Name" type="text"
                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -1019,24 +1036,6 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="emailAddress"
                                    name="emailAddress"
                                    required>
-
-
-                            <div class="w-70p m-l-1em">Grade</div>
-                            <select name="grade" id="grade"
-                                    class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
-                                    onchange="selectGrade('edit')">
-                                <option value="0" selected></option>
-                                <?php
-                                $sql = "select * from grade_info group by grade";
-                                $result = mysqli_query($conn, $sql);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    <option value="<?php echo $row['grade'] ?>">
-                                        <?php echo $row['grade'] ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
                             <div class="w-70p m-l-1em">Section</div>
                             <select name="section" id="section"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px">

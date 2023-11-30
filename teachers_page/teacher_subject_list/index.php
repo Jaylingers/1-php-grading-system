@@ -11,9 +11,6 @@ if (isset($_POST['add_subject'])) {
     $subject = $_POST['subject'];
     $room = $_POST['room'];
     $grade = $_POST['grade'];
-    $time_in = $_POST['time_in'];
-    $time_out = $_POST['time_out'];
-    $schedule_day = $_POST['schedule_day'];
 
     $id = $_GET['id'];
     $sqlUser = "select * from users_info where id='$id'";
@@ -36,7 +33,7 @@ if (isset($_POST['add_subject'])) {
     }
 
 
-    $sqlTeachersSubjectInfo = "insert into teachers_subject_info (subject, room, schedule_time_in, schedule_time_out, schedule_day, teachers_lrn) values ('$subject', '$room', '$time_in', '$time_out', '$schedule_day', '$userLrn')";
+    $sqlTeachersSubjectInfo = "insert into teachers_subject_info (subject, room, teachers_lrn) values ('$subject', '$room', '$userLrn')";
     $resultTeachersSubjectInfo = mysqli_query($conn, $sqlTeachersSubjectInfo);
     if ($resultTeachersSubjectInfo) {
         echo '<script>';
@@ -53,11 +50,8 @@ if (isset($_POST['update-subject'])) {
     $subject = $_POST['subject'];
     $room = $_POST['room'];
     $grade = $_POST['grade'];
-    $time_in = $_POST['time_in'];
-    $time_out = $_POST['time_out'];
-    $schedule_day = $_POST['schedule_day'];
 
-    $sqlUpdateTeachersSubjectInfo = "update teachers_subject_info set subject='$subject', room='$room', schedule_time_in='$time_in', schedule_time_out='$time_out', schedule_day='$schedule_day' where id='$id'";
+    $sqlUpdateTeachersSubjectInfo = "update teachers_subject_info set subject='$subject', room='$room' where id='$id'";
     $resultUpdateTeachersSubjectInfo = mysqli_query($conn, $sqlUpdateTeachersSubjectInfo);
     if ($resultUpdateTeachersSubjectInfo) {
         echo '<script>';
@@ -293,7 +287,7 @@ if (isset($_POST['deleteId'])) {
                         $userLrn = $rowUser['user_lrn'];
 
                         $sql = "select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
-                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day  from teachers_subject_info tsi
+                                ti.grade  from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc Limit 1";
                         $result = mysqli_query($conn, $sql);
@@ -303,7 +297,7 @@ if (isset($_POST['deleteId'])) {
 
                         // Get the total number of records from our table "students".
                         $total_pages = $mysqli->query("select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
-                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day from teachers_subject_info tsi
+                                ti.grade from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -312,7 +306,7 @@ if (isset($_POST['deleteId'])) {
                         $num_results_on_page = 10;
 
                         if ($stmt = $mysqli->prepare("select tsi.id,tsi.teachers_lrn,tsi.subject,tsi.room, 
-                                ti.grade,tsi.schedule_time_in,tsi.schedule_time_out,tsi.schedule_day  from teachers_subject_info tsi
+                                ti.grade  from teachers_subject_info tsi
                              left join teachers_info ti on ti.lrn = tsi.teachers_lrn
                              WHERE subject LIKE '%$searchSubject%' and tsi.teachers_lrn='$userLrn' order by tsi.id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
@@ -336,9 +330,6 @@ if (isset($_POST['deleteId'])) {
                                     <th>Subject</th>
                                     <th>Room</th>
                                     <th>Grade</th>
-                                    <th>Time In</th>
-                                    <th>Time Out</th>
-                                    <th>Schedule Day</th>
                                     <th class="t-align-center">Edit</th>
                                 </tr>
                                 </thead>
@@ -358,12 +349,9 @@ if (isset($_POST['deleteId'])) {
                                         <td><?= $row['subject'] ?></td>
                                         <td><?= $row['room'] ?></td>
                                         <td><?= $row['grade'] ?></td>
-                                        <td><?= $row['schedule_time_in'] ?></td>
-                                        <td><?= $row['schedule_time_out'] ?></td>
-                                        <td><?= $row['schedule_day'] ?></td>
                                         <td class="t-align-center">
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editUser('<?= $row['id'] ?>','<?= $row['subject'] ?>','<?= $row['room'] ?>', '<?= $row['grade'] ?>', '<?= $row['schedule_time_in'] ?>', '<?= $row['schedule_time_out'] ?>', '<?= $row['schedule_day'] ?>')">
+                                                   onclick="editUser('<?= $row['id'] ?>','<?= $row['subject'] ?>','<?= $row['room'] ?>', '<?= $row['grade'] ?>')">
                                                 <svg width="40" height="40" viewBox="0 0 48 48"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -687,17 +675,6 @@ if (isset($_POST['deleteId'])) {
                                                    readonly="true"/>
                                         <?php } ?>
                                         <br>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_in:</div>
-                                        <input required="true" type="time" id="time_in" name="time_in"
-                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
-                                        <br>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_out:</div>
-                                        <input required="true" type="time" id="time_out" name="time_out"
-                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
-                                        <br>
-                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_day:</div>
-                                        <input required="true" type="text" id="schedule_day" name="schedule_day"
-                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
@@ -799,19 +776,6 @@ if (isset($_POST['deleteId'])) {
                                                        class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                        readonly="true"/>
                                             <?php } ?>
-                                            <br>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_in:</div>
-                                            <input type="time" id="time_in" name="time_in"
-                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
-                                            <br>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_time_out:
-                                            </div>
-                                            <input type="time" id="time_out" name="time_out"
-                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
-                                            <br>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Schedule_day:</div>
-                                            <input type="text" id="schedule_day" name="schedule_day"
-                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"/>
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em d-flex-center">
@@ -933,14 +897,11 @@ if (isset($_POST['deleteId'])) {
         $('#schedule_day').val('');
     }
 
-    function editUser(id, subject, room, grade, time_in, time_out, schedule_day) {
+    function editUser(id, subject, room, grade) {
         $('#update-subject #id').val(id);
         $('#update-subject #subject').val(subject);
         $('#update-subject #room').val(room);
         $('#update-subject #grade').val(grade);
-        $('#update-subject #time_in').val(time_in);
-        $('#update-subject #time_out').val(time_out);
-        $('#update-subject #schedule_day').val(schedule_day);
         showModal('update-subject', 'Manage Subject', '', 'small')
     }
 

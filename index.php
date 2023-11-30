@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
                 header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
             }
         } else {
-//        header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
+        header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
         }
     }
 }
