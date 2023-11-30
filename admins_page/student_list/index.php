@@ -234,6 +234,25 @@ if (isset($_POST['update-student-info'])) {
                 background-color: #ed7d31;
                 color: white;
             }
+            #search_name {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f8f8f8;
+  outline: none;
+}
+
+#search_name::placeholder {
+  color: #999;
+}
+
+#search_name:focus {
+  border-color: #007bff;
+  background-color: #fff;
+}
         </style>
 
         <div class="m-2em d-flex-align-start">
@@ -628,7 +647,25 @@ if (isset($_POST['update-student-info'])) {
     </div>
 </div>
 
+<style>
+    .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
 
+.btn-success {
+    background-color: #28a745; /* Adjust color as needed */
+}
+
+.btn:hover {
+    background-color: #218838; /* Adjust hover color as needed */
+}
+
+</style>
 <div id="myModal">
     <script src="../../assets/js/js_header.js"></script>
 
@@ -755,19 +792,9 @@ if (isset($_POST['update-student-info'])) {
                                    required>
                         </div>
                     </div>
-                    <div class="b-top-gray-3px m-1em">
-                        <h2> Other Details</h2>
-                        <h6>Requirements</h6>
-                        <h3>NSO</h3>
-                        <h3>REPORT CARD</h3>
-                        <h3>CERTIFICATE TRANSFER</h3>
-                    </div>
                     <div class="r-50px d-flex-end gap-1em">
-                        <button type="submit"
-                                class="c-hand btn-success btn"
-                                name="add-new-student">Submit
-                        </button>
-                    </div>
+        <button type="submit" class="c-hand btn-success btn" name="add-new-student">Submit</button>
+    </div>
                 </form>
             </div>
             <div id="view-student-info" class="modal-child d-none">

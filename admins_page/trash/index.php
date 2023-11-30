@@ -208,6 +208,25 @@ if (isset($_POST['deleteId'])) {
                 background-color: #ed7d31;
                 color: white;
             }
+            #search_name {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f8f8f8;
+  outline: none;
+}
+
+#search_name::placeholder {
+  color: #999;
+}
+
+#search_name:focus {
+  border-color: #007bff;
+  background-color: #fff;
+}
         </style>
 
         <div class="m-2em d-flex-align-start">
