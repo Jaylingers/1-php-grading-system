@@ -17,15 +17,15 @@ if (isset($_POST['login'])) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
+    $user_data = 'username=' . $username . '&password=' . $password;
     $pass = password_verify($password, $row['password']);
 
     echo "<script> console.log('$pass')</script>";
     echo "<script> console.log('$username')</script>";
     echo "<script> console.log('$password')</script>";
 
-    if ($row) {
         $isPasswordCorrect = password_verify($password, $row['password']);
-        if ($isPasswordCorrect) {
+        if ($isPasswordCorrect && $row) {
             session_start();
             $_SESSION['user_type'] = $row['user_type'];
             $_SESSION['ids'] = $row['id'];
@@ -45,7 +45,6 @@ if (isset($_POST['login'])) {
         } else {
         header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
         }
-    }
 }
 
 session_start();
