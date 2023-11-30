@@ -95,13 +95,67 @@ if (isset($_POST['saveImage'])) {
                                 </button>
                             </form>
                         </div>
-                        <div class="m-l-13px">
-                            LRN NUMBER: <?= $rows['lrn'] ?> <br>
-                            First Name: <?= $rows['first_name'] ?> <br>
-                            Last Name: <?= $rows['last_name'] ?> <br>
-                            User: <?= $rows['username'] ?> <br>
-                            User Type: <?= $rows['user_type'] ?>
-                        </div>
+                        <style> 
+                    .user-info-form {
+                     margin-left: 4rem;
+                     width: 45rem;
+                     padding: 20px;
+                     border-radius: 8px;
+                        box-shadow: 0 0 10px gray;
+                    }
+                    .form-group {
+                    margin-bottom: 15px;
+                    width: 30rem;
+                     margin-left: 6rem;
+                    }
+
+                    label {
+                   display: block;
+                   margin-bottom: 5px;
+                }
+
+                input {
+                width: 100%;
+                padding: 8px;
+                 box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                outline: none;
+                font-size: 14px;
+                }
+
+                input[readonly] {
+                background-color: #eee;
+                }
+                        </style>
+                        <div class="user-info-form">
+        <div class="form-group">
+            <h1>TEACHER INFORMATION</h1>
+            <br>
+            <label for="lrn">LRN NUMBER:</label>
+            <input type="text" id="lrn" value="<?= $rows['lrn'] ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" value="<?= $rows['first_name'] ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" value="<?= $rows['last_name'] ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="username">User:</label>
+            <input type="text" id="username" value="<?= $rows['username'] ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" value="<?= $rows['email'] ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="userType">User Type:</label>
+            <input type="text" id="userType" value="<?= $rows['user_type'] ?>" readonly>
+        </div>
+    </div>
 
                         <?php } ?>
                     </div>
