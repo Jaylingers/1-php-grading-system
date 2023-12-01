@@ -36,6 +36,14 @@ if (isset($_POST['lrn'])) {
         $historyData .= $key . ': ' . $value . ' <br/>';
     }
 
+    $sqlUserInfo = "select * from users_info where user_lrn = '$lrn'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+    $rowsUserInfo = mysqli_fetch_assoc($resultUserInfo);
+    $historyData .= ' <h3> Users Info</h3>';
+    foreach ($rowsUserInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
     $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','teacher')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 

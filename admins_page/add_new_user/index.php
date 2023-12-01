@@ -51,8 +51,144 @@ if (isset($_POST['update_user'])) {
 
 if (isset($_POST['deleteId'])) {
     $deleteId = $_POST['deleteId'];
-    $sql = "delete from users_info where id='$deleteId'";
-    $result = mysqli_query($conn, $sql);
+    $id =$_POST['deleteId'];
+
+    $sqlSelectUser = "select * from users_info where id='$deleteId'";
+    $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
+    $rowSelectUser = mysqli_fetch_assoc($resultSelectUser);
+    $userType = $rowSelectUser['user_type'];
+    $lrn = $rowSelectUser['user_lrn'];
+
+    if($userType === 'teacher'){
+
+        $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+        $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
+        $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+        $removedBy = '';
+        foreach ($rowsSelectRemovedBy as $key => $value) {
+            $removedBy .= $value;
+        }
+
+        $sqlStudentInfo = "select * from teachers_info where lrn = '$lrn'";
+        $resultStudentInfo = mysqli_query($conn, $sqlStudentInfo);
+        $rowsStudentInfo = mysqli_fetch_assoc($resultStudentInfo);
+        $name = $rowsStudentInfo['first_name'] . ' ' . $rowsStudentInfo['last_name'];
+        $historyData = '';
+        $historyData .= ' <h3> Teachers Info</h3>';
+        foreach ($rowsStudentInfo as $key => $value) {
+            $historyData .= $key . ': ' . $value . ' <br/>';
+        }
+
+        $sqlStudentSubjectInfo = "select * from teachers_subject_info where teachers_lrn = '$lrn'";
+        $resultStudentSubjectInfo = mysqli_query($conn, $sqlStudentSubjectInfo);
+        $rowsStudentSubjectInfo = mysqli_fetch_assoc($resultStudentSubjectInfo);
+        $historyData .= ' <h3> Teachers Subject Info</h3>';
+        foreach ($rowsStudentSubjectInfo as $key => $value) {
+            $historyData .= $key . ': ' . $value . ' <br/>';
+        }
+
+        $sqlUserInfo = "select * from users_info where user_lrn = '$lrn'";
+        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+        $rowsUserInfo = mysqli_fetch_assoc($resultUserInfo);
+        $historyData .= ' <h3> Users Info</h3>';
+        foreach ($rowsUserInfo as $key => $value) {
+            $historyData .= $key . ': ' . $value . ' <br/>';
+        }
+
+        $sqlInsertTrash = "insert into trash_info (user_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$name','$historyData', now(),'$removedBy','teacher')";
+        $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
+
+        $sql = "delete from teachers_info where lrn = '$lrn'";
+        $result = mysqli_query($conn, $sql);
+
+        $sqlDelete = "delete from teachers_subject_info where teachers_lrn = '$lrn'";
+        $resultDelete = mysqli_query($conn, $sqlDelete);
+
+        $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
+        $resultDeleteUser = mysqli_query($conn, $sqlDeleteUser);
+    } else if($userType === 'student') {
+
+        $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
+        $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
+        $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
+        $removedBy = '';
+        foreach ($rowsSelectRemovedBy as $key => $value) {
+            $removedBy .= $value;
+        }
+
+        $sqlStudentInfo = "select * from students_info where lrn = '$lrn'";
+        $resultStudentInfo = mysqli_query($conn, $sqlStudentInfo);
+        $rowsStudentInfo = mysqli_fetch_assoc($resultStudentInfo);
+        $name = $rowsStudentInfo['f_name'] . ' ' . $rowsStudentInfo['l_name'];
+        $historyData = '';
+        $historyData .= ' <h3> Student Info</h3>';
+        foreach ($rowsStudentInfo as $key => $value) {
+            $historyData .= $key . ': ' . $value . ' <br/>';
+        }
+
+        $sqlStudentEnrollmentInfo = "select * from students_enrollment_info where students_info_lrn = '$lrn'";
+        $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+        $rowsStudentEnrollmentInfo = mysqli_fetch_assoc($resultStudentEnrollmentInfo);
+        $historyData .= ' <h3> Student Enrollment Info</h3>';
+        foreach ($resultStudentEnrollmentInfo as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+            }
+        }
+
+        $sqlStudentGradeInfo = "select * from students_grade_info where student_lrn = '$lrn'";
+        $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+        $rowsStudentGradeInfo = mysqli_fetch_assoc($resultStudentGradeInfo);
+        $historyData .= ' <h3> Student Grade Info</h3>';
+        foreach ($resultStudentGradeInfo as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+            }
+        }
+
+        $sqlStudentGradeAttendanceInfo = "select * from students_grade_attendance_info where student_lrn = '$lrn'";
+        $resultStudentGradeAttendanceInfo = mysqli_query($conn, $sqlStudentGradeAttendanceInfo);
+        $rowsStudentGradeAttendanceInfo = mysqli_fetch_assoc($resultStudentGradeAttendanceInfo);
+        $historyData .= ' <h3> Student Grade Attendance Info</h3>';
+        foreach ($resultStudentGradeAttendanceInfo as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+            }
+        }
+
+        $sqlUserInfo = "select * from users_info where user_lrn = '$lrn'";
+        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+        $rowsUserInfo = mysqli_fetch_assoc($resultUserInfo);
+        $historyData .= ' <h3> User Info</h3>';
+        foreach ($rowsUserInfo as $key => $value) {
+            $historyData .= $key . ': ' . $value . ' <br/>';
+        }
+
+        $tLrn = $_GET['Tlrn'];
+
+        $sqlInsertTrash = "insert into trash_info (user_lrn,teacher_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn','$tLrn', '$name','$historyData', now(),'$removedBy','student')";
+        $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
+
+        $sql = "delete from students_info where lrn = '$lrn'";
+        $result = mysqli_query($conn, $sql);
+
+        $sqlUserInfo = "delete from users_info where user_lrn = '$lrn'";
+        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+
+        $sqlStudentEnrollmentInfo = "delete from students_enrollment_info where students_info_lrn = '$lrn'";
+        $resultStudentEnrollmentInfo = mysqli_query($conn, $sqlStudentEnrollmentInfo);
+
+        $sqlStudentGradeInfo = "delete from students_grade_info where student_lrn = '$lrn'";
+        $resultStudentGradeInfo = mysqli_query($conn, $sqlStudentGradeInfo);
+
+        $sqlDeleteStudentGradeAttendanceInfo = "delete from students_grade_attendance_info where student_lrn = '$lrn'";
+        $resultDeleteStudentGradeAttendanceInfo = mysqli_query($conn, $sqlDeleteStudentGradeAttendanceInfo);
+
+        $sqlPromotedStudentsHistory = "delete from promoted_info where student_lrn = '$lrn'";
+        $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
+    }
+
+
     if ($result) {
         echo '<script>';
         echo '   

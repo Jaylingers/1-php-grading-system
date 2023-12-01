@@ -61,6 +61,15 @@ if (isset($_POST['deleteStId'])) {
         }
     }
 
+    $sqlUserInfo = "select * from users_info where user_lrn = '$lrn'";
+    $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+    $rowsUserInfo = mysqli_fetch_assoc($resultUserInfo);
+    $historyData .= ' <h3> User Info</h3>';
+    foreach ($rowsUserInfo as $key => $value) {
+        $historyData .= $key . ': ' . $value . ' <br/>';
+    }
+
+
     $sqlInsertTrash = "insert into trash_info (user_lrn,teacher_lrn,name,history,removed_date,removed_by,position) VALUES ('$lrn', '$user_lrn','$name','$historyData', now(),'$removedBy','student')";
     $resultInsertTrash = mysqli_query($conn, $sqlInsertTrash);
 

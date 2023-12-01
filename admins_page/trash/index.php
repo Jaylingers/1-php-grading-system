@@ -59,6 +59,12 @@ if (isset($_POST['recoverId'])) {
 
         }
 
+        // Hash the admin password
+        $hashed_admin_password = password_hash($sLname, PASSWORD_DEFAULT);
+
+        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$hashed_admin_password','student','$sLrn')";
+        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
+
         $studentGradeInfo = str_replace("Student Grade Info</h3>", "", $history[3]);
         if ($studentGradeInfo !== " ") {
             echo '<script> console.log("Student Grade Info"); </script>';
@@ -128,9 +134,6 @@ if (isset($_POST['recoverId'])) {
 
         }
 
-        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$sLname','$sFname','$sLrn','$sLname','student','$sLrn')";
-        $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
-
     } else if ($position === 'teacher') {
         $teacherInfo = str_replace("Teachers Info</h3>", "", $history[1]);
         $teacherInfo = explode("<br/>", $teacherInfo);
@@ -154,7 +157,10 @@ if (isset($_POST['recoverId'])) {
         $insertTeacher = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section) values ('$tLrn','$tFname','$tLname','$tAddress','$tGender','$tCivil','$tEmail','$tGrade','$tSection')";
         $result = mysqli_query($conn, $insertTeacher);
 
-        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$tLname','$tFname','$tLrn','$tLname','teacher','$tLrn')";
+        // Hash the admin password
+        $hashed_admin_password = password_hash($tLname, PASSWORD_DEFAULT);
+
+        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$tLname','$tFname','$tLrn','$hashed_admin_password','teacher','$tLrn')";
         $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
 
     }
