@@ -42,7 +42,10 @@ if (isset($_POST['editProfile'])) {
     $email = $_POST['email'];
     $id = $_GET['id'];
 
-    $sql = "UPDATE users_info SET first_name='$firstname', last_name='$lastname', username='$username', password='$password', email='$email' WHERE id='$id'";
+    // Hash the admin password
+    $hashed_admin_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE users_info SET first_name='$firstname', last_name='$lastname', username='$username', password='$hashed_admin_password', email='$email' WHERE id='$id'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script>';
