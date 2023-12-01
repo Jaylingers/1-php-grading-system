@@ -835,8 +835,8 @@ if (isset($_POST['saveImage'])) {
             <div class="modal-header a-center">
             </div>
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
-                <div id="show-profile-info" class="modal-child d-none h-100p" style="overflow: auto">
-                    <div class="custom-grid-container h-100p" tabindex="2" style="width: 82em;">
+                <div id="show-profile-info" class="modal-child d-none h-100p">
+                    <div class="custom-grid-container h-100p" tabindex="2">
                         <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
                             <img class="pad-1em b-shadow-dark"
                                  src="<?= $rows['img_path'] ?>"
@@ -1596,8 +1596,8 @@ if (isset($_POST['saveImage'])) {
             <div class="modal-header a-center">
             </div>
             <div class="modal-body" style="overflow: hidden; background: #adadad;">
-                <div id="show-profile-info" class="modal-child d-none h-100p" style="overflow: auto">
-                    <div class="custom-grid-container h-100p" tabindex="2" style="width: 82em;">
+                <div id="show-profile-info" class="modal-child d-none h-100p">
+                    <div class="custom-grid-container h-100p" tabindex="2">
                         <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
                             <img class="pad-1em b-shadow-dark"
                                  src="<?= $rows['img_path'] ?>"
