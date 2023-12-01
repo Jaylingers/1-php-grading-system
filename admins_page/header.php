@@ -47,7 +47,6 @@ if (isset($_POST['editProfile'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
                 history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&updateProfile=success");
                     window.location.reload();
             ';
@@ -630,7 +629,7 @@ if (isset($_POST['saveImage'])) {
                                 alt="" class="w-18px c-hand rotate"></div>
                     <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                          onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
-                        School Year
+                        Student School Year
                     </div>
                 </div>
                 <div class=" h-4em d-flex-end m-t-5px">
@@ -1489,7 +1488,7 @@ if (isset($_POST['saveImage'])) {
                                 alt="" class="w-18px c-hand rotate"></div>
                     <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
                          onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
-                        School Year
+                        Student School Year
                     </div>
                 </div>
                 <div class=" h-4em d-flex-end m-t-5px">
@@ -2044,12 +2043,17 @@ if (isset($_POST['saveImage'])) {
         Post('', {logout: 'logout'});
     });
 
+    $(document).on('click', '#modal-addedSuccessfully', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
+    });
+
     $(document).ready(function () {
         loadStudArrowLeft();
         viewUserTabs();
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
-            showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
+            $('#modal-addedSuccessfully').attr('style', 'display: block !important;')
         }
     });
 

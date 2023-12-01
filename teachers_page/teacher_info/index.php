@@ -108,7 +108,7 @@ include "../../db_conn.php";
         </div>
         <div class="form-group">
             <label for="Email">Email:</label>
-            <input type="text" id="Email" value="<?= $rows['email'] ?>" readonly>
+            <input type="text" id="Email" value="<?= $rows['email_address'] ?>" readonly>
         </div>
         <div class="form-group">
             <label for="userType">User Type:</label>

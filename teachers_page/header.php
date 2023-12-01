@@ -48,7 +48,6 @@ if (isset($_POST['editProfile'])) {
     if ($result) {
         echo '<script>';
         echo '   
-              alert("saved successfully");
                 history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&updateProfile=success");
                     window.location.reload();
             ';
@@ -1946,13 +1945,17 @@ if (isset($_POST['saveImage'])) {
         Post('', {logout: 'logout'});
     });
 
+    $(document).on('click', '#modal-addedSuccessfully', function (e) {
+        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+        showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
+    });
 
     $(document).ready(function () {
         loadStudArrowLeft();
         viewUserTabs();
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
-            showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
+            $('#modal-addedSuccessfully').attr('style', 'display: block !important;')
         }
     });
 
