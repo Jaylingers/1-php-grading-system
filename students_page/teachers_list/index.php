@@ -66,6 +66,7 @@ include '../../students_page/header.php'; ?>
                                     $i++;
                                     ?>
                                     <div class="grid-item d-flex-center">
+    
                                         <div class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center m-b-2em" style="position: relative;">
                                             <?php if ($rows['img_path']) { ?>
                                                 <img
@@ -85,7 +86,7 @@ include '../../students_page/header.php'; ?>
                                                             width: 17em !important;"/>
                                             <?php } ?>
                                            
-                                            <div style="position: absolute;     margin-top: 20em;">
+                                            <div style="position: absolute;margin-top: 23em;">
                                                 <?php if ($category === 'pageVisited') { ?>
                                                     name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
                                                     <br>
@@ -96,6 +97,7 @@ include '../../students_page/header.php'; ?>
                                                     <br>
                                                     grade: <?php echo $rows['grade'] ?> <br>
                                                     subject: <?php echo $rows['subject'] ?>
+                                                    <br>
                                                 <?php } else { ?>
                                                     name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
                                                     <br>
