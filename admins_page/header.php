@@ -864,7 +864,7 @@ if (isset($_POST['saveImage'])) {
                                     padding: 5px;">
                                 </div>
                                 <form method="post" enctype="multipart/form-data">
-                                    <input type="hidden" id="lrn" name="lrn" value="<?= $rows['lrn'] ?>"> <br>
+                                    <input type="hidden" id="lrn" name="lrn"> <br>
                                     <input type="file" name="image" id="image" class="d-none"> <br> <br>
                                     <button id="saveButton-teachers" type="submit"
                                             class="c-hand btn-success btn d-none"
@@ -1723,7 +1723,7 @@ if (isset($_POST['saveImage'])) {
                                     padding: 5px;">
                                 </div>
                                 <form method="post" enctype="multipart/form-data">
-                                    <input type="hidden" id="lrn" name="lrn" value="<?= $rows['lrn'] ?>"> <br>
+                                    <input type="hidden" id="lrn" name="lrn" > <br>
                                     <input type="file" name="image" id="image" class="d-none"> <br> <br>
                                     <button id="saveButton-teachers" type="submit"
                                             class="c-hand btn-success btn d-none"
