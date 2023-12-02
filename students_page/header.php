@@ -204,7 +204,7 @@ if (!isset($_SESSION['user_type'])) {
                             </div>
                                 <div class="modal-long-msg  d-flex-center">
                                     <h7>
-                                        You can only have 1 time to change your password. Do you want to continue?
+                                        You can only have 3 times to change your password. Do you want to continue?
                                     </h7>
                                 </div>
                                 <div class="modal-msg-choice d-flex-center">
