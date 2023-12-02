@@ -535,7 +535,7 @@ if (isset($_POST['add-student-grade'])) {
 
                 <?php
 
-                $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                $search_lrn = isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '';
                 $id = $_GET['id'];
 
                 $SqlSelectUser = "select * from users_info ui
@@ -570,7 +570,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                    and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC Limit 1";
                 $result = mysqli_query($conn, $sql);
@@ -603,7 +603,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                      and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
@@ -635,7 +635,7 @@ if (isset($_POST['add-student-grade'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                      and si.teacher_lrn = '$userLrn'
                         GROUP BY si.id order by  si.lrn DESC LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
@@ -645,7 +645,7 @@ if (isset($_POST['add-student-grade'])) {
                     // Get the results...
                     $result = $stmt->get_result();
                     ?>
-                    <input placeholder="search name" id="search_name" type="text" class=" m-b-5px"
+                    <input placeholder="search lrn" id="search_name" type="text" class="search_lrn m-b-5px"
                            onchange="searchName()"/>
                     <table class="table table-1 b-shadow-dark">
                         <thead>
@@ -2714,9 +2714,9 @@ if (isset($_POST['add-student-grade'])) {
 
 
     function searchName() {
-        var search = $('#search_name').val();
-        if (search !== '') {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
+        var search_lrn = $('.search_lrn').val();
+        if (search_lrn !== '') {
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&search_lrn=' + search_lrn;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>';
         }
@@ -2867,9 +2867,9 @@ if (isset($_POST['add-student-grade'])) {
     }
 
     function loadPage() {
-        var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
-        if (searchName !== '') {
-            $('#search_name').val(searchName);
+        var search_lrn = '<?php echo isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '' ?>';
+        if (search_lrn !== '') {
+            $('.search_lrn').val(search_lrn);
         }
 
         var lrnexist = '<?php echo isset($_GET['lrnexist']) ? $_GET['lrnexist'] : '' ?>';

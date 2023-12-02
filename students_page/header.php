@@ -19,7 +19,26 @@ if (!isset($_SESSION['user_type'])) {
         header("Location: /1-php-grading-system/");
     }
 
+    if(isset($_POST['changePass'])) {
+        $changePass = $_POST['changePass'];
+        $id = $_GET['id'];
+
+        $sqlUser = "SELECT * FROM users_info WHERE id='$id'";
+        $resultUser = mysqli_query($conn, $sqlUser);
+        $rowsUser = mysqli_fetch_assoc($resultUser);
+        $changePassAttempts = $rowsUser['change_pass_attempts'];
+        $changePassAttempts = $changePassAttempts + 1;
+
+        // Hash the admin password
+        $hashed_admin_password = password_hash($changePass, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE users_info SET password='$hashed_admin_password', change_pass_attempts='$changePassAttempts' WHERE id='$id'";
+        $result = mysqli_query($conn, $sql);
+
+        echo "<script>window.location.href='?id=$id'</script>";
+    }
 }
+
 ?>
 
 
@@ -115,6 +134,9 @@ if (!isset($_SESSION['user_type'])) {
                         List
                     </a></li>
                 <li class="logout">
+                    <a href="#" onclick="changePassword()">Change Password</a>
+                </li>
+                <li class="logout">
                     <a href="#" onclick="logout()">Logout</a>
                 </li>
             </ul>
@@ -162,6 +184,63 @@ if (!isset($_SESSION['user_type'])) {
         </div>
     </div>
 
+    <div id="modal-change-password" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <img src="../../assets/img/pw.png" width="60" height="60" alt="">
+                    </div>
+
+                        <?php
+                        $sqlUser = "SELECT * FROM users_info WHERE id='$id'";
+                        $resultUser = mysqli_query($conn, $sqlUser);
+                        $rowsUser = mysqli_fetch_assoc($resultUser);
+                        $changePassAttempts = $rowsUser['change_pass_attempts'];
+
+                        if ($changePassAttempts < 3) { ?>
+                            <div class="w-100p d-flex-center">
+                                <input type="text" id="search_name" placeholder="change password" class="change-pass">
+                            </div>
+                                <div class="modal-long-msg  d-flex-center">
+                                    <h7>
+                                        You can only have 1 time to change your password. Do you want to continue?
+                                    </h7>
+                                </div>
+                                <div class="modal-msg-choice d-flex-center">
+                                    <div class="modal-msg-choice-yes btn">
+                                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-cancel">Cancel</button>
+                                    </div>
+                                    <div class="modal-msg-choice-no">
+                                        <button class="btn-primary btn" id="modal-change-password-ok">Ok</button>
+                                    </div>
+                                </div>
+                        <?php } else { ?>
+                        <div class="w-100p d-flex-center">
+                            <input type="text" id="search_name" placeholder="change password" class="change-pass" disabled="true">
+                        </div>
+
+                            <div class="modal-long-msg  d-flex-center t-align-center t-color-red">
+                                <h7>
+                                    You riched the maximum attempt to change your password. <br> If you want to change your password, please contact the administrator.
+                                </h7>
+                            </div>
+                            <div class="modal-msg-choice d-flex-center">
+                                <div class="modal-msg-choice-yes btn">
+                                    <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-cancel">Cancel</button>
+                                </div>
+                                <div class="modal-msg-choice-no">
+                                    <button class="btn-primary btn" id="modal-change-password-ok" disabled>Ok</button>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php if ($rows['img_path'] == '') { ?>
         <img id="settings" src="../../assets/users_img/noImage.png"
              style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover !important;   position: absolute;
@@ -178,7 +257,7 @@ if (!isset($_SESSION['user_type'])) {
              alt="" class="w-32px c-hand">
     <?php } ?>
     <div id="settings-details" class="p-absolute j-content-center z-i-999910" style="     position: absolute;
-    height: 5em;
+    height: 9em;
     width: 14em;
     top: 13.55em;
     right: 3em;
@@ -196,18 +275,24 @@ if (!isset($_SESSION['user_type'])) {
                 background: #808080a8;
             }
         </style>
-        <!--    <form action="index.php" method="post">-->
         <div class="custom-grid-container w-100p pad-1em  settings-1 t-color-black" tabindex="1">
+            <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="changePassword()">
+                <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
+                    <img class="settings-1" src="../../assets/img/logout2.png" alt=""
+                         style="width: 2em; height: 2em">
+                    <label for=""
+                           class="settings-1 c-hand m-t-9px f-weight-bold">&nbsp;&nbsp;Change Password</label>
+                </div>
+            </div>
             <div class="custom-grid-item d-flex-start c-hand admin-settings settings-1" onclick="logout()">
                 <div class=" b-bottom-gray-1px w-100p h-100p d-flex-start settings-1">
                     <img class="settings-1" src="../../assets/img/logout2.png" alt=""
                          style="width: 2em; height: 2em">
                     <label for=""
-                           class="settings-1 c-hand m-t-9px f-weight-bold">Logout</label>
+                           class="settings-1 c-hand m-t-9px f-weight-bold">&nbsp;&nbsp;Logout</label>
                 </div>
             </div>
         </div>
-        <!--    </form>-->
     </div>
 </div>
 <style>
@@ -260,12 +345,22 @@ if (!isset($_SESSION['user_type'])) {
         $('#modal-logout').attr('style', 'display: block !important;')
     }
 
+    function changePassword() {
+        $('#modal-change-password').attr('style', 'display: block !important;')
+    }
+
     $(document).on('click', '#modal-cancel', function(e){
         $('#modal-logout').attr('style', 'display: none !important;')
+        $('#modal-change-password').attr('style', 'display: none !important;')
     });
 
     $(document).on('click', '#modal-ok', function(e){
         Post('', {logout: 'logout'});
+    });
+
+    $(document).on('click', '#modal-change-password-ok', function(e){
+        var change_password = $('.change-pass').val();
+        Post('', {changePass: change_password});
     });
 
 

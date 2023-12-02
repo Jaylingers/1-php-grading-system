@@ -846,10 +846,20 @@ if (isset($_POST['saveImage'])) {
                 <div id="show-profile-info" class="modal-child d-none h-100p">
                     <div class="custom-grid-container h-100p" tabindex="2">
                         <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
-                            <img class="pad-1em b-shadow-dark"
-                                 src="<?= $rows['img_path'] ?>"
-                                 alt="" style="width: 86%;
-    height: 35em; border-radius: 50%;">
+                            <?php
+                            if (!empty($rows['img_path'])) {
+                                ?>
+                                <img class="pad-1em b-shadow-dark"
+                                     src="<?= $rows['img_path'] ?>"
+                                     alt=""
+                                     style="width: 86%; height: 35em; border-radius: 50%;">
+                                <?php
+                            } else {
+                                ?>
+                                <img class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt="" style="width: 86%; height: 35em; border-radius: 50%;">
+                                <?php
+                            }
+                            ?>
                             <div style="
                                width: 17em;
                                 height: 21em;
@@ -1705,10 +1715,20 @@ if (isset($_POST['saveImage'])) {
                 <div id="show-profile-info" class="modal-child d-none h-100p">
                     <div class="custom-grid-container h-100p" tabindex="2">
                         <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
-                            <img class="pad-1em b-shadow-dark"
-                                 src="<?= $rows['img_path'] ?>"
-                                 alt="" style="width: 86%;
-    height: 35em; border-radius: 50%;">
+                            <?php
+                            if (!empty($rows['img_path'])) {
+                                ?>
+                                <img class="pad-1em b-shadow-dark"
+                                     src="<?= $rows['img_path'] ?>"
+                                     alt=""
+                                     style="width: 86%; height: 35em; border-radius: 50%;">
+                                <?php
+                            } else {
+                                ?>
+                                <img class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt="" style="width: 86%; height: 35em; border-radius: 50%;">
+                                <?php
+                            }
+                            ?>
                             <div style="
                                width: 17em;
                                 height: 21em;

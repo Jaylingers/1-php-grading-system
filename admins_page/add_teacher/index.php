@@ -409,12 +409,13 @@ if (isset($_POST['teacherStudentID'])) {
                 <br/>
 
                 <?php
-                $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                $search_lrn = isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '';
+
                 $sql = "SELECT ti.grade, ti.section, ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
-                WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
+                WHERE ti.lrn LIKE '%$search_lrn%'
                 GROUP BY ti.lrn order by ti.id desc";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
@@ -426,7 +427,7 @@ if (isset($_POST['teacherStudentID'])) {
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn
-                WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
+                 WHERE ti.lrn LIKE '%$search_lrn%'
                 GROUP BY ti.lrn order by ti.id desc")->num_rows;
                 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -437,7 +438,7 @@ if (isset($_POST['teacherStudentID'])) {
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
-                WHERE CONCAT_WS('', ti.first_name, ti.last_name) LIKE '%$searchName%'
+                    WHERE ti.lrn LIKE '%$search_lrn%'
                 GROUP BY ti.lrn ORDER BY ti.id LIMIT ?,?")) {
                     // Calculate the page to get the results we need from our table.
                     $calc_page = ($page - 1) * $num_results_on_page;
@@ -446,8 +447,8 @@ if (isset($_POST['teacherStudentID'])) {
                     // Get the results...
                     $result = $stmt->get_result();
                     ?>
-                    <input placeholder="search name" id="search_name" type="text" class=" m-b-5px"
-                           onchange="searchName()"/>
+                    <input placeholder="search lrn" id="search_name" type="text" class="search_lrn m-b-5px"
+                           onchange="search('lrn')"/>
                     <table class="table table-1  b-shadow-dark ">
                         <thead>
                         <tr>
@@ -457,6 +458,7 @@ if (isset($_POST['teacherStudentID'])) {
                                         onclick="checkCBteachers('teachers-list', 'teachers-list-cb')"
                                         class="sc-1-3 c-hand"/></th>
                             <th>No</th>
+                            <th>LRN</th>
                             <th>FullName</th>
                             <th>Address</th>
                             <th>Gender</th>
@@ -480,6 +482,7 @@ if (isset($_POST['teacherStudentID'])) {
                                         <input type="checkbox" class="sc-1-3 c-hand check" id="<?= $row['lrn'] ?>"/>
                                     </label></td>
                                 <th scope="row"><?= $i ?> </th>
+                                <td><?= $row['lrn'] ?></td>
                                 <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
                                 <td><?= $row['address'] ?></td>
                                 <td><?= $row['gender'] ?></td>
@@ -1910,14 +1913,25 @@ if (isset($_POST['teacherStudentID'])) {
         }
     }
 
-    function searchName() {
-        var search = $('#search_name').val();
-        if (search !== '') {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
+    function search(status) {
+        if(status === "name") {
+            var search = $('.search_name').val();
+            if (search !== '') {
+                window.location.href = '?id=<?php echo $_GET['id'] ?>&&searchName=' + search;
+            } else {
+                window.location.href = '?id=<?php echo $_GET['id'] ?>';
+            }
         } else {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>';
+            var search_lrn = $('.search_lrn').val();
+            if (search_lrn !== '') {
+                window.location.href = '?id=<?php echo $_GET['id'] ?>&&search_lrn=' + search_lrn;
+            } else {
+                window.location.href = '?id=<?php echo $_GET['id'] ?>';
+            }
         }
+
     }
+
 
     function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email, grade, section) {
         $('#edit-teacher #lrnUpdate').val(lrn);
@@ -1972,9 +1986,9 @@ if (isset($_POST['teacherStudentID'])) {
             $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
 
-        var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
-        if (searchName !== '') {
-            $('#search_name').val(searchName);
+        var search_lrn = '<?php echo isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '' ?>';
+        if (search_lrn !== '') {
+            $('.search_lrn').val(search_lrn);
         }
 
         var lrnExists = '<?php echo isset($_GET['lrnExist']) ? $_GET['lrnExist'] : '' ?>';

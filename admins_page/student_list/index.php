@@ -416,7 +416,7 @@ if (isset($_POST['update-student-info'])) {
                 </div>
                 <br/>
                 <?php
-                $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
+                $search_lrn = isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '';
                 $Tgrade = isset($_GET['Tgrade']) ? $_GET['Tgrade'] : '';
                 $Tsection = isset($_GET['Tsection']) ? $_GET['Tsection'] : '';
                 $Tlrn = isset($_GET['Tlrn']) ? $_GET['Tlrn'] : '';
@@ -445,7 +445,7 @@ if (isset($_POST['update-student-info'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                    and ti.grade= '$Tgrade'
 	                    and ti.section= '$Tsection'
 	                    and si.teacher_lrn = '$Tlrn'
@@ -480,7 +480,7 @@ if (isset($_POST['update-student-info'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                    and ti.grade= '$Tgrade'
 	                    and ti.section= '$Tsection'
 	                    and si.teacher_lrn = '$Tlrn'
@@ -514,7 +514,7 @@ if (isset($_POST['update-student-info'])) {
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
 						left join users_info ui on ui.id = si.addedBy
                         left join teachers_info ti on ti.lrn = si.teacher_lrn
-	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$searchName%'
+	                    WHERE CONCAT_WS('', si.f_name,si.l_name) LIKE '%$search_lrn%'
 	                    and ti.grade= '$Tgrade'
 	                    and ti.section= '$Tsection'
 	                    and si.teacher_lrn = '$Tlrn'
@@ -526,8 +526,8 @@ if (isset($_POST['update-student-info'])) {
                     // Get the results...
                     $result = $stmt->get_result();
                     ?>
-                    <input placeholder="search name" id="search_name" type="text" class=" m-b-5px"
-                           onchange="searchName()"/>
+                    <input placeholder="search lrn" id="search_name" type="text" class="search_lrn m-b-5px"
+                           onchange="search()"/>
                     <table class="table table-1 b-shadow-dark">
                         <thead>
                         <tr>
@@ -1850,10 +1850,10 @@ if (isset($_POST['update-student-info'])) {
         }
     }
 
-    function searchName() {
-        var search = $('#search_name').val();
+    function search() {
+        var search = $('.search_lrn').val();
         if (search !== '') {
-            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&searchName=' + search;
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>&&search_lrn=' + search;
         } else {
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&Tgrade=<?php echo $_GET['Tgrade'] ?>&&Tsection=<?php echo $_GET['Tsection'] ?>&&Tlrn=<?php echo $_GET['Tlrn'] ?>';
         }
@@ -1967,9 +1967,9 @@ if (isset($_POST['update-student-info'])) {
     }
 
     function loadPage() {
-        var searchName = '<?php echo isset($_GET['searchName']) ? $_GET['searchName'] : '' ?>';
-        if (searchName !== '') {
-            $('#search_name').val(searchName);
+        var search_lrn = '<?php echo isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '' ?>';
+        if (search_lrn !== '') {
+            $('.search_lrn').val(search_lrn);
         }
 
         var lrnexist = '<?php echo isset($_GET['lrnexist']) ? $_GET['lrnexist'] : '' ?>';
