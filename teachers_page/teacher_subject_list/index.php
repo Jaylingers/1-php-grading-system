@@ -32,7 +32,6 @@ if (isset($_POST['add_subject'])) {
         exit();
     }
 
-
     $sqlTeachersSubjectInfo = "insert into teachers_subject_info (subject, room, teachers_lrn) values ('$subject', '$room', '$userLrn')";
     $resultTeachersSubjectInfo = mysqli_query($conn, $sqlTeachersSubjectInfo);
     if ($resultTeachersSubjectInfo) {
@@ -93,25 +92,26 @@ if (isset($_POST['deleteId'])) {
                 background-color: #ed7d31;
                 color: white;
             }
+
             #search_name {
-  width: 40%;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #f8f8f8;
-  outline: none;
-}
+                width: 40%;
+                padding: 10px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                background-color: #f8f8f8;
+                outline: none;
+            }
 
-#search_name::placeholder {
-  color: #999;
-}
+            #search_name::placeholder {
+                color: #999;
+            }
 
-#search_name:focus {
-  border-color: #007bff;
-  background-color: #fff;
-}
+            #search_name:focus {
+                border-color: #007bff;
+                background-color: #fff;
+            }
         </style>
 
 
