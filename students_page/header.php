@@ -89,11 +89,67 @@ if (!isset($_SESSION['user_type'])) {
     <!--        </div>-->
     <!--    </div>-->
 </div>
+<style>
 
+    h1 {
+      display: flex;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      font-size: 2rem;
+      margin: 0;
+      color: #333;
+    }
 
+    span {
+        color: #4CAF50;
+      margin-right: 5px;
+      animation: scaleIn 1s ease-out;
+    }
+
+    /* Keyframes for scaleIn animation */
+    @keyframes scaleIn {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Style for the "|" character */
+    .separator {
+      font-size: 1.5rem;
+      margin: 0 8px;
+      color: #2196F3; /* Blue color for the separator */
+    }
+
+    /* Style for "GRADE INQUIRY" */
+    .grade-inquiry {
+        color: #FFA500;
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Keyframes for fadeIn animation */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      h1 {
+        display: none; /* Hide the entire heading on small screens */
+      }
+    }
+  </style>
 <header>
-    <div class="logo" title="University Management System">
+    <div class="logo" title="MABES">
         <img src="../../assets/img/mabes.png" alt=""/>
+        <h1 clas="new1"><span>MABES</span><span class="new2">|</span><span class="grade-inquiry">GRADE INQUIRY</span></h1>
     </div>
     <div class="navbar">
         <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>"
