@@ -11,8 +11,7 @@ if (!isset($_SESSION['user_type'])) {
 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $sql = "SELECT * FROM users_info ui
-left join students_info si on si.lrn=ui.user_lrn
+        $sql = "SELECT ui.id AS idUI, ui.*, si.* FROM users_info ui LEFT JOIN students_info si ON si.lrn = ui.user_lrn
 WHERE ui.id='$id'";
         $result = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_assoc($result);
