@@ -12,67 +12,109 @@ include '../../students_page/header.php';
     <link rel="stylesheet" href="../../assets/css/student/change_password.css" />
 
     <!-- Add the carousel styles here or link to an external stylesheet if needed -->
-    <style>
-        /* Carousel container */
-        .carousel {
-            width: 100%;
-            overflow: hidden;
-            position: relative; /* Added for positioning the bottom button */
+   <style>
+ /* Carousel container */
+.carousel {
+    width: 75%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* Carousel wrapper */
+.carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Carousel item */
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    height: 500px; /* Adjust the height for smaller screens */
+    overflow: hidden;
+}
+
+/* Image within carousel item */
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Navigation buttons */
+.carousel-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 10px;
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+.bottom-btn {
+    width: 80%;
+    bottom: 10px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .carousel {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .carousel-item {
+        height: 300px;
+    }
+}
+.carousel-title {
+            text-align: center;
+            font-size: 2em;
+            color: gray; /* Set your desired text color */
+            margin: 0; /* Adjust margin according to your design */
+            transition: color 0.5s ease-in-out; /* Add a color transition effect */
+            border-radius: 10px; /* Add border-radius for rounded corners */
+            border: 6px;
+            padding: 10px 20px; /* Add padding for better aesthetics */
+            display: inline-block; /* Ensure the padding and border-radius apply correctly */
+            font-size: 45px;
         }
 
-        /* Carousel wrapper */
-        .carousel-wrapper {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+        .carousel-title:hover {
+            color: green; /* Set the color you want to transition to on hover */
         }
 
-        /* Carousel item */
-        .carousel-item {
-            min-width: 100%;
-            box-sizing: border-box;
-            height: 900px; /* Set a fixed height for all carousel items */
-            overflow: hidden; /* Hide any overflow content */
+        @media screen and (max-width: 600px) {
+            /* Add responsive styles here */
+            .carousel-title {
+                font-size: 1.5em; /* Adjust font size for smaller screens */
+            }
         }
-
-        /* Image within carousel item */
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure the image covers the entire container */
+        .carousel-title2{
+            text-align: center;
         }
-
-        /* Navigation buttons */
-        .carousel-btn {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            padding: 10px;
-        }
-
-        .prev-btn {
-            left: 10px;
-        }
-
-        .next-btn {
-            right: 10px;
-        }
-
-        .bottom-btn {
-            width: 100%;
-            bottom: 10px;
-        }
-    </style>
+   </style>
 </head>
 
 <body>
 <div class="change-password-container pad-2em">
-    <!-- Add the carousel code here -->
     <div class="carousel">
+    <h1 class="carousel-title">Mactan Airbase Elementary School</h1>
+    <h3 class="carousel-title2">Description</h3>
+
         <div class="carousel-wrapper">
             <div class="carousel-item">
                 <img src="../../assets/img/MABES3.jpg" alt="Image 1">
