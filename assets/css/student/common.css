@@ -17,10 +17,11 @@
     height: 100%;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 9999999;
+    /*z-index: 9999999;*/
     top: 0;
     left: 0;
     display: none;
+    padding:8em;
 }
 
 .modal2 .square {
@@ -51,6 +52,14 @@
     border-radius: 10px;
     padding: 10px;
     border: 1px solid gray;
+}
+
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .modal-content1 {
@@ -176,4 +185,88 @@ th {
 
 table {
     border-collapse: collapse;
+}
+
+.currentpage{
+    text-decoration: underline;
+    font-weight: bolder;
+}
+.next,.prev{
+    font-weight: bolder;
+}
+
+.pagination li{
+    padding: 0.3em;
+    border-radius: 5px;
+    margin: 0.2em;
+}
+
+.modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+.modal-body{
+    overflow: auto;
+}
+.table-bordered {
+    border: 2px solid black !important;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 2px solid black !important;
+}
+.modal-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+.modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.d-inline-flex{
+    display: inline-flex;
+}
+.btn {
+    background: none;
+    border: none;
+    border: 2px solid var(--color-primary) !important;
+    border-radius: var(--border-radius-1);
+    padding: 0.5rem 1rem;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    cursor: pointer;
+    margin: 1rem 1.5rem 1rem 0;
+    margin-top: 1.5rem;
+}
+.btn:hover {
+    color: var(--color-primary);
+    background-color: transparent;
 }

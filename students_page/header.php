@@ -11,7 +11,9 @@ if (!isset($_SESSION['user_type'])) {
 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $sql = "SELECT * FROM users_info WHERE id='$id'";
+        $sql = "SELECT * FROM users_info ui
+left join students_info si on si.lrn=ui.user_lrn
+WHERE ui.id='$id'";
         $result = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_assoc($result);
     }
@@ -92,64 +94,65 @@ if (!isset($_SESSION['user_type'])) {
 <style>
 
     h1 {
-      display: flex;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-      font-size: 2rem;
-      margin: 0;
-      color: #333;
+        display: flex;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+        font-size: 2rem;
+        margin: 0;
+        color: #333;
     }
 
     span {
         color: #4CAF50;
-      margin-right: 5px;
-      animation: scaleIn 1s ease-out;
+        margin-right: 5px;
+        animation: scaleIn 1s ease-out;
     }
 
     /* Keyframes for scaleIn animation */
     @keyframes scaleIn {
-      0% {
-        transform: scale(0);
-      }
-      100% {
-        transform: scale(1);
-      }
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 
     /* Style for the "|" character */
     .separator {
-      font-size: 1.5rem;
-      margin: 0 8px;
-      color: #2196F3; /* Blue color for the separator */
+        font-size: 1.5rem;
+        margin: 0 8px;
+        color: #2196F3; /* Blue color for the separator */
     }
 
     /* Style for "GRADE INQUIRY" */
     .grade-inquiry {
         color: #FFA500;
-      animation: fadeIn 1s ease-out;
+        animation: fadeIn 1s ease-out;
     }
 
     /* Keyframes for fadeIn animation */
     @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 
     /* Responsive styles */
     @media (max-width: 600px) {
-      h1 {
-        display: none; /* Hide the entire heading on small screens */
-      }
+        h1 {
+            display: none; /* Hide the entire heading on small screens */
+        }
     }
-  </style>
+</style>
 <header>
     <div class="logo" title="MABES">
         <img src="../../assets/img/mabes.png" alt=""/>
-        <h1 clas="new1"><span>MABES</span><span class="new2">|</span><span class="grade-inquiry">GRADE INQUIRY</span></h1>
+        <h1 clas="new1"><span>MABES</span><span class="new2">|</span><span class="grade-inquiry">GRADE INQUIRY</span>
+        </h1>
     </div>
     <div class="navbar">
         <a href="/1-php-grading-system/students_page/student_info/?id=<?php echo $_GET['id'] ?>"
@@ -195,19 +198,19 @@ if (!isset($_SESSION['user_type'])) {
                     <img src="<?= $rows['img_path'] ?>" alt=""/>
                 </div>
                 <div class="info">
-                    <p>Hello, <b>Limpangog</b></p>
-                    <small class="text-muted">12102030</small>
+                    <p>Hello, <b><?= $rows['last_name'] ?></b></p>
+                    <small class="text-muted"><?= $rows['user_lrn'] ?></small>
                 </div>
             </div>
             <div class="about">
                 <h5>Student Info</h5>
-                <p>Name: Limpangog Daisy</p>
+                <p>Name: <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
                 <h5>Contact</h5>
-                <p>1234567890</p>
+                <p><?= $rows['contact_number'] ?></p>
                 <h5>Email</h5>
-                <p>unknown@gmail.com</p>
+                <p><?= $rows['email'] ?></p>
                 <h5>Address</h5>
-                <p>Sudtonggan</p>
+                <p><?= $rows['home_address'] ?></p>
             </div>
         </div>
     </aside>

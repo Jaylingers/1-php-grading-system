@@ -88,17 +88,14 @@ include '../../students_page/header.php'; ?>
                     </div>
                 </div>
 
-                <div id="myModal" style="width: 100% !important; display: none">
+                <div id="myModal" class="modal2" style="width: 100% !important; display: none">
                     <script src="../../assets/js/js_header.js"></script>
 
                     <div class="modal-content">
-                        <div id="top-icon"
-                             class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
-                             onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
-                        </div>
+
                         <div class="modal-header a-center">
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="modal-body">
 
                             <div id="view-student-grade" class="modal-child d-none">
                                 <?php
@@ -116,27 +113,24 @@ include '../../students_page/header.php'; ?>
                                     while ($rowStudent = mysqli_fetch_assoc($sqlStudents)) {
                                         ?>
                                         <input type="hidden" name="grade" value="<?= $rowStudent['grade'] ?>">
-                                        <div>Student Name: <label
-                                                    class="b-bottom-gray-3px w-27em t-align-center"><?= $rowStudent['l_name'] ?>
+                                        <div>Student Name: <label style="text-decoration: underline"><?= $rowStudent['l_name'] ?>
                                                 , <?= $rowStudent['f_name'] ?> <?= $rowStudent['m_name'] ?></label></div>
-                                        <div>School Name:<input type="text"
-                                                                class="w-27em b-bottom-gray-3px b-none t-align-center"
-                                                                value="<?php echo $schoolName ?>"></div>
-                                        <div>
+                                        <div>School Name: <label for=""style="text-decoration: underline"><?php echo $schoolName ?></label> </div>
+                                        <div">
                                             <div class="d-inline-flex">Grade & Section: <label for=""
-                                                                                               class="b-bottom-gray-3px w-10em t-align-center">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
+                                                                                               class="b-bottom-gray-3px w-10em t-align-center" style="text-decoration: underline">Grade <?= $rowStudent['grade'] ?> <?= $rowStudent['section'] ?></label>
                                             </div>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <div class="d-inline-flex">School Year:
                                                 <label for=""
-                                                       class="b-bottom-gray-3px w-10em t-align-center">&nbsp; <?= $rowStudent['school_year'] ?>
+                                                       class="b-bottom-gray-3px w-10em t-align-center" style="text-decoration: underline">&nbsp; <?= $rowStudent['school_year'] ?>
                                                     - <?= (1 + $rowStudent['school_year']) ?> </label></div>
                                         </div>
 
                                     <?php } ?>
                                     <div>
 
-                                        <table class="table-bordered w-100p m-t-2em">
+                                        <table class="custom-table table-bordered w-100p m-t-2em">
                                             <col>
                                             <col>
                                             <col>
@@ -210,7 +204,7 @@ include '../../students_page/header.php'; ?>
                                         <?php } ?>
 
 
-                                        <table class="table-bordered w-100p m-t-2em">
+                                        <table class="custom-table table-bordered w-100p m-t-2em">
                                             <col>
                                             <col>
                                             <col>
@@ -287,7 +281,7 @@ include '../../students_page/header.php'; ?>
                                     </div>
                                     <div class="p-absolute btm-1em r-1em action-button">
                                         <button class="c-hand btn-primary btn"
-                                                onclick="print('view-student-grade')">Print
+                                                onclick="print('modal-body')">Print
                                         </button>
                                     </div>
 

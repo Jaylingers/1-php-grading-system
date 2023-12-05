@@ -30,7 +30,7 @@ if (isset($_POST['logout1'])) {
         </p>
 
         <div class="button">
-            <input type="submit" name="logout1" value="Proceed" class="btn"/>
+            <input type="submit" name="logout1" value="Continue" class="btn"/>
         </div>
     </form>
 </div>

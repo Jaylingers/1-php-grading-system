@@ -44,7 +44,7 @@ if (isset($_POST['changePass1'])) {
         </div>
         <div id="error-message" class="error-message"></div>
         <div class="button">
-            <input type="submit" value="Proceed" class="btn" name="changePass1" onclick="validatePassword()"/>
+            <input type="submit" value="Continue" class="btn" name="changePass1" onclick="validatePassword()"/>
         </div>
     </div>
 </div>
