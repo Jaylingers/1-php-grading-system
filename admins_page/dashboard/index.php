@@ -109,81 +109,81 @@ include '../header.php'; ?>
 
                 </div>
                 <div class="grid-container">
-                    <?php
+                                    <?php
 
-                    $category = isset($_GET['category']) ? $_GET['category'] : '';
+                                    $category = isset($_GET['category']) ? $_GET['category'] : '';
 
-                    if ($category === 'teacher') {
-                    $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
-                    // Build the SQL query
-                    $sql = "select * from teachers_info ti
-                                          left join teachers_subject_info tsi on tsi.teachers_lrn = ti.lrn
-                                        left join users_info ui on ui.user_lrn = ti.lrn";
-                    // Check if userType is empty
-                    if (!empty($grade)) {
-                        $sql .= "  where ti.grade = '$grade'";
-                    }
-                    //                    $sql .= " group by tsi.teachers_lrn";
-                    $result = mysqli_query($conn, $sql);
+                                    if ($category === 'teacher') {
+                                    $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
+                                    // Build the SQL query
+                                    $sql = "select * from teachers_info ti
+                                                          left join teachers_subject_info tsi on tsi.teachers_lrn = ti.lrn
+                                                        left join users_info ui on ui.user_lrn = ti.lrn";
+                                    // Check if userType is empty
+                                    if (!empty($grade)) {
+                                        $sql .= "  where ti.grade = '$grade'";
+                                    }
+                                    //                    $sql .= " group by tsi.teachers_lrn";
+                                    $result = mysqli_query($conn, $sql);
 
-                    $total_pages = $mysqli->query($sql)->num_rows;
-                    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-                    $num_results_on_page = 12;
+                                    $total_pages = $mysqli->query($sql)->num_rows;
+                                    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+                                    $num_results_on_page = 12;
 
-                    $sql .= " LIMIT ?,?";
-                    if ($stmt = $mysqli->prepare($sql)) {
-                        $calc_page = ($page - 1) * $num_results_on_page;
-                        $stmt->bind_param('ii', $calc_page, $num_results_on_page);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        ?>
-                        <?php
-                        $i = 0;
-                        while ($rows = $result->fetch_assoc()):
-                            $i++;
-                            ?>
-                            <div class="grid-item d-flex-center">
-                                <div class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center m-b-2em">
-                                    <?php if ($rows['img_path']) { ?>
-                                        <img
-                                                src="<?php echo $rows['img_path'] ?>"
-                                                alt=""
-                                                class="w-50p h-8em m-3-6px"
-                                                style="height: 100%;
-                                            border-radius: 50%;
-                                            width: 17em !important;"/>
-                                    <?php } else { ?>
-                                        <img
-                                                src="../../assets/users_img/noImage.png"
-                                                alt=""
-                                                class="w-50p h-8em m-3-6px"
-                                                style="height: 100%;
+                                    $sql .= " LIMIT ?,?";
+                                    if ($stmt = $mysqli->prepare($sql)) {
+                                        $calc_page = ($page - 1) * $num_results_on_page;
+                                        $stmt->bind_param('ii', $calc_page, $num_results_on_page);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        ?>
+                                        <?php
+                                        $i = 0;
+                                        while ($rows = $result->fetch_assoc()):
+                                            $i++;
+                                            ?>
+                                            <div class="grid-item d-flex-center">
+                                                <div class=" b-radius-50p w-20em h-16em m-1em bg-gray-dark d-flex-center m-b-2em">
+                                                    <?php if ($rows['img_path']) { ?>
+                                                        <img
+                                                                src="<?php echo $rows['img_path'] ?>"
+                                                                alt=""
+                                                                class="w-50p h-8em m-3-6px"
+                                                                style="height: 100%;
                                                             border-radius: 50%;
                                                             width: 17em !important;"/>
-                                    <?php } ?>
-                                    <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
-                                         style="position: absolute; margin-left: 10em">
-                                        <?php
-                                        $date_added = date('Y-m-d', strtotime($rows['date_added']));
-                                        $current_date = date('Y-m-d');
+                                                    <?php } else { ?>
+                                                        <img
+                                                                src="../../assets/users_img/noImage.png"
+                                                                alt=""
+                                                                class="w-50p h-8em m-3-6px"
+                                                                style="height: 100%;
+                                                                            border-radius: 50%;
+                                                                            width: 17em !important;"/>
+                                                    <?php } ?>
+                                                    <div class="h-12em w-1em t-color-red f-weight-bold f-size-19px"
+                                                         style="position: absolute; margin-left: 10em">
+                                                        <?php
+                                                        $date_added = date('Y-m-d', strtotime($rows['date_added']));
+                                                        $current_date = date('Y-m-d');
 
-                                        echo ($date_added === $current_date) ? 'New' : '';
-                                        ?>
-                                    </div>
-                                    <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
+                                                        echo ($date_added === $current_date) ? 'New' : '';
+                                                        ?>
+                                                    </div>
+                                                    <div style="position: absolute;     margin-top: 20em;" id="mobile-b">
 
-                                            <br>
-                                            name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
-                                            grade: <?php echo $rows['grade'] ?> <br>
-                                            subject: <?php echo $rows['subject'] ?>
+                                                            <br>
+                                                            name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?> <br>
+                                                            grade: <?php echo $rows['grade'] ?> <br>
+                                                            subject: <?php echo $rows['subject'] ?>
 
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endwhile; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endwhile; ?>
 
-                        <?php $stmt->close();
-                    } ?>
+                                        <?php $stmt->close();
+                                    } ?>
                 </div>
 
 

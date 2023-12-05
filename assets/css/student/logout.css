@@ -8,7 +8,7 @@
     height: 90vh;
 }
 
-.change-password-container .form {
+.change-password-container form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,11 +20,11 @@
     max-width: 32rem;
 }
 
-.change-password-container .form:hover {
+.change-password-container form:hover {
     box-shadow: none;
 }
 
-.change-password-container .form input[type="password"] {
+.change-password-container form input[type="password"] {
     border: none;
     outline: none;
     border: 1px solid var(--color-light);
@@ -34,15 +34,15 @@
     padding: 0 0.5rem;
 }
 
-.change-password-container .form .box {
+.change-password-container form .box {
     padding: 0.5rem 0;
 }
 
-.change-password-container .form .box p {
+.change-password-container form .box p {
     line-height: 2;
 }
 
-.change-password-container .form h2 + p {
+.change-password-container form h2 + p {
     margin: 0.4rem 0 1.2rem 0;
 }
 
@@ -62,9 +62,4 @@
 .btn:hover {
     color: var(--color-primary);
     background-color: transparent;
-}
-
-.error-message {
-    color: red;
-    margin-top: 0.5rem;
 }

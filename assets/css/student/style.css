@@ -102,11 +102,11 @@ b {
 .container {
   position: relative;
   display: grid;
-  width: 93%;
+  width: 94%;
   margin: 0 3rem;
   gap: 1.8rem;
-  grid-template-columns: 10rem auto 10rem;
-  /*padding-top: 4rem;*/
+  grid-template-columns: 10rem auto 7rem;
+  padding-top: 4rem;
 }
 header h3 {
   font-weight: 500;
