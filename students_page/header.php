@@ -1,22 +1,25 @@
-<?php global $var, $rows; ?>
-
 <?php
+global $var, $rows;
+
+// Start the session
+session_start();
+
 global $conn;
 include "../../db_conn.php";
 
-session_start();
+// Check user type in the session
 if (!isset($_SESSION['user_type'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
-
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $sql = "SELECT ui.id AS idUI, ui.*, si.* FROM users_info ui LEFT JOIN students_info si ON si.lrn = ui.user_lrn
-WHERE ui.id='$id'";
+                WHERE ui.id='$id'";
         $result = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_assoc($result);
     }
 
+    // Check if $rows is not set or empty
     if (isset($_POST['logout'])) {
         unset($_SESSION['user_type']); // remove it now we have used it
         unset($_SESSION['ids']); // remove it now we have used it
@@ -40,113 +43,40 @@ WHERE ui.id='$id'";
 
         echo "<script>window.location.href='?id=$id'</script>";
     }
+
+    if (isset($_POST['darkMode'])) {
+        $darkMode = $_POST['darkMode'];
+        $id = $_POST['id'];
+
+        $sql = "UPDATE users_info SET dark_mode='$darkMode' WHERE id='$id'";
+        $result = mysqli_query($conn, $sql);
+
+        // Update dark mode session
+        $_SESSION['dark_mode'] = $darkMode;
+    }
+
+    $id = $_GET['id'];
+    // Fetch dark mode setting from the database
+    $sqlDarkMode = "SELECT dark_mode FROM users_info WHERE id='$id'";
+    $resultDarkMode = mysqli_query($conn, $sqlDarkMode);
+    $rowDarkMode = mysqli_fetch_assoc($resultDarkMode);
+    $darkModeFromDB = $rowDarkMode['dark_mode'];
+//    echo "<script> alert('$darkModeFromDB')</script>";
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <title>MABES GRADE | INQUIRY</title>
-<link rel="shortcut icon" href="../../assets/img/mabes.png"/>
+<link rel="shortcut icon" href="../../assets/img/mabes.png" />
 <head>
-    <link rel="stylesheet" href="../../assets/css/student/style.css"/>
-    <link rel="stylesheet" href="../../assets/css/student/common.css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="../../assets/css/student/style.css" />
+    <link rel="stylesheet" href="../../assets/css/student/common.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="../../assets/js/js_header.js" defer></script>
-
-
 </head>
-<body>
-
-<div>
-    <!--    <div id="modal-logout" class="modal2">-->
-    <!--        <div class="square">-->
-    <!--            <div class="modal-content">-->
-    <!--                <div class="modal-content1">-->
-    <!--                    <div class="modal-logo  d-flex-center">-->
-    <!--                        <img src="../../assets/img/logout.png" width="60" height="60" alt="">-->
-    <!--                    </div>-->
-    <!--                    <div class="modal-short-msg d-flex-center">-->
-    <!--                        <h1> Are you sure? </h1>-->
-    <!--                    </div>-->
-    <!--                    <div class="modal-long-msg  d-flex-center">-->
-    <!--                        <h7>-->
-    <!--                            Do you really want to logout? This process cannot be undone.-->
-    <!--                        </h7>-->
-    <!--                    </div>-->
-    <!--                    <div class="modal-msg-choice d-flex-center">-->
-    <!--                        <div class="modal-msg-choice-yes btn">-->
-    <!--                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-cancel">Cancel</button>-->
-    <!--                        </div>-->
-    <!--                        <div class="modal-msg-choice-no">-->
-    <!--                            <button class="btn-primary btn" id="modal-ok">Ok</button>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-</div>
-<style>
-
-    h1 {
-        display: flex;
-        align-items: center;
-        font-family: 'Arial', sans-serif;
-        font-size: 2rem;
-        margin: 0;
-        color: #333;
-    }
-
-    span {
-        color: #4CAF50;
-        margin-right: 5px;
-        animation: scaleIn 1s ease-out;
-    }
-
-    /* Keyframes for scaleIn animation */
-    @keyframes scaleIn {
-        0% {
-            transform: scale(0);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    /* Style for the "|" character */
-    .separator {
-        font-size: 1.5rem;
-        margin: 0 8px;
-        color: #2196F3; /* Blue color for the separator */
-    }
-
-    /* Style for "GRADE INQUIRY" */
-    .grade-inquiry {
-        color: #FFA500;
-        animation: fadeIn 1s ease-out;
-    }
-
-    /* Keyframes for fadeIn animation */
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    /* Responsive styles */
-    @media (max-width: 600px) {
-        h1 {
-            display: none; /* Hide the entire heading on small screens */
-        }
-    }
-</style>
+<body <?php echo (isset($rows) && !empty($rows)) ? (isset($darkModeFromDB) && $darkModeFromDB == 1 ? 'class="dark-theme"' : '') : 'style="display:none;"'; ?>>
 <header>
     <div class="logo" title="MABES">
         <img src="../../assets/img/mabes.png" alt=""/>
@@ -188,7 +118,6 @@ WHERE ui.id='$id'";
         <span class="material-icons-sharp">dark_mode</span>
     </div>
 </header>
-
 <div class="container">
     <aside class="side-container">
         <div class="profile">
@@ -220,36 +149,65 @@ WHERE ui.id='$id'";
         </div>
     </aside>
 
-    <!--    <main>-->
-    <!--        <h1>SECTION A</h1>-->
-    <!--        LIST OF STUDENT HERE-->
-    <!--    </main>-->
-
     <script src="../../assets/js/student/app.js"></script>
-</body>
 
 <script>
 
     function logout() {
-        $('#modal-logout').attr('style', 'display: block !important;')
+        $('#modal-logout').attr('style', 'display: block !important;');
     }
 
     function changePassword() {
-        $('#modal-change-password').attr('style', 'display: block !important;')
+        $('#modal-change-password').attr('style', 'display: block !important;');
     }
 
     $(document).on('click', '#modal-cancel', function (e) {
-        $('#modal-logout').attr('style', 'display: none !important;')
-        $('#modal-change-password').attr('style', 'display: none !important;')
+        $('#modal-logout').attr('style', 'display: none !important;');
+        $('#modal-change-password').attr('style', 'display: none !important;');
     });
 
     $(document).on('click', '#modal-ok', function (e) {
-        Post('', {logout: 'logout'});
+        Post('', { logout: 'logout' });
     });
 
     $(document).on('click', '#modal-change-password-ok', function (e) {
         var change_password = $('.change-pass').val();
-        Post('', {changePass: change_password});
+        Post('', { changePass: change_password });
     });
+
+    themeToggler.onclick = function () {
+        document.body.classList.toggle('dark-theme');
+        themeToggler.querySelector('span:nth-child(1)').classList.toggle('active');
+        themeToggler.querySelector('span:nth-child(2)').classList.toggle('active');
+
+        // Check if body has the class 'dark-theme'
+        var darkMode = document.body.classList.contains('dark-theme') ? 1 : 0;
+
+        // Use AJAX to update the dark mode session in PHP
+        $.ajax({
+            type: 'POST',
+            url: 'index.php', // Replace with the actual PHP script URL
+            data: { darkMode: darkMode, id: <?php echo $_GET['id'] ?> },
+            success: function (response) {
+                console.log('Dark mode session updated successfully.');
+            },
+            error: function (error) {
+                console.error('Error updating dark mode session:', error);
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        // Fetch dark mode setting from the database
+        var darkModeFromDB = <?php echo $darkModeFromDB; ?>;
+
+        // Set 'dark-theme' class if dark mode is enabled
+        if (darkModeFromDB === 1) {
+            document.body.classList.add('dark-theme');
+        }
+    });
+
+
 </script>
+
 </html>

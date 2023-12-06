@@ -1527,8 +1527,6 @@ include "../../db_conn.php";
             var to = $('.search-to').val();
             window.location.href = '?id=<?php echo $_GET['id'] ?>&&from=' + from + '&&to=' + to;
         }
-
-
     }
 
     function loadPage() {

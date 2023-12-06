@@ -106,8 +106,8 @@ if (isset($_POST['deleteId'])) {
 
         $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
         $resultDeleteUser = mysqli_query($conn, $sqlDeleteUser);
-    } else if($userType === 'student') {
-
+    } else if($userType === 'student')
+    {
         $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
         $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
         $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
@@ -186,6 +186,9 @@ if (isset($_POST['deleteId'])) {
 
         $sqlPromotedStudentsHistory = "delete from promoted_info where student_lrn = '$lrn'";
         $resultPromotedStudentsHistory = mysqli_query($conn, $sqlPromotedStudentsHistory);
+    } else {
+        $sqlDeleteuserInfo = "delete from users_info where id = '$id'";
+        $resultDeleteuserInfo = mysqli_query($conn, $sqlDeleteuserInfo);
     }
 
 

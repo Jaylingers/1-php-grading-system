@@ -105,8 +105,9 @@ b {
   width: 94%;
   margin: 0 3rem;
   gap: 1.8rem;
-  grid-template-columns: 10rem auto 7rem;
+  grid-template-columns: 15rem auto 7rem;
   padding-top: 4rem;
+  height: 90vh;
 }
 header h3 {
   font-weight: 500;
@@ -510,6 +511,7 @@ main .timetable.active .closeBtn {
     height: 100%;
     box-shadow: 1rem 3rem 4rem var(--color-light);
     transition: all 2s ease;
+    margin-top: 7em;
   }
   aside.active {
     transform: translateX(0);

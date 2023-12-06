@@ -509,6 +509,8 @@ if (isset($_POST['addStudents'])) {
             <div id="view-promoted-students" class="modal-child pad-bottom-2em d-none">
                 <div class="m-2em d-flex-align-start">
                     <div class="bg-white w-100p b-radius-10px ">
+                        <input placeholder="from" id="search_name" type="date" class="search-from m-b-5px" onchange="search('date')"/>
+                        <input placeholder="to" id="search_name" type="date" class="search-to m-b-5px" onchange="search('date')"/>
                         <div class="f-right  m-r-13px">
                             <button type="submit"
                                     class="c-hand bg-hover-skyBlue btn"
@@ -677,8 +679,16 @@ if (isset($_POST['addStudents'])) {
                                 </svg>
                             </button>
                         </div>
-                        <br/> <br/>
+                        <br/>
                         <?php
+                        $from = isset($_GET['from']) ? $_GET['from'] : '';
+                        $to = isset($_GET['to']) ? $_GET['to'] : '';
+
+                        // Extract year from the 'from' parameter
+                        $from = date('Y', strtotime($from));
+
+                        // Extract year from the 'to' parameter
+                        $to = date('Y', strtotime($to));
 
 
                         $sqlSelectUser = "SELECT * FROM `users_info` where id = '$id'";
@@ -692,12 +702,13 @@ if (isset($_POST['addStudents'])) {
                         $grade = $rows['grade'];
                         $section = $rows['section'];
 
-                        $sql = "SELECT sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
+                        $sql = "SELECT sei.school_year,sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade' and ps.section='$section'
+                       AND sei.school_year >= '$from' AND sei.school_year <= '$to'
                         GROUP BY si.id order by si.lrn DESC Limit 1";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
@@ -705,24 +716,26 @@ if (isset($_POST['addStudents'])) {
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("SELECT sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
+                        $total_pages = $mysqli->query("SELECT sei.school_year,sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and ps.section='$section'
+                        AND sei.school_year >= '$from' AND sei.school_year <= '$to'
                         GROUP BY si.id order by si.lrn DESC")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("SELECT sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
+                        if ($stmt = $mysqli->prepare("SELECT sei.school_year,sei.date_enrolled,GROUP_CONCAT( sei.grade SEPARATOR ', ') as g_level, si.id, si.lrn, si.f_name, si.l_name, si.b_date, si.age, si.gender,ps.date as date_promoted,
                         sei.section,si.c_status, si.religion, si.contact_number, si.m_name, si.b_place, si.nationality, si.email_address,si.home_address, si.guardian_name, sei.grade_status
                         FROM `students_info` si 
                         left join students_enrollment_info sei on sei.students_info_lrn = si.lrn 
                         inner join promoted_students_history ps on ps.student_lrn = sei.students_info_lrn
                         where sei.grade='$grade'  and ps.section='$section'
+                        AND sei.school_year >= '$from' AND sei.school_year <= '$to'
                         GROUP BY si.id order by si.lrn DESC LIMIT ?,?")) {
                         // Calculate the page to get the results we need from our table.
                         $calc_page = ($page - 1) * $num_results_on_page;
@@ -746,6 +759,7 @@ if (isset($_POST['addStudents'])) {
                                 <th>Gender</th>
                                 <th>Grade</th>
                                 <th>Section</th>
+                                <th>School Year</th>
                                 <th>Date Enrolled</th>
                                 <th>Date Promoted</th>
                                 <th>Status</th>
@@ -769,6 +783,7 @@ if (isset($_POST['addStudents'])) {
                                     <td><?= $row['gender'] ?></td>
                                     <td><?= $row['g_level'] ?></td>
                                     <td><?= $row['section'] ?></td>
+                                    <td><?= $row['school_year'] ?></td>
                                     <td><?= $row['date_enrolled'] ?></td>
                                     <td><?= $row['date_promoted'] ?></td>
                                     <td>Promoted to Grade <?= $row['g_level'] + 1 ?></td>
@@ -1306,13 +1321,21 @@ if (isset($_POST['addStudents'])) {
     }
 
     function viewPromote(status) {
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        var nextYear = currentYear + 1;
+
         if (status === 'add promoted students') {
-            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&addPromoted=1')
+            history.pushState({ page: 'another page' }, 'another page', `?id=<?php echo $_GET['id']?>&&addPromoted=1`);
         } else {
-            history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id']?>&&promoted=1')
+            var fromDate = `${currentYear}-12-08`;
+            var toDate = `${nextYear}-12-09`;
+            history.pushState({ page: 'another page' }, 'another page', `?id=<?php echo $_GET['id']?>&&promoted=1&&from=${fromDate}&&to=${toDate}`);
         }
+
         window.location.reload();
     }
+
 
     function loadPage() {
         var promoted = '<?php if (isset($_GET['promoted'])) echo $_GET['promoted']?>';
@@ -1329,9 +1352,26 @@ if (isset($_POST['addStudents'])) {
         if (added_successfully !== '') {
             $('#modal-addedSuccessfully').attr('style', 'display: block;')
         }
+        
+        var from = '<?php echo isset($_GET['from']) ? $_GET['from'] : '' ?>';
+        if (from !== '') {
+            $('.search-from').val(from);
+        }
+
+        var to = '<?php echo isset($_GET['to']) ? $_GET['to'] : '' ?>';
+        if (to !== '') {
+            $('.search-to').val(to);
+        }
+
+
 
     }
 
+    function search(status) {
+            var from = $('.search-from').val();
+            var to = $('.search-to').val();
+            window.location.href = '?id=<?php echo $_GET['id'] ?>&&promoted=<?php echo  isset($_GET['promoted']) ? $_GET['promoted'] : '' ?>&&from=' + from + '&&to=' + to;
+    }
     loadPage();
 </script>
 <link href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" rel="stylesheet"/>
