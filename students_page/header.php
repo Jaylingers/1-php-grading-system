@@ -190,7 +190,7 @@ WHERE ui.id='$id'";
 </header>
 
 <div class="container">
-    <aside>
+    <aside class="side-container">
         <div class="profile">
             <div class="top">
                 <div class="profile-photo">
@@ -202,12 +202,18 @@ WHERE ui.id='$id'";
                 </div>
             </div>
             <div class="about">
-                <h5>Student Info</h5>
+                <h5>STUDENT INFORMATION</h5>
                 <p>Name: <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
+                <h5>Birthdate</h5>
+                <p><?= $rows['b_date'] ?></p>
+                <h5>Gender</h5>
+                <p><?= $rows['gender'] ?></p>
+                <h5>Age</h5>
+                <p><?= $rows['age'] ?></p>
                 <h5>Contact</h5>
                 <p><?= $rows['contact_number'] ?></p>
                 <h5>Email</h5>
-                <p><?= $rows['email'] ?></p>
+                <p><?= $rows['email_address'] ?></p>
                 <h5>Address</h5>
                 <p><?= $rows['home_address'] ?></p>
             </div>

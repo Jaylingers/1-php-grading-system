@@ -7,6 +7,21 @@ include '../../students_page/header.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="../../assets/css/student/change_password.css"/>
 </head>
+<style>
+    /* Style for the custom select */
+.custom-select {
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 5px;
+    padding: 8px; /* Padding */
+    box-sizing: border-box; /* Include padding in the width/height calculation */
+}
+
+/* Style for the options within the drop-down */
+.custom-select option {
+    padding: 8px; /* Adjust padding as needed */
+}
+
+</style>
 <body>
 <div>
     <div class="d-flex-center w-100p">
@@ -16,11 +31,11 @@ include '../../students_page/header.php'; ?>
 
                 <div class="m-2em d-flex-align-start m-2em ">
                     <div class="w-100p b-radius-10px pad-1em" id="mobile-scroll">
-                        <div class="mobile-width pad-1em b-bottom-gray-3px f-weight-bold">
+                        <div class="mobile-width pad-1em b-bottom-dark-3px f-weight-bold">
                             <div id="gradeLabel" class="pad-left-5p m-t-4em">
                                 Choose Grade:
                                 <select name="grade" id="grade" onchange="chooseGrade(this.value)"
-                                        class="c-hand h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px">
+        class="c-hand h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px custom-select">
                                     <option value="" selected></option>
                                     <option value="1">Grade 1</option>
                                     <option value="2">Grade 2</option>
