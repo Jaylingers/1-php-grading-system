@@ -1995,7 +1995,7 @@ if (isset($_POST['add-student-grade'])) {
 
                     </table>
                 </div>
-                <div class="p-absolute btm-1em r-1em action-button d-flex-center">
+                <div class="p-absolute btm-1em r-1em action-button d-flex-center" id="print-settings">
                     <label class="btn bg-hover-gray-dark-v1 m-b-0"
                            onclick="backModal('view-student-enrollment', 'Student Enrollment','white')"
                            style="padding:0;background-color: #ffffff !important; border-color: #ffffff;">
@@ -2793,6 +2793,7 @@ if (isset($_POST['add-student-grade'])) {
     }
 
     function print(id) {
+        $('#print-settings').attr('style', 'display: none !important;');
         var orientation;
         xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
@@ -2809,7 +2810,6 @@ if (isset($_POST['add-student-grade'])) {
                 }, 100);
             });
         }, {
-            // style: 'width:420px;font-size:0.8rem;',
             buttons: {
                 ok: 'Landscape',
                 cancel: 'Portrait'
@@ -2826,6 +2826,7 @@ if (isset($_POST['add-student-grade'])) {
                     setTimeout(function () {
                         WinPrint.print();
                         WinPrint.close();
+                        $('#print-settings').attr('style', '');
                     }, 1000);
                 });
             }
