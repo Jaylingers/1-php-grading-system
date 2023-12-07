@@ -1638,42 +1638,42 @@ if (isset($_POST['update-student-info'])) {
                         while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
                             ?>
                             <tr>
-                                <th >Days of School</th>
-                                <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['sep_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['oct_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['nov_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['dec_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['jan_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['feb_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['mar_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['apr_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['may_days_classes'] ?></th>
+                                <th>Days of School</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] === 0 ? '' : $rowUser['june_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_classes'] === 0 ? '' : $rowUser['july_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_classes'] === '0' ? '' : $rowUser['aug_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_classes'] === '0' ? '' : $rowUser['sep_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_classes'] === '0' ? '' : $rowUser['oct_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_classes'] === '0' ? '' : $rowUser['nov_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_classes'] === '0' ? '' : $rowUser['dec_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_classes'] === '0' ? '' : $rowUser['jan_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_classes'] === '0' ? '' : $rowUser['feb_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_classes'] === '0' ? '' : $rowUser['mar_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_classes'] === '0' ? '' : $rowUser['apr_days_classes']?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_classes'] === '0' ? '' : $rowUser['may_days_classes']?></th>
                                 <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
                             </tr>
                             <tr>
-                                <th >Days Present</th>
-                                <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['may_days_presents'] ?></th>
+                                <th>Days Present</th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents']  === '0' ? '' : $rowUser['june_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_presents']  === '0' ? '' : $rowUser['july_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] === '0' ? '' : $rowUser['aug_days_presents']  ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] === '0' ? '' : $rowUser['sep_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] === '0' ? '' : $rowUser['oct_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] === '0' ? '' : $rowUser['nov_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] === '0' ? '' : $rowUser['dec_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] === '0' ? '' : $rowUser['jan_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] === '0' ? '' : $rowUser['feb_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] === '0' ? '' : $rowUser['mar_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] === '0' ? '' : $rowUser['apr_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_presents'] === '0' ? '' : $rowUser['may_days_presents'] ?></th>
                                 <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
                             </tr>
                         <?php } ?>
 
                     </table>
                 </div>
-                <div class="p-absolute btm-1em r-1em action-button d-flex-center">
+                <div class="p-absolute btm-1em r-1em action-button d-flex-center" id="print-settings">
                     <img  onclick="backModal('view-student-enrollment', 'Student Enrollment','white')"  src="../../assets/img/back.png" alt="" width="60" height="60" class="c-hand">
                   &nbsp;&nbsp;&nbsp; <svg class="c-hand" onclick="print('view-student-grade')"  width="50" height="50"  data-name="Layer 1" id="Layer_1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#40bdff;}.cls-2{fill:#eb5639;}.cls-3{fill:#d84936;}.cls-4{fill:#effafe;}.cls-5{fill:#2197f7;}.cls-6{fill:#e4ebed;}.cls-7{fill:#263238;}.cls-8{fill:#fd0;}</style></defs><title/><path class="cls-1" d="M236,84.62H25a8,8,0,0,0-8,8v70.77a8,8,0,0,0,8,8H51.87V145.13H39.5a2,2,0,0,1,0-4h177a2,2,0,0,1,0,4H204.13v26.26H236a8,8,0,0,0,8-8V92.62A8,8,0,0,0,236,84.62ZM85.51,102.18a2,2,0,0,1-2,2H68.38a2,2,0,0,1,0-4H83.51A2,2,0,0,1,85.51,102.18Zm-30.26,0a9.57,9.57,0,0,1-9.56,9.56H30.56a9.56,9.56,0,0,1,0-19.13H45.69A9.58,9.58,0,0,1,55.26,102.18Z"/><path class="cls-2" d="M45.69,96.62H30.56a5.56,5.56,0,0,0,0,11.13H45.69a5.56,5.56,0,0,0,0-11.13Z"/><path class="cls-3" d="M45.69,96.62h-3a5.56,5.56,0,0,1,0,11.13h3a5.56,5.56,0,0,0,0-11.13Z"/><path class="cls-4" d="M68.87,231.9H192.13a8,8,0,0,0,8-8V145.13H60.87V223.9A8,8,0,0,0,68.87,231.9Zm1.64-15.13h115a2,2,0,0,1,0,4h-115a2,2,0,0,1,0-4Zm115-11.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Zm0-15.13h-115a2,2,0,0,1,0-4h115a2,2,0,0,1,0,4Z"/><path class="cls-4" d="M200.13,32.1a8,8,0,0,0-8-8H68.87a8,8,0,0,0-8,8V80.62H200.13Z"/><path class="cls-5" d="M236,84.62h-5a8,8,0,0,1,8,8v70.77a8,8,0,0,1-8,8h5a8,8,0,0,0,8-8V92.62A8,8,0,0,0,236,84.62Z"/><path class="cls-6" d="M195.13,145.13V223.9a8,8,0,0,1-8,8h5a8,8,0,0,0,8-8V145.13Z"/><path class="cls-6" d="M192.13,24.1h-5a8,8,0,0,1,8,8V80.62h5V32.1A8,8,0,0,0,192.13,24.1Z"/><path class="cls-7" d="M236,80.12H204.63v-48a12.51,12.51,0,0,0-12.5-12.5H63.87a12.51,12.51,0,0,0-12.5,12.5v48H20A12.51,12.51,0,0,0,7.5,92.62v70.77A12.51,12.51,0,0,0,20,175.88H51.37v48a12.51,12.51,0,0,0,12.5,12.5H192.13a12.51,12.51,0,0,0,12.5-12.5v-48H236a12.51,12.51,0,0,0,12.5-12.5V92.62A12.51,12.51,0,0,0,236,80.12ZM56.37,32.1a7.51,7.51,0,0,1,7.5-7.5H192.13a7.51,7.51,0,0,1,7.5,7.5v48H56.37ZM199.63,173.38V223.9a7.51,7.51,0,0,1-7.5,7.5H63.87a7.51,7.51,0,0,1-7.5-7.5V145.63H199.63Zm43.87-10a7.51,7.51,0,0,1-7.5,7.5H204.63V145.63H216.5a2.5,2.5,0,0,0,0-5H39.5a2.5,2.5,0,0,0,0,5H51.37v25.26H20a7.51,7.51,0,0,1-7.5-7.5V92.62a7.51,7.51,0,0,1,7.5-7.5H236a7.51,7.51,0,0,1,7.5,7.5Z"/><path class="cls-7" d="M45.69,92.12H30.56a10.06,10.06,0,0,0,0,20.13H45.69a10.06,10.06,0,0,0,0-20.13Zm0,15.13H30.56a5.06,5.06,0,0,1,0-10.13H45.69a5.06,5.06,0,0,1,0,10.13Z"/><path class="cls-7" d="M83.51,99.68H68.38a2.5,2.5,0,0,0,0,5H83.51a2.5,2.5,0,0,0,0-5Z"/><path class="cls-7" d="M70.51,160.76h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,175.88h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,191h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,206.14h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-7" d="M70.51,221.27h115a2.5,2.5,0,0,0,0-5h-115a2.5,2.5,0,0,0,0,5Z"/><path class="cls-8" d="M23,196H19v-4a1,1,0,0,0-2,0v4H13a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0v-4h4a1,1,0,0,0,0-2Z"/><path class="cls-8" d="M233,188.25h-4v-4a1,1,0,0,0-2,0v4h-4a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0v-4h4a1,1,0,0,0,0-2Z"/><path class="cls-1" d="M26.32,28h-4V24a1,1,0,0,0-2,0v4h-4a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V30h4a1,1,0,0,0,0-2Z"/><path class="cls-1" d="M220,31.6a6,6,0,1,1,6-6A6,6,0,0,1,220,31.6Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,220,21.6Z"/><path class="cls-1" d="M38.13,241a6,6,0,1,1,6-6A6,6,0,0,1,38.13,241Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,38.13,231Z"/><path class="cls-8" d="M227.72,72.75a6,6,0,1,1,6-6A6,6,0,0,1,227.72,72.75Zm0-10a4,4,0,1,0,4,4A4,4,0,0,0,227.72,62.75Z"/><path class="cls-1" d="M228.33,228.5h-2.59l1.83-1.83a1,1,0,0,0-1.41-1.41l-1.83,1.83V224.5a1,1,0,0,0-2,0v2.59l-1.83-1.83a1,1,0,0,0-1.41,1.41l1.83,1.83h-2.59a1,1,0,0,0,0,2h2.59l-1.83,1.83a1,1,0,0,0,1.41,1.41l1.83-1.83v2.59a1,1,0,0,0,2,0v-2.59l1.83,1.83a1,1,0,0,0,1.41-1.41l-1.83-1.83h2.59a1,1,0,0,0,0-2Z"/></svg>
                 </div>
@@ -1927,6 +1927,7 @@ if (isset($_POST['update-student-info'])) {
     }
 
     function print(id) {
+        $('#print-settings').attr('style', 'display: none !important;');
         var orientation;
         xdialog.confirm('Choose Print Orientation?', function () {
             orientation = 'landscape';
@@ -1943,7 +1944,6 @@ if (isset($_POST['update-student-info'])) {
                 }, 100);
             });
         }, {
-            // style: 'width:420px;font-size:0.8rem;',
             buttons: {
                 ok: 'Landscape',
                 cancel: 'Portrait'
@@ -1960,10 +1960,12 @@ if (isset($_POST['update-student-info'])) {
                     setTimeout(function () {
                         WinPrint.print();
                         WinPrint.close();
+                        $('#print-settings').attr('style', '');
                     }, 1000);
                 });
             }
         });
+
     }
 
     function loadPage() {

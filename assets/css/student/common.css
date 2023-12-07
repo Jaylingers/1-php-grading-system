@@ -245,6 +245,30 @@ tr:nth-child(even) {
     vertical-align: top;
     border-top: 1px solid #dee2e6;
 }
+
+.custom-table-sm thead {
+    background-color: gray !important;
+    color: white;
+}
+
+.custom-table-sm thead th{
+    color: white !important;
+}
+.custom-table-sm {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.custom-table-sm thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.custom-table-sm td, .custom-table-sm th {
+    padding: 0.5rem !important;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
 th {
     text-align: inherit;
 }

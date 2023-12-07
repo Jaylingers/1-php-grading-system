@@ -130,7 +130,7 @@ include '../../students_page/header.php'; ?>
                                     <?php } ?>
                                     <div>
 
-                                        <table class="custom-table table-bordered w-100p m-t-2em">
+                                        <table class="custom-table-sm table-bordered w-100p m-t-2em">
                                             <col>
                                             <col>
                                             <col>
@@ -204,7 +204,7 @@ include '../../students_page/header.php'; ?>
                                         <?php } ?>
 
 
-                                        <table class="custom-table table-bordered w-100p m-t-2em">
+                                        <table class="custom-table-sm table-bordered w-100p m-t-2em">
                                             <col>
                                             <col>
                                             <col>
@@ -245,34 +245,34 @@ include '../../students_page/header.php'; ?>
                                                 ?>
                                                 <tr>
                                                     <th>Days of School</th>
-                                                    <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['sep_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['oct_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['nov_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['dec_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['jan_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['feb_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['mar_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['apr_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['may_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['june_days_classes'] === 0 ? '' : $rowUser['june_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['july_days_classes'] === 0 ? '' : $rowUser['july_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['aug_days_classes'] === '0' ? '' : $rowUser['aug_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['sep_days_classes'] === '0' ? '' : $rowUser['sep_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['oct_days_classes'] === '0' ? '' : $rowUser['oct_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['nov_days_classes'] === '0' ? '' : $rowUser['nov_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['dec_days_classes'] === '0' ? '' : $rowUser['dec_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['jan_days_classes'] === '0' ? '' : $rowUser['jan_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['feb_days_classes'] === '0' ? '' : $rowUser['feb_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['mar_days_classes'] === '0' ? '' : $rowUser['mar_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['apr_days_classes'] === '0' ? '' : $rowUser['apr_days_classes']?></th>
+                                                    <th class="t-align-center"><?= $rowUser['may_days_classes'] === '0' ? '' : $rowUser['may_days_classes']?></th>
                                                     <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
                                                 </tr>
                                                 <tr>
                                                     <th>Days Present</th>
-                                                    <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['sep_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['oct_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['nov_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['dec_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['jan_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['feb_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['mar_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['apr_days_presents'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['may_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['june_days_presents']  === '0' ? '' : $rowUser['june_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['july_days_presents']  === '0' ? '' : $rowUser['july_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['aug_days_presents'] === '0' ? '' : $rowUser['aug_days_presents']  ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['sep_days_presents'] === '0' ? '' : $rowUser['sep_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['oct_days_presents'] === '0' ? '' : $rowUser['oct_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['nov_days_presents'] === '0' ? '' : $rowUser['nov_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['dec_days_presents'] === '0' ? '' : $rowUser['dec_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['jan_days_presents'] === '0' ? '' : $rowUser['jan_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['feb_days_presents'] === '0' ? '' : $rowUser['feb_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['mar_days_presents'] === '0' ? '' : $rowUser['mar_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['apr_days_presents'] === '0' ? '' : $rowUser['apr_days_presents'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['may_days_presents'] === '0' ? '' : $rowUser['may_days_presents'] ?></th>
                                                     <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
                                                 </tr>
                                             <?php } ?>

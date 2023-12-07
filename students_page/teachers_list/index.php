@@ -55,19 +55,26 @@ include '../../students_page/header.php'; ?>
                             if ($category === 'teacher') {
                             $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
                             // Build the SQL query
-                            $sql = "select * from teachers_info ti
-                                                          left join teachers_subject_info tsi on tsi.teachers_lrn = ti.lrn
-                                                        left join users_info ui on ui.user_lrn = ti.lrn";
+                            $sql = "SELECT ti.*, ui.*, GROUP_CONCAT(tsi.subject) AS subjects_taught
+                            FROM teachers_info ti
+                            LEFT JOIN teachers_subject_info tsi ON tsi.teachers_lrn = ti.lrn
+                            LEFT JOIN users_info ui ON ui.user_lrn = ti.lrn";
+
                             // Check if userType is empty
                             if (!empty($grade)) {
-                                $sql .= "  where ti.grade = '$grade'";
+                                $sql .= " WHERE ti.grade = '$grade'";
                             }
-                            //                    $sql .= " group by tsi.teachers_lrn";
+
+                            $sql .= " GROUP BY ti.lrn";
+
                             $result = mysqli_query($conn, $sql);
 
+                            // Get total number of rows for pagination
                             $total_pages = $mysqli->query($sql)->num_rows;
+
                             $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                             $num_results_on_page = 12;
+
 
                             $sql .= " LIMIT ?,?";
                             if ($stmt = $mysqli->prepare($sql)) {
@@ -112,7 +119,7 @@ include '../../students_page/header.php'; ?>
                                                 name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
                                                 <br>
                                                 grade: <?php echo $rows['grade'] ?> <br>
-                                                subject: <?php echo $rows['subject'] ?>
+                                                subject: <?php echo $rows['subjects_taught'] ?>
 
                                             </div>
                                         </div>
