@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2023 at 02:39 PM
+-- Generation Time: Dec 07, 2023 at 04:30 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `page_visited_info` (
   `id` int(11) NOT NULL,
   `user_id` int(25) NOT NULL DEFAULT '0',
   `date_visited` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `promoted_students_history` (
   `grade` int(11) NOT NULL DEFAULT '0',
   `section` varchar(25) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `students_grade_attendance_info` (
   `apr_days_presents` int(11) DEFAULT NULL,
   `may_days_classes` int(11) DEFAULT NULL,
   `may_days_presents` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `students_grade_average_info` (
   `students_lrn` varchar(25) NOT NULL DEFAULT '',
   `grade` int(11) NOT NULL,
   `average` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -168,8 +168,9 @@ CREATE TABLE IF NOT EXISTS `students_grade_info` (
   `fourth_grade` int(11) DEFAULT NULL,
   `final` int(11) DEFAULT NULL,
   `units` int(11) NOT NULL,
-  `status` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `status` varchar(25) DEFAULT NULL,
+  `subject_handled_by` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `addedBy` int(11) NOT NULL,
   `teacher_lrn` varchar(25) NOT NULL,
   `date_added` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -237,8 +238,9 @@ CREATE TABLE IF NOT EXISTS `teachers_info` (
   `email_address` varchar(255) NOT NULL,
   `section` varchar(25) NOT NULL,
   `grade` varchar(25) NOT NULL,
-  `date_added` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+  `date_added` date NOT NULL,
+  `contact_number` varchar(25) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -251,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `teachers_subject_info` (
   `teachers_lrn` varchar(25) NOT NULL,
   `subject` varchar(25) NOT NULL,
   `room` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -268,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `trash_info` (
   `removed_date` date NOT NULL,
   `removed_by` varchar(25) NOT NULL,
   `position` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -288,14 +290,14 @@ CREATE TABLE IF NOT EXISTS `users_info` (
   `img_path` varchar(255) NOT NULL,
   `dark_mode` int(11) NOT NULL,
   `change_pass_attempts` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users_info`
 --
 
 INSERT INTO `users_info` (`id`, `last_name`, `first_name`, `username`, `password`, `email`, `user_type`, `user_lrn`, `img_path`, `dark_mode`, `change_pass_attempts`) VALUES
-(24, '1', '1', 'admin', '$2y$10$JIDhY9700BFNM6HC.WS9A.ycXdhpV7hhUCT3kjD06SiTVA2kuqRMK', '', 'admin', '', '../../assets/users_img/24.png', 1, 0);
+(24, '1', '1', 'admin', '$2y$10$JIDhY9700BFNM6HC.WS9A.ycXdhpV7hhUCT3kjD06SiTVA2kuqRMK', '', 'admin', '', '../../assets/users_img/24.png', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -398,7 +400,7 @@ ALTER TABLE `grade_info`
 -- AUTO_INCREMENT for table `page_visited_info`
 --
 ALTER TABLE `page_visited_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `promoted_info`
 --
@@ -408,7 +410,7 @@ ALTER TABLE `promoted_info`
 -- AUTO_INCREMENT for table `promoted_students_history`
 --
 ALTER TABLE `promoted_students_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `students_enrollment_info`
 --
@@ -418,22 +420,22 @@ ALTER TABLE `students_enrollment_info`
 -- AUTO_INCREMENT for table `students_grade_attendance_info`
 --
 ALTER TABLE `students_grade_attendance_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `students_grade_average_info`
 --
 ALTER TABLE `students_grade_average_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `students_grade_info`
 --
 ALTER TABLE `students_grade_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `students_info`
 --
 ALTER TABLE `students_info`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `subject_list_info`
 --
@@ -443,22 +445,22 @@ ALTER TABLE `subject_list_info`
 -- AUTO_INCREMENT for table `teachers_info`
 --
 ALTER TABLE `teachers_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `teachers_subject_info`
 --
 ALTER TABLE `teachers_subject_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `trash_info`
 --
 ALTER TABLE `trash_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users_info`
 --
 ALTER TABLE `users_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
