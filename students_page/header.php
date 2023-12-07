@@ -132,7 +132,9 @@ if (!isset($_SESSION['user_type'])) {
             </div>
             <div class="about">
                 <h5>STUDENT INFORMATION</h5>
-                <p>Name: <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
+                <br>
+                 <h5>Name</h5>
+                <p> <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
                 <h5>Birthdate</h5>
                 <p><?= $rows['b_date'] ?></p>
                 <h5>Gender</h5>
