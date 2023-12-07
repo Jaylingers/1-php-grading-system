@@ -157,7 +157,13 @@ span {
 
 /* End Add Animation */
 
+.w-12em{
+    width: 12em !important;
+}
 
+.w-14em{
+    width: 14em !important;
+}
 #search_name {
     width: 70%;
     padding: 10px;

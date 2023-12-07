@@ -35,7 +35,7 @@ include '../../students_page/header.php'; ?>
                             <div id="gradeLabel" class="pad-left-5p m-t-4em">
                                 Choose Grade:
                                 <select name="grade" id="grade" onchange="chooseGrade(this.value)"
-        class="c-hand h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px custom-select">
+        class="c-hand h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px custom-select w-14em">
                                     <option value="" selected></option>
                                     <option value="1">Grade 1</option>
                                     <option value="2">Grade 2</option>
@@ -44,6 +44,9 @@ include '../../students_page/header.php'; ?>
                                     <option value="5">Grade 5</option>
                                     <option value="6">Grade 6</option>
                                 </select>
+                                <br> <br>
+                               Search Name: <input placeholder="search lrn" id="search_name" type="text" class="search_lrn m-b-5px w-12em"
+                                       onchange="search()"/>
                             </div>
 
                         </div>
@@ -54,6 +57,8 @@ include '../../students_page/header.php'; ?>
 
                             if ($category === 'teacher') {
                             $grade = isset($_GET['grade']) ? $_GET['grade'] : '';
+                            $searchName = isset($_GET['search_name']) ? $_GET['search_name'] : '';
+
                             // Build the SQL query
                             $sql = "SELECT ti.*, ui.*, GROUP_CONCAT(tsi.subject) AS subjects_taught
                             FROM teachers_info ti
@@ -61,8 +66,22 @@ include '../../students_page/header.php'; ?>
                             LEFT JOIN users_info ui ON ui.user_lrn = ti.lrn";
 
                             // Check if userType is empty
-                            if (!empty($grade)) {
-                                $sql .= " WHERE ti.grade = '$grade'";
+                            if (!empty($grade) || !empty($searchName)) {
+                                $sql .= " WHERE";
+
+                                if (!empty($grade)) {
+                                    $sql .= " ti.grade = '$grade'";
+                                }
+
+                                if (!empty($searchName)) {
+                                    // Use 'AND' if both conditions are present
+                                    if (!empty($grade)) {
+                                        $sql .= " AND";
+                                    }
+
+                                    // You can modify this condition based on your database structure (e.g., searching in both first_name and last_name)
+                                    $sql .= " (ti.last_name LIKE '%$searchName%' OR ti.first_name LIKE '%$searchName%')";
+                                }
                             }
 
                             $sql .= " GROUP BY ti.lrn";
@@ -201,7 +220,7 @@ include '../../students_page/header.php'; ?>
 </div>
 <script>
     function chooseGrade(grade) {
-        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&grade=' + grade);
+        history.pushState({page: 'another page'}, 'another page', '?id=<?php echo $_GET['id'] ?>&&grade=' + grade+'&&search_name=<?php echo  isset($_GET['search_name']) ? $_GET['search_name'] : '' ?>');
         window.location.reload();
     }
 
@@ -211,6 +230,16 @@ include '../../students_page/header.php'; ?>
         if (grade !== '') {
             $('#grade').val(grade);
         }
+
+        var search_name = '<?php echo isset($_GET['search_name']) ? $_GET['search_name'] : '' ?>';
+        if (search_name !== '') {
+            $('#search_name').val(search_name);
+        }
+    }
+
+    function search(status) {
+        var search_name = $('#search_name').val();
+        window.location.href = '?id=<?php echo $_GET['id'] ?>&&grade=<?php echo  isset($_GET['grade']) ? $_GET['grade'] : '' ?>&&search_name=' + search_name;
     }
 
     loadPage();
