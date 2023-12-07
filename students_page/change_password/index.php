@@ -36,6 +36,41 @@ if (isset($_POST['changePass1'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="../../assets/css/student/change_password.css"/>
 </head>
+<style>
+    #error-message {
+    color: red;
+}
+
+#save-message {
+    color: green;
+}
+
+/* Add styles for password strength indicators */
+.password-strength {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.password-strength span {
+    flex-grow: 1;
+    height: 10px;
+    margin-right: 5px;
+}
+
+.password-strength .weak {
+    background-color: #ff7f7f; /* Red for weak */
+}
+
+.password-strength .medium {
+    background-color: #ffd27f; /* Orange for medium */
+}
+
+.password-strength .strong {
+    background-color: #aaff7f; /* Green for strong */
+}
+
+</style>
 <body>
 <div class="change-password-container">
     <div class="form">
@@ -45,14 +80,14 @@ if (isset($_POST['changePass1'])) {
         </p>
         <div class="box">
             <p class="text-muted">New Password</p>
-            <input type="password" id="newpass" name="newpass"/>
+            <input type="password" id="newpass" name="newpass" oninput="checkPasswordStrength()"/>
         </div>
         <div class="box">
             <p class="text-muted">Confirm Password</p>
             <input type="password" id="confirmpass"/>
         </div>
         <div id="error-message" class="error-message"></div>
-        <div id="save-message" ></div>
+        <div id="save-message"></div>
         <div class="button">
             <input type="submit" value="Continue" class="btn" name="changePass1" onclick="validatePassword()"/>
         </div>
@@ -97,4 +132,30 @@ if (isset($_POST['changePass1'])) {
         }
     }
     loadPage();
+
+    function checkPasswordStrength() {
+    const password = document.getElementById('newpass').value;
+    const strengthIndicator = document.getElementById('error-message');
+    const strengthText = document.createElement('div');
+    strengthText.innerHTML = 'Password Strength: ';
+
+    // Define the criteria for password strength
+    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const mediumRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    // Check the password against the criteria
+    if (strongRegex.test(password)) {
+        strengthText.innerHTML += '<span class="strong"></span> Strong';
+    } else if (mediumRegex.test(password)) {
+        strengthText.innerHTML += '<span class="medium"></span> Medium';
+    } else {
+        strengthText.innerHTML += '<span class="weak"></span> Weak';
+    }
+
+    // Display the strength indicator
+    strengthIndicator.innerHTML = '';
+    strengthIndicator.appendChild(strengthText);
+}
+
+
 </script>
