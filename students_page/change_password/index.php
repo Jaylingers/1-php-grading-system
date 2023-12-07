@@ -100,6 +100,12 @@ if (isset($_POST['changePass1'])) {
         var confirmPassword = document.getElementById("confirmpass").value;
         var errorMessageElement = document.getElementById("error-message");
 
+        // Check if either newpass or confirmpass is an empty string
+        if (newPassword.trim() === "" || confirmPassword.trim() === "") {
+            errorMessageElement.textContent = "Password fields cannot be empty!";
+            return false;
+        }
+
         // Check if change pass attempts is equal to 3
         var changePassAttempts = <?php
             $sqlUser = "SELECT * FROM users_info WHERE id='$id'";
@@ -124,6 +130,7 @@ if (isset($_POST['changePass1'])) {
         errorMessageElement.textContent = "";
         return true;
     }
+
     function loadPage() {
         var page = window.location.href.split("page=")[1];
         if (page === "change_password") {
