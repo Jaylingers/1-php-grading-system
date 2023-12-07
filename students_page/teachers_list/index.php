@@ -119,8 +119,8 @@ include '../../students_page/header.php'; ?>
                                                 name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
                                                 <br>
                                                 grade: <?php echo $rows['grade'] ?> <br>
-                                                subject: <?php echo $rows['subjects_taught'] ?>
-
+                                                subject: <?php echo $rows['subjects_taught'] ?> <br>
+                                                contact number: <?php echo $rows['contact_number'] ?>
                                             </div>
                                         </div>
                                     </div>

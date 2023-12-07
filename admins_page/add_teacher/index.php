@@ -76,6 +76,7 @@ if (isset($_POST['add-new-teacher'])) {
     $emailAddress = $_POST['emailAddress'];
     $grade = $_POST['grade'];
     $section = $_POST['section'];
+    $contactNumber = $_POST['contactNumber'];
 
     $selectTeacher = "select * from teachers_info where lrn = '$lrn'";
     $resultSelectTeacher = mysqli_query($conn, $selectTeacher);
@@ -92,7 +93,7 @@ if (isset($_POST['add-new-teacher'])) {
     }
 
 
-    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section,date_added) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress','$grade','$section',now())";
+    $sql = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section,date_added,contact_number) values ('$lrn','$firstName','$lastName','$address','$gender','$civilStatus','$emailAddress','$grade','$section',now(),'$contactNumber')";
     $result = mysqli_query($conn, $sql);
 
     // Hash the admin password
@@ -121,7 +122,8 @@ if (isset($_POST['edit-teacher'])) {
     $emailAddress = $_POST['emailAddress'];
     $grade = $_POST['grade'];
     $section = $_POST['section'];
-    $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress', grade='$grade', section='$section' where lrn='$lrn'";
+    $contactNumber = $_POST['contactNumber'];
+    $sqlUpdateTeacher = "update teachers_info set first_name='$firstName', last_name='$lastName', address='$address', gender='$gender', civil_status='$civilStatus', email_address='$emailAddress', grade='$grade', section='$section',contact_number='$contactNumber' where lrn='$lrn'";
     $resultUpdateTeacher = mysqli_query($conn, $sqlUpdateTeacher);
     if ($resultUpdateTeacher) {
         echo '<script>';
@@ -985,6 +987,12 @@ if (isset($_POST['teacherStudentID'])) {
                                 }
                                 ?>
                             </select>
+                            <div class="w-70p m-l-1em">Contact Number</div>
+                            <input placeholder="Contact Number" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="contactNumber"
+                                   name="contactNumber"
+                                   required>
 
                         </div>
 
@@ -1082,6 +1090,12 @@ if (isset($_POST['teacherStudentID'])) {
                                 }
                                 ?>
                             </select>
+                            <div class="w-70p m-l-1em">Contact Number</div>
+                            <input placeholder="Contact Number" type="text"
+                                   class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
+                                   id="contactNumber"
+                                   name="contactNumber"
+                                   required>
 
 
                         </div>
