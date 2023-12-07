@@ -123,7 +123,7 @@ if (!isset($_SESSION['user_type'])) {
         <div class="profile">
             <div class="top">
                 <div class="profile-photo">
-                    <img src="<?= $rows['img_path'] ?>" alt=""/>
+                    <img src="../../assets/img/student.png" alt=""/>
                 </div>
                 <div class="info">
                     <p>Hello, <b><?= $rows['last_name'] ?></b></p>
@@ -132,7 +132,9 @@ if (!isset($_SESSION['user_type'])) {
             </div>
             <div class="about">
                 <h5>STUDENT INFORMATION</h5>
-                <p>Name: <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
+                <br>
+                 <h5>Name</h5>
+                <p> <?= $rows['last_name'] ?>, <?= $rows['first_name'] ?></p>
                 <h5>Birthdate</h5>
                 <p><?= $rows['b_date'] ?></p>
                 <h5>Gender</h5>
