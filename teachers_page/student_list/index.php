@@ -1977,7 +1977,7 @@ if (isset($_POST['add-student-grade'])) {
                                 <th class="t-align-center"><?= $rowUser['mar_days_classes']  ?  $rowUser['mar_days_classes'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['apr_days_classes']  ?  $rowUser['apr_days_classes'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['may_days_classes']  ?  $rowUser['may_days_classes'] : '' ?></th>
-                                <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
+                                <th class="t-align-center"><?= ($rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes']) ? $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] : '' ?></th>
                             </tr>
                             <tr>
                                 <th>Days Present</th>
@@ -1993,7 +1993,7 @@ if (isset($_POST['add-student-grade'])) {
                                 <th class="t-align-center"><?= $rowUser['mar_days_presents'] ? $rowUser['mar_days_presents'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['apr_days_presents'] ? $rowUser['apr_days_presents'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['may_days_presents'] ? $rowUser['may_days_presents'] : '' ?></th>
-                                <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
+                                <th class="t-align-center"><?= ($rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents']) ? $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] : '' ?></th>
                             </tr>
                         <?php } ?>
 
@@ -2314,13 +2314,13 @@ if (isset($_POST['add-student-grade'])) {
                                             <td><input readonly="true" type="text" id="<?= $rowUser['subject'] ?>status"
                                                        name="<?= $rowUser['subject'] ?>status"
                                                        class="w-100p b-none t-align-center"
-                                                       value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : 0 ?>">
+                                                       value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : '' ?>">
                                             </td>
                                             <td><input type="text" id="<?= $rowUser['subject'] ?>subject_handled_by"
                                                        name="<?= $rowUser['subject'] ?>subject_handled_by"
                                                        class="w-100p b-none t-align-center"
                                                        required="true"
-                                                       placeholder="<?= isset($ret['subject_handled_by'][$count]) ? $ret['subject_handled_by'][$count] : 0 ?>">
+                                                       value="<?= isset($ret['subject_handled_by'][$count]) ? $ret['subject_handled_by'][$count] : '' ?>">
                                         </tr>
                                     <?php } ?>
 
