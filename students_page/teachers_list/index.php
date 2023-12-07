@@ -116,11 +116,11 @@ include '../../students_page/header.php'; ?>
                                             <div class="t-color-white">
 
                                                 <br>
-                                                name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
+                                                Name: <?php echo $rows['last_name'] . ', ' . $rows['first_name'] ?>
                                                 <br>
-                                                grade: <?php echo $rows['grade'] ?> <br>
-                                                subject: <?php echo $rows['subjects_taught'] ?> <br>
-                                                contact number: <?php echo $rows['contact_number'] ?>
+                                                Grade: <?php echo $rows['grade'] ?> <br>
+                                                Phone: <?php echo $rows['contact_number'] ?>
+                                                
                                             </div>
                                         </div>
                                     </div>
