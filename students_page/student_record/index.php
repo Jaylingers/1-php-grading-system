@@ -245,8 +245,8 @@ include '../../students_page/header.php'; ?>
                                                 ?>
                                                 <tr>
                                                     <th>Days of School</th>
-                                                    <th class="t-align-center"><?= $rowUser['june_days_classes'] === 0 ? '' : $rowUser['june_days_classes'] ?></th>
-                                                    <th class="t-align-center"><?= $rowUser['july_days_classes'] === 0 ? '' : $rowUser['july_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['june_days_classes'] === '0' ? '' : $rowUser['june_days_classes'] ?></th>
+                                                    <th class="t-align-center"><?= $rowUser['july_days_classes'] === '0' ? '' : $rowUser['july_days_classes'] ?></th>
                                                     <th class="t-align-center"><?= $rowUser['aug_days_classes'] === '0' ? '' : $rowUser['aug_days_classes'] ?></th>
                                                     <th class="t-align-center"><?= $rowUser['sep_days_classes'] === '0' ? '' : $rowUser['sep_days_classes']?></th>
                                                     <th class="t-align-center"><?= $rowUser['oct_days_classes'] === '0' ? '' : $rowUser['oct_days_classes']?></th>

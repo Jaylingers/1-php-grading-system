@@ -320,7 +320,11 @@ if (isset($_POST['add-student-grade'])) {
         $status_ = $subject . 'status';
         $status = $_POST["$status_"];
 
-        $sqlInsertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status) VALUES ('$studentLrn','$teacherLrn','$subject','$grade','$first','$second','$third','$fourth','$final','$unit','$status')";
+        $subject_handled_by = $subject . 'subject_handled_by';
+        $subject_handled_by = $_POST["$subject_handled_by"];
+
+
+        $sqlInsertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status, subject_handled_by) VALUES ('$studentLrn','$teacherLrn','$subject','$grade','$first','$second','$third','$fourth','$final','$unit','$status','$subject_handled_by')";
         $resultInsertStudentGradeInfo = mysqli_query($conn, $sqlInsertStudentGradeInfo);
     }
 
@@ -1961,34 +1965,34 @@ if (isset($_POST['add-student-grade'])) {
                             ?>
                             <tr>
                                 <th>Days of School</th>
-                                <th class="t-align-center"><?= $rowUser['june_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['july_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['aug_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['sep_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['oct_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['nov_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['dec_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['jan_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['feb_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['mar_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['apr_days_classes'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['may_days_classes'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_classes'] ? $rowUser['june_days_classes'] : ''  ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_classes'] ?  $rowUser['july_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_classes']  ?  $rowUser['aug_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_classes']  ?  $rowUser['sep_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_classes']  ?  $rowUser['oct_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_classes']  ?  $rowUser['nov_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_classes']  ?  $rowUser['dec_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_classes']  ?  $rowUser['jan_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_classes']  ?  $rowUser['feb_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_classes']  ?  $rowUser['mar_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_classes']  ?  $rowUser['apr_days_classes'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_classes']  ?  $rowUser['may_days_classes'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['june_days_classes'] + $rowUser['july_days_classes'] + $rowUser['aug_days_classes'] + $rowUser['sep_days_classes'] + $rowUser['oct_days_classes'] + $rowUser['nov_days_classes'] + $rowUser['dec_days_classes'] + $rowUser['jan_days_classes'] + $rowUser['feb_days_classes'] + $rowUser['mar_days_classes'] + $rowUser['apr_days_classes'] + $rowUser['may_days_classes'] ?></th>
                             </tr>
                             <tr>
                                 <th>Days Present</th>
-                                <th class="t-align-center"><?= $rowUser['june_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['july_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] ?></th>
-                                <th class="t-align-center"><?= $rowUser['may_days_presents'] ?></th>
+                                <th class="t-align-center"><?= $rowUser['june_days_presents'] ?  $rowUser['june_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['july_days_presents'] ? $rowUser['july_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['aug_days_presents'] ? $rowUser['aug_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['sep_days_presents'] ? $rowUser['sep_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['oct_days_presents'] ? $rowUser['oct_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['nov_days_presents'] ? $rowUser['nov_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['dec_days_presents'] ? $rowUser['dec_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['jan_days_presents'] ? $rowUser['jan_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['feb_days_presents'] ? $rowUser['feb_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['mar_days_presents'] ? $rowUser['mar_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['apr_days_presents'] ? $rowUser['apr_days_presents'] : '' ?></th>
+                                <th class="t-align-center"><?= $rowUser['may_days_presents'] ? $rowUser['may_days_presents'] : '' ?></th>
                                 <th class="t-align-center"><?= $rowUser['june_days_presents'] + $rowUser['july_days_presents'] + $rowUser['aug_days_presents'] + $rowUser['sep_days_presents'] + $rowUser['oct_days_presents'] + $rowUser['nov_days_presents'] + $rowUser['dec_days_presents'] + $rowUser['jan_days_presents'] + $rowUser['feb_days_presents'] + $rowUser['mar_days_presents'] + $rowUser['apr_days_presents'] + $rowUser['may_days_presents'] ?></th>
                             </tr>
                         <?php } ?>
@@ -2232,6 +2236,7 @@ if (isset($_POST['add-student-grade'])) {
                                         <th class="t-align-center">Final</th>
                                         <th class="t-align-center">Units</th>
                                         <th class="t-align-center">Passed or Failed</th>
+                                        <th class="t-align-center">Subject Handled By</th>
                                     </tr>
                                     <?php
                                     $lrn = isset($_GET['lrn']) ? $_GET['lrn'] : '';
@@ -2261,6 +2266,7 @@ if (isset($_POST['add-student-grade'])) {
                                         $ret['final'][$count1] = $rowUser1['final'];
                                         $ret['units'][$count1] = $rowUser1['units'];
                                         $ret['status'][$count1] = $rowUser1['status'];
+                                        $ret['subject_handled_by'][$count1] = $rowUser1['subject_handled_by'];
                                     }
 
                                     $count = 0;
@@ -2310,6 +2316,11 @@ if (isset($_POST['add-student-grade'])) {
                                                        class="w-100p b-none t-align-center"
                                                        value="<?= isset($ret['status'][$count]) ? $ret['status'][$count] : 0 ?>">
                                             </td>
+                                            <td><input type="text" id="<?= $rowUser['subject'] ?>subject_handled_by"
+                                                       name="<?= $rowUser['subject'] ?>subject_handled_by"
+                                                       class="w-100p b-none t-align-center"
+                                                       required="true"
+                                                       placeholder="<?= isset($ret['subject_handled_by'][$count]) ? $ret['subject_handled_by'][$count] : 0 ?>">
                                         </tr>
                                     <?php } ?>
 
