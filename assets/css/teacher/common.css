@@ -17,3 +17,39 @@
     border-color: #007bff;
     background-color: #fff;
 }
+
+
+.dark-theme #circle-parent {
+    background: rgb(11, 224, 155) !important;
+}
+#circle-child {
+    transition: 0.5s;
+}
+.dark-theme #circle-child {
+    margin-left: 2.6em !important;
+}
+.dark-theme #top {
+    background: #343a40 !important;
+    border-bottom: 3px solid white !important;
+}
+
+.dark-theme #side {
+    background: #343a40 !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+body.dark-theme {
+    background: #343a40 !important
+}
+
+.dark-theme #content {
+    background: #343a40 !important
+}
+
+.dark-theme #user-name, .dark-theme #user-name label {
+    color: white !important;
+}
+
+#circle-parent{
+    background: #b3b3b3;
+}

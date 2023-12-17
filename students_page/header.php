@@ -61,7 +61,6 @@ if (!isset($_SESSION['user_type'])) {
     $resultDarkMode = mysqli_query($conn, $sqlDarkMode);
     $rowDarkMode = mysqli_fetch_assoc($resultDarkMode);
     $darkModeFromDB = $rowDarkMode['dark_mode'];
-//    echo "<script> alert('$darkModeFromDB')</script>";
 }
 ?>
 

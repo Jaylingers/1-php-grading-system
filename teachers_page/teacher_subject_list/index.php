@@ -71,7 +71,7 @@ if (isset($_POST['deleteId'])) {
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
     <div id="content"
-         class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : '' ?>">
+         class="bg-off-white w-79-8p h-100p b-r-7px contents one_page ">
 
         <style>
             .table-1 tbody tr th, .table-1 tbody tr td {

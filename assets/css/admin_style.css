@@ -442,36 +442,39 @@
 }
 
 @media (max-width: 980px) {
-    body{
+    body {
         zoom: 0.5 !important;
     }
-    #content{
+
+    #content {
         zoom: 0.8 !important;
     }
 }
 
-#g4283 path{
+#g4283 path {
     fill: red !important
 }
 
-.modal2{
+.modal2 {
     width: 100%;
     height: 100%;
     position: fixed;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 9999999;
     top: 0;
     left: 0;
     display: none;
 }
-.modal2 .square{
+
+.modal2 .square {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
 }
-.modal2  .square .modal-content{
+
+.modal2 .square .modal-content {
     width: 40em;
     height: 26em;
     background-color: white;
@@ -484,7 +487,8 @@
     position: absolute;
     top: 9em;
 }
-.modal2 .square .modal-content1{
+
+.modal2 .square .modal-content1 {
     width: 93%;
     height: 93%;
     background-color: white;
@@ -492,7 +496,39 @@
     padding: 10px;
     border: 1px solid gray;
 }
-.modal-content1{
+
+.modal-content1 {
     display: grid;
 }
 
+
+.dark-theme #circle-parent {
+    background: rgb(11, 224, 155) !important;
+}
+#circle-child {
+    transition: 0.5s;
+}
+.dark-theme #circle-child {
+    margin-left: 2.6em !important;
+}
+.dark-theme #top {
+    background: #343a40 !important;
+    border-bottom: 3px solid white !important;
+}
+
+.dark-theme #side {
+    background: #343a40 !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+body.dark-theme {
+    background: #343a40 !important
+}
+
+.dark-theme #content {
+    background: #343a40 !important
+}
+
+.dark-theme #user-name, .dark-theme #user-name label {
+    color: white !important;
+}

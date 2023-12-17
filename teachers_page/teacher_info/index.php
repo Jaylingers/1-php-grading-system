@@ -9,7 +9,7 @@ include "../../db_conn.php";
 ?>
 
 <div class="d-flex-end p-absolute w-100p bottom-0 t-60px">
-    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page <?= $rows['dark_mode'] === '1' ? 'bg-dark' : ''  ?> ">
+    <div id="content" class="bg-off-white w-79-8p h-100p b-r-7px contents one_page  ">
 
         <div class="m-2em d-flex-align-start">
             <div class="bg-white w-100p b-radius-10px pad-1em">
