@@ -11,40 +11,38 @@ if (isset($_POST['login'])) {
     }
 
     $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
+    $password = $_POST['password'];
 
     $sql = "SELECT * FROM users_info WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
     $user_data = 'username=' . $username . '&password=' . $password;
-    $pass = password_verify($password, $row['password']);
-
-    echo "<script> console.log('$pass')</script>";
-    echo "<script> console.log('$username')</script>";
+    $hashedPasswordFromDatabase = $row['password'];
+    $isPasswordCorrect = password_verify($password, $hashedPasswordFromDatabase);
+    echo "<script> console.log('$isPasswordCorrect')</script>";
     echo "<script> console.log('$password')</script>";
 
-        $isPasswordCorrect = password_verify($password, $row['password']);
-        if ($isPasswordCorrect && $row) {
-            session_start();
-            $_SESSION['user_type'] = $row['user_type'];
-            $_SESSION['ids'] = $row['id'];
-            $user_type = $row['user_type'];
-            $id = $row['id'];
+    if ($isPasswordCorrect && $row) {
+        session_start();
+        $_SESSION['user_type'] = $row['user_type'];
+        $_SESSION['ids'] = $row['id'];
+        $user_type = $row['user_type'];
+        $id = $row['id'];
 
-            $sqlInsertPageVisited = "insert into page_visited_info (user_id, date_visited) values ('$id', now())";
-            mysqli_query($conn, $sqlInsertPageVisited);
+        $sqlInsertPageVisited = "insert into page_visited_info (user_id, date_visited) values ('$id', now())";
+        mysqli_query($conn, $sqlInsertPageVisited);
 
-            if (strtolower($user_type) == 'student') {
-                header("Location: /1-php-grading-system/students_page/student_info?id=" . $row['id']);
-            } else if (strtolower($user_type) == 'teacher') {
-                header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
-            } else {
-                header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
-            }
+        if (strtolower($user_type) == 'student') {
+            header("Location: /1-php-grading-system/students_page/student_info?id=" . $row['id']);
+        } else if (strtolower($user_type) == 'teacher') {
+            header("Location: /1-php-grading-system/teachers_page/teacher_info?id=" . $row['id']);
         } else {
-        header("Location: /1-php-grading-system/?error=username and password is incorrect, pls try again. &$user_data");
+            header("Location: /1-php-grading-system/admins_page/dashboard?id=" . $row['id']);
         }
+    } else {
+        header("Location: /1-php-grading-system/?error=$user_data");
+    }
 }
 
 session_start();
@@ -147,7 +145,7 @@ if (isset($_SESSION['user_type'])) {
             <span class="login-form-title">Student Login</span>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-danger" role="alert" style="color: red">
-                    <?php echo $_GET['error']; ?>
+                    username and password is incorrect, pls try again.
                 </div>
             <?php } ?>
             <div class="wrap-input">

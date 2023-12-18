@@ -11,12 +11,24 @@ if (isset($_POST['add_user'])) {
     $firstname = $_POST['firstname'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+
+    $sqlLrn = "select * from admin_info order by id desc limit 1";
+    $resultLrn = mysqli_query($conn, $sqlLrn);
+    $rowsLrn = mysqli_fetch_assoc($resultLrn);
+    $lrns1 = $rowsLrn['id'] + 1;
+
+    $sqlAddAdminInfo = "insert into admin_info (lrn,first_name,last_name, address, email) VALUES ('$lrns1','$firstname','$lastname', '$address', '$email')";
+    $resultAddAdminInfo = mysqli_query($conn, $sqlAddAdminInfo);
 
     // Hash the admin password
     $hashed_admin_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "insert into users_info (last_name,first_name,username,password,user_type) VALUES ('$lastname','$firstname','$username','$hashed_admin_password','admin')";
+    $sql = "insert into users_info (last_name,first_name,username,password,user_type, user_lrn) VALUES ('$lastname','$firstname','$username','$hashed_admin_password','admin','$lrns1')";
     $result = mysqli_query($conn, $sql);
+
+
     if ($result) {
         echo '<script>';
         echo '   
@@ -33,6 +45,16 @@ if (isset($_POST['update_user'])) {
     $firstname = $_POST['firstname'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+
+    $sqlSelectUserlrn = "select * from users_info where id='$id'";
+    $resultSelectUserlrn = mysqli_query($conn, $sqlSelectUserlrn);
+    $rowSelectUserlrn = mysqli_fetch_assoc($resultSelectUserlrn);
+    $lrn = $rowSelectUserlrn['user_lrn'];
+
+    $sqlUpdateAdminInfo = "update admin_info set last_name='$lastname',first_name='$firstname', address='$address', email='$email' where lrn='$lrn'";
+    $resultUpdateAdminInfo = mysqli_query($conn, $sqlUpdateAdminInfo);
 
     // Hash the admin password
     $hashed_admin_password = password_hash($password, PASSWORD_DEFAULT);
@@ -431,20 +453,20 @@ if (isset($_POST['deleteId'])) {
 
                         <?php
                         $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
-                        $sql = "select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc Limit 1 ";
+                        $sql = "select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc Limit 1 ";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc")->num_rows;
+                        $total_pages = $mysqli->query("select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select * from users_info WHERE CONCAT_WS('', first_name,last_name) LIKE '%$searchName%' order by id desc LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -478,7 +500,7 @@ if (isset($_POST['deleteId'])) {
                                     <tr>
                                         <td class="d-flex-center"><label>
                                                 <input type="checkbox" class="sc-1-3 c-hand check"
-                                                       id="<?= $row['id'] ?>"/>
+                                                       id="<?= $row['userid'] ?>"/>
                                             </label></td>
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
@@ -487,7 +509,7 @@ if (isset($_POST['deleteId'])) {
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editUser('<?= $row['id'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', )">
+                                                   onclick="editUser('<?= $row['userid'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', '<?= $row['address'] ?>', '<?= $row['email'] ?>'  )">
                                                 <svg width="40" height="40" viewBox="0 0 48 48"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -781,6 +803,19 @@ if (isset($_POST['deleteId'])) {
                                                id="firstname"
                                                name="firstname"
                                                required>
+                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Address:</div>
+                                        <input placeholder="Address" type="text"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                               id="address"
+                                               name="address"
+                                               required>
+                                        <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Email:</div>
+                                        <input placeholder="Email" type="email"
+                                               class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                               id="email"
+                                               name="email"
+                                               required>
+
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Username:</div>
                                         <input placeholder="Username" type="text"
                                                class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -843,6 +878,18 @@ if (isset($_POST['deleteId'])) {
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                    id="firstname"
                                                    name="firstname"
+                                                   required>
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Address:</div>
+                                            <input placeholder="Address" type="text"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                   id="address"
+                                                   name="address"
+                                                   required>
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Email:</div>
+                                            <input placeholder="Email" type="email"
+                                                   class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
+                                                   id="email"
+                                                   name="email"
                                                    required>
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Username:</div>
                                             <input placeholder="Username" type="text"
@@ -942,13 +989,14 @@ if (isset($_POST['deleteId'])) {
         $('.add #password').val('');
     }
 
-    function editUser(id, lastname, firstname, username, password) {
+    function editUser(id, lastname, firstname, username, password, address, email) {
         $('#update-user #id').val(id);
         $('#update-user #lastname').val(lastname);
         $('#update-user #firstname').val(firstname);
         $('#update-user #username').val(username);
         $('#update-user #password').val(password);
-
+        $('#update-user #address').val(address);
+        $('#update-user #email').val(email);
 
         showModal('update-user', 'Manage Account', '', 'small')
     }

@@ -127,6 +127,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
 </head>
 <body onload="loadTopArrow()" <?php echo (isset($rows) && !empty($rows)) ? (isset($darkModeFromDB) && $darkModeFromDB == 1 ? 'class="dark-theme"' : '') : 'style="display:none;"'; ?>>
 
+
 <div id="modal-delete" class="modal2">
     <div class="square">
         <div class="modal-content">
@@ -450,6 +451,151 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;  display: none;">
+    <div class="modal-content" style="width: 65%; zoom: 0.8;">
+        <div id="top-icon"
+             class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
+             onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
+        </div>
+        <div class="modal-header a-center">
+        </div>
+        <div class="modal-body" style="overflow: hidden; background: #adadad;">
+            <div id="show-profile-info" class="modal-child d-none h-100p">
+                <div class="custom-grid-container h-100p" tabindex="2">
+                    <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
+                        <?php
+                        if (!empty($rows['img_path'])) {
+                            ?>
+                            <img class="pad-1em b-shadow-dark"
+                                 src="<?= $rows['img_path'] ?>"
+                                 alt=""
+                                 style="width: 86%; height: 35em; border-radius: 50%;">
+                            <?php
+                        } else {
+                            ?>
+                            <img class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt=""
+                                 style="width: 86%; height: 35em; border-radius: 50%;">
+                            <?php
+                        }
+                        ?>
+                        <div style="
+                               width: 17em;
+                                height: 21em;
+                                display: flex;
+                                align-items: flex-end;
+                                justify-content: flex-end;
+                                position: fixed;">
+                            <div>
+                                <img onclick="$('#image').click()" src="../../assets/img/camera.png"
+                                     alt="teacher image"
+                                     class="c-hand p-absolute bg-hover-gray-dark-v2 mobile-image1" style=" height: 3em;
+                                    width: 4em;
+                                    object-fit: contain;
+                                    border-radius: 50%;
+                                    padding: 5px;">
+                            </div>
+                            <form method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="lrn" name="lrn"> <br>
+                                <input type="file" name="image" id="image" class="d-none"> <br> <br>
+                                <button id="saveButton-teachers" type="submit"
+                                        class="c-hand btn-success btn d-none"
+                                        name="saveImage">Save
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
+                         style="background: #d6d6d6; height: 41em;">
+
+
+                        <div id="display">
+                            LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                            First Name: <label for=""> <?= $rows['first_name'] ?> </label>
+                            <br>
+                            Last Name: <label for=""> <?= $rows['last_name'] ?> </label>
+                            <br>
+                            UserName: <label for=""> <?= $rows['username'] ?> </label>
+                            <br>
+                            Password: <label for=""> <?= $rows['password'] ?> </label>
+                            <br>
+                            Email: <label for=""> <?= isset($rows['email']) ? $rows['email'] : 'none' ?> </label>
+                            <br>
+                            User Type: <label for=""> <?= $rows['user_type'] ?> </label>
+                            <br>
+                            <div>
+                                <button id="edit"
+                                        class="btn btn-success bg-hover-gray-dark-v1"
+                                        style="position: absolute; right: 24px; bottom: 29px;"
+                                        onclick="edit()">
+                                    Edit
+                                </button>
+                            </div>
+
+                        </div>
+                        <div id="editForm" class="d-none">
+                            <form method="post">
+                                LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
+                                First Name: <input
+                                        value="<?= $rows['first_name'] ?>" id="firstname" type="text"
+                                        name="firstname"
+                                        class=" m-b-5px"/>
+                                <br>
+                                Last Name: <input
+                                        value="<?= $rows['last_name'] ?>" id="lastname" type="text" name="lastname"
+                                        class=" m-b-5px"/>
+                                <br>
+                                UserName: <input
+                                        value="<?= $rows['username'] ?>" id="username" type="text"
+                                        class=" m-b-5px" name="username"/>
+                                <br>
+                                Password: <input
+                                        value="<?= $rows['password'] ?>" id="password" type="text"
+                                        class=" m-b-5px" name="password"/>
+                                <br>
+                                Email:
+                                <input
+                                        value="<?= $rows['email'] ?>"
+                                        id="email" type="email" name="email"
+                                        class=" m-b-5px"/> <br>
+                                User Type: <input
+                                        value="<?= $rows['user_type'] ?>" id="user_type" type="text"
+                                        class=" m-b-5px"
+                                        readonly="true"/>
+                                <br>
+
+                                <div>
+                                    <button id="saveButton" type="submit" class="c-hand btn-success btn "
+                                            name="editProfile"
+                                            style="position: absolute; right: 24px; bottom: 29px;">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div id="show-themes" class="modal-child d-none h-100p">
+                <h2>Side Bar</h2>
+                BG Color: <input type="color" id="sideBarColor"> <br>
+                Font Color: <input type="color" id="sideBarFontColor"> <br>
+                Font Style: <input type="text" id="sideBarFontStyle"> <br>
+                Font Size: <input type="number" id="sideBarFontSize"> <br>
+                Font Weight: <input type="number" id="sideBarFontWeight"> <br>
+
+                <h2>Header</h2>
+                BG Color: <input type="color" id="topBarColor"> <br>
+                Font Color: <input type="color" id="topBarFontColor"> <br>
+                Font Style: <input type="text" id="topBarFontStyle"> <br>
+                Font Size: <input type="number" id="topBarFontSize"> <br>
+                font Weight: <input type="number" id="topBarFontWeight"> <br>
+            </div>
+
         </div>
     </div>
 </div>
@@ -835,151 +981,6 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
     <img src="../../assets/img/writeMessage.png" alt="sds" style="height: 2em; width: 2em">
 </div>
 
-<div id="myModalAdminSettings" style="z-index: 9999999 !important; width: 100% !important;">
-    <div class="modal-content" style="width: 65%; zoom: 0.8;">
-        <div id="top-icon"
-             class="top-icon h-100p d-flex-center p-absolute w-3em c-hand f-size-26px w-2em bg-hover-white t-color-white"
-             onclick="tops()" style="left: -97px;top: -97px;height: 61px;">☰
-        </div>
-        <div class="modal-header a-center">
-        </div>
-        <div class="modal-body" style="overflow: hidden; background: #adadad;">
-            <div id="show-profile-info" class="modal-child d-none h-100p">
-                <div class="custom-grid-container h-100p" tabindex="2">
-                    <div class="custom-grid-item h-100p d-flex-center" style="width: 37em; margin-left: 2em">
-                        <?php
-                        if (!empty($rows['img_path'])) {
-                            ?>
-                            <img class="pad-1em b-shadow-dark"
-                                 src="<?= $rows['img_path'] ?>"
-                                 alt=""
-                                 style="width: 86%; height: 35em; border-radius: 50%;">
-                            <?php
-                        } else {
-                            ?>
-                            <img class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt=""
-                                 style="width: 86%; height: 35em; border-radius: 50%;">
-                            <?php
-                        }
-                        ?>
-                        <div style="
-                               width: 17em;
-                                height: 21em;
-                                display: flex;
-                                align-items: flex-end;
-                                justify-content: flex-end;
-                                position: fixed;">
-                            <div>
-                                <img onclick="$('#image').click()" src="../../assets/img/camera.png"
-                                     alt="teacher image"
-                                     class="c-hand p-absolute bg-hover-gray-dark-v2 mobile-image1" style=" height: 3em;
-                                    width: 4em;
-                                    object-fit: contain;
-                                    border-radius: 50%;
-                                    padding: 5px;">
-                            </div>
-                            <form method="post" enctype="multipart/form-data">
-                                <input type="hidden" id="lrn" name="lrn"> <br>
-                                <input type="file" name="image" id="image" class="d-none"> <br> <br>
-                                <button id="saveButton-teachers" type="submit"
-                                        class="c-hand btn-success btn d-none"
-                                        name="saveImage">Save
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
-                         style="background: #d6d6d6; height: 41em;">
-
-
-                        <div id="display">
-                            LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
-                            First Name: <label for=""> <?= $rows['first_name'] ?> </label>
-                            <br>
-                            Last Name: <label for=""> <?= $rows['last_name'] ?> </label>
-                            <br>
-                            UserName: <label for=""> <?= $rows['username'] ?> </label>
-                            <br>
-                            Password: <label for=""> <?= $rows['password'] ?> </label>
-                            <br>
-                            Email: <label for=""> <?= isset($rows['email']) ? $rows['email'] : 'none' ?> </label>
-                            <br>
-                            User Type: <label for=""> <?= $rows['user_type'] ?> </label>
-                            <br>
-                            <div>
-                                <button id="edit"
-                                        class="btn btn-success bg-hover-gray-dark-v1"
-                                        style="position: absolute; right: 24px; bottom: 29px;"
-                                        onclick="edit()">
-                                    Edit
-                                </button>
-                            </div>
-
-                        </div>
-                        <div id="editForm" class="d-none">
-                            <form method="post">
-                                LRN: <?= isset($rows['lrn']) ? $rows['lrn'] : $rows['id'] ?><br>
-                                First Name: <input
-                                        value="<?= $rows['first_name'] ?>" id="firstname" type="text"
-                                        name="firstname"
-                                        class=" m-b-5px"/>
-                                <br>
-                                Last Name: <input
-                                        value="<?= $rows['last_name'] ?>" id="lastname" type="text" name="lastname"
-                                        class=" m-b-5px"/>
-                                <br>
-                                UserName: <input
-                                        value="<?= $rows['username'] ?>" id="username" type="text"
-                                        class=" m-b-5px" name="username"/>
-                                <br>
-                                Password: <input
-                                        value="<?= $rows['password'] ?>" id="password" type="text"
-                                        class=" m-b-5px" name="password"/>
-                                <br>
-                                Email:
-                                <input
-                                        value="<?= $rows['email'] ?>"
-                                        id="email" type="email" name="email"
-                                        class=" m-b-5px"/> <br>
-                                User Type: <input
-                                        value="<?= $rows['user_type'] ?>" id="user_type" type="text"
-                                        class=" m-b-5px"
-                                        readonly="true"/>
-                                <br>
-
-                                <div>
-                                    <button id="saveButton" type="submit" class="c-hand btn-success btn "
-                                            name="editProfile"
-                                            style="position: absolute; right: 24px; bottom: 29px;">
-                                        Save
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <div id="show-themes" class="modal-child d-none h-100p">
-                <h2>Side Bar</h2>
-                BG Color: <input type="color" id="sideBarColor"> <br>
-                Font Color: <input type="color" id="sideBarFontColor"> <br>
-                Font Style: <input type="text" id="sideBarFontStyle"> <br>
-                Font Size: <input type="number" id="sideBarFontSize"> <br>
-                Font Weight: <input type="number" id="sideBarFontWeight"> <br>
-
-                <h2>Header</h2>
-                BG Color: <input type="color" id="topBarColor"> <br>
-                Font Color: <input type="color" id="topBarFontColor"> <br>
-                Font Style: <input type="text" id="topBarFontStyle"> <br>
-                Font Size: <input type="number" id="topBarFontSize"> <br>
-                font Weight: <input type="number" id="topBarFontWeight"> <br>
-            </div>
-
-        </div>
-    </div>
-</div>
 </body>
 </html>
 

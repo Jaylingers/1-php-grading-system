@@ -413,7 +413,7 @@ if (isset($_POST['teacherStudentID'])) {
                 <?php
                 $search_lrn = isset($_GET['search_lrn']) ? $_GET['search_lrn'] : '';
 
-                $sql = "SELECT ti.grade, ti.section, ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                $sql = "SELECT ti.grade, ti.contact_number, ti.section, ti.id as id, ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
@@ -425,7 +425,7 @@ if (isset($_POST['teacherStudentID'])) {
                 $lrn = 'T' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                 // Get the total number of records from our table "teachers".
-                $total_pages = $mysqli->query("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                $total_pages = $mysqli->query("SELECT ti.grade, ti.contact_number, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn
@@ -436,7 +436,7 @@ if (isset($_POST['teacherStudentID'])) {
                 // Number of results to show on each page.
                 $num_results_on_page = 10;
 
-                if ($stmt = $mysqli->prepare("SELECT ti.grade, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
+                if ($stmt = $mysqli->prepare("SELECT ti.grade, ti.contact_number, ti.section, ti.id,ti.lrn,ti.first_name, ti.last_name, ti.address, ti.gender, ti.civil_status, ti.email_address,
                 GROUP_CONCAT( tsi.subject SEPARATOR ', ') as subject
                 FROM `teachers_subject_info` tsi
                 right join teachers_info ti on ti.lrn = tsi.teachers_lrn 
@@ -495,7 +495,7 @@ if (isset($_POST['teacherStudentID'])) {
                                 <td><?= $row['subject'] ?></td>
                                 <td>
                                     <label for="" class="t-color-red c-hand f-weight-bold d-flex-center"
-                                           onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>')"
+                                           onclick="editTeacher('<?= $row['lrn'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['address'] ?>','<?= $row['gender'] ?>','<?= $row['civil_status'] ?>','<?= $row['subject'] ?>','<?= $row['email_address'] ?>','<?= $row['grade'] ?>','<?= $row['section'] ?>','<?= $row['contact_number'] ?>')"
                                     >
                                         <svg width="40" height="40" viewBox="0 0 48 48"
                                              xmlns="http://www.w3.org/2000/svg"
@@ -1947,7 +1947,7 @@ if (isset($_POST['teacherStudentID'])) {
     }
 
 
-    function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email, grade, section) {
+    function editTeacher(lrn, lastName, firstName, address, gender, civilStatus, subject, email, grade, section,contactNumber) {
         $('#edit-teacher #lrnUpdate').val(lrn);
         $('#edit-teacher #lastName').val(lastName);
         $('#edit-teacher #firstName').val(firstName);
@@ -1958,6 +1958,7 @@ if (isset($_POST['teacherStudentID'])) {
         $('#edit-teacher #emailAddress').val(email);
         $('#edit-teacher #grade').val(grade);
         $('#edit-teacher #section').val(section);
+        $('#edit-teacher #contactNumber').val(contactNumber);
         showModal('edit-teacher', 'Edit Teacher', '', 'small');
     }
 
