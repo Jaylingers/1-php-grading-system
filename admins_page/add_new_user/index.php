@@ -14,6 +14,24 @@ if (isset($_POST['add_user'])) {
     $address = $_POST['address'];
     $email = $_POST['email'];
 
+
+    $sqlCheckUser = "select * from users_info where username='$username'";
+    $resultCheckUser = mysqli_query($conn, $sqlCheckUser);
+    $rowCheckUser = mysqli_fetch_assoc($resultCheckUser);
+
+    $hashedPasswordFromDatabase = $rowCheckUser['password'];;
+    $checkUserIfExists = password_verify($password, $hashedPasswordFromDatabase);
+
+    if($checkUserIfExists) {
+       echo '<script>';
+       echo '   
+                history.pushState({page: "another page"}, "another page", "?id='. $rows['id'] .'&&lastname=' . $lastname . '&&firstname=' . $firstname . '&&username=' . $username . '&&password=' . $password . '&&address=' . $address . '&&email=' . $email . '");
+                window.location.reload();
+            ';
+       echo '</script>';
+   }
+
+
     $sqlLrn = "select * from admin_info order by id desc limit 1";
     $resultLrn = mysqli_query($conn, $sqlLrn);
     $rowsLrn = mysqli_fetch_assoc($resultLrn);
@@ -31,7 +49,7 @@ if (isset($_POST['add_user'])) {
 
     if ($result) {
         echo '<script>';
-        echo '   
+        echo '
                 history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&added_successfully=' . $lastname . '");
                     window.location.reload();
             ';
@@ -789,7 +807,7 @@ if (isset($_POST['deleteId'])) {
                             </div>
 
                             <form method="post">
-                                <div class="custom-grid-container add" tabindex="1">
+                                <div class="custom-grid-container add" tabindex="1" id="add-user">
                                     <div class="custom-grid-item ">
                                         <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Last Name:</div>
                                         <input placeholder="Last Name" type="text"
@@ -953,6 +971,23 @@ if (isset($_POST['deleteId'])) {
         $('#modal-delete').attr('style', 'display: none !important;')
     });
 
+    $(document).on('click', '#modal-exists-ok', function (e) {
+        $('#modal-exists').attr('style', 'display: none !important;')
+        var lastname = '<?php echo isset($_GET['lastname']) ? $_GET['lastname'] : '' ?>';
+        var firstname = '<?php echo isset($_GET['firstname']) ? $_GET['firstname'] : '' ?>';
+        var username = '<?php echo isset($_GET['username']) ? $_GET['username'] : '' ?>';
+        var password = '<?php echo isset($_GET['password']) ? $_GET['password'] : '' ?>';
+        var address = '<?php echo isset($_GET['address']) ? $_GET['address'] : '' ?>';
+        var email = '<?php echo isset($_GET['email']) ? $_GET['email'] : '' ?>';
+
+        $('#add-user #lastname').val(lastname);
+        $('#add-user #firstname').val(firstname);
+        $('#add-user #username').val(username);
+        $('#add-user #password').val(password);
+        $('#add-user #address').val(address);
+        $('#add-user #email').val(email);
+    });
+
     function deleteId(id) {
         var count = 0;
         $('#' + id + ' input[type="checkbox"]:checked').each(function () {
@@ -1019,6 +1054,11 @@ if (isset($_POST['deleteId'])) {
         var added_successfully = '<?php echo isset($_GET['added_successfully']) ? $_GET['added_successfully'] : '' ?>';
         if (added_successfully !== '') {
             $('#modal-addedSuccessfully').attr('style', 'display: block;')
+        }
+
+        var exists = '<?php echo isset($_GET['lastname']) ? $_GET['lastname'] : '' ?>';
+        if (exists !== '') {
+            $('#modal-exists').attr('style', 'display: block;')
         }
     }
 

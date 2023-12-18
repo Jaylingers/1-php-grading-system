@@ -599,6 +599,31 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
         </div>
     </div>
 </div>
+<div id="modal-exists" class="modal2">
+    <div class="square">
+        <div class="modal-content">
+            <div class="modal-content1">
+                <div class="modal-logo  d-flex-center">
+                    <img src="../../assets/img/warning.png" width="60" height="60" alt="">
+                </div>
+                <div class="modal-short-msg d-flex-center">
+                    <h1> Warning!</h1>
+                </div>
+                <div class="modal-long-msg  d-flex-center">
+                    <h7>
+                        This account already exists!
+                    </h7>
+                </div>
+                <div class="modal-msg-choice d-flex-center">
+                    <div class="modal-msg-choice-yes btn">
+                        <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-exists-ok">Ok
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
