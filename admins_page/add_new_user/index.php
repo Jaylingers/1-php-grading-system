@@ -453,20 +453,20 @@ if (isset($_POST['deleteId'])) {
 
                         <?php
                         $searchName = isset($_GET['searchName']) ? $_GET['searchName'] : '';
-                        $sql = "select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc Limit 1 ";
+                        $sql = "select *, ui.id as 'userid', ui.last_name as 'lname', ui.first_name as 'fname' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc Limit 1 ";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $lrn = isset($row['id']) ? $row['id'] + 1 : 0;
                         $lrns1 = 'S' . str_pad($lrn, 7, "0", STR_PAD_LEFT);
 
                         // Get the total number of records from our table "students".
-                        $total_pages = $mysqli->query("select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc")->num_rows;
+                        $total_pages = $mysqli->query("select *, ui.id as 'userid', ui.last_name as 'lname', ui.first_name as 'fname' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc")->num_rows;
                         // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
                         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
                         // Number of results to show on each page.
                         $num_results_on_page = 10;
 
-                        if ($stmt = $mysqli->prepare("select *, ui.id as 'userid' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc LIMIT ?,?")) {
+                        if ($stmt = $mysqli->prepare("select *, ui.id as 'userid', ui.last_name as 'lname', ui.first_name as 'fname' from users_info ui left join admin_info ai on ai.lrn = ui.user_lrn WHERE CONCAT_WS('', ui.first_name, ui.last_name) LIKE '%$searchName%' order by ui.id desc LIMIT ?,?")) {
                             // Calculate the page to get the results we need from our table.
                             $calc_page = ($page - 1) * $num_results_on_page;
                             $stmt->bind_param('ii', $calc_page, $num_results_on_page);
@@ -503,13 +503,13 @@ if (isset($_POST['deleteId'])) {
                                                        id="<?= $row['userid'] ?>"/>
                                             </label></td>
                                         <th scope="row"><?= $i ?> </th>
-                                        <td><?= $row['last_name'] ?> <?= $row['first_name'] ?></td>
+                                        <td><?= $row['lname'] ?> <?= $row['fname'] ?></td>
                                         <td><?= $row['username'] ?></td>
                                         <td><?= strlen($row['password']) > 10 ? substr($row['password'], 0, 10) . '...' : $row['password'] ?></td>
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editUser('<?= $row['userid'] ?>','<?= $row['last_name'] ?>','<?= $row['first_name'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', '<?= $row['address'] ?>', '<?= $row['email'] ?>'  )">
+                                                   onclick="editUser('<?= $row['userid'] ?>','<?= $row['lname'] ?>','<?= $row['fname'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', '<?= $row['address'] ?>', '<?= $row['email'] ?>'  )">
                                                 <svg width="40" height="40" viewBox="0 0 48 48"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      xmlns:xlink="http://www.w3.org/1999/xlink">
