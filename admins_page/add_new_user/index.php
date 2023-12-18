@@ -22,14 +22,14 @@ if (isset($_POST['add_user'])) {
     $hashedPasswordFromDatabase = $rowCheckUser['password'];;
     $checkUserIfExists = password_verify($password, $hashedPasswordFromDatabase);
 
-    if($checkUserIfExists) {
-       echo '<script>';
-       echo '   
-                history.pushState({page: "another page"}, "another page", "?id='. $rows['id'] .'&&lastname=' . $lastname . '&&firstname=' . $firstname . '&&username=' . $username . '&&password=' . $password . '&&address=' . $address . '&&email=' . $email . '");
+    if ($checkUserIfExists) {
+        echo '<script>';
+        echo '   
+                history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '&&lastname=' . $lastname . '&&firstname=' . $firstname . '&&username=' . $username . '&&password=' . $password . '&&address=' . $address . '&&email=' . $email . '");
                 window.location.reload();
             ';
-       echo '</script>';
-   }
+        echo '</script>';
+    }
 
 
     $sqlLrn = "select * from admin_info order by id desc limit 1";
@@ -91,7 +91,7 @@ if (isset($_POST['update_user'])) {
 
 if (isset($_POST['deleteId'])) {
     $deleteId = $_POST['deleteId'];
-    $id =$_POST['deleteId'];
+    $id = $_POST['deleteId'];
 
     $sqlSelectUser = "select * from users_info where id='$deleteId'";
     $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
@@ -99,7 +99,7 @@ if (isset($_POST['deleteId'])) {
     $userType = $rowSelectUser['user_type'];
     $lrn = $rowSelectUser['user_lrn'];
 
-    if($userType === 'teacher'){
+    if ($userType === 'teacher') {
 
         $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
         $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
@@ -146,8 +146,7 @@ if (isset($_POST['deleteId'])) {
 
         $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
         $resultDeleteUser = mysqli_query($conn, $sqlDeleteUser);
-    } else if($userType === 'student')
-    {
+    } else if ($userType === 'student') {
         $sqlSelectRemovedBy = "select CONCAT(first_name, ' ', last_name) as 'name' from users_info where id = '$id'";
         $resultSelectRemovedBy = mysqli_query($conn, $sqlSelectRemovedBy);
         $rowsSelectRemovedBy = mysqli_fetch_assoc($resultSelectRemovedBy);
@@ -266,25 +265,26 @@ if (isset($_POST['deleteId'])) {
                 background-color: #ed7d31;
                 color: white;
             }
+
             #search_name {
-  width: 40%;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #f8f8f8;
-  outline: none;
-}
+                width: 40%;
+                padding: 10px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                background-color: #f8f8f8;
+                outline: none;
+            }
 
-#search_name::placeholder {
-  color: #999;
-}
+            #search_name::placeholder {
+                color: #999;
+            }
 
-#search_name:focus {
-  border-color: #007bff;
-  background-color: #fff;
-}
+            #search_name:focus {
+                border-color: #007bff;
+                background-color: #fff;
+            }
         </style>
 
 
@@ -527,7 +527,7 @@ if (isset($_POST['deleteId'])) {
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"
-                                                   onclick="editUser('<?= $row['userid'] ?>','<?= $row['lname'] ?>','<?= $row['fname'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', '<?= $row['address'] ?>', '<?= $row['email'] ?>'  )">
+                                                   onclick="editUser('<?= $row['userid'] ?>','<?= $row['lname'] ?>','<?= $row['fname'] ?>','<?= $row['username'] ?>','<?= $row['password'] ?>', '<?= $row['address'] ?>', '<?= $row['email'] ?>' , '<?= $row['user_type'] ?>'   )">
                                                 <svg width="40" height="40" viewBox="0 0 48 48"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -849,7 +849,32 @@ if (isset($_POST['deleteId'])) {
                                     </div>
                                 </div>
                                 <div class="d-flex-end pad-1em">
-                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                    <svg onclick="cancel()" class="c-hand" width="50" height="50" data-name="Layer 1"
+                                         id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <style>.cls-1 {
+                                                    fill: #ccbeb0;
+                                                }
+
+                                                .cls-2 {
+                                                    fill: #525354;
+                                                }
+
+                                                .cls-3 {
+                                                    fill: #d77165;
+                                                }</style>
+                                        </defs>
+                                        <title/>
+                                        <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/>
+                                        <rect class="cls-2" height="98" rx="1" ry="1"
+                                              transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/>
+                                        <rect class="cls-3" height="98" rx="1" ry="1"
+                                              transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/>
+                                    </svg>
 
                                     <button type="submit"
                                             class="c-hand btn-success btn"
@@ -897,24 +922,24 @@ if (isset($_POST['deleteId'])) {
                                                    id="firstname"
                                                    name="firstname"
                                                    required>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Address:</div>
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"  id="address-t"> Address:</div>
                                             <input placeholder="Address" type="text"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                    id="address"
                                                    name="address"
                                                    required>
-                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Email:</div>
+                                            <div class="d-inline-flex m-l-1em w-29p d-flex-end"  id="email-t"> Email:</div>
                                             <input placeholder="Email" type="email"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                    id="email"
                                                    name="email"
-                                                   required>
+                                                   >
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Username:</div>
                                             <input placeholder="Username" type="text"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
                                                    id="username"
                                                    name="username"
-                                                   required>
+                                                   >
                                             <div class="d-inline-flex m-l-1em w-29p d-flex-end"> Password:</div>
                                             <input placeholder="Password" type="password"
                                                    class="h-3em w-50p f-size-1em b-radius-10px m-1em m-t-5px"
@@ -925,11 +950,43 @@ if (isset($_POST['deleteId'])) {
                                         </div>
                                     </div>
                                     <div class="d-flex-end pad-1em">
-                                        <svg onclick="closeModal()" class="c-hand" width="50" height="50" data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ccbeb0;}.cls-2{fill:#525354;}.cls-3{fill:#d77165;}</style></defs><title/><circle class="cls-1" cx="70" cy="70" r="64"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58" y="22"/><rect class="cls-2" height="98" rx="1" ry="1" transform="translate(69.29 170.7) rotate(-135)" width="24" x="58" y="22"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(-28.99 70) rotate(-45)" width="24" x="58" y="21"/><rect class="cls-3" height="98" rx="1" ry="1" transform="translate(70 168.99) rotate(-135)" width="24" x="58" y="21"/></svg>
+                                        <svg onclick="closeModal()" class="c-hand" width="50" height="50"
+                                             data-name="Layer 1" id="Layer_1" viewBox="0 0 140 140"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <style>.cls-1 {
+                                                        fill: #ccbeb0;
+                                                    }
+
+                                                    .cls-2 {
+                                                        fill: #525354;
+                                                    }
+
+                                                    .cls-3 {
+                                                        fill: #d77165;
+                                                    }</style>
+                                            </defs>
+                                            <title/>
+                                            <circle class="cls-1" cx="70" cy="70" r="64"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(-29.7 70.29) rotate(-45)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-2" height="98" rx="1" ry="1"
+                                                  transform="translate(69.29 170.7) rotate(-135)" width="24" x="58"
+                                                  y="22"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(-28.99 70) rotate(-45)" width="24" x="58"
+                                                  y="21"/>
+                                            <rect class="cls-3" height="98" rx="1" ry="1"
+                                                  transform="translate(70 168.99) rotate(-135)" width="24" x="58"
+                                                  y="21"/>
+                                        </svg>
                                         <button type="submit"
                                                 class="c-hand btn-success btn"
-                                                name="update_user" style="background-color: #ffffff !important; border-color: #ffffff;">
-                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50" height="50">
+                                                name="update_user"
+                                                style="background-color: #ffffff !important; border-color: #ffffff;">
+                                            <img src="../../assets/img/add.png" alt="" class="logo1 c-hand" width="50"
+                                                 height="50">
                                         </button>
                                     </div>
                                 </form>
@@ -1024,7 +1081,7 @@ if (isset($_POST['deleteId'])) {
         $('.add #password').val('');
     }
 
-    function editUser(id, lastname, firstname, username, password, address, email) {
+    function editUser(id, lastname, firstname, username, password, address, email, userType) {
         $('#update-user #id').val(id);
         $('#update-user #lastname').val(lastname);
         $('#update-user #firstname').val(firstname);
@@ -1033,6 +1090,14 @@ if (isset($_POST['deleteId'])) {
         $('#update-user #address').val(address);
         $('#update-user #email').val(email);
 
+        if (userType === 'admin') {
+            $('#update-user #address, #update-user #email').css('display', '');
+            $('#update-user #address-t, #update-user #email-t').addClass('d-inline-flex').show();
+        } else {
+            $('#update-user #address, #update-user #email').css('display', 'none');
+            $('#update-user #address, #update-user #email').val('1@gmail.com');
+            $('#update-user #address-t, #update-user #email-t').removeClass('d-inline-flex').hide().prop('required', false);
+        }
         showModal('update-user', 'Manage Account', '', 'small')
     }
 
