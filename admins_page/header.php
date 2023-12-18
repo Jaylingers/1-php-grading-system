@@ -83,7 +83,7 @@ if (isset($_POST['saveImage'])) {
             if ($result) {
                 echo '<script>';
                 echo '
-                     history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&imgSaved=true&&type=' . $type . '&&lastname=' . $lastname . '");
+                     history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&ProfileImgSaved=true&&type=' . $type . '&&lastname=' . $lastname . '");
                      window.location.reload();';
                 echo '</script>';
             }
@@ -577,22 +577,6 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     </div>
                 </div>
             </div>
-            <div id="show-themes" class="modal-child d-none h-100p">
-                <h2>Side Bar</h2>
-                BG Color: <input type="color" id="sideBarColor"> <br>
-                Font Color: <input type="color" id="sideBarFontColor"> <br>
-                Font Style: <input type="text" id="sideBarFontStyle"> <br>
-                Font Size: <input type="number" id="sideBarFontSize"> <br>
-                Font Weight: <input type="number" id="sideBarFontWeight"> <br>
-
-                <h2>Header</h2>
-                BG Color: <input type="color" id="topBarColor"> <br>
-                Font Color: <input type="color" id="topBarFontColor"> <br>
-                Font Style: <input type="text" id="topBarFontStyle"> <br>
-                Font Size: <input type="number" id="topBarFontSize"> <br>
-                font Weight: <input type="number" id="topBarFontWeight"> <br>
-            </div>
-
         </div>
     </div>
 </div>
@@ -1163,12 +1147,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
     }
 
     function showModalInfo(userType, lastname, status) {
-        if (status === 'profile') {
-            showModalAdminSettings('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
-        } else {
-            showModalAdminSettings('show-themes', 'THEMES', '', '')
-        }
-
+        showModalAdminSettings('show-profile-info', 'WELCOME ' + userType.toUpperCase() + ' ' + lastname.toUpperCase() + '!', '', '')
     }
 
     function edit() {
@@ -1190,7 +1169,6 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
 
     $(document).on('click', '#modal-addedSuccessfully', function (e) {
         $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
-        showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
     });
 
     $(document).ready(function () {
@@ -1236,10 +1214,10 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
     }
 
     function loadPage() {
-        //var added_successfully = '<?php //echo isset($_GET['imgSaved']) ? $_GET['imgSaved'] : '' ?>//';
-        //if (added_successfully !== '') {
-        //    showModalInfo('<?php // echo isset($_GET['type']) ? $_GET['type'] : ''  ?>//', '<?php //echo isset($_GET['lastname']) ? $_GET['lastname'] : ''  ?>//', 'profile')
-        //}
+        var added_successfully = '<?php echo isset($_GET['ProfileImgSaved']) ? $_GET['ProfileImgSaved'] : '' ?>';
+        if (added_successfully !== '') {
+            showModalInfo('<?php  echo isset($_GET['type']) ? $_GET['type'] : ''  ?>', '<?php echo isset($_GET['lastname']) ? $_GET['lastname'] : ''  ?>', 'profile')
+        }
     }
 
     loadPage();
