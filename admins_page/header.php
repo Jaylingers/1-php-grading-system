@@ -1236,10 +1236,10 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
     }
 
     function loadPage() {
-        var added_successfully = '<?php echo isset($_GET['imgSaved']) ? $_GET['imgSaved'] : '' ?>';
-        if (added_successfully !== '') {
-            showModalInfo('<?php  echo isset($_GET['type']) ? $_GET['type'] : ''  ?>', '<?php echo isset($_GET['lastname']) ? $_GET['lastname'] : ''  ?>', 'profile')
-        }
+        //var added_successfully = '<?php //echo isset($_GET['imgSaved']) ? $_GET['imgSaved'] : '' ?>//';
+        //if (added_successfully !== '') {
+        //    showModalInfo('<?php // echo isset($_GET['type']) ? $_GET['type'] : ''  ?>//', '<?php //echo isset($_GET['lastname']) ? $_GET['lastname'] : ''  ?>//', 'profile')
+        //}
     }
 
     loadPage();
