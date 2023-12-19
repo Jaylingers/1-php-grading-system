@@ -961,7 +961,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
 
 </div>
 
-<div id="writeMessage" class="p-fixed d-flex-center c-hand" style="
+<div id="writeMessage" class="p-fixed d-flex-center c-hand d-none" style="
     width: 3.5em;
     height: 3.5em;
     border-radius: 50%;

@@ -33,11 +33,11 @@ include "../../db_conn.php";
                         <div class="w-30p m-l-4em m-t-2em">
 
                             <?php if ($rows['img_path'] == '') { ?>
-                                <img id="view-image" src="../../assets/users_img/noImage.png" alt="teacher image"
+                                <img id="view-image1" src="../../assets/users_img/noImage.png" alt="teacher image"
                                      style="height: 22em; width: 2em; object-fit: fill; border-radius: 50%;"
                                      class="w-100p">
                             <?php } else { ?>
-                                <img id="view-image" src="<?= $rows['img_path'] ?>" alt="teacher image"
+                                <img id="view-image1" src="<?= $rows['img_path'] ?>" alt="teacher image"
                                      style="height: 22em; width: 2em; object-fit: fill; border-radius: 50%;"
                                      class="w-100p">
                             <?php } ?>
