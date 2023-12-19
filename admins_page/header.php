@@ -58,37 +58,26 @@ if (isset($_POST['editProfile'])) {
 }
 
 if (isset($_POST['saveImage'])) {
+    $darkMode = $_POST['saveImage'];
+    $id = $_POST['id'];
+
+    $sql = "UPDATE users_info SET img_path = '../../assets/users_img/$id.png' WHERE id='$id'";
+    $result = mysqli_query($conn, $sql);
+
+}
+
+if (isset($_FILES['image'])) {
     $file = $_FILES['image'];
-    $fileName = $file['name'];
     $fileTmpName = $file['tmp_name'];
-    $fileSize = $file['size'];
-    $fileError = $file['error'];
-    $fileType = $file['type'];
-    $id = $_GET['id'];
+    $id = $_POST['id']; // Replace with the actual way you get the user ID
 
-    if ($fileError === UPLOAD_ERR_OK) {
-        if (strpos($fileType, 'image') !== false) {
-            $newFileName = uniqid('', true) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-            move_uploaded_file($fileTmpName, '../../assets/users_img/' . "$id" . '.png');
+    $uploadDir = '../../assets/users_img/';
+    $uploadPath = $uploadDir . $id . '.png'; // Adjust the file path as needed
 
-            $sql = "UPDATE users_info SET img_path = '../../assets/users_img/$id.png' WHERE id = '$id'";
-            $result = mysqli_query($conn, $sql);
-
-            $sqlUser = "SELECT * FROM users_info WHERE id='$id'";
-            $resultUser = mysqli_query($conn, $sqlUser);
-            $rowUser = mysqli_fetch_assoc($resultUser);
-            $type = $rowUser['user_type'];
-            $lastname = $rowUser['last_name'];
-
-            if ($result) {
-                echo '<script>';
-                echo '
-                     history.pushState({page: "another page"}, "another page", "?id=' . $_GET['id'] . '&&ProfileImgSaved=true&&type=' . $type . '&&lastname=' . $lastname . '");
-                     window.location.reload();';
-                echo '</script>';
-            }
-
-        }
+    if (move_uploaded_file($fileTmpName, $uploadPath)) {
+        echo 'Image uploaded successfully.';
+    } else {
+        echo 'Error uploading file.';
     }
 }
 
@@ -466,14 +455,14 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                         <?php
                         if (!empty($rows['img_path'])) {
                             ?>
-                            <img class="pad-1em b-shadow-dark"
+                            <img id="view-image" class="pad-1em b-shadow-dark"
                                  src="<?= $rows['img_path'] ?>"
                                  alt=""
                                  style="width: 86%; height: 35em; border-radius: 50%;">
                             <?php
                         } else {
                             ?>
-                            <img class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt=""
+                            <img id="view-image" class="pad-1em b-shadow-dark" src="../../assets/users_img/noImage.png" alt=""
                                  style="width: 86%; height: 35em; border-radius: 50%;">
                             <?php
                         }
@@ -494,14 +483,10 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                                     border-radius: 50%;
                                     padding: 5px;">
                             </div>
-                            <form method="post" enctype="multipart/form-data">
+<!--                            <form method="post" enctype="multipart/form-data">-->
                                 <input type="hidden" id="lrn" name="lrn"> <br>
                                 <input type="file" name="image" id="image" class="d-none"> <br> <br>
-                                <button id="saveButton-teachers" type="submit"
-                                        class="c-hand btn-success btn d-none"
-                                        name="saveImage">Save
-                                </button>
-                            </form>
+<!--                            </form>-->
                         </div>
                     </div>
                     <div id="editProfile" class="custom-grid-item b-shadow-dark pad-1em"
@@ -1255,11 +1240,43 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
             alert('Please select a valid image file.');
             input.value = '';
         } else {
-            console.log(file)
+
+
             $('#view-image').attr('src', URL.createObjectURL(file));
-            setTimeout(() => {
-                $('#saveButton-teachers').click();
-            }, 2000)
+            $('#settings').attr('src', URL.createObjectURL(file));
+
+            $.ajax({
+                type: 'POST',
+                url: 'index.php', // Replace with the actual PHP script URL
+                data: {saveImage: 1, id: <?php echo $_GET['id'] ?> },
+                success: function (response) {
+                    console.log('Dark mode session updated successfully.');
+                },
+                error: function (error) {
+                    console.error('Error updating dark mode session:', error);
+                }
+            });
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('id',  <?php echo $_GET['id'] ?>)
+
+            $.ajax({
+                type: 'POST',
+                url: 'index.php', // Replace with the actual PHP script URL
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response if needed
+                    console.error(error);
+                }
+            });
+
         }
     });
 
