@@ -461,7 +461,7 @@ if (isset($_POST['teacherStudentID'])) {
                                         onclick="checkCBteachers('teachers-list', 'teachers-list-cb')"
                                         class="sc-1-3 c-hand"/></th>
                             <th>No</th>
-                            <th>LRN</th>
+                            <th>ID</th>
                             <th>FullName</th>
                             <th>Address</th>
                             <th>Gender</th>
