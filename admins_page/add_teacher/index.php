@@ -28,12 +28,13 @@ if (isset($_POST['lrn'])) {
         $historyData .= $key . ': ' . $value . ' <br/>';
     }
 
-    $sqlStudentSubjectInfo = "select * from teachers_subject_info where teachers_lrn = '$lrn'";
-    $resultStudentSubjectInfo = mysqli_query($conn, $sqlStudentSubjectInfo);
-    $rowsStudentSubjectInfo = mysqli_fetch_assoc($resultStudentSubjectInfo);
+    $sqlTeacherSubjectInfo = "select * from teachers_subject_info where teachers_lrn = '$lrn'";
+    $resultTeacherSubjectInfo= mysqli_query($conn, $sqlTeacherSubjectInfo);
     $historyData .= ' <h3> Teachers Subject Info</h3>';
-    foreach ($rowsStudentSubjectInfo as $key => $value) {
-        $historyData .= $key . ': ' . $value . ' <br/>';
+    foreach ($resultTeacherSubjectInfo as $key => $value) {
+        foreach ($value as $key1 => $value1) {
+            $historyData .= $key1 . ': ' . $value1 . ' <br/>';
+        }
     }
 
     $sqlUserInfo = "select * from users_info where user_lrn = '$lrn'";
@@ -56,7 +57,7 @@ if (isset($_POST['lrn'])) {
     $sqlDeleteUser = "delete from users_info where user_lrn = '$lrn'";
     $resultDeleteUser = mysqli_query($conn, $sqlDeleteUser);
 
-    if ($resultDelete) {
+    if ($resultDeleteUser) {
         echo '<script>';
         echo '
               history.pushState({page: "another page"}, "another page", "?id=' . $rows['id'] . '");

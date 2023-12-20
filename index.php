@@ -116,7 +116,7 @@ if (isset($_SESSION['user_type'])) {
                     </div>
                 </div>
             </div>
-            <div class="bars">
+            <div class="bars" onclick="showMenuBar()">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
@@ -306,6 +306,10 @@ if (isset($_SESSION['user_type'])) {
             document.getElementById("login-container").style.display = "flex";
         }
 
+    }
+
+    function showMenuBar() {
+        $('.navbar').toggleClass('navbar-active');
     }
 
     function closeLoginForm() {

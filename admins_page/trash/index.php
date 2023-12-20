@@ -157,12 +157,51 @@ if (isset($_POST['recoverId'])) {
         $insertTeacher = "insert into teachers_info (lrn, first_name, last_name,address,gender,civil_status,email_address,grade,section) values ('$tLrn','$tFname','$tLname','$tAddress','$tGender','$tCivil','$tEmail','$tGrade','$tSection')";
         $result = mysqli_query($conn, $insertTeacher);
 
-        // Hash the admin password
-        $hashed_admin_password = password_hash($tLname, PASSWORD_DEFAULT);
 
-        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn) VALUES ('$tLname','$tFname','$tLrn','$hashed_admin_password','teacher','$tLrn')";
+
+
+
+        $UsersInfo = str_replace("Users Info</h3>", "", $history[3]);
+        $UsersInfo = explode("<br/>", $UsersInfo);
+        echo '<script> console.log("' . implode($UsersInfo) . '"); </script>';
+        foreach ($UsersInfo as $key => $value) {
+            if ($value !== " ") {
+                $val = str_replace(" ", "", $value);
+                echo '<script> console.log("' . $val . '"); </script>';
+            }
+        }
+
+        $tlastname = trim(str_replace("last_name: ", "", $UsersInfo[1]));
+        $tfirstname = trim(str_replace("first_name: ", "", $UsersInfo[2]));
+        $tusername = trim(str_replace("username: ", "", $UsersInfo[3]));
+        $tpassword = trim(str_replace("password: ", "", $UsersInfo[4]));
+        $temail = trim(str_replace("email: ", "", $UsersInfo[5]));
+        $tusertype = trim(str_replace("user_type: ", "", $UsersInfo[6]));
+        $tuserlrn = trim(str_replace("user_lrn: ", "", $UsersInfo[7]));
+        $imgPath = trim(str_replace("img_path: ", "", $UsersInfo[8]));
+        $darkMode = trim(str_replace("dark_mode: ", "", $UsersInfo[9]));
+        $changePassAttempts = trim(str_replace("change_pass_attempts: ", "", $UsersInfo[10]));
+
+        // Hash the admin password
+        $hashed_admin_password = password_hash($tlastname, PASSWORD_DEFAULT);
+        $sqlUserInfo = "insert into users_info (last_name,first_name,username,password,user_type,user_lrn,img_path, change_pass_attempts,dark_mode,email) VALUES ('$tlastname','$tfirstname','$tuserlrn','$hashed_admin_password','teacher','$tuserlrn','$imgPath','$changePassAttempts','$darkMode','$temail')";
         $resultUserInfo = mysqli_query($conn, $sqlUserInfo);
 
+        $teacherSubjectInfo = str_replace("Teachers Subject Info</h3>", "", $history[2]);
+        if ($teacherSubjectInfo !== " ") {
+            echo '<script> console.log("Teachers Subject Info"); </script>';
+            $teacherSubjectInfo = explode("id:", $teacherSubjectInfo);
+            foreach ($teacherSubjectInfo as $key => $value) {
+                if ($value !== " ") {
+                    $value = explode("<br/>", $value);
+                    $sTeacherLrn = trim(str_replace("teachers_lrn: ", "", $value[1]));
+                    $sSubject = trim(str_replace("subject: ", "", $value[2]));
+                    $sRoom = trim(str_replace("room: ", "", $value[3]));
+                    $insertTeacherSubjectInfo = "insert into teachers_subject_info (teachers_lrn,subject,room) VALUES ('$sTeacherLrn','$sSubject','$sRoom')";
+                    $result = mysqli_query($conn, $insertTeacherSubjectInfo);
+                }
+            }
+        }
     }
 
     $sqlDeleteTrash = "delete from trash_info where id = '$id'";
