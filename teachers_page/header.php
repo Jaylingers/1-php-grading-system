@@ -9,7 +9,8 @@ if (!isset($_SESSION['user_type'])) {
     header("Location: /1-php-grading-system/admins_page/404");
 } else {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM users_info WHERE id='$id'";
+    $sql = "SELECT * FROM users_info ui
+            left join teachers_info ti on ti.lrn = ui.user_lrn WHERE ui.id='$id'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     if ($row['user_type'] === 'student') {
@@ -510,7 +511,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                                 <br>
                                 Password: <label for=""> <?= $rows['password'] ?> </label>
                                 <br>
-                                Email: <label for=""> <?= isset($rows['email']) ? $rows['email'] : 'none' ?> </label>
+                                Email: <label for=""> <?= isset($rows['email_address']) ? $rows['email_address'] : 'none' ?> </label>
                                 <br>
                                 User Type: <label for=""> <?= $rows['user_type'] ?> </label>
                                 <br>
