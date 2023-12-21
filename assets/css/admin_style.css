@@ -532,3 +532,10 @@ body.dark-theme {
 .dark-theme #user-name, .dark-theme #user-name label {
     color: white !important;
 }
+
+
+
+
+.b-radius-05em {
+    border-radius: 0.5em !important;
+}

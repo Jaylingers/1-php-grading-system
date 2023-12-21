@@ -613,7 +613,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"/>
                 </svg>
             </div>
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('dashboard')" <?php if ($var === "dashboard") { ?> style="background: #bababa;"  <?php } ?> >
                 Dashboard <?= $var1 ?>
             </div>
@@ -642,7 +642,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <g/>
                     <g/></svg>
             </div>
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                 Add User
             </div>
@@ -656,7 +656,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Teacher
                 </div>
@@ -665,21 +665,21 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
                     Admin
                 </div>
             </div>
         </div>
         <div class="tab-teacherInfo d-none h-5em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
                 Teacher Information
             </div>
             <div class="d-flex-end w-4em"></div>
         </div>
         <div class="tab-masterlist d-none h-4em d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "add_student" || $var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
                 Masterlist
             </div>
@@ -693,7 +693,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
                     Add Student
                 </div>
@@ -702,7 +702,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('student_list_masterlist')" <?php if ($var === "student_list_masterlist") { ?> style="background: #bababa;"  <?php } ?>>
                     Student List
                 </div>
@@ -714,7 +714,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/>
                 </svg>
             </div>
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
                 Records
             </div>
@@ -728,7 +728,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('promote_student')" <?php if ($var === "promote_student") { ?> style="background: #bababa;"  <?php } ?>>
                     Promote Student
                 </div>
@@ -738,7 +738,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('subject_list')" <?php if ($var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Subject List
                 </div>
@@ -754,7 +754,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <polygon points="12.5,11.5 9,8 8,5 4,3 2,5 4,9 7,10 10.5,13.5 "/>
                     <path d="M17.879,8.879c-3.364,3.364-12.636,12.636-13,13c-1.172,1.172-1.172,3.071,0,4.243c1.172,1.172,3.071,1.172,4.243,0  c0.364-0.364,9.636-9.636,13-13L17.879,8.879z M7,25c-0.552,0-1-0.448-1-1c0-0.552,0.448-1,1-1s1,0.448,1,1C8,24.552,7.552,25,7,25z  "/></svg>
             </div>
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('maintenance')" <?php if ($var === "maintenance" || $var === "school_year" || $var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
                 &nbsp;&nbsp;&nbsp;&nbsp; Maintenance
             </div>
@@ -768,7 +768,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('school_year')" <?php if ($var === "school_year") { ?> style="background: #bababa;"  <?php } ?>>
                     Student School Year
                 </div>
@@ -777,21 +777,21 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('grade_list')" <?php if ($var === "grade_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Grade and Section List
                 </div>
             </div>
         </div>
         <div class="tab-studentInfo d-none h-4em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('student_info')" <?php if ($var === "student_info") { ?> style="background: #bababa;"  <?php } ?>>
                 Student Info
             </div>
             <div class="d-flex-end w-4em m-t-5px"></div>
         </div>
         <div class="tab-studentRecord d-none h-4em d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('studentRecord')" <?php if ($var === "studentRecord" || $var === "grade" || $var === "report") { ?> style="background: #bababa;"  <?php } ?>>
                 Student Record
             </div>
@@ -805,7 +805,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('grade')" <?php if ($var === "grade") { ?> style="background: #bababa;"  <?php } ?>>
                     Grade
                 </div>
@@ -814,21 +814,21 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                 <div class="d-flex-center w-4em"><img
                             src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                             alt="" class="w-18px c-hand rotate"></div>
-                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                      onclick="selectTab('report')" <?php if ($var === "report") { ?> style="background: #bababa;"  <?php } ?>>
                     Report
                 </div>
             </div>
         </div>
         <div class="tab-teacherList d-none h-5em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('teacher_list')" <?php if ($var === "teacherList") { ?> style="background: #bababa;"  <?php } ?>>
                 Teacher List
             </div>
             <div class="d-flex-end w-4em"></div>
         </div>
         <div class="tab-notification d-none h-4em  d-flex-center m-t-5px ">
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('notification')" <?php if ($var === "notification") { ?> style="background: #bababa;"  <?php } ?>>
                 Notification
             </div>
@@ -848,7 +848,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     </g>
                 </svg>
             </div>
-            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
+            <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand b-radius-05em"
                  onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
                 Trash
             </div>

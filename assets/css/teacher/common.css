@@ -53,3 +53,8 @@ body.dark-theme {
 #circle-parent{
     background: #b3b3b3;
 }
+
+
+.b-radius-05em {
+    border-radius: 0.5em !important;
+}
