@@ -1207,30 +1207,6 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
 
     loadPage();
 
-    var colorWell;
-    var defaultColor = "#0000ff";
-    window.addEventListener("load", startup, false);
-
-    function startup() {
-        colorWell = document.querySelector("#sideBarColor");
-        colorWell.addEventListener("input", updateFirst, false);
-        colorWell.select();
-
-        colorWell = document.querySelector("#topBarColor");
-        colorWell.addEventListener("input", updateSecond, false);
-        colorWell.select();
-
-    }
-
-    function updateFirst(event) {
-        document.querySelector("#side").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
-    }
-
-    function updateSecond(event) {
-        document.querySelector("#top").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
-
-    }
-
     const input = document.getElementById('image');
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 

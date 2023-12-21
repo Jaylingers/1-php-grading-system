@@ -180,10 +180,10 @@ if (isset($_POST['addStudents'])) {
                 </div>
                 <br/>
 
-                <div class="f-right m-t-19px m-r-13px ">
+                <div class="f-right m-t-19px m-r-13px " onclick="promote()">
                     <button type="submit"
                             class="c-hand bg-hover-skyBlue btn d-inline-flex d-flex-center"
-                            onclick="promote()">
+                            >
                         <svg fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
                                   fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>

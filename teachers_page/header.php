@@ -573,6 +573,88 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
             </div>
         </div>
     </div>
+    <div id="modal-promote" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div id="modal-delete" class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <svg id="svg2" fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
+                                  fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Are you sure? </h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                            Do you really want to promote this account? This process cannot be undone.
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-yes btn">
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel
+                            </button>
+                        </div>
+                        <div class="modal-msg-choice-no">
+                            <button class="btn-primary btn" id="modal-promote-ok">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-remove-promote-students" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div id="modal-delete" class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <svg id="svg2" fill="none" width="30" height="30" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C10.2091 14 12 12.2091 12 10C12 7.79086 10.2091 6 8 6C5.79086 6 4 7.79086 4 10C4 12.2091 5.79086 14 8 14Z"
+                                  fill="#2F88FF" stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 26C9.10457 26 10 25.1046 10 24C10 22.8954 9.10457 22 8 22C6.89543 22 6 22.8954 6 24C6 25.1046 6.89543 26 8 26Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M8 40C9.10457 40 10 39.1046 10 38C10 36.8954 9.10457 36 8 36C6.89543 36 6 36.8954 6 38C6 39.1046 6.89543 40 8 40Z"
+                                  stroke="black" stroke-linejoin="round" stroke-width="4"/>
+                            <path d="M20 24H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 38H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                            <path d="M20 10H44" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Are you sure? </h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                            Do you really want to remove this account? This process cannot be undone.
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-yes btn">
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-delete-cancel">Cancel
+                            </button>
+                        </div>
+                        <div class="modal-msg-choice-no">
+                            <button class="btn-primary btn" id="modal-remove-promote-students-ok">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
@@ -1093,28 +1175,6 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
     }
 
     loadPage();
-    var colorWell;
-    var defaultColor = "#0000ff";
-    window.addEventListener("load", startup, false);
-
-    function startup() {
-        colorWell = document.querySelector("#sideBarColor");
-        colorWell.addEventListener("input", updateFirst, false);
-        colorWell.select();
-
-        colorWell = document.querySelector("#topBarColor");
-        colorWell.addEventListener("input", updateSecond, false);
-        colorWell.select();
-
-    }
-
-    function updateFirst(event) {
-        document.querySelector("#side").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
-    }
-
-    function updateSecond(event) {
-        document.querySelector("#top").setAttribute('style', 'background-color:' + event.target.value + ' !important;');
-    }
 
     const input = document.getElementById('image');
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
