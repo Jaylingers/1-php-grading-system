@@ -305,8 +305,8 @@ if (isset($_SESSION['user_type'])) {
         if (error != '') {
             document.getElementById("login-container").style.display = "flex";
         }
-
     }
+
 
     function showMenuBar() {
         $('.navbar').toggleClass('navbar-active');
@@ -324,5 +324,29 @@ if (isset($_SESSION['user_type'])) {
         }
     };
     loadPage();
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var links = document.querySelectorAll(".nav-links a");
+
+        links.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                links.forEach(function (l) {
+                    l.classList.remove("active_link_nv");
+                });
+
+                link.classList.add("active_link_nv");
+
+                var targetId = link.getAttribute("href").substring(1);
+                var targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+    });
+
 </script>
 </html>

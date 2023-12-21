@@ -504,7 +504,6 @@ if (isset($_POST['deleteId'])) {
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Username</th>
-                                    <th>Password</th>
                                     <th>Type</th>
                                     <th>Edit</th>
                                 </tr>
@@ -523,7 +522,6 @@ if (isset($_POST['deleteId'])) {
                                         <th scope="row"><?= $i ?> </th>
                                         <td><?= $row['lname'] ?> <?= $row['fname'] ?></td>
                                         <td><?= $row['username'] ?></td>
-                                        <td><?= strlen($row['password']) > 10 ? substr($row['password'], 0, 10) . '...' : $row['password'] ?></td>
                                         <td><?= $row['user_type'] ?></td>
                                         <td>
                                             <label for="" class="t-color-red c-hand f-weight-bold"

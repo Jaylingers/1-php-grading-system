@@ -591,14 +591,14 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
         <div id="sideTab" class="pad-1em t-color-white f-weight-bold">
             <div class="m-t-3em"></div>
             <div class="tab-dashboard d-none h-4em d-flex-center ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('dashboard')" <?php if ($var === "dashboard") { ?> style="background: #bababa;"  <?php } ?> >
                     Dashboard <?= $var1 ?>
                 </div>
                 <div class="d-flex-end w-4em "></div>
             </div>
             <div class="tab-addUser d-none h-4em d-flex-center m-t-5px ">
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_user')" <?php if ($var === "add_user" || $var === "add_student" || $var === "add_new_user" || $var === "add_teacher") { ?> style="background: #bababa;"  <?php } ?>>
                     Add User
                 </div>
@@ -612,7 +612,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('add_teacher')" <?php if ($var === "add_teacher" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                         Teacher
                     </div>
@@ -621,7 +621,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('add_student')" <?php if ($var === "add_student") { ?> style="background: #bababa;"  <?php } ?>>
                         Student
                     </div>
@@ -630,7 +630,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('add_new_user')" <?php if ($var === "add_new_user") { ?> style="background: #bababa;"  <?php } ?>>
                         Admin
                     </div>
@@ -644,7 +644,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                     </svg>
                 </div>
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('teacher_info')" <?php if ($var === "teacher_info") { ?> style="background: #bababa;"  <?php } ?>>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Teacher Info.
                 </div>
@@ -667,7 +667,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                               fill="white"/>
                     </svg>
                 </div>
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('masterlist')" <?php if ($var === "masterlist" || $var === "teacher_subject_list" || $var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Masterlist
                 </div>
@@ -681,7 +681,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('student_list')" <?php if ($var === "student_list") { ?> style="background: #bababa;"  <?php } ?>>
                         Student List
                     </div>
@@ -690,7 +690,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('teacher_subject_list')" <?php if ($var === "teacher_subject_list") { ?> style="background: #bababa;"  <?php } ?>>
                         Teacher Subject
                     </div>
@@ -702,7 +702,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                         <path d="M 16 2 C 14.74 2 13.850156 2.89 13.410156 4 L 5 4 L 5 29 L 27 29 L 27 4 L 18.589844 4 C 18.149844 2.89 17.26 2 16 2 z M 16 4 C 16.55 4 17 4.45 17 5 L 17 6 L 20 6 L 20 8 L 12 8 L 12 6 L 15 6 L 15 5 C 15 4.45 15.45 4 16 4 z M 7 6 L 10 6 L 10 10 L 22 10 L 22 6 L 25 6 L 25 27 L 7 27 L 7 6 z M 9 13 L 9 15 L 11 15 L 11 13 L 9 13 z M 13 13 L 13 15 L 23 15 L 23 13 L 13 13 z M 9 17 L 9 19 L 11 19 L 11 17 L 9 17 z M 13 17 L 13 19 L 23 19 L 23 17 L 13 17 z M 9 21 L 9 23 L 11 23 L 11 21 L 9 21 z M 13 21 L 13 23 L 23 23 L 23 21 L 13 21 z"/>
                     </svg>
                 </div>
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('add_records')" <?php if ($var === "add_records" || $var === "promote_student" || $var === "subject_list") { ?> style="background: #bababa;"  <?php } ?>>
                     Records
                 </div>
@@ -716,7 +716,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                     <div class="d-flex-center w-4em"><img
                                 src="https://cdn4.iconfinder.com/data/icons/essential-part-5/32/444-Arrow_Left-512.png"
                                 alt="" class="w-18px c-hand rotate"></div>
-                    <div class="d-flex-center h-100p w-80p  b-radius-2em bg-hover-gray-dark c-hand"
+                    <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                          onclick="selectTab('promote_student')" <?php if ($var === "promote_student") { ?> style="background: #bababa;"  <?php } ?>>
                         Promote Student
                     </div>
@@ -736,7 +736,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
                         </g>
                     </svg>
                 </div>
-                <div class="d-flex-center h-100p w-80p b-radius-2em bg-hover-gray-dark c-hand"
+                <div class="d-flex-center h-100p w-80p bg-hover-gray-dark c-hand"
                      onclick="selectTab('trash')" <?php if ($var === "trash") { ?> style="background: #bababa;"  <?php } ?>>
                     Trash
                 </div>
