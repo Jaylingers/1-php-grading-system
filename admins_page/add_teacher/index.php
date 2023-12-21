@@ -915,7 +915,7 @@ if (isset($_POST['teacherStudentID'])) {
                                    id="lrn-add"
                                    name="lrn-add"
                                    value="<?php echo $lrn ?>">
-                            <div class="w-70p m-l-1em">Grade1</div>
+                            <div class="w-70p m-l-1em">Grade</div>
                             <select name="grade" id="grade"
                                     class="h-3em w-80p f-size-1em b-radius-10px m-1em m-t-5px"
                                     onchange="selectGrade('add')">
@@ -1978,8 +1978,8 @@ if (isset($_POST['teacherStudentID'])) {
             var email = $('#add-new-teacher #emailAddress').val();
             var grade = $('#add-new-teacher #grade').val();
             var id = '<?php if (isset($_GET['id'])) echo $_GET['id']?>';
-            // history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeAdd=' + grade + '&&fname=' + fname + '&&lname=' + lname + '&&address=' + address + '&&gender=' + gender + '&&civilStatus=' + civilStatus + '&&email=' + email);
-            // window.location.reload();
+            history.pushState({page: 'another page'}, 'another page', '?id=' + id + '&&searchGradeAdd=' + grade + '&&fname=' + fname + '&&lname=' + lname + '&&address=' + address + '&&gender=' + gender + '&&civilStatus=' + civilStatus + '&&email=' + email);
+            window.location.reload();
         } else {
             var lrnUpdate = $('#edit-teacher #lrnUpdate').val();
             var fname = $('#edit-teacher #firstName').val();
