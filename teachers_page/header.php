@@ -372,6 +372,31 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
             </div>
         </div>
     </div>
+
+    <div id="modal-add" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <img src="../../assets/img/added.png" width="60" height="60" alt="">
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Success!</h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                            Successfully added/updated!
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-yes btn">
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-add-ok">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="modal-recover" class="modal2">
         <div class="square">
             <div class="modal-content">
