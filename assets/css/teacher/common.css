@@ -58,3 +58,7 @@ body.dark-theme {
 .b-radius-05em {
     border-radius: 0.5em !important;
 }
+
+#editProfile{
+    font-weight: 600 !important;
+}

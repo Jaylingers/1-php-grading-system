@@ -1108,6 +1108,8 @@
     display: none;
 }
 
-
+#editProfile{
+    font-weight: 600 !important;
+}
 
 
