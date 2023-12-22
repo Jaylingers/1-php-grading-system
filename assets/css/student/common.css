@@ -215,6 +215,7 @@ span {
     height: 96%;
     width: 78%;
     margin-bottom: 6em;
+    overflow: auto;
 }
 
 .b-shadow-dark {
@@ -373,3 +374,6 @@ table {
  #modal-body div,  #modal-body label, #modal-body th, #modal-body td{
     color: black !important;
 }
+ .profile-photo img{
+     height: 100% !important;
+ }
