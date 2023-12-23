@@ -1190,6 +1190,10 @@ if (isset($_POST['addStudents'])) {
         $('#modal-promote').attr('style', 'display: none;')
     });
 
+    $(document).on('click', '#modal-failed-students-ok', function (e) {
+        $('#modal-failed-students').attr('style', 'display: none;')
+    });
+
     $(document).on('click', '#modal-success', function (e) {
         var lrn = '<?php echo isset($_GET['lrn']) ? $_GET['lrn'] : '' ?>';
         if (lrn !== '') {

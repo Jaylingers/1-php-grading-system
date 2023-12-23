@@ -685,7 +685,30 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
             </div>
         </div>
     </div>
-
+    <div id="modal-failed-students" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div id="modal-delete" class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <img src="../../assets/img/warning.png" width="60" height="60" alt="">
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Warning! </h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                           This student is not qualified to be promoted.
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-no">
+                            <button class="btn-primary btn" id="modal-failed-students-ok">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="b-shadow-dark p-fixed w-20p h-100p bg-gray-light b-top-right-radius-10 z-i-99999" id="side">
         <div class="d-flex-center t-color-white b-bottom-white-3px f-weight-bold h-4em" id="side-a">
