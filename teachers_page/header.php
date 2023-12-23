@@ -377,6 +377,30 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
             </div>
         </div>
     </div>
+    <div id="modal-saveProfileSucess" class="modal2">
+        <div class="square">
+            <div class="modal-content">
+                <div class="modal-content1">
+                    <div class="modal-logo  d-flex-center">
+                        <img src="../../assets/img/added.png" width="60" height="60" alt="">
+                    </div>
+                    <div class="modal-short-msg d-flex-center">
+                        <h1> Success!</h1>
+                    </div>
+                    <div class="modal-long-msg  d-flex-center">
+                        <h7>
+                            Successfully update profile!
+                        </h7>
+                    </div>
+                    <div class="modal-msg-choice d-flex-center">
+                        <div class="modal-msg-choice-yes btn">
+                            <button class="modal-msg-choice-yes-btn btn btn-warning" id="modal-saveProfileSucess">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-add" class="modal2">
         <div class="square">
@@ -1174,8 +1198,8 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
         Post('', {logout: 'logout'});
     });
 
-    $(document).on('click', '#modal-addedSuccessfully', function (e) {
-        $('#modal-addedSuccessfully').attr('style', 'display: none !important;')
+    $(document).on('click', '#modal-saveProfileSucess', function (e) {
+        $('#modal-saveProfileSucess').attr('style', 'display: none !important;')
         showModalInfo('<?= $rows['user_type'] ?>', '<?= $rows['last_name'] ?>', 'profile');
     });
 
@@ -1184,7 +1208,7 @@ $darkModeFromDB = $rowDarkMode['dark_mode'];
         viewUserTabs();
         var updateProfile = '<?php echo isset($_GET['updateProfile']) ? $_GET['updateProfile'] : '' ?>';
         if (updateProfile) {
-            $('#modal-addedSuccessfully').attr('style', 'display: block !important;')
+            $('#modal-saveProfileSucess').attr('style', 'display: block !important;')
         }
     });
 
