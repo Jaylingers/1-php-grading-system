@@ -263,11 +263,7 @@ if (isset($_POST['add-student-grade'])) {
 
     $average = $_POST['average'];
 
-    if ($average >= 75) {
-        $gradeStatus = "Passed";
-    } else {
-        $gradeStatus = "Failed";
-    }
+
 
     $sqlDeleteStudentGradeAverage = "delete from students_grade_average_info where students_lrn = '$studentLrn' and grade = '$grade'";
     $resultDeleteStudentGradeAverage = mysqli_query($conn, $sqlDeleteStudentGradeAverage);
@@ -275,8 +271,6 @@ if (isset($_POST['add-student-grade'])) {
     $sqlInsertStudentGradeAverage = "insert into students_grade_average_info (students_lrn,grade,average) VALUES ('$studentLrn','$grade','$average')";
     $resultInsertStudentGradeAverage = mysqli_query($conn, $sqlInsertStudentGradeAverage);
 
-    $sqlUpdateStudentEnrollmentInfo = "update students_enrollment_info set grade_status = '$gradeStatus' where students_info_lrn = '$studentLrn' and grade = '$grade'";
-    $resultUpdateStudentEnrollmentInfo = mysqli_query($conn, $sqlUpdateStudentEnrollmentInfo);
 
     $sqlSelectUser = "select * from users_info where id = '$id'";
     $resultSelectUser = mysqli_query($conn, $sqlSelectUser);
@@ -296,6 +290,8 @@ if (isset($_POST['add-student-grade'])) {
     $sqlSelectTeacherSubject = "select * from teachers_subject_info tsi
                                 left join teachers_info ti on ti.lrn = tsi.teachers_lrn where tsi.teachers_lrn = '$teacherLrn' and ti.grade = '$grade'";
     $resultSelectTeacherSubject = mysqli_query($conn, $sqlSelectTeacherSubject);
+
+    $isGradeComplete = true;
     foreach ($resultSelectTeacherSubject as $key => $value) {
         $subject = $value['subject'];
 
@@ -311,6 +307,10 @@ if (isset($_POST['add-student-grade'])) {
         $fourth_ = $subject . '4';
         $fourth = $_POST["$fourth_"];
 
+        if($fourth == 0 || $fourth == '0'){
+            $isGradeComplete = false;
+        }
+
         $final_ = $subject . 'final';
         $final = $_POST["$final_"];
 
@@ -323,10 +323,20 @@ if (isset($_POST['add-student-grade'])) {
         $subject_handled_by = $subject . 'subject_handled_by';
         $subject_handled_by = $_POST["$subject_handled_by"];
 
-
         $sqlInsertStudentGradeInfo = "insert into students_grade_info (student_lrn,teacher_lrn,subject,grade,first_grade,second_grade,third_grade,fourth_grade,final,units,status, subject_handled_by) VALUES ('$studentLrn','$teacherLrn','$subject','$grade','$first','$second','$third','$fourth','$final','$unit','$status','$subject_handled_by')";
         $resultInsertStudentGradeInfo = mysqli_query($conn, $sqlInsertStudentGradeInfo);
     }
+
+    if($isGradeComplete) {
+        if ($average >= 75) {
+            $gradeStatus = "Passed";
+        } else {
+            $gradeStatus = "Failed";
+        }
+    }
+
+    $sqlUpdateStudentEnrollmentInfo = "update students_enrollment_info set grade_status = '$gradeStatus' where students_info_lrn = '$studentLrn' and grade = '$grade'";
+    $resultUpdateStudentEnrollmentInfo = mysqli_query($conn, $sqlUpdateStudentEnrollmentInfo);
 
     if ($resultInsertStudentGradeAttendanceInfo) {
         echo '<script>';
